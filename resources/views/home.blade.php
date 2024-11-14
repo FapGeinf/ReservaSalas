@@ -4,8 +4,21 @@
 
 @section('content')
 <div class="container">
-    <h1>Reservas de Salas</h1>
-    
+<header>
+  <h2>Agendaí</h2>
+</header>
+
+<section>
+  <nav>
+    <ul>
+      <li><a href="#">Salas de Reunião</a></li>
+      <li><a href="#">Reservas de Salas</a></li>
+      <li><a href="#">Configuração</a></li>
+    </ul>
+  </nav>
+
+
+     
     @if($reservas->isEmpty())
         <p>Não há reservas de salas no momento.</p>
     @else

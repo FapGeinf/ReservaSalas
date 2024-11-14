@@ -18,6 +18,10 @@
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+            
+
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white dark:bg-gray-800 shadow">
@@ -29,7 +33,7 @@
 
             <!-- Page Content -->
             <main>
-                <!-- {{ $slot }} -->
+                @yield('content') 
             </main>
         </div>
     </body>
