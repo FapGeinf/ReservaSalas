@@ -15,7 +15,9 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-
+        <div class="mt-4">
+        <div class="form-group"> <label for="cpf">CPF</label> <input type="text" class="form-control" name="cpf" id="cpf" required> </div>
+        </div>
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
