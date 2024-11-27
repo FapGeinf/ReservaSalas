@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use App\Models\User;
+use App\Models\Sala;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller

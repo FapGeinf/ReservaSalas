@@ -2,18 +2,31 @@
 
 @section('content')
 <div class="container">
+
+   <header>
+    <h2>Agendaí</h2>
+   </header>
+   <section>
+  <nav>
+    <ul>
+      <li><a href="#">Salas de Reunião</a></li>
+      <li><a href="#">Reservas de Salas</a></li>
+      <li><a href="#">Configuração</a></li>
+    </ul>
+  </nav>
+
     <h1>Reservas</h1>
     <a href="{{ route('reservas.create') }}" class="btn btn-primary">Nova Reserva</a>
-    <table class="table">
+    <!-- <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Usuário</th>
                 <th>Sala</th>
                 <th>Data</th>
                 <th>Ações</th>
+
             </tr>
-        </thead>
+        </thead> -->
         <tbody>
             @foreach ($reservas as $reserva)
             <tr>

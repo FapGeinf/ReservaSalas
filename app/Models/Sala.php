@@ -10,7 +10,7 @@ use App\Models\Reserva;
 class Sala extends Model
 {
     use HasFactory;
-    protected $fillable =['nome', 'descricao'];    
+    protected $fillable = ['nome', 'descricao', 'situacao'];    
 
 
     public function Reserva()

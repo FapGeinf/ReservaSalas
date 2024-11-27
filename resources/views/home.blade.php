@@ -16,9 +16,7 @@
       <li><a href="#">Configuração</a></li>
     </ul>
   </nav>
-
-
-     
+  
     @if($reservas->isEmpty())
         <p>Não há reservas de salas no momento.</p>
     @else
