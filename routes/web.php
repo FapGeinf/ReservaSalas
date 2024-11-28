@@ -10,9 +10,9 @@ use App\Http\Controllers\SalaController;
     return view('welcome');
 });
 
-    Route::get('/home', function () { 
-    return view('home'); 
-});    
+    // Route::get('/home', function () { 
+    // return view('home'); 
+  
 
 
     Route::get('/dashboard', function () {
@@ -26,10 +26,11 @@ use App\Http\Controllers\SalaController;
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('salas', SalaController::class);
 
     Route::get('/home', [ReservaController::class, 'index'])->name('reservas.index');
     Route::resource('reservas', ReservaController::class);
-    Route::resource('salas', SalaController::class);
+    
     
 });
 

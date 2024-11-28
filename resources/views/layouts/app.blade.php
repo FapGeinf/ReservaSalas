@@ -10,6 +10,8 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,6 +21,19 @@
             @include('layouts.navigation')
 
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+           
+            <div id="app"> 
+                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm"> <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"> Sistema de Reservas </a> <!-- Outras partes do menu de navegação --> 
+            </div> 
+           </nav>
+    
+           
+
+            <a href="{{ route('salas.create') }}" class="btn btn-primary">Cadastrar Nova Sala</a>
+            <!-- Outros conteúdos da página home -->
+           
+            <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"> Sistema de Reservas </a> 
+            <!-- Outras partes do menu de navegação --> </div>
 
             
 
@@ -32,7 +47,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="py-4">
                 @yield('content') 
             </main>
         </div>
