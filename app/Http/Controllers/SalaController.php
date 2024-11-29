@@ -48,7 +48,7 @@ class SalaController extends Controller
 
     
     // Método para exibir o formulário de edição de sala
-    public function edit(string $id)
+    public function edit(Sala $sala)
     {
         return view('salas.edit', compact('sala'));
     }

@@ -17,32 +17,18 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        
             @include('layouts.navigation')
 
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
            
-            <div id="app"> 
-                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm"> <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"> Sistema de Reservas </a> <!-- Outras partes do menu de navegação --> 
-            </div> 
-           </nav>
+            
     
            
-
-            <a href="{{ route('salas.create') }}" class="btn btn-primary">Cadastrar Nova Sala</a>
-            <!-- Outros conteúdos da página home -->
-           
-            <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"> Sistema de Reservas </a> 
-            <!-- Outras partes do menu de navegação --> </div>
-
-            
-
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
+                    
                 </header>
             @endisset
 

@@ -16,7 +16,9 @@ use App\Http\Controllers\SalaController;
 
 
     Route::get('/dashboard', function () {
-    return view('dashboard');
+        // return view('welcome'); 
+        return redirect('/'); 
+    // return view('dashboard');
  })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -25,7 +27,7 @@ use App\Http\Controllers\SalaController;
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('salas', SalaController::class);
 
     Route::get('/home', [ReservaController::class, 'index'])->name('reservas.index');
