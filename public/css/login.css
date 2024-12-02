@@ -58,6 +58,19 @@ a:hover {
   align-items: center;
 }
 
+.form-4-wrapper {
+  background: #fff;
+  padding: 50px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 input.form-control {
   padding: 12px;
   border: none;
