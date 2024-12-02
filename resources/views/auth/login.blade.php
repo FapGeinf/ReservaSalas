@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 
@@ -28,14 +30,31 @@
 
             <div class="mb-3 form-box">
               <label for="email">Email:</label>
-              <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" autofocus required autocomplete="username">
+
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-envelope-at"></i>
+                </span>
+
+                <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" autofocus required autocomplete="username">
+              </div>
+              
+              <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            
 
             <div class="mb-3">
               <label for="password">Senha:</label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-shield-lock"></i>
+                </span>
+
+                <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+              </div>
+              
 
               <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>

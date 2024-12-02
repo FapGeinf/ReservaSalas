@@ -19,10 +19,12 @@ form, .register-link {
 
 a {
   color: #00658c;
+  text-decoration: none;
 }
 
 a:hover {
   color: #004c68;
+  text-decoration: underline;
 }
 
 .logo img {
