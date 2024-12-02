@@ -1,54 +1,81 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+      <!-- Lado Esquerdo -->
+      <div class="col-lg-6"></div>
+
+      <!-- Lado Direito -->
+      <div class="col-lg-6 d-flex align-items-center justify-content-center right-side form-box">
+        <div class="form-3-wrapper">
+
+          <div class="logo text-center mb-4">
+            <img src="{{ asset('/img/logo-alone.png') }}" alt="Logo Agendaí">
+          </div>
+
+          <form method="POST" action="{{ route('register') }}">
+            @csrf
+
+            <!-- Nome -->
+            <div class="mb-3 form-box">
+              <label for="name">Nome completo:</label>
+              <input type="text" id="name" name="name" class="form-control" :value="old('name')" required autofocus placeholder="Julliany Souza" autocomplete="name">
+
+              <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+            
+            <!-- Email -->
+            <div class="mb-3 form-box">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" class="form-control" :value="old('email')" required placeholder="meuemail@email.com" autocomplete="username">
+
+              <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+
+            <!-- CPF -->
+            <div class="mb-3 form-box">
+              <label for="cpf">CPF:</label>
+              <input type="text" id="cpf" name="cpf" class="form-control" required placeholder="000.000.000-00">
+            </div>
+
+            <!-- Senha -->
+            <div class="mb-3 form-box">
+              <label for="password">Senha:</label>
+              <input type="password" id="password" name="password" class="form-control" required placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
+
+              <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
+
+            <div class="mb-3 form-box">
+              <label for="password_confirmation">Repita a senha:</label>
+              <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required placeholder="Repita a senha" autocomplete="new-password">
+
+              <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            </div>
+
+            <button type="submit" class="login-btn w-50 mt-4 mb-3">Registrar</button>
+
+          </form>
+
+          <div class="text-start d-flex register-link mt-3">
+            <p style="margin-right: 5px;">Já possui cadastro?</p>
+            <a href="{{ route('login') }}">Fazer login</a>
+          </div>
+
         </div>
+      </div>
+    </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-        <div class="mt-4">
-        <div class="form-group"> <label for="cpf">CPF</label> <input type="text" class="form-control" name="cpf" id="cpf" required> </div>
-        </div>
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+  </div>
+</body>
+</html>

@@ -49,14 +49,14 @@ a:hover {
   border-radius: 8px;
   width: 100%;
   max-width: 500px;
-  height: 700px;
+  height: 750px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-input.form-control{
+input.form-control {
   padding: 22px;
   border: none;
   border: 1px solid #405c7cb8;

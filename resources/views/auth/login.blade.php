@@ -20,7 +20,7 @@
         <div class="form-2-wrapper">
 
           <div class="logo text-center mb-4">
-            <img src="{{ asset('/img/logo-alone.png') }}" alt="">
+            <img src="{{ asset('/img/logo-alone.png') }}" alt="Logo Agendaí">
           </div>
 
           <form method="POST" action="{{ route('login') }}">
@@ -28,7 +28,7 @@
 
             <div class="mb-3 form-box">
               <label for="email">Email:</label>
-              <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" required autocomplete="username">
+              <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" autofocus required autocomplete="username">
             </div>
 
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
