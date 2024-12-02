@@ -57,12 +57,27 @@ a:hover {
 }
 
 input.form-control {
-  padding: 22px;
+  padding: 12px;
   border: none;
-  border: 1px solid #405c7cb8;
+  border: 1px solid #b7b7b7;
   border-radius: 10px;
   background-color: transparent;
   font-family: Arial, Helvetica, sans-serif;
+  transition: .2s;
+}
+
+input.form-control:focus::placeholder {
+  color: #b7b7b7; /* Define a cor padrão */
+  opacity: 0;
+}
+
+.input-group-text {
+  border: 1px solid #b7b7b7;
+}
+
+.input-group:focus-within .input-group-text {
+  border-color: #86b7fe; /* Cor para o foco */
+  color: #007bff;
 }
 
 input.form-control:focus{
