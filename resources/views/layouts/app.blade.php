@@ -18,7 +18,7 @@
     </head>
     <body class="font-sans antialiased">
         
-            @include('layouts.navigation')
+            {{-- @include('layouts.navigation') --}}
 
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
            
