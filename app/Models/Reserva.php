@@ -9,12 +9,19 @@ Use App\Models\Sala;
 class Reserva extends Model
 {
     use HasFactory;
-
-    protected $fillable = [ 'user_id', 'data_inicio', 'data_fim', 'unidade_fk', 'sala_fk'];
+     
+    
+    protected $fillable = [
+        'data_inicio',
+        'data_fim',
+        'unidade_fk',
+        'sala_fk',
+        'user_id',
+         ];
 
     public function sala()
     {
-        return $this->belongsTo(Sala::class, 'sala_fk','id');
+        return $this->belongsTo(Sala::class, 'sala_fk','id', );
     }
 
     public function usuario()

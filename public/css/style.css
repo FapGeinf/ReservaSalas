@@ -1,4 +1,4 @@
-/* public/css/style.css */
+  /* public/css/style.css */
 
 .container {
     max-width: 1200px;
@@ -52,6 +52,22 @@ nav ul li a:hover {
     background-color: #f2f2f2;
 }
 
+.grid-container { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+} 
+
+.grid-item { 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    text-align: center; 
+} 
+
+.grid-item img { 
+    max-width: 100%; 
+    height: auto; 
+}
   
- 
-  
+
+   

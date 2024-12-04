@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sala;
+use App\Models\User;
+
 
 class SalaController extends Controller
 {
@@ -19,7 +21,9 @@ class SalaController extends Controller
      //Método para exibir o formulário de criação de sala
     public function create()
     {
-        return view('salas.create');
+        $salas = Sala::all();
+        $users = User::all();
+        return view('reservas.create', compact('salas', 'users'));
     }
 
     // Método para armazenar uma nova sala

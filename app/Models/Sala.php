@@ -10,7 +10,9 @@ use App\Models\Reserva;
 class Sala extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome', 'descricao', 'situacao'];    
+    protected $fillable = [ 'nome', 'descricao', 'situacao'];    
+    protected $table = 'salas'; // Nome correto da tabela
+    protected $primaryKey = 'id'; // Certifique-se de que a chave primária está definida corretamente
     
     public function setSituacaoAttribute($value) { 
        $this->attributes['situacao'] = ($value === 'ativa') ? 1 : 0; } // Accessor para converter booleano de volta para string 

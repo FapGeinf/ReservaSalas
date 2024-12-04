@@ -2,8 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h1>Lista de Salas</h1>
+   
     <a href="{{ route('salas.create') }}" class="btn btn-primary">Cadastrar Nova Sala</a>
+    
+    <h1>Lista de Salas</h1>
 
     @if($salas->isEmpty())
         <p>Não há salas cadastradas no momento.</p>

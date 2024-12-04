@@ -9,11 +9,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Busca todas as reservas de salas
-        $reservas = Reserva::with('sala', 'usuario')->get();
+        // // Busca todas as reservas de salas
+        // $reservas = Reserva::with('sala', 'usuario')->get();
 
-        // Retorna a view 'home' com as reservas
-        return view('home', compact('reservas'));
+        // // Retorna a view 'home' com as reservas
+        // return view('home', compact('reservas'));
+        return view('home'); 
     }
 }
 

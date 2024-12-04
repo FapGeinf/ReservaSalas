@@ -14,7 +14,7 @@ class Unidade extends Model
 
         public function User()
         {
-            return $this->hasMany(User::class, 'user_id', 'id ');
+            return $this->hasMany(User::class, 'user_id', 'id');
         }
 
 
