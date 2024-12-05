@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg" style="background: #245fa3; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);">
 
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#">Navbar</a>
+      <img class="navbar-brand text-light" src="{{ asset('/img/logo-hashtag.png') }}" style="width: 2%;" alt="Logo Agendaí">
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
