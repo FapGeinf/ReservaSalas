@@ -14,9 +14,9 @@
             </div>
             <nav class="nav">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Salas</a></li>
-                    <li><a href="#">Reservas</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>  
+                <li><a href="{{ route('salas') }}">Salas</a></li>  
+                <li><a href="{{ route('reservas.index') }}">Reservas</a></li> 
                 </ul>
             </nav>
             <div class="user-info">

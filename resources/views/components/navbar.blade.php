@@ -17,7 +17,9 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link text-light" href="#">Link</a>
+            <a class="nav-link text-light" href="{{ route('home') }}">Home</a>
+            <a class="nav-link text-light" href="{{ route('salas') }}">Salas</a>
+            <a class="nav-link text-light" href="{{ route('reservas.index') }}">Reservas</a>
           </li>
         </ul>
 
