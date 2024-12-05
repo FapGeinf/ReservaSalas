@@ -12,9 +12,11 @@
           <li class="nav-item">
             <a class="nav-link fw-bold text-light" href="#">Início</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link fw-bold text-light" href="#">Salas</a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link fw-bold text-light" href="#">Reservas</a>
           </li>
@@ -24,17 +26,23 @@
           <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Conta
           </a>
+
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
               <a class="dropdown-item" href="{{ route('profile.edit') }}">Editar Perfil</a>
             </li>
-            <li><hr class="dropdown-divider"></li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
             <li>
               <form class="d-flex" method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="dropdown-item" type="submit">Sair</button>
               </form>
             </li>
+            
           </ul>
         </li>
       </div>
