@@ -30,7 +30,7 @@
                             <form action="{{ route('salas.destroy', $sala) }}" method="POST" style="display:inline-block;">
                                 <!-- @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Excluir</button> -->
+                                <button type="submit" class="btn btn-danger">Excluir</button>  -->
                             </form>
                         </td>
                     </tr>
