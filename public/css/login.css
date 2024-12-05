@@ -134,7 +134,7 @@ button.login-btn:hover {
 
 @media only screen and (max-width: 1472px) {
   body {
-    background-image: url('/img/bg-min.png');
+    background-image: url('/img/bg-blessing.png');
     transition: .2s;
   }
 
