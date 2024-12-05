@@ -1,3 +1,9 @@
+<style>
+  li a:hover {
+    text-decoration: underline;
+  }
+</style>
+
 <div>
   <nav class="navbar navbar-expand-lg" style="background: #245fa3; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);">
     <div class="container-fluid">
@@ -42,7 +48,7 @@
                 <button class="dropdown-item" type="submit">Sair</button>
               </form>
             </li>
-            
+
           </ul>
         </li>
       </div>
