@@ -43,7 +43,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
         Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
         Route::delete('/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
+        
     });
+
+
+    Route::middleware('auth')->group(function () { 
+        Route::prefix('reservas')->group(function () { 
+        Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit'); 
+        Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update'); // Outras rotas... });
+
+    });
+
+});
+    
 });
 
 
