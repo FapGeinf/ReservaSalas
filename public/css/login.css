@@ -12,6 +12,10 @@
 
 body { overflow: auto; }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0;
+}
+
 body.dark {
   --bg-black100: #fff;
   --bg-black50: #000;
@@ -66,9 +70,9 @@ body.dark {
   cursor: pointer;
 }
 
-.menu .actionBar div button:hover { background-color: rgb(132, 0, 255); }
+.menu .actionBar div button:hover { background-color: #5eb366; }
 
-.menu .actionBar div h3 { width: calc(100% - 45px); text-align: center; }
+.menu .actionBar div h3 { width: calc(100% - 45px); text-align: start; }
 
 .menu .optionsBar {
   overflow: hidden;
@@ -101,14 +105,15 @@ body.dark {
   cursor: pointer;
 }
 
-.menu .optionsBar .menuItem .menuOption:hover { background-color: rgb(132, 0, 255); }
+.menu .optionsBar .menuItem .menuOption:hover { background-color: #5eb366; }
 .menu .optionsBar .menuItem .menuOption i { width: 45px; text-align: center; color: var(--bg-black100); }
-.menu .optionsBar .menuItem .menuOption h5 { width: calc(100% - 45px); }
+.menu .optionsBar .menuItem .menuOption h6 { width: calc(100% - 45px); }
 
 .menuText {
   color: var(--bg-black20);
   transform: translateX(-250px);
   opacity: 0;
+  text-align: start;
   transition: transform .3s ease .1s;
 }
 
@@ -136,7 +141,7 @@ body.dark {
 .menu .menuUser {
   width: 100%;
   height: 10px;
-  padding: 4.5rem 0 3rem 0;
+  padding: 7.5rem 0 3rem 0;
 }
 
 .menu .menuUser a {
@@ -206,25 +211,6 @@ body.dark {
 
 .menu .menuUser .userInfo div h1 { font-size: 4rem; }
 
-.menu .menuUser .userInfo div::before {
-  content: '';
-  position: absolute;
-  bottom: -18px;
-  left: -2px;
-  width: 0;
-  height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-right: 15px solid var(--bg-black100);
-  transform: rotate(45deg);
-}
-
-.menu .menuUser:hover .userInfo {
-  pointer-events: all;
-  opacity: 1;
-  transform: scale(1);
-}
-
 .menu .themeBar {
   overflow: hidden;
   width: 100%;
@@ -254,9 +240,9 @@ body.dark {
   font-size: 1rem;
 }
 
-.menu .themeBar div button:hover { background-color: rgb(132, 0, 255); }
+.menu .themeBar div button:hover { background-color: #5eb366; }
 
 .menu .optionsBar .menuItem .menuOption:hover .menuText,
 .menu .optionsBar .menuItem .menuOption:hover i,
-.menu .actionBar div button:hover i, 
+.menu .actionBar div button:hover i,
 .menu .themeBar div button:hover i { color: #ffffff; }

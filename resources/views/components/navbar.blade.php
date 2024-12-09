@@ -16,54 +16,52 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-        <h3 class="menuText">Dashboard</h3>
+        <h3 class="menuText">
+          <img src="{{ asset('/img/logo-letras.png') }}" alt="image" style="width: 100%; height: auto; display: block; padding: 22px;">
+
+        </h3>
       </div>
     </div>
 
     <ul class="optionsBar">
       <li class="menuItem">
         <a href="#" class="menuOption">
-          <i class="fa-solid fa-house"></i><h5 class="menuText">Home</h5>
+          <i class="fa-solid fa-house"></i>
+          <h6 class="menuText fw-bold">Home</h6>
         </a>
       </li>
 
-      <li class="menuBreak">
-        <hr>
-      </li>
-
       <li class="menuItem">
-        <button id="productManagerBtn" class="menuOption">
-          <i class="fa-solid fa-shopping-bag"></i><h5 class="menuText">Product Manager</h5>
+        <button class="menuOption">
+          <i class="fa-solid fa-cube"></i>
+          <h6 class="menuText fw-bold">Salas</h6>
         </button>
       </li>
 
       <li class="menuItem">
-        <button id="constantManagerBtn" class="menuOption">
-          <i class="fa-solid fa-border-all"></i><h5 class="menuText">Constant Manager</h5>
+        <button class="menuOption">
+          <i class="fa-solid fa-calendar-alt"></i>
+          <h6 class="menuText fw-bold">Reservas</h6>
         </button>
       </li>
 
       <li class="menuItem">
-        <button id="orderManagerBtn" class="menuOption">
-          <i class="fa-solid fa-shopping-bag"></i><h5 class="menuText">Order Manager</h5>
+        <button class="menuOption">
+          <i class="fa-solid fa-history"></i>
+          <h6 class="menuText fw-bold">Histórico</h6>
         </button>
       </li>
 
-      <li class="menuItem">
-        <button id="tagManagerBtn" class="menuOption">
-          <i class="fa-solid fa-tag"></i><h5 class="menuText">Tags Manager</h5>
-        </button>
-      </li>
     </ul>
 
     <div class="menuUser">
       <a href="#">
         <div>
-          <img src="https://i.postimg.cc/5tPgPgyp/user.jpg" alt="image">
+          <img src="https://i.postimg.cc/44L0DLbQ/file.jpg" alt="image">
         </div>
 
-        <h5 class="username menuText">Alex</h5>
-        <p class="menuText"><i class="fa-solid fa-chevron-right"></i></p>
+        <h5 class="username menuText">Leonardo</h5>
+        <p class="menuText mb-0"><i class="fa-solid fa-chevron-right"></i></p>
       </a>
 
       <div class="userInfo">
@@ -71,12 +69,6 @@
           <h1><i class="fa-solid fa-exclamation-circle"></i></h1>
           <p>User Info</p>
         </div>
-      </div>
-    </div>
-
-    <div class="themeBar">
-      <div>
-        <button id="themeChangeBtn"><i class="fa-solid "></i></button>
       </div>
     </div>
   </nav>
@@ -89,58 +81,22 @@
     const menu = document.getElementById('menu');
     const menuText = document.querySelectorAll('.menuText');
 
+    // Função para abrir/fechar o menu
     menuBtn.addEventListener('click', () => {
       menu.classList.toggle('open');
-      menuText.forEach(function(text, index) {
+      menuText.forEach((text, index) => {
         setTimeout(() => {
           text.classList.toggle('open2');
         }, index * 50);
-      })
-    })
+      });
+    });
 
-    $(document).on('click', function(e) {
-      if($(e.target).closest('#menu').length === 0) {
-        menu.classList.toggle('open');
-        menuText.forEach(function(text, index) {
-          setTimeout(() => {
-            text.classList.toggle('open2');
-          }, index * 50);
-        })
+    // Remove o comportamento de clique fora
+    $(document).on('click', (e) => {
+      if (!$(e.target).closest('#menuBtn').length && !menu.classList.contains('open')) {
+        e.stopPropagation();
       }
-    })
-
-    const dayNight = document.querySelector('#themeChangeBtn');
-    dayNight.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if(document.body.classList.contains('dark')){
-        localStorage.setItem('theme', 'dark');
-      }else {
-        localStorage.setItem('theme','light');
-      }
-      updateIcon();
-    })
-
-    function themeMode() {
-      if(localStorage.getItem('theme') !== null){
-        if(localStorage.getItem('theme') === 'light'){
-          document.body.classList.remove('dark');
-        }else {
-          document.body.classList.add('dark');
-        }
-      }
-      updateIcon();
-    }
-    themeMode();
-
-    function updateIcon() {
-      if(document.body.classList.contains('dark')){
-        dayNight.querySelector('i').classList.remove('fa-moon');
-        dayNight.querySelector('i').classList.add('fa-sun');
-      } else {
-        dayNight.querySelector('i').classList.remove('fa-sun');
-        dayNight.querySelector('i').classList.add('fa-moon');
-      }
-    }
+    });
   </script>
 </body>
 </html>
