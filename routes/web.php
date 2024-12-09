@@ -20,7 +20,7 @@ Route::view('/reservas', 'reservas')->name('reservas'); // View de Reservas
 
 // Dashboard (redireciona para a raiz)
 Route::get('/dashboard', function () {
-    return redirect('/');
+    return redirect('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Rotas protegidas por middleware "auth"
@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     // Rotas de Salas (CRUD)
     Route::resource('salas', SalaController::class);
-    Route::get('/', [SalaController::class, 'index'])->name('salas');
+    Route::get('salas', [SalaController::class, 'index'])->name('salas');
 
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
@@ -57,7 +57,5 @@ Route::middleware('auth')->group(function () {
 });
     
 });
-
-
 
 require __DIR__.'/auth.php';
