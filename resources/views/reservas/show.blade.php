@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header">
-            Reserva #{{ $reserva->id }}
+            Reserva {{ $reserva->id }}
         </div>
         <div class="card-body">
             <p><strong>Usuário:</strong> {{ $reserva->usuario->name ?? 'Usuário não encontrado' }}</p>

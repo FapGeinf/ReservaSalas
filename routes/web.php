@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
     // Rotas de Salas (CRUD)
     Route::resource('salas', SalaController::class);
-    Route::get('salas', [SalaController::class, 'index'])->name('salas');
+    Route::get('/', [SalaController::class, 'index'])->name('salas');
 
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
@@ -51,7 +51,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('reservas')->group(function () { 
         Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit'); 
         Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update'); // Outras rotas... });
-
+        
+       
     });
 
 });
