@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit'); 
         Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update'); // Outras rotas... });
         
+        Route::post('/reserva/store', [ReservaController::class, 'store'])->name('reservas.store');
+
+
        
     });
 
