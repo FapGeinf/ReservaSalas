@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
         
         Route::post('/reserva/store', [ReservaController::class, 'store'])->name('reservas.store');
 
+        
+        Route::get('/', [HomeController::class, 'index'])->name('home');
 
        
     });

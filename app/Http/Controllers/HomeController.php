@@ -2,30 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Reserva;
-use App\Models\User;
 use App\Models\Sala;
+use App\Models\Reserva;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        // Buscar todas as salas
+        $salas = Sala::all();
 
+        // Buscar todas as reservas
+        $reservas = Reserva::with('sala')->get();
 
-        {
-            $events = [];
-     
-            $reservas = Reserva::with(['sala'])->get();
-     
-            foreach ($reservas as $reserva) {
-                $events[] = [
-                    'title' => $reserva->sala->name . '('.$reserva->sala->name.')',
-                    'start' => $reserva->data_inicio,
-                    'end' => $reserva->data_fim,
-                ];
-            }
-            return view('home', compact('events'));
-        }
+        // Retornar a view com os dados
+        return view('home', compact('salas', 'reservas'));
     }
 }
+

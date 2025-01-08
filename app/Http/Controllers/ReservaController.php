@@ -14,7 +14,7 @@ class ReservaController extends Controller
         $users = User::all(); // Uso do modelo User
         $reservas = Reserva::with('sala')->get(); // Carrega as reservas com suas salas
         $salas = Sala::all(); // Carrega as salas para o formulário
-        return view('reservas.index', compact('reservas', 'salas', 'users'));
+        return view('home', compact('reservas', 'salas', 'users'));
     }
 
     public function create()
