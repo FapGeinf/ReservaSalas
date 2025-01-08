@@ -11,6 +11,24 @@ class ReservaController extends Controller
 {
     public function index()
     {
+
+        {
+            $events = [];
+     
+            $reservas = Reserva::with(['salas'])->get();
+     
+            foreach ($reservas as $reserva) {
+                $events[] = [
+                    'title' => $reserva->salas->name . '('.$reserva->salas->name.')',
+                    'start' => $reserva->data_inicio,
+                    'end' => $reserva->data_fim,
+                ];
+            }
+            return view('reservas.index', compact('reservas'));
+        }
+
+
+
         $users = User::all(); // Uso do modelo User
         $reservas = Reserva::with('sala')->get(); // Carrega as reservas com suas salas
         $salas = Sala::all(); // Carrega as salas para o formulário
