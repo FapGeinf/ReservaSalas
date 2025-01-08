@@ -11,24 +11,6 @@ class ReservaController extends Controller
 {
     public function index()
     {
-
-        {
-            $events = [];
-     
-            $reservas = Reserva::with(['salas'])->get();
-     
-            foreach ($reservas as $reserva) {
-                $events[] = [
-                    'title' => $reserva->salas->name . '('.$reserva->salas->name.')',
-                    'start' => $reserva->data_inicio,
-                    'end' => $reserva->data_fim,
-                ];
-            }
-            return view('reservas.index', compact('reservas'));
-        }
-
-
-
         $users = User::all(); // Uso do modelo User
         $reservas = Reserva::with('sala')->get(); // Carrega as reservas com suas salas
         $salas = Sala::all(); // Carrega as salas para o formulário
@@ -44,7 +26,7 @@ class ReservaController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {     
         try {
             // Validação dos dados do formulário
             $request->validate([
@@ -91,23 +73,71 @@ class ReservaController extends Controller
         }
     }
 
-    public function apiReservas()
+    public function show(Reserva $reserva)
     {
-        $reservas = Reserva::with('sala')->get();
-
-        $events = $reservas->map(function ($reserva) {
-            return [
-                'title' => $reserva->sala->nome,
-                'start' => $reserva->data_inicio,
-                'end' => $reserva->data_fim,
-            ];
-        });
-
-        return response()->json($events);
+        return view('reservas.show', compact('reserva'));
     }
+
+    public function edit(Reserva $reserva)
+    { 
+        $salas = Sala::all(); 
+        $users = User::all(); 
+        return view('reservas.edit', compact('reserva', 'salas', 'users'));
+    }
+
+    public function update(Request $request, Reserva $reserva)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'sala_id' => 'required|exists:salas,id',
+            'data_inicio' => 'required|date',
+            'data_fim' => 'required|date|after:data_inicio',
+        ]);
+
+        // Verificar conflitos de horários
+        $conflito = Reserva::where('sala_fk', $request->input('sala_id'))
+            ->where('id', '!=', $reserva->id) // Ignorar a reserva atual ao verificar conflitos
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('data_inicio', [$request->input('data_inicio'), $request->input('data_fim')])
+                      ->orWhereBetween('data_fim', [$request->input('data_inicio'), $request->input('data_fim')])
+                      ->orWhere(function ($query) use ($request) {
+                          $query->where('data_inicio', '<=', $request->input('data_inicio'))
+                                ->where('data_fim', '>=', $request->input('data_fim'));
+                      });
+            })
+            ->exists();
+
+        if ($conflito) {
+            return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
+        }
+
+        // Atualizar os dados da reserva
+        $reserva->update($request->all());
+
+        return redirect()->route('reservas.index')->with('success', 'Reserva atualizada com sucesso!');
+    }
+
+    public function destroy(Reserva $reserva)
+    {
+        $reserva->delete();
+        return redirect()->route('reservas.index');
+    }
+
+    // Método personalizado para visualizar uma reserva específica 
+    public function view($id) 
+    { 
+        $reserva = Reserva::findOrFail($id); 
+        return view('reservas.view', compact('reserva')); 
+    } 
+    
+    // Método personalizado para cancelar uma reserva específica 
+    public function cancel($id) 
+    { 
+        $reserva = Reserva::findOrFail($id); 
+        $reserva->delete(); 
+        return redirect()->route('reservas.index')->with('status', 'Reserva cancelada com sucesso!'); 
+    } 
+
+    
 }
-
-
-        
-
 
