@@ -138,18 +138,5 @@ class ReservaController extends Controller
         return redirect()->route('reservas.index')->with('status', 'Reserva cancelada com sucesso!'); 
     } 
 
-    public function apiReservas() 
-    { 
-        $reservas = Reserva::with('sala')->get(); 
-
-        $events = $reservas->map(function ($reserva) { 
-            return [ 
-                'title' => $reserva->sala->nome, 
-                'start' => $reserva->data_inicio, 
-                'end' => $reserva->data_fim, 
-            ];
-        }); 
-
-        return response()->json($events); 
-    }
+    
 }
