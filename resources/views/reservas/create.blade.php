@@ -20,35 +20,33 @@
   }
 </style>
 
-<div class="content-wrapper">
-  <div class="container">
+<form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
+  @csrf
 
-    <h3 class="text-center">Cadastro de Sala</h3>
+  <div class="form-group mb-3">
+    <label for="nome" class="mb-1">Sala:</label>
+    <input type="text" name="nome" id="nome" class="form-control" required>
+  </div>
 
-    <form action="{{ route('salas.store') }}" method="POST">
-      @csrf
+  <div class="form-group mb-3">
+    <label for="descricao">Descrição/Localização:</label>
+    <input type="text" name="descricao" id="descricao" class="form-control" required>
+  </div>
 
-      <div class="form-group mb-3">
-        <label for="nome" class="mb-1">Sala:</label>
-        <input type="text" name="nome" id="nome" class="form-control" required>
-      </div>
+  <div class="form-group mb-3">
+    <label for="situacao">Situação:</label>
+    <select name="situacao" id="situacao" class="form-select" required>
+      <option value="ativa">Ativa</option>
+      <option value="inativa">Inativa</option>
+    </select>
+  </div>
 
-      <div class="form-group mb-3">
-        <label for="descricao">Descrição/Localização:</label>
-        <input type="text" name="descricao" id="descricao" class="form-control" required>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="situacao">Situação:</label>
-        <select name="situacao" id="situacao" class="form-select" required>
-          <option value="ativa">Ativa</option>
-          <option value="inativa">Inativa</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-success">Salvar</button>
-
-    </form>
+  <div class="form-group mb-3">
+        <label for="imagem">Imagem:</label>
+        <input type="file" name="imagem" id="imagem" class="form-control" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
   </div>
 </div>
 

@@ -1,4 +1,5 @@
 
+
 <style>
   section {
     width: 80%; /* Ocupar 80% da tela */
@@ -101,28 +102,40 @@
     </div>
     
     <div class="row">
-    @foreach($salas as $sala)
-        <div class="col-md-3 mb-4"> <!-- Cada sala ocupa 3 colunas (12/4 = 3) -->
-            <div class="card">
-                <img src="{{ asset('img/auditorio.png' . $sala->imagem) }}" class="card-img-top" alt="Imagem da {{ $sala->nome }}">
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ $sala->nome }}</h5>
-                    <p class="card-text">{{ $sala->descricao }}</p>
-                    <button 
-                        type="button" 
-                        class="btn btn-primary" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#criarReservaModal" 
-                        onclick="selecionarSala({{ $sala->id }})"
-                    >
-                        Reservar
-                    </button>
-                </div>
+    @foreach($salas as $index => $sala)
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            @php
+                // Lista fixa de 4 imagens
+                $imagens = [
+                    'img/salas/sala1.jpg',
+                    'img/salas/sala2.jpg',
+                    'img/salas/sala3.jpg',
+                    'img/salas/sala4.png',
+                ];
+                // Rotação das imagens baseado no índice
+                $imagem = $imagens[$index % count($imagens)];
+            @endphp
+
+            <img src="{{ asset($imagem) }}" class="card-img-top" alt="Imagem da {{ $sala->nome }}">
+
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ $sala->nome }}</h5>
+                <p class="card-text">{{ $sala->descricao }}</p>
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#criarReservaModal" 
+                    onclick="selecionarSala({{ $sala->id }})"
+                >
+                    Reservar
+                </button>
             </div>
         </div>
-    @endforeach
+    </div>
+@endforeach
 </div>
-
 
 
     <!-- Modal -->
@@ -230,19 +243,22 @@
   <tbody>
     @foreach($reservas as $reserva)
       <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img
-            src="{{ asset('img/auditorio.png' . $sala->imagem) }}"
-              alt=""
-              style="width: 45px; height: 45px"
-              class="rounded-circle"
-            />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
-            </div>
-          </div>
-        </td>
+      <td>
+  <div class="d-flex align-items-center">
+    <!-- Corrigindo o caminho da imagem -->
+    <img
+    src="{{ asset('img/salas/' . $reserva->sala->imagem) }}"
+
+      alt=""
+      style="width: 45px; height: 45px"
+      class="rounded-circle"
+    />
+    <div class="ms-3">
+      <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
+    </div>
+   </div>
+ </td>
+
         <td>
           <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
         </td>
