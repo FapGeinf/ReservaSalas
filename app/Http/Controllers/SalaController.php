@@ -34,6 +34,7 @@ class SalaController extends Controller
             'nome' => 'required|string|max:255', 
             'descricao' => 'required|string|max:255', 
             'situacao' => 'required|in:ativa,inativa',
+            'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validação da imagem
     ]);
         // Criação da nova sala 
         Sala::create($request->all()); 

@@ -173,41 +173,6 @@
     </div>
 </div>
 
-    <!-- <div class="container mt-5">
-        <h2 class="mt-5">Reservas</h2> -->
-        <!-- <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Sala</th>
-                            <th>Hora Início</th>
-                            <th>Hora Término</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($reservas as $reserva)
-                            <tr>
-                                <td>{{ $reserva->sala->nome }}</td>
-                                <td>{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i')}}</td>
-                                <td>
-                                    <a href="{{ route('reservas.show', $reserva->id) }}" class="btn btn-info btn-sm">Detalhes</a>
-                                    <a href="{{ route('reservas.edit', $reserva->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                                    <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div> -->
-    <!-- </div> -->
 
     @if (session('error'))
         <div class="alert alert-danger">
