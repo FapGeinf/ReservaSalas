@@ -14,9 +14,9 @@ class Reserva extends Model
     protected $fillable = [
         'data_inicio',
         'data_fim',
-        'unidade_fk',
         'sala_fk',
         'user_id',
+        'unidade_fk',
          ];
 
     public function sala()
@@ -24,11 +24,15 @@ class Reserva extends Model
         return $this->belongsTo(Sala::class, 'sala_fk','id', );
     }
 
-    public function usuario()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id','id');
     }
 
+    public function unidade()
+    {
+        return $this->belongsTo(Unidade::class, 'unidade_fk','id');
+    }
 
 }
 

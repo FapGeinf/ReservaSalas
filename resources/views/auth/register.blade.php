@@ -66,11 +66,17 @@
 
               <div class="input-group">
                 <span class="input-group-text">
-                  <i class="bi-person-vcard"></i>
+                  <i class="bi bi-person-vcard"></i>
                 </span>
 
                 <input type="text" id="cpf" name="cpf" class="form-control" required placeholder="ex: 000.000.000-00">
               </div>
+            </div>
+
+            <!-- Campo para setor -->
+            <div class="mb-3 form-box">
+              <label for="setor" class="form-label">Setor</label>
+              <input type="text" name="setor" id="setor" class="form-control" required>
             </div>
 
             <!-- Senha -->
