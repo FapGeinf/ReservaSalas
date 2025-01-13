@@ -12,10 +12,10 @@ class SalaController extends Controller
     
      
      // Método para listar todas as salas
-    public function index()
-    {
-        $salas = Sala::all();
-        return view('salas.index', compact('salas'));
+     public function index() 
+     { 
+        $salas = Sala::all(); 
+        return view('salas.index', compact('salas')); 
     }
 
      //Método para exibir o formulário de criação de sala

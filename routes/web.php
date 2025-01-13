@@ -14,9 +14,15 @@ Route::get('/', function () {
 // Página "Home"
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+
 // Rotas públicas (fora do middleware auth)
 Route::view('/salas', 'salas')->name('salas'); // View de Salas
 Route::view('/reservas', 'reservas')->name('reservas'); // View de Reservas
+
+Route::middleware('auth')->group(function () {
+    Route::resource('salas', SalaController::class);
+});
+
 
 // Dashboard (redireciona para a raiz)
 Route::get('/dashboard', function () {
@@ -32,7 +38,8 @@ Route::middleware('auth')->group(function () {
 
     // Rotas de Salas (CRUD)
     Route::resource('salas', SalaController::class);
-    Route::get('/', [SalaController::class, 'index'])->name('salas');
+    Route::resource('salas', SalaController::class);
+
 
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
@@ -43,21 +50,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
         Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
         Route::delete('/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
-        
     });
-
-
-    Route::middleware('auth')->group(function () { 
-        Route::prefix('reservas')->group(function () { 
-        Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit'); 
-        Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update'); // Outras rotas... });
-
-    });
-
-});
-    
 });
 
-
-
+// Inclui rotas de autenticação
 require __DIR__.'/auth.php';
+

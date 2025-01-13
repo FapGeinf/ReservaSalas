@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sala;
 use App\Models\Reserva;
 
 class HomeController extends Controller
@@ -14,7 +15,8 @@ class HomeController extends Controller
 
         // // Retorna a view 'home' com as reservas
         // return view('home', compact('reservas'));
-        return view('home'); 
-    }
+        $salas = Sala::all();
+        $reservas = Reserva::with('sala')->get(); 
+        return view('home', compact('salas', 'reservas'));
 }
-
+}
