@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 // Rota raiz redireciona para "home"
 Route::get('/', function () {
-    return redirect()->route('/home');
+    return redirect()->route('home');
 });
 
 // Página "Home"
-Route::get('/home', [HomeController::class, 'home'])->name('/home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Rotas públicas (fora do middleware auth)
 Route::view('/salas', 'salas')->name('salas'); // View de Salas
@@ -42,7 +42,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
         Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
         Route::delete('/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
-        
     });
 });
 
