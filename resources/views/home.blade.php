@@ -2,9 +2,10 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
 <section>
-  <div class="form-wrapper container p-30">
+  <div class="form-wrapper p-30">
     <!-- class="custom__form_create" -->
     <div class="custom__form_create">
       <div class="row">
@@ -198,14 +199,64 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
-    </div>
+
+      <hr>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <table id="example" class="display" style="width:100%">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Posição</th>
+                <th>Escritório</th>
+                <th>Idade</th>
+                <th>Data de Início</th>
+                <th>Salário</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+              </tr>
+              <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011/07/25</td>
+                <td>$170,750</td>
+              </tr>
+              <!-- Adicione mais linhas conforme necessário -->
+            </tbody>
+          </table>
+        </div>
+      </div>  
+    </div>  
   </div>
+
+  {{-- <div class="form-wrapper mt-2">
+    <div class="custom__form_create">
+     
+    </div>
+  </div> --}}
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+  });
+</script>
 
 @endsection
 

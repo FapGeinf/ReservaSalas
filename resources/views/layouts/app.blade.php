@@ -19,6 +19,7 @@
     <body class="font-sans antialiased">
         
             @include('components.navbar')
+            @include('layouts.sidenav')
 
             <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> -->
            
