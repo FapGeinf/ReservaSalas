@@ -19,10 +19,6 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 // Página "Home"
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// Rotas públicas (fora do middleware auth)
-Route::view('/salas', 'salas')->name('salas'); // View de Salas
-Route::view('/reservas', 'reservas')->name('reservas'); // View de Reservas
-
 // Dashboard (redireciona para a raiz)
 Route::get('/dashboard', function () {
     return redirect('home');
@@ -40,7 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Rotas de Salas (CRUD)
-    Route::resource('salas', SalaController::class);
+    Route::resource('salas', SalaController::class)->names([
+        'index' => 'salas', // Nome personalizado para a rota index
+    ]);
 
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
@@ -55,4 +53,4 @@ Route::middleware('auth')->group(function () {
 });
 
 // Inclusão das rotas de autenticação
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
