@@ -7,7 +7,7 @@
 <div>
   <nav class="navbar navbar-expand-lg" style="background: #245fa3; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);">
     <div class="container-fluid d-flex align-items-center">
-      <img class="navbar-brand text-light" src="{{ asset('/img/logo-letras-white.png') }}" style="width: 6%;" alt="Logo Agendaí">
+      <img class="navbar-brand text-light" src="{{ asset('/img/logo-letras-white.png') }}" style="width: 7%;" alt="Logo Agendaí">
 
       @auth
   <div class="ms-3  text-light" style="font-size: 0.875rem;">
@@ -18,7 +18,7 @@
   </div>
 
   <div class="ms-3 text-light" style="font-size: 0.875rem;">
-    Setor: {{ Auth::user()->setor }}
+    Setor: {{ Auth::user()->unidade }}
   </div>
 @endauth
 

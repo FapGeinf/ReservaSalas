@@ -5,11 +5,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SalaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 // Rota raiz redireciona para "home"
 Route::get('/', function () {
     return redirect()->route('home');
 });
+
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); 
+Route::post('register', [RegisteredUserController::class, 'store']);
+
 
 // Página "Home"
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -22,6 +27,10 @@ Route::view('/reservas', 'reservas')->name('reservas'); // View de Reservas
 Route::get('/dashboard', function () {
     return redirect('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('dashboard', function () { 
+    return view('dashboard'); 
+})->name('dashboard');
 
 // Rotas protegidas por middleware "auth"
 Route::middleware('auth')->group(function () {
