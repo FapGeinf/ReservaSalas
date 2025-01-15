@@ -52,9 +52,11 @@
       </div>
       @endforeach
     </div>
+  </div>
+</div>
 
-    <hr class="mb-5">
-
+<div class="form-wrapper p-30 pt-3">
+  <div class="custom__form_create">
     <div class="table-responsive">
       <table id="reservasTable" class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
       <thead class="">
@@ -113,7 +115,6 @@
     </tbody>
    </table>
     </div>
-    
   </div>
 </div>
 
