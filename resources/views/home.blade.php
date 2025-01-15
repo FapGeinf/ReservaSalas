@@ -75,7 +75,7 @@
           </div>
 
       <!-- Campo oculto para unidade_fk -->
-       <input type="hidden" name="unidade_fk" id="unidade_fk" value="{{ auth()->user()->unidade_id }}">
+       {{-- <input type="hidden" name="unidade_fk" id="unidade_fk" value="{{ auth()->user()->unidade_id }}"> --}}
 
         </form>
       </div>

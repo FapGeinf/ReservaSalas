@@ -12,13 +12,11 @@
       @auth
   <div class="ms-3  text-light" style="font-size: 0.875rem;">
     Seja bem-vindo(a): {{ Auth::user()->name }}
-    @if(Auth::user()->unidade)
-      ({{ Auth::user()->unidade->nome }})
-    @endif
+
   </div>
 
   <div class="ms-3 text-light" style="font-size: 0.875rem;">
-    Setor: {{ Auth::user()->unidade }}
+    Setor: {{ Auth::user()->unidade->nome}}
   </div>
 @endauth
 

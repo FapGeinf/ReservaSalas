@@ -8,7 +8,7 @@ use App\Models\User;
 
 class Unidade extends Model
 {
-    use HasFactory;
+        use HasFactory;
 
         protected $fillable =['nome', 'sigla'];
 

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'unidade_id',
+        'unidade_fk',
        
     ];
 
@@ -51,6 +51,6 @@ class User extends Authenticatable
 
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class, 'unidade_id','id');
+        return $this->belongsTo(Unidade::class, 'unidade_fk','id');
     }
 }

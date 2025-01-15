@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Unidade;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        try {
+            $unidades = Unidade::all();
+        } catch (\Exception $e) {
+            $unidades = null;
+        }
+        view()->share('unidades',$unidades);
     }
 }
