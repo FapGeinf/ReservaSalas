@@ -10,17 +10,15 @@
       <img class="navbar-brand text-light" src="{{ asset('/img/logo-letras-white.png') }}" style="width: 7%;" alt="Logo Agendaí">
 
       @auth
-  <div class="ms-3  text-light" style="font-size: 0.875rem;">
-    Seja bem-vindo(a): {{ Auth::user()->name }}
+        <div class="ms-3  text-light" style="font-size: 0.875rem;">
+          Seja bem-vindo(a): {{ Auth::user()->name }}
 
-  </div>
+        </div>
 
-  <div class="ms-3 text-light" style="font-size: 0.875rem;">
-    Setor: {{ Auth::user()->unidade->nome}}
-  </div>
-@endauth
-
-
+        <div class="ms-3 text-light" style="font-size: 0.875rem;">
+          Setor: {{ Auth::user()->unidade->nome}}
+        </div>
+      @endauth
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
