@@ -101,18 +101,21 @@
     </div>
   @endif
 
-  <table class="table table-bordered align-middle mb-4 bg-white"> 
-  <thead class="bg-light"> 
-    <tr> 
-      <th colspan="6" class="text-center fs-4">Reservas</th> <!-- Corrigi o colspan para 6 --> 
-    </tr> 
-     <tr class="text-center"> 
-     <th>Sala</th>
-     <th>Hora Início</th>
-     <th>Hora Término</th> 
-     <th>Reservado Por</th> 
-     <th>Unidade</th> <!--coluna para mostrar a unidade --> 
-     <th>Ações</th> </tr> </thead>
+  <table class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
+   <thead class="bg-light">
+      <tr>
+         <th colspan="6" class="text-center fs-4">Reservas</th>
+      </tr>
+      <tr class="text-center" style="">
+         <th>Sala</th>
+         <th>Hora Início</th>
+         <th>Hora Término</th>
+         <th>Reservado Por</th>
+         <th>Unidade</th>
+         <th>Ações</th>
+      </tr>
+   </thead>
+
 
   <tbody>
     @foreach($reservas as $reserva)
