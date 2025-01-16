@@ -58,7 +58,7 @@
 <div class="form-wrapper p-30 pt-3">
   <div class="custom__form_create">
     <div class="table-responsive">
-      <table id="reservasTable" class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
+      <table id="reservasTable" class="table table-bordered table-rounded align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
       <thead class="">
          <tr>
             <th colspan="6" class="text-center fs-4">Reservas</th>
@@ -101,13 +101,13 @@
             <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
           </td>
 
-          <td>
-            <a href="{{ route('reservas.show', $reserva->id) }}" class="btn btn-info btn-sm">Detalhes</a>
-            <a href="{{ route('reservas.edit', $reserva->id) }}" class="btn btn-warning btn-sm">Editar</a>
+          <td class="text-center">
+            <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue">Detalhes</a>
+            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow">Editar</a>
             <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+              <button type="submit" class="button-all button-bg-red">Cancelar</button>
             </form>
           </td>
         </tr>

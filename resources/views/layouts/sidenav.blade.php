@@ -26,11 +26,11 @@
       </li>
      
       <li class="menuItem">
-  <a href="{{ route('salas.index') }}" class="menuOption">
-    <i class="fa-solid fa-cube"></i>
-    <h6 class="menuText fw-bold">Salas</h6>
-  </a>
-</li>
+        <a href="{{ route('salas') }}" class="menuOption">
+          <i class="fa-solid fa-cube"></i>
+          <h6 class="menuText fw-bold">Salas</h6>
+        </a>
+      </li>
 
       <li class="menuItem">
         <button class="menuOption">
