@@ -35,7 +35,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="py-4">
+            <main class="" style="margin-top: 4rem;">
                 @yield('content') 
             </main>
         </div>
