@@ -1,49 +1,122 @@
 @extends('layouts.app')
-
 @section('content')
 
-<head>
-  <link rel="stylesheet" href="{{ asset('css/show.css') }}">
-</head>
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
-<div class="container-fluid p-30">
-  <div class="text-center mb-4">
-    <h2 class="fw-bold">SALAS DE REUNIÃO</h2>
-  </div>
-    
-  <div class="row">
-    @foreach($salas as $index => $sala)
-      <div class="col-md-3 mb-4">
-        <div class="card">
-          @php
-            // Lista fixa de 4 imagens
-            $imagens = [
-              'img/salas/sala1.jpg',
-              'img/salas/sala2.jpg',
-              'img/salas/sala3.jpg',
-              'img/salas/sala4.png',
-            ];
-            // Rotação das imagens baseado no índice
-            $imagem = $imagens[$index % count($imagens)];
-          @endphp
+<div class="form-wrapper p-30">
+  <div class="custom__form_create">
 
-          <img src="{{ asset($imagem) }}" class="card-img-top" alt="Imagem da {{ $sala->nome }}">
+    @if (session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+    @endif
 
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ $sala->nome }}</h5>
-            <p class="card-text">{{ $sala->descricao }}</p>
+    @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+    @endif
+
+    <div class="row">
+      @foreach($salas as $index => $sala)
+
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card border">
+
+          <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
+            <img class="fit-image" src="{{ asset('img/auditorio.png') }}" alt="">
+          </div>
+
+          <div class="card-body card-fofinho">
+            <div class="title-teste text-center d-flex flex-column">
+              <span>Local</span>
+              <h3 class="fw-bold">{{ $sala->nome }}</h3>
+              <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis corrupti quia necessitatibus repellat ad voluptates?</span>
+            </div>
+          </div>
+
+          <div class="mx-auto py-3">
             <button 
-                type="button" 
-                class="btn btn-primary" 
-                data-bs-toggle="modal" 
-                data-bs-target="#criarReservaModal" 
-                onclick="selecionarSala({{ $sala->id }})">
-                Reservar
+              type="button" 
+              class="button-68" 
+              data-bs-toggle="modal" 
+              data-bs-target="#criarReservaModal" 
+              onclick="selecionarSala({{ $sala->id }})">
+              Reservar
             </button>
           </div>
+
         </div>
       </div>
-    @endforeach
+      @endforeach
+    </div>
+  </div>
+</div>
+
+<div class="form-wrapper p-30 pt-3">
+  <div class="custom__form_create">
+    <div class="table-responsive">
+      <table id="reservasTable" class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
+      <thead class="">
+         <tr>
+            <th colspan="6" class="text-center fs-4">Reservas</th>
+         </tr>
+         <tr class="text-center" style="">
+            <th>Sala</th>
+            <th>Hora Início</th>
+            <th>Hora Término</th>
+            <th>Reservado Por</th>
+            <th>Unidade</th>
+            <th>Ações</th>
+         </tr>
+      </thead>
+   
+    <tbody>
+      @foreach($reservas as $reserva)
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+              <div class="ms-3">
+                <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
+          </td>
+
+          <td>
+            <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
+          </td>
+
+          <td>
+            <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
+          </td>
+
+          <td>
+            <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
+          </td>
+
+          <td>
+            <a href="{{ route('reservas.show', $reserva->id) }}" class="btn btn-info btn-sm">Detalhes</a>
+            <a href="{{ route('reservas.edit', $reserva->id) }}" class="btn btn-warning btn-sm">Editar</a>
+            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+            </form>
+          </td>
+        </tr>
+      @endforeach
+    </tbody>
+   </table>
+    </div>
+  </div>
+</div>
 
   <!-- Modal -->
 <div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
@@ -88,82 +161,18 @@
   </div>
 </div>
 
-
-  @if (session('error'))
-    <div class="alert alert-danger">
-      {{ session('error') }}
-    </div>
-  @endif
-
-  @if (session('success'))
-    <div class="alert alert-success">
-      {{ session('success') }}
-    </div>
-  @endif
-
-  <table class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
-   <thead class="bg-light">
-      <tr>
-         <th colspan="6" class="text-center fs-4">Reservas</th>
-      </tr>
-      <tr class="text-center" style="">
-         <th>Sala</th>
-         <th>Hora Início</th>
-         <th>Hora Término</th>
-         <th>Reservado Por</th>
-         <th>Unidade</th>
-         <th>Ações</th>
-      </tr>
-   </thead>
-
-
-  <tbody>
-    @foreach($reservas as $reserva)
-        <tr>
-            <td>
-                <div class="d-flex align-items-center">
-                    <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
-            </td>
-            <td>
-                <a href="{{ route('reservas.show', $reserva->id) }}" class="btn btn-info btn-sm">Detalhes</a>
-                <a href="{{ route('reservas.edit', $reserva->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-</tbody>
-
-
-
-
-
-</table>
-</div>
-
 <script>
   function selecionarSala(salaId) {
     document.getElementById('sala_fk').value = salaId;
   }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#reservasTable').DataTable();
+    });
 </script>
 
 @endsection

@@ -1,0 +1,185 @@
+body {
+  background-image: url('/bg-white.jpg');
+  background-size: cover;
+}
+
+.custom__form_create {
+  background-color: #eef0f4;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  /* width: 100%; */
+  /* max-width: 1280px; */
+}
+
+.form-wrapper {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  /* width: 90%;
+  margin: 0 auto; */
+  padding-left: 6rem !important;
+}
+
+.p-30 {
+  padding: 0 30px;
+}
+
+.border__right {
+  border-right: 1px solid #ccc;
+}
+
+.card {
+  background-color: #f7f7f7;
+  transition: .2s;
+  min-height: 325px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  border: none;
+  /* width: 75%;
+  margin: auto; */
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.20);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 30px;
+}
+
+.bg__card_pattern {
+  background-color: #4facff;
+}
+
+.bg__card_pattern_footer {
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fit-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra toda a área da div */
+}
+
+.eixo__img {
+  width: 2.5rem;
+  margin-right: .4rem;
+}
+
+.title-teste {
+  font-size: 16px;
+  color: #27ae60;
+}
+
+h4, h3 {
+  color: #000;
+}
+
+.text-light {
+  color: #f8f9fa !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.p-3 {
+  padding: 1rem !important;
+}
+
+.p-4 {
+  padding: 1.5rem !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* CSS */
+.button-68 {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #27ae60;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 8px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.button-68:hover {
+  background-color: #1e8449;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.button-68:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.button-68:hover {
+  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
+
+#reservasTable_paginate {
+  padding-bottom: 1.5rem;
+}

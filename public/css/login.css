@@ -44,14 +44,13 @@ a:hover {
   align-items: center;
 }
 
-
 .form-3-wrapper {
   background: #fff;
   padding: 50px;
   border-radius: 8px;
   width: 100%;
   max-width: 500px;
-  height: 750px;
+  height: 820px;
   display: flex;
   flex-direction: column;
   justify-content: center;

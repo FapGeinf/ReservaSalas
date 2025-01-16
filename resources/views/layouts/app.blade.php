@@ -24,7 +24,8 @@
     </head>
     <body class="font-sans antialiased">
         
-            @include('components.navbar')
+            {{-- @include('components.navbar') --}}
+            @include('layouts.sidenav')
 
             <!-- Page Heading -->
             @isset($header)
