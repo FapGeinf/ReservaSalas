@@ -12,6 +12,14 @@ body {
   /* max-width: 1280px; */
 }
 
+.padding__left4 {
+  padding-left: 2rem;
+}
+
+.card-custom-width {
+  width: 65%;
+}
+
 .form-wrapper {
   /* display: flex; */
   justify-content: center;
@@ -19,7 +27,7 @@ body {
   padding: 0 10px;
   /* width: 90%;
   margin: 0 auto; */
-  padding-left: 6rem !important;
+  padding-left: 4rem !important;
 }
 
 .p-30 {
@@ -80,7 +88,7 @@ body {
 
 .title-teste {
   font-size: 16px;
-  color: #27ae60;
+  color: #1ab394;
 }
 
 h4, h3 {
@@ -132,11 +140,20 @@ h4, h3 {
   margin-right: auto !important;
 }
 
+#reservasTable {
+  border: 1px solid #959595 !important;
+  width: 100% !important;
+}
+
+table.dataTable thead th {
+  border-bottom: 1px solid #959595 !important;
+}
+
 /* CSS */
 .button-68 {
   appearance: none;
   backface-visibility: hidden;
-  background-color: #27ae60;
+  background-color: #1ab394;
   border-radius: 8px;
   border-style: none;
   box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;

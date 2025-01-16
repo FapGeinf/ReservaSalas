@@ -2,6 +2,7 @@
   --bg-black100: #353535;
   --bg-black50: #eef0f4;
   --bg-black20: #414546;
+  --color-black: #2f4050;
 }
 
 * {
@@ -25,12 +26,13 @@ body.dark {
 .menu {
   position: absolute;
   width: 60px;
-  height: 90%;
-  background-color: var(--bg-black50);
+  height: 65%;
+  /* background-color: #2f4050; */
+  background-color: #45596c;
   z-index: 2;
   top: 0;
   bottom: 0;
-  left: 10px;
+  left: 20px;
   margin: auto;
   border-radius: .8rem;
   transition: .3s ease .15s;
@@ -62,7 +64,7 @@ body.dark {
   outline: none;
   border: none;
   border-radius: .5rem;
-  color: var(--bg-black100);
+  color: #fff;
   width: 45px;
   height: 45px;
   transition: .3s ease;
@@ -70,7 +72,7 @@ body.dark {
   cursor: pointer;
 }
 
-.menu .actionBar div button:hover { background-color: #5eb366; }
+.menu .actionBar div button:hover { background-color: #1ab394; }
 
 .menu .actionBar div h3 { width: calc(100% - 45px); text-align: start; }
 
@@ -105,12 +107,14 @@ body.dark {
   cursor: pointer;
 }
 
-.menu .optionsBar .menuItem .menuOption:hover { background-color: #5eb366; }
-.menu .optionsBar .menuItem .menuOption i { width: 45px; text-align: center; color: var(--bg-black100); }
+.menu .optionsBar .menuItem .menuOption:hover { background-color: #1ab394; }
+
+.menu .optionsBar .menuItem .menuOption i { width: 45px; text-align: center; color: #fff; }
+
 .menu .optionsBar .menuItem .menuOption h6 { width: calc(100% - 45px); }
 
 .menuText {
-  color: var(--bg-black20);
+  color: #fff;
   transform: translateX(-250px);
   opacity: 0;
   text-align: start;
@@ -240,7 +244,7 @@ body.dark {
   font-size: 1rem;
 }
 
-.menu .themeBar div button:hover { background-color: #5eb366; }
+.menu .themeBar div button:hover { background-color: #1ab394; }
 
 .menu .optionsBar .menuItem .menuOption:hover .menuText,
 .menu .optionsBar .menuItem .menuOption:hover i,
