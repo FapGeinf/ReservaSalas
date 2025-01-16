@@ -143,6 +143,11 @@ h4, h3 {
   width: 100% !important;
 }
 
+.th__title {
+  color: #fff !important;
+  background-color: #255957 !important;
+}
+
 .mx-auto {
   margin-left: auto !important;
   margin-right: auto !important;

@@ -72,12 +72,12 @@
             <th colspan="6" class="text-center fs-4">Reservas</th>
          </tr> --}}
          <tr class="text-center">
-            <th style="">Sala</th>
-            <th n>Hora Início</th>
-            <th>Hora Término</th>
-            <th>Reservado Por</th>
-            <th>Unidade</th>
-            <th>Ações</th>
+            <th class="th__title">Sala</th>
+            <th class="th__title">Hora Início</th>
+            <th class="th__title">Hora Término</th>
+            <th class="th__title">Reservado Por</th>
+            <th class="th__title">Unidade</th>
+            <th class="th__title">Ações</th>
          </tr>
       </thead>
    
