@@ -33,7 +33,7 @@
           <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column">
               <span>Local</span>
-              <h3 class="fw-bold">{{ $sala->nome }}</h3>
+              <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
               <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
             </div>
           </div>
