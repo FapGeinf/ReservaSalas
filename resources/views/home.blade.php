@@ -2,10 +2,16 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-<div class="form-wrapper p-30">
-  <div class="custom__form_create">
+<div class="padding__left4">
+  <div class="p-30 mx-auto" style="width: 80%">
+    <div class="text-center mb-3">
+      <h2 class="fw-bold fst-italic">Salas</h2>
+    </div>
 
     @if (session('error'))
       <div class="alert alert-danger">
@@ -32,8 +38,8 @@
           <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column">
               <span>Local</span>
-              <h3 class="fw-bold">{{ $sala->nome }}</h3>
-              <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis corrupti quia necessitatibus repellat ad voluptates?</span>
+              <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
+              <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
             </div>
           </div>
 
@@ -55,21 +61,25 @@
   </div>
 </div>
 
-<div class="form-wrapper p-30 pt-3">
+<div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
+  <div class="text-center mb-3">
+    <h2 class="fw-bold fst-italic">Reservas</h2>
+  </div>
+
   <div class="custom__form_create">
     <div class="table-responsive">
-      <table id="reservasTable" class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
+      <table id="reservasTable" class="table table-bordered table-rounded align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
       <thead class="">
-         <tr>
+         {{-- <tr>
             <th colspan="6" class="text-center fs-4">Reservas</th>
-         </tr>
-         <tr class="text-center" style="">
-            <th>Sala</th>
-            <th>Hora Início</th>
-            <th>Hora Término</th>
-            <th>Reservado Por</th>
-            <th>Unidade</th>
-            <th>Ações</th>
+         </tr> --}}
+         <tr class="text-center">
+            <th class="th__title">Sala</th>
+            <th class="th__title">Hora Início</th>
+            <th class="th__title">Hora Término</th>
+            <th class="th__title">Reservado Por</th>
+            <th class="th__title">Unidade</th>
+            <th class="th__title">Ações</th>
          </tr>
       </thead>
    
@@ -101,13 +111,14 @@
             <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
           </td>
 
-          <td>
-            <a href="{{ route('reservas.show', $reserva->id) }}" class="btn btn-info btn-sm">Detalhes</a>
-            <a href="{{ route('reservas.edit', $reserva->id) }}" class="btn btn-warning btn-sm">Editar</a>
+          <td class="text-center">
+            <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i>
+            </a>
+            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
             <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+              <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
             </form>
           </td>
         </tr>
@@ -170,9 +181,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#reservasTable').DataTable();
+  $(document).ready(function() {
+    $('#reservasTable').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+        search: "Procurar:",
+        lengthMenu: "Paginação: _MENU_",
+        info: 'Mostrando página _PAGE_ de _PAGES_',
+        infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+        infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+        paginate: {
+          next: "Próximo",
+          previous: "Anterior"
+        }
+      }
     });
+  });
 </script>
 
 @endsection
