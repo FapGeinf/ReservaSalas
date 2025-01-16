@@ -171,9 +171,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#reservasTable').DataTable();
+  $(document).ready(function() {
+    $('#reservasTable').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+        search: "Procurar:",
+        lengthMenu: "Paginação: _MENU_",
+        info: 'Mostrando página _PAGE_ de _PAGES_',
+        infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+        infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+        paginate: {
+          next: "Próximo",
+          previous: "Anterior"
+        }
+      }
     });
+  });
 </script>
 
 @endsection
