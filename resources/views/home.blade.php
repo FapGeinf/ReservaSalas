@@ -31,9 +31,10 @@
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border">
 
-          <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
-            <img class="fit-image" src="{{ asset('img/auditorio.png') }}" alt="">
-          </div>
+      <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
+      <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+      </div>
+
 
           <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column">
@@ -88,7 +89,7 @@
         <tr>
           <td>
             <div class="d-flex align-items-center">
-              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
               <div class="ms-3">
                 <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
               </div>
