@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-   
     <a href="#" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">Cadastrar Nova Sala</a>
     
     <h1 class="text-center">Lista de Salas</h1>
@@ -69,7 +68,6 @@
                         </div>
                     </div>
                     <!-- Fim do Modal de Edição -->
-
                 @endforeach
             </tbody>
         </table>
@@ -85,7 +83,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('salas.store') }}" method="POST">
+                <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="nome">Sala</label>
@@ -101,6 +99,10 @@
                             <option value="ativa">Ativa</option>
                             <option value="inativa">Inativa</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagem">Imagem</label>
+                        <input type="file" name="imagem" id="imagem" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-success">Salvar</button>
                 </form>
