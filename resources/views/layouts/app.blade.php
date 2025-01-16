@@ -35,7 +35,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="" style="margin-top: 4rem;">
+            <main class="" style="margin-top: 1rem;">
                 @yield('content') 
             </main>
         </div>

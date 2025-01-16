@@ -7,6 +7,9 @@
 
 <div class="padding__left4">
   <div class="p-30 mx-auto" style="width: 80%">
+    <div class="text-center mb-3">
+      <h2 class="fw-bold">Salas</h2>
+    </div>
 
     @if (session('error'))
       <div class="alert alert-danger">
@@ -57,13 +60,17 @@
 </div>
 
 <div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
+  <div class="text-center mb-3">
+    <h2 class="fw-bold">Reservas</h2>
+  </div>
+
   <div class="custom__form_create">
     <div class="table-responsive">
       <table id="reservasTable" class="table table-bordered table-rounded align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
       <thead class="">
-         <tr>
+         {{-- <tr>
             <th colspan="6" class="text-center fs-4">Reservas</th>
-         </tr>
+         </tr> --}}
          <tr class="text-center">
             <th style="">Sala</th>
             <th n>Hora Início</th>
