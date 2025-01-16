@@ -266,3 +266,34 @@ table.dataTable thead th {
 #reservasTable_paginate {
   padding-bottom: 1.5rem;
 }
+
+/* BOTÕES DE PAGINAÇÃO */
+.dataTables_wrapper .dataTables_info {
+  line-height: 39px;
+  padding-bottom: 2rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: #d2d2d2 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background-color: #d2d2d2 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  padding-top: 1rem !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #ececec !important;
+  border-radius:5px !important;
+  padding: 0.1em .6em !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #000 !important;
+  background: #d2d2d2 !important;
+  border: 1px solid transparent !important;
+}
+/* BOTÕES DE PAGINAÇÃO END */
