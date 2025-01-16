@@ -28,21 +28,36 @@ class SalaController extends Controller
 
     // Método para armazenar uma nova sala
     public function store(Request $request)
-    {
-        // Validação dos dados da requisição
-        $request->validate([ 
-            'nome' => 'required|string|max:255', 
-            'descricao' => 'required|string|max:255', 
-            'situacao' => 'required|in:ativa,inativa',
-            'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validação da imagem
+{
+    // Validação dos dados da requisição
+    $request->validate([ 
+        'nome' => 'required|string|max:255', 
+        'descricao' => 'required|string|max:255', 
+        'situacao' => 'required|in:ativa,inativa',
+        'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validação da imagem
     ]);
-        // Criação da nova sala 
-        Sala::create($request->all()); 
 
-        // Redirecionamento após criação da sala 
-        return redirect()->route('salas.index');
-
+    // Tratamento da imagem
+    if ($request->hasFile('imagem')) { 
+        $imagem = $request->file('imagem'); 
+        $imageName = time().'.'.$imagem->getClientOriginalExtension(); 
+        $imagem->move(public_path('img/salas'), $imageName); 
+    } else { 
+        $imageName = null; // Caso contrário, o valor será null
     }
+
+    // Criação da nova sala 
+    $sala = new Sala; 
+    $sala->nome = $request->input('nome'); 
+    $sala->descricao = $request->input('descricao'); 
+    $sala->situacao = $request->input('situacao'); 
+    $sala->imagem = $imageName; 
+    $sala->save();
+
+    // Redirecionamento após criação da sala 
+    return redirect()->route('salas.index')->with('success', 'Sala criada com sucesso!');
+}
+
 
    
     // Método para exibir uma sala específica
