@@ -30,6 +30,14 @@ body {
   padding-left: 4rem !important;
 }
 
+.dataTables_wrapper .dataTables_filter input {
+  background-color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_length {
+  margin-bottom: 1rem !important;
+}
+
 .p-30 {
   padding: 0 30px;
 }
