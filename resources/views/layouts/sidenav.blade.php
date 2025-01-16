@@ -19,18 +19,18 @@
 
     <ul class="optionsBar">
       <li class="menuItem">
-        <a href="#" class="menuOption">
+        <a href="{{ route('home') }}" class="menuOption">
           <i class="fa-solid fa-house"></i>
           <h6 class="menuText fw-bold">Home</h6>
         </a>
       </li>
-
+     
       <li class="menuItem">
-        <button class="menuOption">
-          <i class="fa-solid fa-cube"></i>
-          <h6 class="menuText fw-bold">Salas</h6>
-        </button>
-      </li>
+  <a href="{{ route('salas.index') }}" class="menuOption">
+    <i class="fa-solid fa-cube"></i>
+    <h6 class="menuText fw-bold">Salas</h6>
+  </a>
+</li>
 
       <li class="menuItem">
         <button class="menuOption">
