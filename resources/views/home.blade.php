@@ -64,9 +64,9 @@
          <tr>
             <th colspan="6" class="text-center fs-4">Reservas</th>
          </tr>
-         <tr class="text-center" style="">
-            <th>Sala</th>
-            <th>Hora Início</th>
+         <tr class="text-center">
+            <th style="">Sala</th>
+            <th n>Hora Início</th>
             <th>Hora Término</th>
             <th>Reservado Por</th>
             <th>Unidade</th>

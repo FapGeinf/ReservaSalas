@@ -88,7 +88,7 @@ body {
 
 .title-teste {
   font-size: 16px;
-  color: #27ae60;
+  color: #1ab394;
 }
 
 h4, h3 {
@@ -140,11 +140,20 @@ h4, h3 {
   margin-right: auto !important;
 }
 
+#reservasTable {
+  border: 1px solid #959595 !important;
+  width: 100% !important;
+}
+
+table.dataTable thead th {
+  border-bottom: 1px solid #959595 !important;
+}
+
 /* CSS */
 .button-68 {
   appearance: none;
   backface-visibility: hidden;
-  background-color: #27ae60;
+  background-color: #1ab394;
   border-radius: 8px;
   border-style: none;
   box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
