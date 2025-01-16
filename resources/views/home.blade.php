@@ -2,11 +2,10 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
-<div class="padding__left4">
-  <div class="p-30 mx-auto" style="width: 80%">
+<div class="form-wrapper p-30">
+  <div class="custom__form_create">
 
     @if (session('error'))
       <div class="alert alert-danger">
@@ -33,8 +32,8 @@
           <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column">
               <span>Local</span>
-              <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
-              <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+              <h3 class="fw-bold">{{ $sala->nome }}</h3>
+              <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis corrupti quia necessitatibus repellat ad voluptates?</span>
             </div>
           </div>
 
@@ -56,7 +55,7 @@
   </div>
 </div>
 
-<div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
+<div class="form-wrapper p-30 pt-3">
   <div class="custom__form_create">
     <div class="table-responsive">
       <table id="reservasTable" class="table table-bordered align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
@@ -64,9 +63,9 @@
          <tr>
             <th colspan="6" class="text-center fs-4">Reservas</th>
          </tr>
-         <tr class="text-center">
-            <th style="">Sala</th>
-            <th n>Hora Início</th>
+         <tr class="text-center" style="">
+            <th>Sala</th>
+            <th>Hora Início</th>
             <th>Hora Término</th>
             <th>Reservado Por</th>
             <th>Unidade</th>

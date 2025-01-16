@@ -9,8 +9,8 @@
             Reserva {{ $reserva->id }}
         </div>
         <div class="card-body">
-            <p><strong>Usuário:</strong> {{ $reserva->usuario->name ?? 'Usuário não encontrado' }}</p>
-            <p><strong>Unidade:</strong> {{ $reserva->usuario->unidade->nome ?? 'Unidade não encontrada' }}</p>
+            <p><strong>Usuário:</strong> {{ $reserva->user->name ?? 'Usuário não encontrado' }}</p>
+            <p><strong>Unidade:</strong> {{ $reserva->user->unidade->nome ?? 'Unidade não encontrada' }}</p>
             <p><strong>Sala:</strong> {{ $reserva->sala->nome ?? 'Sala não encontrada' }}</p>
             <p><strong>Data da Reserva:</strong> {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y') }}</p>
             <p><strong>Hora Início:</strong> {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i') }}</p>
