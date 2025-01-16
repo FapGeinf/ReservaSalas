@@ -12,6 +12,7 @@
       @auth
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <div class="ms-3  text-light" style="font-size: 0.875rem;">
     Seja bem-vindo(a): {{ Auth::user()->name }}
   </div>
@@ -22,6 +23,10 @@
     @endif
   </div>
 @endauth
+=======
+        <div class="ms-3  text-light" style="font-size: 0.875rem;">
+          Seja bem-vindo(a): {{ Auth::user()->name }}
+>>>>>>> 0591f0702524bc1b17f911484e27e707550371e0
 =======
         <div class="ms-3  text-light" style="font-size: 0.875rem;">
           Seja bem-vindo(a): {{ Auth::user()->name }}
