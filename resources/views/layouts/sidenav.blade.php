@@ -32,7 +32,7 @@
         </a>
       </li>
 
-      <li class="menuItem">
+      <!-- <li class="menuItem">
         <button class="menuOption">
           <i class="fa-solid fa-calendar-alt"></i>
           <h6 class="menuText fw-bold">Reservas</h6>
@@ -44,7 +44,7 @@
           <i class="fa-solid fa-history"></i>
           <h6 class="menuText fw-bold">Histórico</h6>
         </button>
-      </li>
+      </li> -->
 
     </ul>
 
