@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 <div class="padding__left4">
   <div class="p-30 mx-auto" style="width: 80%">
@@ -110,12 +112,13 @@
           </td>
 
           <td class="text-center">
-            <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue">Detalhes</a>
-            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow">Editar</a>
+            <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i>
+            </a>
+            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
             <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
               @csrf
               @method('DELETE')
-              <button type="submit" class="button-all button-bg-red">Cancelar</button>
+              <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
             </form>
           </td>
         </tr>
