@@ -308,3 +308,7 @@ table.dataTable thead th {
   background-color: #fff !important;
   border-radius: 8px !important;
 }
+
+.dataTables_scrollBody {
+  border-bottom: none !important;
+}

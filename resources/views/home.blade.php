@@ -196,7 +196,10 @@
           next: "Próximo",
           previous: "Anterior"
         }
-      }
+      },
+      scrollY: '200px',
+      scrollCollapse: true,
+      paging: true
     });
   });
 </script>
