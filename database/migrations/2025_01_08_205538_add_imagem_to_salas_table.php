@@ -12,7 +12,7 @@ class AddImagemToSalasTable extends Migration
     {
         Schema::table('salas', function (Blueprint $table) {
             // Adiciona uma coluna 'imagem' para armazenar o nome da imagem ou o caminho
-            $table->string('imagem')->nullable();  // A coluna pode ser nula inicialmente
+            // $table->string('imagem')->nullable();  // A coluna pode ser nula inicialmente
         });
     }
 
