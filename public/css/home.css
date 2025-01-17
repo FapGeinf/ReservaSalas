@@ -302,3 +302,9 @@ table.dataTable thead th {
   border: 1px solid transparent !important;
 }
 /* BOTÕES DE PAGINAÇÃO END */
+
+/* BOTÃO DE PAGINAÇÃO */
+.dataTables_wrapper .dataTables_length select {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+}
