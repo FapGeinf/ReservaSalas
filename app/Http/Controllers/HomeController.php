@@ -7,7 +7,7 @@ use App\Models\Reserva;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function home()
     {
         // // Busca todas as reservas de salas
         // $reservas = Reserva::with('sala', 'usuario')->get();

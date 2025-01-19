@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\TryCatch;
 class ReservaController extends Controller
 {
     public function index()
+<<<<<<< Updated upstream
 {
     $users = User::all(); // Uso do modelo User
     $reservas = Reserva::with('sala')->get(); // Carrega as reservas com suas salas
@@ -23,6 +24,23 @@ class ReservaController extends Controller
         $users = User::all();
         $reservas = Reserva::with('sala')->get(); // Carrega as reservas e suas relações com as salas
         return view('reservas.create', compact('salas','reservas', 'users'));
+=======
+    {
+        $users = User::all(); // Uso do modelo User
+        $reservas = Reserva::with('sala', 'user.unidade')->get(); // Carrega as reservas com suas salas
+        $salas = Sala::all(); // Carrega as salas para o formulário
+        return view('home', compact('reservas', 'salas', 'users'));
+    }
+    public function create() 
+{ 
+      $salas = Sala::all(); 
+      $users = User::all(); 
+      $user = auth()->user(); // Chame o método user() corretamente 
+      $reservas = Reserva::with('sala')->get(); // Carrega as reservas e suas relações com as salas 
+      return view('reservas.create', compact('salas', 'reservas', 'users', 'user')); // Passe a variável $user para a view 
+      
+    }
+>>>>>>> Stashed changes
 
         
      }
