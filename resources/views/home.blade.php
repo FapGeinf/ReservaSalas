@@ -23,7 +23,7 @@
                 <span>Bem-vindo, Usuário</span>
             </div>
         </div>
-<<<<<<< Updated upstream
+
     </header>
     <main class="main">
         <div class="cards-container">
@@ -50,7 +50,7 @@
     </footer>
 </body>
 </html>
-=======
+
       </div>
     @endforeach
 
@@ -179,4 +179,4 @@
 </script>
 
 @endsection
->>>>>>> Stashed changes
+

@@ -20,7 +20,7 @@ use App\Http\Controllers\SalaReservaController;
     return view('welcome');
 });
 
-<<<<<<< Updated upstream
+
 
     Route::get('/dashboard', function () {
         // return view('welcome'); 
@@ -28,7 +28,7 @@ use App\Http\Controllers\SalaReservaController;
     // return view('dashboard');
  })->middleware(['auth', 'verified'])->name('dashboard');
 
-=======
+
 // Página "Home"
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 
@@ -40,14 +40,14 @@ Route::get('/reservas', [ReservaController::class, 'index'])->name('reservas.ind
 Route::get('/dashboard', function () {
     return redirect()->route('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
->>>>>>> Stashed changes
+
 
 
     Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-<<<<<<< Updated upstream
+    });
      
     Route::resource('salas', SalaController::class);
 
@@ -62,7 +62,7 @@ Route::get('/dashboard', function () {
         
         Route::prefix('reservas')->group(function () {
         Route::get('/', [ReservaController::class, 'index'])->name('reservas.index');
-=======
+
 
     // Rotas de Salas (CRUD)
     Route::resource('salas', SalaController::class)->except(['index']); // "index" está definido como público
@@ -72,10 +72,7 @@ Route::get('/dashboard', function () {
 
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
         Route::get('/create', [ReservaController::class, 'create'])->name('reservas.create');
         Route::post('/', [ReservaController::class, 'store'])->name('reservas.store');
         Route::get('/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
