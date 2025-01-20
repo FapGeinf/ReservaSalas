@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+
 
 class ProfileController extends Controller
 {
@@ -24,18 +26,41 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     $request->user()->fill($request->validated());
+
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    // }
+
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        $user->fill($request->validated());
+    
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    
+        $user->cpf = $request->input('cpf');
+        $user->unidade_fk = $request->input('unidade_fk');
+    
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+    
+        $user->save();
+    
+        return Redirect::route('profile.edit')->with('status', 'Alteração realizado com sucesso!');
     }
+    
+
 
     /**
      * Delete the user's account.
@@ -57,4 +82,15 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function rules()
+     { 
+        return [ 
+            'name' => 'required|string|max:255', 
+            'email' => 'required|string|email|max:255', 
+            'cpf' => 'required|string|max:14', 
+            'unidade_fk' => 'required|integer', 
+            'password' => 'nullable|string|min:8|confirmed', ];
+         }
 }
+
