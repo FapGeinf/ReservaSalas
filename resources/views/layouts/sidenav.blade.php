@@ -53,7 +53,7 @@
     <div>
       <img src="https://i.postimg.cc/44L0DLbQ/file.jpg" alt="image">
     </div>
-    <h5 class="username menuText">Leonardo</h5>
+    <h5 class="username menuText">{{ Auth::user()->name }}</h5>
     <p class="menuText mb-0"><i class="fa-solid fa-chevron-right"></i></p>
   </a>
 
