@@ -49,14 +49,28 @@
     </ul>
 
     <div class="menuUser">
-      <a href="#">
-        <div>
-          <img src="https://i.postimg.cc/44L0DLbQ/file.jpg" alt="image">
-        </div>
+    <a href="#" class="" data-bs-toggle="dropdown" aria-expanded="false">
+    <div>
+      <img src="https://i.postimg.cc/44L0DLbQ/file.jpg" alt="image">
+    </div>
+    <h5 class="username menuText">Leonardo</h5>
+    <p class="menuText mb-0"><i class="fa-solid fa-chevron-right"></i></p>
+  </a>
 
-        <h5 class="username menuText">Leonardo</h5>
-        <p class="menuText mb-0"><i class="fa-solid fa-chevron-right"></i></p>
-      </a>
+  <div class="dropdown-menu">
+    <li>
+      <a class="dropdown-item" href="{{ route('profile.edit') }}">Editar Perfil</a>
+    </li>
+    <li>
+      <hr class="dropdown-divider">
+    </li>
+    <li>
+      <form class="d-flex" method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button class="dropdown-item" type="submit">Sair</button>
+      </form>
+    </li>
+  </div>
 
       <div class="userInfo">
         <div>
