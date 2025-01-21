@@ -75,6 +75,7 @@
             <th colspan="6" class="text-center fs-4">Reservas</th>
          </tr> --}}
          <tr class="text-center">
+            <th class="th__title">Id</th>
             <th class="th__title">Sala</th>
             <th class="th__title">Hora Início</th>
             <th class="th__title">Hora Término</th>
@@ -85,46 +86,42 @@
       </thead>
    
     <tbody>
-      @foreach($reservas as $reserva)
+    @foreach($reservas as $reserva)
         <tr>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
-              <div class="ms-3">
-                <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
-          </td>
-
-          <td>
-            <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
-          </td>
-
-          <td>
-            <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
-          </td>
-
-          <td>
-            <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
-          </td>
-
-          <td class="text-center">
-            <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i>
-            </a>
-            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
-            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
-            </form>
-          </td>
+            <td class="text-center">{{ $reserva->id }}</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
+            </td>
+            <td>
+                <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
+            </td>
+            <td>
+                <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
+            </td>
+            <td>
+                <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
+            </td>
+            <td class="text-center">
+                <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
+                <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
+                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
+                </form>
+            </td>
         </tr>
-      @endforeach
-    </tbody>
+    @endforeach
+</tbody>
+
    </table>
     </div>
   </div>
