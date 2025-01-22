@@ -3,6 +3,10 @@ body {
   background-size: cover;
 }
 
+.table.dataTable {
+  margin-bottom: 0 !important;
+}
+
 .custom__form_create {
   background-color: transparent;
   border-radius: 5px;
