@@ -17,7 +17,7 @@ class Sala extends Model
     public function setSituacaoAttribute($value) { 
        $this->attributes['situacao'] = ($value === 'ativa') ? 1 : 0; } // Accessor para converter booleano de volta para string 
        
-       public function getSituacaoAttribute($value) { return $value ? 'ativa' : 'inativa'; } 
+       public function getSituacaoAttribute($value) { return $value ? 'Ativa' : 'Inativa'; } 
 
     public function Reserva()
     {
