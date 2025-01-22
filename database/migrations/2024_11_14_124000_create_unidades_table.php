@@ -17,11 +17,9 @@ return new class extends Migration
             $table->string('nome');
             $table->string('sigla', '10');
             // $table->unsignedInteger('gestor_fk');
+
         });
 
-        
-
-    
     }
     /**
      * Reverse the migrations.
