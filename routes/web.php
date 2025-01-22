@@ -7,29 +7,15 @@ use App\Http\Controllers\SalaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
-// Rota raiz redireciona para "home"
-Route::get('/', function () {
-    return redirect()->route('home');
-});
-
-Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); 
-Route::post('register', [RegisteredUserController::class, 'store']);
-
-
-// Página "Home"
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-// Dashboard (redireciona para a raiz)
-Route::get('/dashboard', function () {
-    return redirect('home');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('dashboard', function () { 
-    return view('dashboard'); 
-})->name('dashboard');
-
-// Rotas protegidas por middleware "auth"
 Route::middleware('auth')->group(function () {
+    // Página "Home"
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    // Dashboard (redireciona para a raiz)
+    Route::get('/dashboard', function () {
+        return redirect('home');
+    })->middleware('verified')->name('dashboard');
+
     // Rotas de perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -51,6 +37,23 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
     });
 });
+
+// Rota raiz redireciona para "home"
+Route::get('/', function () {
+    return redirect()->route('home');
+});
+
+// Rotas de registro
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); 
+Route::post('register', [RegisteredUserController::class, 'store']);
+
+// Rota de logout
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login'); // Redirecione para a página de login ou outra página desejada
+})->name('logout');
 
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';
