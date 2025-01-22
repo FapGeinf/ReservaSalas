@@ -39,15 +39,15 @@
                 <tbody>
                   @foreach($salas as $sala)
                     <tr>
-                      <td class="text-center td-bg border-none">
+                      <td class="text-start td-bg border-none">
                         {{ $sala->nome }}
                       </td>
 
-                      <td class="text-center td-bg border-none">
+                      <td class="text-start td-bg border-none">
                         {{ $sala->descricao }}
                       </td>
 
-                      <td class="text-center td-bg border-none">
+                      <td class="text-start td-bg border-none">
                         {{ $sala->situacao }}
                       </td>
 
