@@ -1,6 +1,7 @@
 <x-app-layout>
 </x-app-layout> 
 
+<link rel="stylesheet" href="{{ asset('css/editar.perfil.css') }}">
 <div class="container">
   <h2>Editar Perfil</h2>
   <div class="row">
