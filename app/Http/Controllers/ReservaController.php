@@ -122,10 +122,16 @@ class ReservaController extends Controller
 
     public function destroy(Reserva $reserva)
     {
-        $reserva->delete();
-        return redirect()->route('reservas.index');
+        try {
+            $reserva->delete(); // Excluir a reserva do banco de dados
+            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+        }
     }
-
+        // $reserva->delete();
+        // return redirect()->route('reservas.index');
+    
     // Método personalizado para visualizar uma reserva específica 
     public function view($id) 
     { 

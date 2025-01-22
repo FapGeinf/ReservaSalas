@@ -109,7 +109,7 @@
             <td>
                 <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
             </td>
-            <td class="text-center">
+            <!-- <td class="text-center">
                 <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
                 <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
                 <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
@@ -117,7 +117,25 @@
                     @method('DELETE')
                     <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
                 </form>
-            </td>
+            </td> -->
+            <td class="text-center">
+    <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
+    <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
+    
+    <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="button" 
+            class="btn btn-danger" 
+            data-bs-toggle="modal" 
+            data-bs-target="#confirmDeleteModal" 
+            onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+        Excluir
+    </button>
+</form>
+
+</td>
+
         </tr>
     @endforeach
 </tbody>
@@ -199,6 +217,39 @@
       paging: true
     });
   });
+
+  
+  function setDeleteAction(action) {
+      const deleteForm = document.getElementById('deleteForm');
+      deleteForm.action = action;
+  }
 </script>
 
+
+
+
 @endsection
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form id="deleteForm" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
