@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
+
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -121,26 +123,19 @@
                 </form>
             </td> -->
             <td class="text-center">
-    <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
-    <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
+             <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
+             <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
     
-    <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-    @csrf
-    @method('DELETE')
-    <button type="button" 
-            class="btn btn-danger" 
-            data-bs-toggle="modal" 
-            data-bs-target="#confirmDeleteModal" 
-            onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-        Excluir
-    </button>
-</form>
-
-</td>
-
-        </tr>
+         <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="button" class="button-all button-bg-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i class="fa-solid fa-trash"></i>
+            </button>
+         </form>
+      </td>
+    </tr>
     @endforeach
-</tbody>
+  </tbody>
 
    </table>
     </div>
