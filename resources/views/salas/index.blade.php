@@ -81,17 +81,17 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="">
-                                  <label for="nome{{ $sala->id }}" class="fw-bold">Nome:</label>
+                                  <label for="nome{{ $sala->id }}" class="fw-bold fs-16" style="font-size: 16px">Sala:</label>
                                   <input type="text" name="nome" id="nome{{ $sala->id }}" class="input-custom" value="{{ $sala->nome }}" required>
                                 </div>
           
                                 <div class="mt-4">
-                                  <label for="descricao{{ $sala->id }}" class="fw-bold">Descrição/ Localização:</label>
+                                  <label for="descricao{{ $sala->id }}" class="fw-bold fs-16">Descrição/ Localização:</label>
                                   <input type="text" name="descricao" id="descricao{{ $sala->id }}" class="input-custom" value="{{ $sala->descricao }}" required>
                                 </div>
           
                                 <div class="mt-4 col-5">
-                                  <label for="situacao{{ $sala->id }}" class="fw-bold">Situação:</label>
+                                  <label for="situacao{{ $sala->id }}" class="fw-bold fs-16">Situação:</label>
                                   <select name="situacao" id="situacao{{ $sala->id }}" class="form-select" required>
                                     <option value="ativa" {{ $sala->situacao === 'Ativa' ? 'selected' : '' }}>Ativa</option>
                                     <option value="inativa" {{ $sala->situacao === 'Inativa' ? 'selected' : '' }}>Inativa</option>
@@ -155,7 +155,7 @@
           </div>
 
           <div class="mt-4">
-            <label for="descricao" class="fw-bold">Descrição/ Localização<span class="span-warning">*</span>:</label>
+            <label for="descricao" class="fw-bold" >Descrição/ Localização<span class="span-warning">*</span>:</label>
             <input type="text" name="descricao" id="descricao" class="input-custom" required>
           </div>
 
