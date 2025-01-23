@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sala;
 use App\Models\User;
+use App\Models\Reserva;
 
 
 class SalaController extends Controller
@@ -12,11 +13,15 @@ class SalaController extends Controller
     
      
      // Método para listar todas as salas
-    public function index()
-    {
-        $salas = Sala::all();
-        return view('salas.index', compact('salas'));
-    }
+   
+
+     public function index()
+     {
+         $salas = Sala::all();
+         $reservas = Reserva::with('sala', 'user')->get(); // Carregue as relações sala e user
+         return view('salas.index', compact('salas', 'reservas'));
+     }
+     
 
      //Método para exibir o formulário de criação de sala
     public function create()
@@ -55,7 +60,7 @@ class SalaController extends Controller
     $sala->save();
 
     // Redirecionamento após criação da sala 
-    return redirect()->route('salas.index')->with('success', 'Sala criada com sucesso!');
+    return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
 }
 
 
@@ -87,13 +92,13 @@ class SalaController extends Controller
          $sala->update($request->all()); 
 
          // Redirecionamento após atualização da sala 
-         return redirect()->route('salas.index');
+         return redirect()->route('salas');
     }
 
       // Método para excluir uma sala
     public function destroy(Sala $sala)
     {
         $sala->delete();
-        return redirect()->route('salas.index');
+        return redirect()->route('salas');
     }
 }
