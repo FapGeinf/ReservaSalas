@@ -58,7 +58,6 @@ h1, h2, h3, h4, h5, h6, td, th {
 }
 
 
-
 body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-control {
   font-family: sans-serif; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
 }
@@ -102,9 +101,20 @@ label {
   max-width: 1000px;
 }
 
+.form_create-800 {
+  border-radius: 5px;
+  width: 100%;
+  max-width: 800px;
+}
+
 .form_create__no-border {
   width: 100%;
   max-width: 1000px;
+}
+
+.form_create__no-border-800 {
+  width: 100%;
+  max-width: 800px;
 }
 
 .form-wrapper {
