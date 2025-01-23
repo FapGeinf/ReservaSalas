@@ -13,17 +13,7 @@
       <h2 class="fw-bold fst-italic">Salas</h2>
     </div>
 
-    @if (session('error'))
-      <div class="alert alert-danger">
-        {{ session('error') }}
-      </div>
-    @endif
-
-    @if (session('success'))
-      <div class="alert alert-success">
-        {{ session('success') }}
-      </div>
-    @endif
+    
 
     <div class="row">
       @foreach($salas as $index => $sala)
@@ -59,6 +49,18 @@
       </div>
       @endforeach
     </div>
+
+    @if (session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+    @endif
+
+    @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+    @endif
   </div>
 </div>
 
