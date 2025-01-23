@@ -2,6 +2,7 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
+<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
@@ -10,7 +11,7 @@
     <div class="row justify-content-center">
       <div class="col">
         <div class="box__no-border no-margin-bottom title-bg">
-          <h3 class="text-center text-dark fw-bold">Lista de Salas</h3>
+          <h3 class="text-center fw-bold">Lista de Salas</h3>
         </div>
       </div>
     </div>
@@ -39,15 +40,15 @@
                 <tbody>
                   @foreach($salas as $sala)
                     <tr>
-                      <td class="text-start td-bg border-none">
+                      <td class="text-start td-bg border-none text-center">
                         {{ $sala->nome }}
                       </td>
 
-                      <td class="text-start td-bg border-none">
+                      <td class="text-start td-bg border-none text-center">
                         {{ $sala->descricao }}
                       </td>
 
-                      <td class="text-start td-bg border-none">
+                      <td class="text-start td-bg border-none text-center">
                         {{ $sala->situacao }}
                       </td>
 
@@ -92,11 +93,11 @@
                                 <div class="form-group">
                                   <label for="situacao{{ $sala->id }}">Situação</label>
                                   <select name="situacao" id="situacao{{ $sala->id }}" class="form-control" required>
-                                    <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
-                                    <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
+                                    <option value="ativa" {{ $sala->situacao === 'Ativa' ? 'selected' : '' }}>Ativa</option>
+                                    <option value="inativa" {{ $sala->situacao === 'Inativa' ? 'selected' : '' }}>Inativa</option>
                                   </select>
                                 </div>
-                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <button type="submit" class="button-green">Salvar</button>
                               </form>
                             </div>
                           </div>
@@ -119,8 +120,10 @@
   <div class="row justify-content-center">
     <div class="col">
       <div class="box__no-border no-margin-bottom title-bg" style="background-color: #f1f1f1;">
-        <a href="#" class="button-blue text-decoration-none float-end fw-bold me-2" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal"><i class="fas fa-plus"></i>
-          Nova Sala</a>
+        <a href="#" class="button-blue text-decoration-none float-end" style="font-size: 16px;" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
+          
+          Nova Sala
+        </a>
       </div>
     </div>
   </div>
@@ -131,37 +134,47 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h5>
+        <h5 class="modal-title fw-bold" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="d-flex justify-content-center mt-1">
+        <span class="fst-italic" style="font-size: 14px; color: #374151;">Campos marcados com <span class="span-warning">*</span> são obrigatórios</span>
       </div>
 
       <div class="modal-body">
         <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-              <label for="nome">Sala</label>
-              <input type="text" name="nome" id="nome" class="form-control" required>
-            </div>
+          @csrf
+          <div class="">
+            <label for="nome" class="fw-bold">Sala<span class="span-warning">*</span>:</label>
+            <input type="text" name="nome" id="nome" class="input-custom" required>
+          </div>
 
-            <div class="form-group">
-              <label for="descricao">Descrição/Localização</label>
-              <input type="text" name="descricao" id="descricao" class="form-control" required>
-            </div>
+          <div class="mt-4">
+            <label for="descricao" class="fw-bold">Descrição/ Localização<span class="span-warning">*</span>:</label>
+            <input type="text" name="descricao" id="descricao" class="input-custom" required>
+          </div>
 
-            <div class="form-group">
-              <label for="situacao">Situação</label>
-              <select name="situacao" id="situacao" class="form-control form-select" required>
+          <div class="row mt-4">
+            <div class="col-3">
+              <label for="situacao" class="fw-bold">Situação<span class="span-warning">*</span>:</label>
+              <select name="situacao" id="situacao" class="form-select" required>
                 <option value="ativa">Ativa</option>
                 <option value="inativa">Inativa</option>
               </select>
             </div>
 
-          <div class="form-group">
-            <label for="imagem">Imagem</label>
-            <input type="file" name="imagem" id="imagem" class="form-control" required>
+            <div class="col-9">
+              <label for="imagem" class="fw-bold">Imagem<span class="span-warning">*</span>:</label>
+
+              <input type="file" name="imagem" id="imagem" class="input-custom" required>
+            </div>
           </div>
 
-          <button type="submit" class="btn btn-success">Salvar</button>
+          <div class="text-end mt-4">
+            <button type="submit" class="button-green" style="margin-right: 0 !important; font-size: 16px;">Salvar</button>
+          </div>
+
         </form>
       </div>
     </div>

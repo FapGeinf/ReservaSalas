@@ -1,10 +1,22 @@
 body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-control {
-  font-family: sans-serif; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
+  font-family: sans-serif !important; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
+}
+
+h1, h2, h3, h4, h5, h6, td, th {
+  color: #374151 !important;
+}
+
+.span-warning {
+  color: #e5534b;
+}
+
+.modal-content {
+  border-radius: 0 !important;
 }
 
 .table-bg {
   color: #fff !important;
-  background-color: #356b96 !important;
+  background-color: #255957 !important;
 }
 
 .border-top-none {
@@ -19,7 +31,7 @@ body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-c
 }
 
 .border-table {
-  border: 2px solid #c0c4c9;
+  border: 1.5px solid #c0c4c9;
 }
 
 .box {
@@ -105,53 +117,12 @@ label {
 
 /* BOTÕES */
 
-.button-green {
-  background-color: #10b981;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-right: 10px;
-  transition: background-color 0.3s;
-}
-
-.button-green:hover {
-  background-color: #0ea271;
-}
-
-.button-grey {
-  background-color: #6b7280;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.button-grey:hover {
-  background-color: #4b5563;
-}
-
-.button-blue {
-  background-color: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.button-blue:hover {
-  background-color: #1d4ed8;
-}
-
-.button-yellow, .button-red {
+.button-green,
+.button-green,
+.button-yellow,
+.button-grey,
+.button-blue,
+.button-red {
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -162,6 +133,26 @@ label {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
+}
+
+.button-blue {
+  background-color: #2563eb;
+}
+
+.button-blue:hover {
+  background-color: #1d4ed8;
+}
+
+.button-green {
+  background-color: #10b981;
+}
+
+.button-green:hover {
+  background-color: #0ea271;
+}
+
+.button-grey:hover {
+  background-color: #6b7280;
 }
 
 .button-yellow {
@@ -175,7 +166,6 @@ label {
 .button-yellow i, .button-red i {
   font-size: 16px;
 }
-
 
 .box {
   background: #fff;
