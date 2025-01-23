@@ -93,13 +93,17 @@
             <td class="text-center">{{ $reserva->id }}</td>
             <td>
                 <div class="d-flex align-items-center">
-                    <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
-                    </div>
-                </div>
-            </td>
-            <td>
+                @if($reserva->sala && $reserva->sala->imagem)
+            <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
+          @else
+            <p>Imagem não disponível</p>
+          @endif
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+          </div>
+        </div>
+      </td>
+      <td>
                 <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
             </td>
             <td>
