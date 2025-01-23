@@ -72,7 +72,7 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="editarSalaModalLabel{{ $sala->id }}">Editar Sala</h5>
+                              <h5 class="modal-title fw-bold" id="editarSalaModalLabel{{ $sala->id }}">Editar Sala</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
           
@@ -80,24 +80,28 @@
                               <form action="{{ route('salas.update', $sala) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <div class="form-group">
-                                  <label for="nome{{ $sala->id }}">Nome</label>
-                                  <input type="text" name="nome" id="nome{{ $sala->id }}" class="form-control" value="{{ $sala->nome }}" required>
+                                <div class="">
+                                  <label for="nome{{ $sala->id }}" class="fw-bold">Nome:</label>
+                                  <input type="text" name="nome" id="nome{{ $sala->id }}" class="input-custom" value="{{ $sala->nome }}" required>
                                 </div>
           
-                                <div class="form-group">
-                                  <label for="descricao{{ $sala->id }}">Descrição/Localização</label>
-                                  <input type="text" name="descricao" id="descricao{{ $sala->id }}" class="form-control" value="{{ $sala->descricao }}" required>
+                                <div class="mt-4">
+                                  <label for="descricao{{ $sala->id }}" class="fw-bold">Descrição/ Localização:</label>
+                                  <input type="text" name="descricao" id="descricao{{ $sala->id }}" class="input-custom" value="{{ $sala->descricao }}" required>
                                 </div>
           
-                                <div class="form-group">
-                                  <label for="situacao{{ $sala->id }}">Situação</label>
-                                  <select name="situacao" id="situacao{{ $sala->id }}" class="form-control" required>
+                                <div class="mt-4 col-5">
+                                  <label for="situacao{{ $sala->id }}" class="fw-bold">Situação:</label>
+                                  <select name="situacao" id="situacao{{ $sala->id }}" class="form-select" required>
                                     <option value="ativa" {{ $sala->situacao === 'Ativa' ? 'selected' : '' }}>Ativa</option>
                                     <option value="inativa" {{ $sala->situacao === 'Inativa' ? 'selected' : '' }}>Inativa</option>
                                   </select>
                                 </div>
-                                <button type="submit" class="button-green">Salvar</button>
+
+                                <div class="d-flex justify-content-end mt-4">
+                                  <button type="submit" class="button-green fs-16">Salvar</button>
+                                </div>
+                                
                               </form>
                             </div>
                           </div>
@@ -167,12 +171,12 @@
             <div class="col-9">
               <label for="imagem" class="fw-bold">Imagem<span class="span-warning">*</span>:</label>
 
-              <input type="file" name="imagem" id="imagem" class="input-custom" required>
+              <input type="file" name="imagem" id="imagem" class="input-custom" style="padding: 8px;" required>
             </div>
           </div>
 
           <div class="text-end mt-4">
-            <button type="submit" class="button-green" style="margin-right: 0 !important; font-size: 16px;">Salvar</button>
+            <button type="submit" class="button-green fs-16" style="margin-right: 0 !important;">Salvar</button>
           </div>
 
         </form>
