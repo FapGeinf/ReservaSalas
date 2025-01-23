@@ -23,14 +23,14 @@
 }
 
 .form-select {
-  display: block;
-  border-radius: 2px;
-  border: 1px solid #aaa;
-  color: #555;
-  padding: 11px;
-  font-size: 16px;
-  transition: all .2s;
-  width: 100%;
+  display: block !important;
+  border-radius: 2px !important;
+  border: 1px solid #aaa !important;
+  color: #555 !important;
+  padding: 11px !important;
+  font-size: 16px !important;
+  transition: all .2s !important;
+  width: 100% !important;
 }
 
 .input-custom:hover, .form-select:hover {
@@ -63,4 +63,8 @@
 
 .fs-19 {
   font-size: 19px;
+}
+
+.pointer {
+  cursor: pointer;
 }

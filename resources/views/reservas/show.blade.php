@@ -16,7 +16,6 @@
           <div class="text-center">
             <span class="fs-19" style="color: #374151;">Reserva {{ $reserva->id }}</span>
           </div>
-          
         </div>
       </div>
     </div>
