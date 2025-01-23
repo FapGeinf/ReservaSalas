@@ -40,16 +40,17 @@
                 <tbody>
                   @foreach($salas as $sala)
                     <tr>
-                      <td class="text-start td-bg border-none text-center">
+                      <td class="td-bg border-none text-center">
                         {{ $sala->nome }}
                       </td>
 
-                      <td class="text-start td-bg border-none text-center">
+                      <td class="td-bg border-none text-center">
                         {{ $sala->descricao }}
                       </td>
 
-                      <td class="text-start td-bg border-none text-center">
+                      <td class="td-bg border-none text-center">
                         {{ $sala->situacao }}
+                        {{-- <x-status-indicator-green /> --}}
                       </td>
 
                       <td class="text-center border-none">
@@ -81,7 +82,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="">
-                                  <label for="nome{{ $sala->id }}" class="fw-bold fs-16" style="font-size: 16px">Sala:</label>
+                                  <label for="nome{{ $sala->id }}" class="fw-bold fs-16">Sala:</label>
                                   <input type="text" name="nome" id="nome{{ $sala->id }}" class="input-custom" value="{{ $sala->nome }}" required>
                                 </div>
           
