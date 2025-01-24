@@ -1,9 +1,10 @@
 <x-app-layout>
 </x-app-layout> 
 
-<div class="container">
-  <h2>Editar Perfil</h2>
-  <div class="row">
+<!-- <link rel="stylesheet" href="{{ asset('css/editar.perfil.css') }}"> -->
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="row w-100">
 
     <!-- Lado Esquerdo -->
     <div class="col-lg-6"></div>
@@ -11,6 +12,9 @@
     <!-- Lado Direito -->
     <div class="col-lg-6 d-flex align-items-center justify-content-center right-side form-box">
       <div class="form-3-wrapper">
+
+      
+        <h2 class="text-center mb-4">Editar Perfil</h2>
 
         @if (session('status'))
           <div class="alert alert-success">
@@ -92,14 +96,14 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
           </div>
 
-          <button type="submit" class="login-btn w-50 mt-4 mb-3">Atualizar Perfil</button>
+          <button type="submit" class="login btn btn-primary w-100">Atualizar Perfil</button>
 
         </form>
 
-        <div class="text-start d-flex register-link mt-3">
+        <!-- <div class="text-start d-flex register-link mt-3">
           <p style="margin-right: 5px;">Deseja sair?</p>
           <a href="{{ route('logout') }}">Sair</a>
-        </div>
+        </div> -->
 
       </div>
     </div>

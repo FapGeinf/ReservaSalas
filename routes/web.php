@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
         'index' => 'salas', // Nome personalizado para a rota index
     ]);
 
+    
+
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
         Route::get('/', [ReservaController::class, 'index'])->name('reservas.index');

@@ -15,8 +15,6 @@
       <h2 class="fw-bold fst-italic">Salas</h2>
     </div>
 
-    
-
     <div class="row">
       @foreach($salas as $index => $sala)
 
@@ -66,6 +64,22 @@
   </div>
 </div>
 
+<div class="alert-container">
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+</div>
+
+
+
 <div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
   {{-- <div class="text-center mb-3">
     <h2 class="fw-bold fst-italic">Reservas</h2>
@@ -95,13 +109,17 @@
             <td class="text-center">{{ $reserva->id }}</td>
             <td>
                 <div class="d-flex align-items-center">
-                    <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">{{ $reserva->sala->nome }}</p>
-                    </div>
-                </div>
-            </td>
-            <td>
+                @if($reserva->sala && $reserva->sala->imagem)
+            <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded" />
+          @else
+            <p>Imagem não disponível</p>
+          @endif
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+          </div>
+        </div>
+      </td>
+      <td>
                 <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
             </td>
             <td>
@@ -130,7 +148,8 @@
             @csrf
             @method('DELETE')
             <button type="button" class="button-all button-bg-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i class="fa-solid fa-trash"></i>
-            </button>
+           </button>
+
          </form>
       </td>
     </tr>
