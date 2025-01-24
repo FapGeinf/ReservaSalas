@@ -15,18 +15,6 @@
       <h2 class="fw-bold fst-italic">Salas</h2>
     </div>
 
-    @if (session('error'))
-      <div class="alert alert-danger">
-        {{ session('error') }}
-      </div>
-    @endif
-
-    @if (session('success'))
-      <div class="alert alert-success">
-        {{ session('success') }}
-      </div>
-    @endif
-
     <div class="row">
       @foreach($salas as $index => $sala)
 
@@ -63,6 +51,22 @@
     </div>
   </div>
 </div>
+
+<div class="alert-container">
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+</div>
+
+
 
 <div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
   {{-- <div class="text-center mb-3">
@@ -132,7 +136,8 @@
             @csrf
             @method('DELETE')
             <button type="button" class="button-all button-bg-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i class="fa-solid fa-trash"></i>
-            </button>
+           </button>
+
          </form>
       </td>
     </tr>
