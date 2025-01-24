@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UnidadeSeeder::class,
             SalasTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
     }
 }
