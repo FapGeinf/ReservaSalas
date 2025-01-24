@@ -73,15 +73,22 @@
               </div>
             </div>
 
-            <div class="mb-3">
+
+            <div class="mb-3 form-box">
               <label for="unidade_fk">Unidade:</label>
-              <select name="unidade_fk" id="unidade_fk" class="form-select" required>
-                <option value="">Selecione a unidade</option>
-                @foreach($unidades as $unidade)
-                  <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-                @endforeach
-              </select>
-            </div>
+
+           <div class="input-group">
+            <span class="input-group-text">
+         <i class="bi bi-building"></i>
+        </span>
+            <select name="unidade_fk" id="unidade_fk" class="form-select" required>
+             <option value="">Selecione a unidade</option>
+               @foreach($unidades as $unidade)
+               <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+               @endforeach
+            </select>
+           </div>
+         </div>
 
             <!-- Campo para setor -->
             {{-- <div class="mb-3 form-box">
