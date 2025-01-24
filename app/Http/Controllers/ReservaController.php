@@ -65,9 +65,6 @@ class ReservaController extends Controller
     return redirect()->route('reservas.index')->with('success', 'Reserva criada com sucesso!');
 }
 
-
-
-
     public function show(Reserva $reserva)
     {
         return view('reservas.show', compact('reserva'));
@@ -94,7 +91,7 @@ class ReservaController extends Controller
         $dataFimCompleto = $request->input('data_inicio') . ' ' . $request->input('data_fim');
     
         $conflito = Reserva::where('sala_fk', $request->input('sala_id'))
-            ->where('id', '!=', $reserva->id) // Ignorar a reserva atual ao verificar conflitos
+            ->where('id', '!=', $reserva->getKey()) // Ignorar a reserva atual ao verificar conflitos
             ->where(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
                 $query->whereBetween('data_inicio', [$dataInicioCompleto, $dataFimCompleto])
                       ->orWhereBetween('data_fim', [$dataInicioCompleto, $dataFimCompleto])
@@ -121,14 +118,16 @@ class ReservaController extends Controller
     
 
     public function destroy(Reserva $reserva)
-    {
-        try {
-            $reserva->delete(); // Excluir a reserva do banco de dados
-            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-        } catch (\Exception $e) {
-            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
-        }
+{
+    try {
+        $reserva->delete();
+        return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+    } catch (\Exception $e) {
+        return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
     }
+}
+
+    
         // $reserva->delete();
         // return redirect()->route('reservas.index');
     
