@@ -51,34 +51,19 @@
     </div>
 
     @if (session('error'))
-      <div class="alert alert-danger">
+    <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
         {{ session('error') }}
-      </div>
-    @endif
+    </div>
+@endif
 
-    @if (session('success'))
-      <div class="alert alert-success">
+@if (session('success'))
+    <div class="alert alert-success text-center mx-auto" style="max-width: 30%;">
         {{ session('success') }}
-      </div>
-    @endif
+    </div>
+@endif
+
   </div>
 </div>
-
-<div class="alert-container">
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-</div>
-
-
 
 <div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
   {{-- <div class="text-center mb-3">
