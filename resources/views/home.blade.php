@@ -26,11 +26,11 @@
       </div>
 
 
-          <div class="card-body card-fofinho">
+      <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column">
               <span>Local</span>
               <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
-              <span class="mt-3" style="color: #969696; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+              <span class="mt-3" style="color:rgb(134, 132, 132); font-size: 14px;"><p class="card-text">{{ $sala->descricao }}</p></span>
             </div>
           </div>
 
