@@ -118,14 +118,15 @@ class ReservaController extends Controller
     
 
     public function destroy(Reserva $reserva)
-{
-    try {
-        $reserva->delete();
-        return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-    } catch (\Exception $e) {
-        return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+    {
+        try {
+            $reserva->delete();
+            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+        }
     }
-}
+    
 
     
         // $reserva->delete();
