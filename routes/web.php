@@ -45,6 +45,9 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+Route::delete('/reservas/{id}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
+
+
 // Rotas de registro
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); 
 Route::post('register', [RegisteredUserController::class, 'store']);
