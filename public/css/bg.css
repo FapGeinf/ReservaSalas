@@ -1,5 +1,7 @@
 body {
   background-image: url('/img/bg-main.jpg');
   background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   /* background-color: #e3e0f8; */
 }

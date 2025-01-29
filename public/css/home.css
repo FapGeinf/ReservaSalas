@@ -1,6 +1,8 @@
 body {
   background-image: url('/bg-white.jpg');
   background-size: cover;
+  background-attachment: fixed;
+
 }
 
 .maxw-1000 {
