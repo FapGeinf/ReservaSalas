@@ -27,8 +27,8 @@
             @if($salas->isEmpty())
               <p>Não há salas cadastradas no momento.</p>
             @else
-              <table class="table table-bordered" style="border: 1px solid #c0c4c9; font-size: 17px; margin-bottom: 0;">
-                <thead style="border: 1px solid #c0c4c9">
+            <table class="table table-bordered table-striped" style="border: 1px solid #c0c4c9; font-size: 17px; margin-bottom: 0;">
+            <thead style="border: 1px solid #c0c4c9;">
                   <tr>
                     <th class="text-center table-bg border-none">SALA</th>
                     <th class="text-center table-bg border-none">DESCRIÇÃO</th>

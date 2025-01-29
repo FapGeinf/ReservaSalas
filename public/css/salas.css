@@ -166,10 +166,18 @@ label {
 }
 
 .button-yellow {
-  background-color: #f59e0b;
+  background-color: #F7C548;
+}
+
+.button-yellow:hover { 
+background-color: #e0b139;
 }
 
 .button-red {
+  background-color: #b22720;
+}
+
+.button-red:hover {
   background-color: #e5534b;
 }
 
