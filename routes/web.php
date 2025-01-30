@@ -11,6 +11,17 @@ Route::middleware('auth')->group(function () {
     // Página "Home"
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+
+   // Rotas acessíveis por todos os usuários autenticados
+    Route::middleware(['auth'])->group(function () {
+      Route::get('/home', [HomeController::class, 'index'])->name('home');
+      Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
+});
+
+// Rotas exclusivas para administradores
+    Route::middleware(['auth', 'admin'])->group(function () {
+       Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+});
     // Dashboard (redireciona para a raiz)
     Route::get('/dashboard', function () {
         return redirect('home');

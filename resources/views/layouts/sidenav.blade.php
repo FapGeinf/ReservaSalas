@@ -26,11 +26,14 @@
       </li>
      
       <li class="menuItem">
+       @if(Auth::user()->is_admin)
         <a href="{{ route('salas') }}" class="menuOption">
-          <i class="fa-solid fa-cube"></i>
-          <h6 class="menuText fw-bold">Salas</h6>
+            <i class="fa-solid fa-cube"></i>
+            <h6 class="menuText fw-bold">Salas</h6>
         </a>
-      </li>
+    @endif
+</li>
+
 
       <!-- <li class="menuItem">
         <button class="menuOption">
