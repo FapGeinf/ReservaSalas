@@ -30,6 +30,7 @@ class ReservaController extends Controller
 
     public function store(Request $request)
 {
+    dd($request);
     $request->validate([
         'sala_fk' => 'required|exists:salas,id',
         'data_reserva' => 'required|date',
@@ -149,8 +150,6 @@ class ReservaController extends Controller
         return redirect()->route('reservas.index')->with('status', 'Reserva cancelada com sucesso!'); 
     } 
 
-    
-  
 
 public function getReservasDoDia($salaId)
 {

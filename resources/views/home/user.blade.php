@@ -2,7 +2,7 @@
 @section('content')
 
 
-<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
@@ -36,17 +36,25 @@
         </div>
         </div>
 
-        <div class="mx-auto py-3">
-        <button type="button" class="button-68" data-bs-toggle="modal" data-bs-target="#criarReservaModal"
-          onclick="selecionarSala({{ $sala->id }})">
-          Reservar
-        </button>
-        </div>
+        <div class="d-flex justify-content-center gap-3 py-3">
+       <button 
+         type="button" 
+         class="button-68" 
+         data-bs-toggle="modal" 
+         data-bs-target="#criarReservaModal" 
+         onclick="selecionarSala({{ $sala->id }})">
+         Reservar
+       </button>
 
-        <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#verReservasModal"
-        onclick="carregarReservas({{ $sala->id }})">
-        Ver Reservas
-        </button>
+       <button 
+          type="button" 
+          class="button-69" 
+          data-bs-toggle="modal" 
+          data-bs-target="#verReservasModal" 
+          onclick="carregarReservas({{ $sala->id }})">
+          Ver Reservas
+       </button>
+     </div>
 
 
       </div>
@@ -239,39 +247,46 @@
   }
 
   function carregarReservas(salaId) {
-    $('#reservasContainer').html('<p class="text-center">Carregando reservas...</p>');
+  $('#reservasContainer').html('<p class="text-center">🔄 Carregando reservas...</p>');
 
-    $.ajax({
-      url: '/reservas/dia/' + salaId,
-      type: 'GET',
-      success: function (reservas) {
-        let html = '';
+  $.ajax({
+    url: '/reservas/dia/' + salaId,
+    type: 'GET',
+    success: function (reservas) {
+      let html = '';
 
-        if (reservas.length === 0) {
-          html = '<p class="text-center">Nenhuma reserva para hoje.</p>';
-        } else {
-          html += '<ul class="list-group">';
-          reservas.forEach(reserva => {
-            html += `<li class="list-group-item">
-              <strong>Hora:</strong> ${reserva.data_inicio.split(' ')[1]} - ${reserva.data_fim.split(' ')[1]} <br>
-              <strong>Reservado por:</strong> ${reserva.user ? reserva.user.name : 'N/A'}
-            </li>`;
-          });
-          html += '</ul>';
-        }
+      if (reservas.length === 0) {
+        html = '<p class="text-center">❌ Nenhuma reserva para hoje.</p>';
+      } else {
+        // Criar um container flexível para exibir em formato de grid
+        html += '<div class="reservas-grid">';
 
-        $('#reservasContainer').html(html);
-      },
-      error: function () {
-        $('#reservasContainer').html('<p class="text-center text-danger">Erro ao carregar reservas.</p>');
+        reservas.forEach(reserva => {
+          const unidade = reserva.user?.unidade ?? 'Unidade Desconhecida';
+          const usuario = reserva.user ? reserva.user.name : 'N/A';
+          const horaInicio = reserva.data_inicio.split(' ')[1];
+          const horaFim = reserva.data_fim.split(' ')[1];
+
+          // Cada reserva será exibida como um card separado
+          html += `<div class="reserva-card">
+                    <h5 class="text-primary">🏢 Unidade: ${unidade}</h5>
+                    <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
+                    <p><strong>👤 Reservado por:</strong> ${usuario}</p>
+                  </div>`;
+        });
+
+        html += '</div>'; // Fechar o container grid
       }
-    });
-  }
+
+      $('#reservasContainer').html(html);
+    },
+    error: function () {
+      $('#reservasContainer').html('<p class="text-center text-danger">❌ Erro ao carregar reservas.</p>');
+    }
+  });
+}
+  
 </script>
-
-
-
-
 <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

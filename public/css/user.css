@@ -1,0 +1,510 @@
+body {
+    background-image: url('/bg-white.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  
+  }
+  
+  .maxw-1000 {
+    max-width: 90%;
+  }
+  
+  .table.dataTable {
+    margin-bottom: 0 !important;
+  }
+  
+  .custom__form_create {
+    background-color: transparent;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+  }
+  
+  .padding__left4 {
+    padding-left: 2rem;
+  }
+  
+  .card-custom-width {
+    width: 65%;
+  }
+  
+  .form-wrapper {
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    padding-left: 4rem !important;
+  }
+  
+  .dataTables_wrapper .dataTables_filter input {
+    background-color: #fff !important;
+  }
+  
+  .dataTables_wrapper .dataTables_length {
+    margin-bottom: 1rem !important;
+  }
+  
+  .p-30 {
+    padding: 0 30px;
+  }
+  
+  .border__right {
+    border-right: 1px solid #ccc;
+  }
+  
+  .card {
+    background-color: #f7f7f7;
+    transition: .2s;
+    min-height: 325px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    border: none;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.20);
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 30px;
+  }
+  
+  .bg__card_pattern {
+    background-color: #4facff;
+  }
+  
+  .bg__card_pattern_footer {
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fit-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .eixo__img {
+    width: 2.5rem;
+    margin-right: .4rem;
+  }
+  
+  .title-teste {
+    font-size: 16px;
+    color: #1ab394;
+  }
+  
+  h4, h3 {
+    color: #000;
+  }
+  
+  .text-light {
+    color: #f8f9fa !important;
+  }
+  
+  .text-center {
+    text-align: center !important;
+  }
+  
+  .d-flex {
+    display: flex !important;
+  }
+  
+  .justify-content-between {
+    justify-content: space-between !important;
+  }
+  
+  .align-items-center {
+    align-items: center !important;
+  }
+  
+  .mt-4 {
+    margin-top: 1.5rem !important;
+  }
+  
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  
+  .p-3 {
+    padding: 1rem !important;
+  }
+  
+  .p-4 {
+    padding: 1.5rem !important;
+  }
+  
+  .w-100 {
+    width: 100% !important;
+  }
+  
+  .th__title {
+    color: #fff !important;
+    background-color: #255957 !important;
+  }
+  
+  .mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  #reservasTable {
+    border: 1px solid #959595 !important;
+    width: 100% !important;
+  }
+  
+  table.dataTable thead th {
+    border-bottom: 1px solid #959595 !important;
+  }
+  
+  .button-all {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #1ab394;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.5;
+    outline: none;
+    overflow: hidden;
+    padding: 7px 18px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  
+  .button-bg-blue {
+    background-color: #45aeff;
+  }
+  
+  .button-bg-blue:hover {
+    background-color: #2e7fbd;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+  }
+  
+  .button-bg-yellow {
+    background-color: #F7C548;
+  }
+  
+  .button-bg-yellow:hover {
+    background-color: #e0b139;
+  }
+  
+  .button-bg-red {
+    background-color: #b22720;
+  }
+  
+  .button-bg-red:hover {
+    background-color: #8a1b15;
+  }
+  
+  .button-68 {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #1ab394;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    outline: none;
+    overflow: hidden;
+    padding: 8px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  
+  .button-69 {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #1ab394;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    outline: none;
+    overflow: hidden;
+    padding: 4px 8px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  
+  .button-68:hover {
+    background-color: #0f8d74;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+  }
+  
+  .button-68:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+  }
+  
+  .button-68:hover {
+    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+  }
+  
+  .button-69:hover {
+    background-color: #0f8d74;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+  }
+  
+  .button-69:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+  }
+  
+  .button-69:hover {
+    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+  }
+  
+  #reservasTable_paginate {
+    padding-bottom: 1.5rem;
+  }
+  
+  /* BOTÕES DE PAGINAÇÃO */
+  .dataTables_wrapper .dataTables_info {
+    line-height: 39px;
+    padding-bottom: 2rem;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #d2d2d2 !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background-color: #d2d2d2 !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate {
+    padding-top: 1rem !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #ececec !important;
+    border-radius:5px !important;
+    padding: 0.1em .6em !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #000 !important;
+    background: #d2d2d2 !important;
+    border: 1px solid transparent !important;
+  }
+  /* BOTÕES DE PAGINAÇÃO END */
+  
+  /* BOTÃO DE PAGINAÇÃO */
+  .dataTables_wrapper .dataTables_length select {
+    background-color: #fff !important;
+    border-radius: 8px !important;
+  }
+  
+  .dataTables_scrollBody {
+    border-bottom: none !important;
+  }
+  
+  
+  .alert-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+   
+  }
+  
+  .alert {
+    max-width: 400px;       
+    width: 100%;            
+    text-align: center;     
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    padding: 20px;          
+    border-radius: 8px;     
+  }
+  
+  /* Estiliza o modal */
+  .custom-modal {
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: #fff;
+  }
+  
+  /* Cabeçalho do modal */
+  .custom-header {
+    background-color: #f8fafa;
+    color: rgb(49, 49, 49);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  /* Container das reservas */
+  .reservas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+  }
+  
+  /* Footer do modal */
+  .custom-footer {
+    background: #f8fafa;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  /* Estiliza o botão do footer */
+  .custom-footer .btn {
+    width: 120px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    
+  }
+  .btn-1 {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #1ab394;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    outline: none;
+    overflow: hidden;
+    padding: 6px 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+  
+  }
+  
+  .btn-1:hover {
+    background-color: #0f8d74;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+  }
+  
+  .btn-1:active {
+    transform: translateY(2px);
+    transition-duration: .35s;
+  }
+  
+  .btn-1:hover {
+    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+  }
+  
+  /* Container principal das reservas */
+  .reservas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsivo */
+    gap: 15px; /* Espaço entre os itens */
+    padding: 10px;
+    max-height: 400px; /* Definir altura máxima */
+    overflow-y: auto; /* Ativar scroll se necessário */
+    background: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  /* Cada cartão de reserva */
+  .reserva-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Efeito ao passar o mouse */
+  .reserva-card:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Título da reserva */
+  .reserva-card h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #007bff;
+  }
+  
+  /* Informações da reserva */
+  .reserva-card p {
+    font-size: 14px;
+    color: #333;
+  }
+  
