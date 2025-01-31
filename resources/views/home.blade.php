@@ -45,6 +45,16 @@
             </button>
           </div>
 
+          <button 
+  type="button" 
+  class="button" 
+  data-bs-toggle="modal" 
+  data-bs-target="#verReservasModal" 
+  onclick="carregarReservas({{ $sala->id }})">
+  Ver Reservas
+</button>
+
+
         </div>
       </div>
       @endforeach
@@ -224,9 +234,56 @@
       const deleteForm = document.getElementById('deleteForm');
       deleteForm.action = action;
   }
+  
+  function carregarReservas(salaId) {
+    $('#reservasContainer').html('<p class="text-center">Carregando reservas...</p>');
+
+    $.ajax({
+      url: '/reservas/dia/' + salaId,
+      type: 'GET',
+      success: function (reservas) {
+        let html = '';
+
+        if (reservas.length === 0) {
+          html = '<p class="text-center">Nenhuma reserva para hoje.</p>';
+        } else {
+          html += '<ul class="list-group">';
+          reservas.forEach(reserva => {
+            html += `<li class="list-group-item">
+              <strong>Hora:</strong> ${reserva.data_inicio.split(' ')[1]} - ${reserva.data_fim.split(' ')[1]} <br>
+              <strong>Reservado por:</strong> ${reserva.user ? reserva.user.name : 'N/A'}
+            </li>`;
+          });
+          html += '</ul>';
+        }
+
+        $('#reservasContainer').html(html);
+      },
+      error: function () {
+        $('#reservasContainer').html('<p class="text-center text-danger">Erro ao carregar reservas.</p>');
+      }
+    });
+  }
 </script>
 
 
+
+
+<div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="verReservasModalLabel">Reservas do Dia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="reservasContainer">
+          <p class="text-center">Carregando reservas...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 @endsection

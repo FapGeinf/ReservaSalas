@@ -68,5 +68,8 @@ Route::post('/logout', function () {
     return redirect('/login'); // Redirecione para a página de login ou outra página desejada
 })->name('logout');
 
+Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia']);
+
+
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';

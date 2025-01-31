@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Models\Sala;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
+
 class ReservaController extends Controller
 {
     public function index()
@@ -147,5 +150,21 @@ class ReservaController extends Controller
     } 
 
     
+  
+
+public function getReservasDoDia($salaId)
+{
+    $hoje = Carbon::now()->toDateString(); // Pega a data atual no formato YYYY-MM-DD
+
+    $reservas = Reserva::where('sala_fk', $salaId)
+        ->whereDate('data_inicio', $hoje)
+        ->with('user')
+        ->get();
+
+    return response()->json($reservas);
+}
+
+
+
 }
 
