@@ -511,7 +511,7 @@ body {
   /* BOTÕES */
 
 .button-green,
-.button-green,
+.button-green-index,
 .button-yellow,
 .button-grey,
 .button-blue,
@@ -542,6 +542,15 @@ body {
 
 .button-green:hover {
   background-color: #0ea271;
+}
+
+.button-green-index {
+  font-size: 15px;
+  background-color: #27b394;
+}
+
+.button-green-index:hover {
+  background-color: #1b8d74;
 }
 
 .button-grey:hover {

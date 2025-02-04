@@ -36,7 +36,7 @@
         <div class="d-flex justify-content-center gap-3 py-3">
        <button 
          type="button" 
-         class="button-68" 
+         class="button-green-index" 
          data-bs-toggle="modal" 
          data-bs-target="#criarReservaModal" 
          onclick="selecionarSala({{ $sala->id }})">
@@ -45,10 +45,11 @@
 
        <button 
           type="button" 
-          class="button-69" 
+          class="button-blue" 
           data-bs-toggle="modal" 
           data-bs-target="#verReservasModal" 
-          onclick="carregarReservas({{ $sala->id }})">
+          onclick="carregarReservas({{ $sala->id }})"
+          style="font-size: 15px;">
           Ver Reservas
        </button>
      </div>
