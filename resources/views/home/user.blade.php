@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
-
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -27,7 +28,7 @@
             <div class="title-teste text-center d-flex flex-column">
               <span>Local</span>
 
-              <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
+              <h3 class="fw-bold text-uppercase" style="white-space: nowrap;">{{ $sala->nome }}</h3>
 
               <span class="mt-2">Descrição</span>
               <span class="" style="color:rgb(134, 132, 132); font-size: 14px;">
@@ -60,8 +61,6 @@
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
     @endforeach
@@ -169,13 +168,16 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="criarReservaModalLabel">Criar Reserva</h5>
+        <h5 class="modal-title fw-bold" id="criarReservaModalLabel">Criar Reserva</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="d-flex justify-content-center mt-1">
+        <span class="fst-italic" style="font-size: 14px; color: #374151;">Campos marcados com <span class="span-warning">*</span> são obrigatórios</span>
       </div>
 
       <div class="modal-body">
@@ -184,18 +186,18 @@
           <input type="hidden" name="sala_fk" id="sala_fk">
 
           <div class="mb-3">
-            <label for="data_reserva" class="form-label">Data</label>
-            <input type="date" name="data_reserva" id="data_reserva" class="form-control" required>
+            <label for="data_reserva" class="fw-bold">Data:</label>
+            <input type="date" name="data_reserva" id="data_reserva" class="input-custom" required>
           </div>
 
           <div class="mb-3">
-            <label for="hora_inicio" class="form-label">Hora Início</label>
-            <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
+            <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
+            <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
           </div>
 
           <div class="mb-3">
-            <label for="hora_termino" class="form-label">Hora Término</label>
-            <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
+            <label for="hora_termino" class="fw-bold">Hora de Término:</label>
+            <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
           </div>
 
           <!-- Campo oculto para unidade_fk -->
@@ -205,8 +207,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
+        <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

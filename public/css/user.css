@@ -1,3 +1,11 @@
+body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-control {
+  font-family: sans-serif !important; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
+}
+
+h1, h2, h3, h4, h5, h6, td, th {
+  color: #374151 !important;
+}
+
 body {
     background-image: url('/bg-white.jpg');
     background-size: cover;
@@ -556,8 +564,12 @@ body {
   background-color: #1b8d74;
 }
 
-.button-grey:hover {
+.button-grey {
   background-color: #6b7280;
+}
+
+.button-grey:hover {
+  background-color: #575d68;
 }
 
 .button-yellow {
@@ -580,4 +592,17 @@ background-color: #e0b139;
 .button-yellow i,
 .button-red i {
   font-size: 16px;
+}
+
+.span-warning {
+  color: #e5534b;
+}
+
+.modal-content {
+  border-radius: 0 !important;
+}
+
+.modal-footer {
+  border-top: 0;
+  background-color: #f1f1f1;
 }
