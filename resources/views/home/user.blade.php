@@ -10,10 +10,7 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 <div class="padding__left4">
-  <div class="p-30 mx-auto" style="width: 80%">
-    <div class="text-center mb-3">
-      <h2 class="fw-bold ">Salas</h2>
-    </div>
+  <div class="p-30 mx-auto mt-5" style="width: 80%">
 
     <div class="row">
       @foreach($salas as $index => $sala)
@@ -91,76 +88,83 @@
             <th colspan="7" class="text-center fs-4">Reservas</th>
           </tr>
           <tr class="text-center">
-            <th class="th__title">Id</th>
-            <th class="th__title">Sala</th>
-            <th class="th__title">Hora Início</th>
-            <th class="th__title">Hora Término</th>
-            <th class="th__title">Reservado Por</th>
-            <th class="th__title">Unidade</th>
-            <th class="th__title">Ações</th>
+            <th class="th__title">ID</th>
+            <th class="th__title">SALA</th>
+            <th class="th__title">HORA INÍCIO</th>
+            <th class="th__title">HORA TÉRMINO</th>
+            <th class="th__title">RESERVADO POR</th>
+            <th class="th__title">UNIDADE</th>
+            <th class="th__title">AÇÕES</th>
           </tr>
         </thead>
 
         <tbody>
           @foreach($reservas as $reserva)
-        <tr>
-        <td class="text-center">{{ $reserva->id }}</td>
-        <td>
-          <div class="d-flex align-items-center">
-          @if($reserva->sala && $reserva->sala->imagem)
-        <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px"
-        class="rounded" />
-      @else
-      <p>Imagem não disponível</p>
-    @endif
-          <div class="ms-3">
-            <p class="fw-bold mb-1">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
-          </div>
-          </div>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">
-          {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
-        </td>
-        <!-- <td class="text-center">
-          <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
-          <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
-          <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
-          </form>
-        </td> -->
-        <td class="text-center">
-          <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i
-            class="fas fa-info-circle"></i></a>
-          <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i
-            class="fa-regular fa-pen-to-square"></i></a>
+          <tr>
 
-          <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-          @csrf
-          @method('DELETE')
-          <button type="button" class="button-all button-bg-red" data-bs-toggle="modal"
-            data-bs-target="#confirmDeleteModal"
-            onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i
-            class="fa-solid fa-trash"></i>
-          </button>
+            <td class="text-center">{{ $reserva->id }}</td>
 
-          </form>
-        </td>
-        </tr>
-      @endforeach
+            <td>
+              <div class="d-flex align-items-center">
+              @if($reserva->sala && $reserva->sala->imagem)
+              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded"/>
+              @else
+                <p>Imagem não disponível</p>
+              @endif
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
+            </td>
+
+            <td>
+              <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
+            </td>
+
+            <td>
+              <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
+            </td>
+            
+            <td>
+              <p class="fw-normal mb-1">
+              {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
+            </td>
+            <!-- <td class="text-center">
+              <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
+              <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
+              <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </td> -->
+            <td class="text-center">
+              <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
+                <i class="fas fa-info-circle"></i>
+              </a>
+
+              <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
+
+              <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="button" class="button-red" data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal"
+                onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i
+                class="fa-solid fa-trash"></i>
+              </button>
+
+              </form>
+            </td>
+          </tr>
+          @endforeach
         </tbody>
-
       </table>
     </div>
   </div>

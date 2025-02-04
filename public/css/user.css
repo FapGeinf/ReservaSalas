@@ -508,3 +508,64 @@ body {
     color: #333;
   }
   
+  /* BOTÕES */
+
+.button-green,
+.button-green,
+.button-yellow,
+.button-grey,
+.button-blue,
+.button-red {
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.button-blue {
+  background-color: #2563eb;
+}
+
+.button-blue:hover {
+  background-color: #1d4ed8;
+}
+
+.button-green {
+  background-color: #10b981;
+}
+
+.button-green:hover {
+  background-color: #0ea271;
+}
+
+.button-grey:hover {
+  background-color: #6b7280;
+}
+
+.button-yellow {
+  background-color: #F7C548;
+}
+
+.button-yellow:hover { 
+background-color: #e0b139;
+}
+
+.button-red {
+  background-color: #b22720;
+}
+
+.button-red:hover {
+  background-color: #e5534b;
+}
+
+.button-blue i,
+.button-yellow i,
+.button-red i {
+  font-size: 16px;
+}

@@ -137,8 +137,8 @@
                 </form>
             </td> -->
             <td class="text-center">
-             <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
-             <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
+             <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue"><i class="fas fa-info-circle"></i></a>
+             <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
     
          <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
             @csrf
