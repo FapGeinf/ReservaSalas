@@ -2,9 +2,12 @@ body {
     background-image: url('/bg-white.jpg');
     background-size: cover;
     background-attachment: fixed;
-  
   }
-  
+
+  .card {
+    border-radius: 0 !important;
+  }
+
   .maxw-1000 {
     max-width: 90%;
   }

@@ -16,62 +16,68 @@
       @foreach($salas as $index => $sala)
 
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card border">
+        <div class="card border">
 
-        <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
-        <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+          <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
+            <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+          </div>
+
+
+          <div class="card-body card-fofinho">
+            <div class="title-teste text-center d-flex flex-column">
+              <span>Local</span>
+
+              <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
+
+              <span class="mt-2">Descrição</span>
+              <span class="" style="color:rgb(134, 132, 132); font-size: 14px;">
+                <p class="card-text">{{ $sala->descricao }}</p>
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body card-fofinho" style="background-color: #f1f1f1; padding: 10px 30px;">
+            <div class="title-teste text-center d-flex flex-column">
+              <div class="d-flex justify-content-center gap-3 py-2">
+                <button 
+                  type="button" 
+                  class="button-green-index" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#criarReservaModal" 
+                  onclick="selecionarSala({{ $sala->id }})">
+                  Reservar
+                </button>
+
+                <button 
+                  type="button" 
+                  class="button-blue" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#verReservasModal" 
+                  onclick="carregarReservas({{ $sala->id }})"
+                  style="font-size: 15px;">
+                  Ver Reservas
+                </button>
+              </div>
+            </div>
+          </div>
+
+          
         </div>
-
-
-        <div class="card-body card-fofinho">
-        <div class="title-teste text-center d-flex flex-column">
-          <span>Local</span>
-          <h3 class="fw-bold text-uppercase">{{ $sala->nome }}</h3>
-          <span class="mt-3" style="color:rgb(134, 132, 132); font-size: 14px;">
-          <p class="card-text">{{ $sala->descricao }}</p>
-          </span>
-        </div>
-        </div>
-
-        <div class="d-flex justify-content-center gap-3 py-3">
-       <button 
-         type="button" 
-         class="button-green-index" 
-         data-bs-toggle="modal" 
-         data-bs-target="#criarReservaModal" 
-         onclick="selecionarSala({{ $sala->id }})">
-         Reservar
-       </button>
-
-       <button 
-          type="button" 
-          class="button-blue" 
-          data-bs-toggle="modal" 
-          data-bs-target="#verReservasModal" 
-          onclick="carregarReservas({{ $sala->id }})"
-          style="font-size: 15px;">
-          Ver Reservas
-       </button>
-     </div>
-
-
-      </div>
       </div>
     @endforeach
     </div>
 
     @if (session('error'))
-    <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
-      {{ session('error') }}
-    </div>
-  @endif
+      <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
+        {{ session('error') }}
+      </div>
+    @endif
 
     @if (session('success'))
-    <div class="alert alert-success text-center mx-auto" style="max-width: 30%;">
-      {{ session('success') }}
-    </div>
-  @endif
-
+      <div class="alert alert-success text-center mx-auto" style="max-width: 30%;">
+        {{ session('success') }}
+      </div>
+    @endif
   </div>
 </div>
 
@@ -134,15 +140,7 @@
               <p class="fw-normal mb-1">
               {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
             </td>
-            <!-- <td class="text-center">
-              <a href="{{ route('reservas.show', $reserva->id) }}" class="button-all button-bg-blue"><i class="fas fa-info-circle"></i></a>
-              <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-all button-bg-yellow"><i class="fa-regular fa-pen-to-square"></i></a>
-              <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="button-all button-bg-red"><i class="fa-solid fa-trash"></i></button>
-              </form>
-            </td> -->
+
             <td class="text-center">
               <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
                 <i class="fas fa-info-circle"></i>
@@ -160,7 +158,6 @@
                 onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i
                 class="fa-solid fa-trash"></i>
               </button>
-
               </form>
             </td>
           </tr>
