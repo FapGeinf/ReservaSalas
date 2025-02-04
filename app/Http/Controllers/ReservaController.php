@@ -30,7 +30,7 @@ class ReservaController extends Controller
 
     public function store(Request $request)
 {
-    dd($request);
+    // dd($request);
     $request->validate([
         'sala_fk' => 'required|exists:salas,id',
         'data_reserva' => 'required|date',
