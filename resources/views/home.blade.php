@@ -9,10 +9,10 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-<div class="padding__left4">
+<div class="padding__left4 mt-5">
   <div class="p-30 mx-auto" style="width: 80%">
     <div class="text-center mb-3">
-      <h2 class="fw-bold fst-italic">Salas</h2>
+      <!-- <h2 class="fw-bold fst-italic">Salas</h2> -->
     </div>
 
     <div class="row">
