@@ -104,11 +104,11 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody style="border-left: 1px solid #ccc;">
           @foreach($reservas as $reserva)
           <tr>
 
-            <td class="text-center">{{ $reserva->id }}</td>
+            <td class="text-center td__data">{{ $reserva->id }}</td>
 
             <td>
               <div class="d-flex align-items-center">

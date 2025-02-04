@@ -6,6 +6,10 @@ label, h1, h2, h3, h4, h5, h6, td, th {
   color: #374151 !important;
 }
 
+table.dataTable thead th, table.dataTable thead td {
+  border-bottom: 0px !important;
+}
+
 body {
     background-image: url('/bg-white.jpg');
     background-size: cover;
@@ -160,6 +164,11 @@ body {
   .th__title {
     color: #fff !important;
     background-color: #255957 !important;
+    border-right: 1px solid #2d5857;
+  }
+
+  .td__data {
+    background-color: red;
   }
   
   .mx-auto {
@@ -170,7 +179,13 @@ body {
   #reservasTable {
     border: 1px solid #959595 !important;
     width: 100% !important;
-  }
+    border: 1px solid #fff !important;
+    width: 100% !important;
+    /* border-left: 1px solid #ccc !important; */
+    border-bottom: 1px solid #ccc !important;
+    border-top: 1px solid #ccc !important;
+    /* border-right: 1px solid #ccc !important; */
+}
   
   table.dataTable thead th {
     border-bottom: 1px solid #959595 !important;
@@ -369,6 +384,7 @@ body {
   
   .dataTables_scrollBody {
     border-bottom: none !important;
+    border-right: 1px solid #ccc;
   }
   
   
