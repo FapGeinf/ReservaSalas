@@ -21,7 +21,7 @@
     <div class="row justify-content-center">
       <div class="col">
         <div class="box__no-border">
-          <div class="container border-table" style="padding: 0 !important;">
+          <div class=" border-table" style="padding: 0 !important;">
             
           
             @if($salas->isEmpty())
@@ -121,14 +121,15 @@
   </div>
 </div>
 
-<div class="mx-auto form_create">
-  <div class="row justify-content-center">
-    <div class="col">
-      <div class="box__no-border no-margin-bottom title-bg" style="background-color: #f1f1f1;">
-        <a href="#" class="button-blue text-decoration-none float-end" style="font-size: 16px;" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
-          
-          Nova Sala
-        </a>
+<div class="p-30__no-top">
+  <div class="mx-auto form_create__no-border">
+    <div class="row justify-content-center">
+      <div class="col">
+        <div class="box__no-border no-margin-bottom title-bg" style="background-color: #f1f1f1;">
+          <a href="#" class="button-blue text-decoration-none float-end" style="font-size: 16px;" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
+            Nova Sala
+          </a>
+        </div>
       </div>
     </div>
   </div>
