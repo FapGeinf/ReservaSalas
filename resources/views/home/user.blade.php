@@ -96,9 +96,9 @@
           <tr class="text-center">
             <th class="th__title">ID</th>
             <th class="th__title">SALA</th>
-            <th class="th__title">HORA INÍCIO</th>
-            <th class="th__title">HORA TÉRMINO</th>
-            <th class="th__title">RESERVADO POR</th>
+            <th class="th__title" style="white-space: nowrap">HORA INÍCIO</th>
+            <th class="th__title" style="white-space: nowrap">HORA TÉRMINO</th>
+            <th class="th__title" style="white-space: nowrap">RESERVADO POR</th>
             <th class="th__title">UNIDADE</th>
             <th class="th__title">AÇÕES</th>
           </tr>
