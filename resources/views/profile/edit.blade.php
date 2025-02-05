@@ -1,117 +1,87 @@
-<x-app-layout>
-</x-app-layout> 
+@extends('layouts.app')
+@section('content')
 
- <link rel="stylesheet" href="{{ asset('css/editar.perfil.css') }}"> 
+<link rel="stylesheet" href="{{ asset('css/salas.css') }}">
+<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-  <div class="row w-100">
-
-    <!-- Lado Esquerdo -->
-    <div class="col-lg-6"></div>
-
-    <!-- Lado Direito -->
-    <div class="col-lg-6 d-flex align-items-center justify-content-center right-side form-box">
-      <div class="form-3-wrapper">
-
+<div class="p-30__no-bottom">
+  <div class="mx-auto form_create">
+    <div class="row justify-content-center">
       <div class="col">
-      <div class="box__no-border no-margin-bottom title-bg mb-5"> 
-      <h2 class="text-center fw-bold" style="color:#374150;">Editar Perfil</h2>
+        <div class="box__no-border no-margin-bottom title-bg">
+          <h3 class="text-center fw-bold">Editar Perfil</h3>
+        </div>
       </div>
+    </div>
+  </div>
 
-        @if (session('status'))
-          <div class="alert alert-success">
-            {{ session('status') }}
-          </div>
-        @endif
+  <div class="mx-auto form_create">
+    <div class="row justify-content-center">
+      <div class="col">
+        <div class="box__no-border no-margin-bottom">
+          <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PATCH')
 
-        <form method="POST" action="{{ route('profile.update') }}">
-          @csrf
-          @method('PATCH')
+            @if (session('status'))
+              <div class="alert alert-success">
+                {{ session('status') }}
+              </div>
+            @endif
 
-          <!-- Nome -->
-          <div class="mb-3 form-box">
-            <label for="name">Nome completo:</label>
-            <div class="input-group">
-              <span class="input-group-text">
-                <i class="bi bi-person"></i>
-              </span>
-              <input type="text" id="name" name="name" class="form-control" value="{{ old('name', auth()->user()->name) }}" required autofocus placeholder="ex: Julliany Souza" autocomplete="name">
+            <div class="mb-3 col-8">
+              <label for="name" class="fw-bold fs-16">Nome completo:</label>
+              <input type="text" id="name" name="name" class="input-custom" value="{{ old('name', auth()->user()->name) }}" required placeholder="ex: Julliany Souza" autocomplete="name">
+
+              <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-          </div>
 
-          <!-- Email -->
-          <div class="mb-3 form-box">
-            <label for="email">Email:</label>
-            <div class="input-group">
-              <span class="input-group-text">
-                <i class="bi bi-envelope-at"></i>
-              </span>
-              <input type="email" id="email" name="email" class="form-control" value="{{ old('email', auth()->user()->email) }}" required placeholder="ex: meuemail@email.com" autocomplete="username">
+            <div class="mb-3 col-8">
+              <label for="email" class="fw-bold fs-16">Email:</label>
+              <input type="email" id="email" name="email" class="input-custom" value="{{ old('email', auth()->user()->email) }}" required placeholder="ex: meuemail@email.com" autocomplete="username">
+
+              <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-          </div>
 
-          <!-- CPF -->
-          <div class="mb-3 form-box">
-            <label for="cpf">CPF:</label>
-            <div class="input-group">
-              <span class="input-group-text">
-                <i class="bi bi-person-vcard"></i>
-              </span>
-              <input type="text" id="cpf" name="cpf" class="form-control" value="{{ old('cpf', auth()->user()->cpf) }}" required placeholder="ex: 000.000.000-00">
+            <div class="mb-3 col-8">
+              <label for="cpf" class="fw-bold fs-16">CPF:</label>
+              <input type="text" id="cpf" name="cpf" class="input-custom" value="{{ old('cpf', auth()->user()->cpf) }}" required placeholder="ex: 000.000.000-00">
             </div>
-          </div>
 
-          <!-- Unidade -->
-          <div class="mb-3">
-            <label for="unidade_fk">Unidade:</label>
-            <select name="unidade_fk" id="unidade_fk" class="form-select" required>
-              <option value="">Selecione a unidade</option>
-              @foreach($unidades as $unidade)
-                <option value="{{ $unidade->id }}" {{ auth()->user()->unidade_fk == $unidade->id ? 'selected' : '' }}>{{ $unidade->nome }}</option>
-              @endforeach
-            </select>
-          </div>
+            <div class="mb-3 col-8">
+              <label for="unidade_fk" class="fw-bold fs-16">Unidade:</label>
 
-          <!-- Senha -->
-          <div class="mb-3 form-box">
-            <label for="password">Senha:</label>
-            <div class="input-group">
-              <span class="input-group-text">
-                <i class="bi bi-shield-lock"></i>
-              </span>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
+              <select name="unidade_fk" id="unidade_fk" class="form-select" required>
+                <option value="">Selecione a unidade</option>
+                @foreach($unidades as $unidade)
+                  <option value="{{ $unidade->id }}" {{ auth()->user()->unidade_fk == $unidade->id ? 'selected' : '' }}>{{ $unidade->nome }}</option>
+                @endforeach
+              </select>
             </div>
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-          </div>
 
-          <!-- Confirmação de Senha -->
-          <div class="mb-3 form-box">
-            <label for="password_confirmation">Repita a senha:</label>
-            <div class="input-group">
-              <span class="input-group-text">
-                <i class="bi bi-shield-lock"></i>
-              </span>
-              <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Repita a senha" autocomplete="new-password">
+            <div class="mb-3 col-8">
+              <label for="password" class="fw-bold fs-16">Senha:</label>
+              <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
+
+              <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-          </div>
 
-          <button type="submit" class="btn-custom">Atualizar Perfil</button>
+            <div class="mb-3 col-8">
+              <label for="password_confirmation" class="fw-bold fs-16">Repita a nova senha:</label>
+              <input type="password" id="password_confirmation" name="password_confirmation" class="input-custom" placeholder="Repita a senha" autocomplete="new-password">
 
-        </form>
+              <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            </div>
 
-        <!-- <div class="text-start d-flex register-link mt-3">
-          <p style="margin-right: 5px;">Deseja sair?</p>
-          <a href="{{ route('logout') }}">Sair</a>
-        </div> -->
 
+            <button type="submit" class="button-green">Atualizar Perfil</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+3i5Qm0I1RVuA+PmSTsz/K68vbdEj" crossorigin="anonymous"></script>
-</body>
-</html>
+@endsection
