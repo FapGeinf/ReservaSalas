@@ -385,3 +385,15 @@ background-color: #f0be3f;
   border-top: 0;
   background-color: #f1f1f1;
 }
+
+#reservasTable th {
+  border-bottom: 1px solid #d3d3d3 !important; /* Define uma borda fina no cabeçalho */
+}
+
+#reservasTable thead tr:first-child th {
+  border-bottom: none !important; /* Remove borda duplicada na primeira linha */
+}
+
+#reservasTable tbody {
+  border-top: none !important; /* Evita uma linha extra entre thead e tbody */
+}
