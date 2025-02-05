@@ -316,7 +316,7 @@
       $('#reservasContainer').html(html);
     },
     error: function () {
-      $('#reservasContainer').html('<p class="text-center text-danger">❌ Erro ao carregar reservas.</p>');
+      $('#reservasContainer').html('<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para hoje.</p>');
     }
   });
 }  
