@@ -86,12 +86,13 @@
 
   <div class="custom__form_create">
     <div class="table-responsive">
-      <table id="reservasTable" class="table table-bordered table-striped table-rounded align-middle mb-4 bg-white"
-        style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
-        <thead class="">
-          <tr style="">
+      <table id="reservasTable" class="table table-striped"
+        style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+        <thead>
+          <tr>
             <th colspan="7" class="text-center fs-4">Reservas</th>
           </tr>
+          
           <tr class="text-center">
             <th class="th__title">ID</th>
             <th class="th__title">SALA</th>
