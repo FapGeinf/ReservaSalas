@@ -118,7 +118,7 @@
                 <p>Imagem não disponível</p>
               @endif
                 <div class="ms-3">
-                  <p class="mb-1">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+                  <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
                 </div>
               </div>
             </td>
