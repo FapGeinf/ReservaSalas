@@ -92,7 +92,7 @@
           <tr>
             <th colspan="7" class="text-center fs-4">Reservas</th>
           </tr>
-          
+
           <tr class="text-center">
             <th class="th__title">ID</th>
             <th class="th__title">SALA</th>
@@ -113,7 +113,7 @@
             <td>
               <div class="d-flex align-items-center">
               @if($reserva->sala && $reserva->sala->imagem)
-              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="rounded"/>
+              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
               @else
                 <p>Imagem não disponível</p>
               @endif
