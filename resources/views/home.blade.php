@@ -77,13 +77,11 @@
 </div>
 
 <div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
-  {{-- <div class="text-center mb-3">
-    <h2 class="fw-bold fst-italic">Reservas</h2>
-  </div> --}}
 
   <div class="custom__form_create">
     <div class="table-responsive">
       <table id="reservasTable" class="table table-bordered table-rounded align-middle mb-4 bg-white" style="border-collapse: collapse; border: 1px solid #d3d3d3; background-color: #f5f5f5;">
+        
       <thead class="">
          <tr style="">
             <th colspan="7" class="text-center fs-4">Reservas</th>
