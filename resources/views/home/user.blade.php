@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -168,7 +170,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
+<div  class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -260,7 +262,7 @@
       let html = '';
 
       if (reservas.length === 0) {
-        html = '<p class="text-center">❌ Nenhuma reserva para hoje.</p>';
+        html = '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para hoje.</p>';
       } else {
         // Criar um container flexível para exibir em formato de grid
         html += '<div class="reservas-grid">';
@@ -272,14 +274,43 @@
           const horaFim = reserva.data_fim.split(' ')[1];
 
           // Cada reserva será exibida como um card separado
-          html += `<div class="reserva-card">
-                    <h5 class="text-primary">🏢 Unidade: ${unidade}</h5>
-                    <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
-                    <p><strong>👤 Reservado por:</strong> ${usuario}</p>
-                  </div>`;
-        });
+          html += `<div class="reserva-card ps-2">
 
-        html += '</div>'; // Fechar o container grid
+                      <div>
+                        <span class="fw-bold" style="color: #374151;">
+                          <i class="fa-regular fa-building"></i>
+                          Unidade: 
+                        </span>
+
+                        <span>
+                          ${unidade}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span class="fw-bold" style="color: #374151;">
+                          <i class="fa-regular fa-clock"></i>
+                          Hora:
+                        </span>
+
+                        <span>
+                          ${horaInicio} - ${horaFim}
+                        </span>
+                      </div>
+                    
+                      <div>
+                        <span class="fw-bold" style="color: #374151;">
+                          <i class="fa-regular fa-user"></i>
+                          Reservado por: 
+                        </span>
+
+                        <span>
+                          ${usuario}
+                        </span>
+                      </div>
+                    </div>`;
+        });
+          html += '</div>'; // Fechar o container grid
       }
 
       $('#reservasContainer').html(html);
@@ -288,11 +319,11 @@
       $('#reservasContainer').html('<p class="text-center text-danger">❌ Erro ao carregar reservas.</p>');
     }
   });
-}
-  
+}  
 </script>
+
 <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas do dia</h5>
