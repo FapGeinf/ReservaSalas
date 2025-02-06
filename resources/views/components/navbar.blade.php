@@ -1,66 +1,64 @@
-<style>
-  li a:hover {
-    text-decoration: underline;
-  }
-</style>
+<link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
-<div>
-  <nav class="navbar navbar-expand-lg" style="background: #245fa3; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);">
-    <div class="container-fluid d-flex align-items-center">
-      <img class="navbar-brand text-light" src="{{ asset('/img/logo-letras-white.png') }}" style="width: 6%;" alt="Logo Agendaí">
+<nav class="navbar navbar-expand-lg" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);">
+  <div class="container-fluid">
 
-      @auth
+    <a class="navbar-brand" href="{{ route('home') }}">
+      <img src="{{ asset('/img/logo-letras-white-light.png') }}" alt="Logo" height="30">
+    </a>
 
-  <div class="ms-3  text-light" style="font-size: 0.875rem;">
-    Seja bem-vindo(a): {{ Auth::user()->name }}
-  </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 
-  <div class="ms-3 text-light" style="font-size: 0.875rem;">
-    Setor:  @if(Auth::user()->unidade)
-      {{ Auth::user()->unidade->nome }}
-    @endif
-  </div>
-@endauth
+      <span class="navbar-toggler-icon"></span>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav w-100 justify-content-center me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link fw-bold text-light" href="{{ route('home') }}">Início</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold text-light" href="{{ route('salas') }}">Salas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold text-light" href="{{ route('reservas.index') }}">Reservas</a>
-          </li>
-        </ul>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item my-auto">
+          <a class="nav-link nav-buttons" aria-current="page" href="{{ route('home') }}">
+            <i class="bi bi-house me-1"></i>Início
+          </a>
+        </li>
 
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown d-flex align-items-center">
-            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Conta
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="{{ route('profile.edit') }}">Editar Perfil</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li>
-                <form class="d-flex" method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  <button class="dropdown-item" type="submit">Sair</button>
-                </form>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+        <li class="nav-item my-auto ms-2">
+          <a class="nav-link nav-buttons" href="{{ route('salas') }}">
+            <i class="bi bi-door-open me-1"></i>Lista de Salas
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <span class="navbar-text" style="color: #fff; font-size: 14px;">
+            {{ Auth::user()->name }} | {{ Auth::user()->unidade->nome }}
+          </span>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle nav-buttons" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Conta
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="{{ route('profile.edit') }}">Editar Perfil</a>
+            </li>
+
+            <li>
+              <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
+                @csrf
+                <button class="dropdown-item" type="submit">Sair</button>
+              </form>
+            </li>
+          </ul>
+          
+        </li>
+      </ul>
     </div>
-  </nav>
-</div>
+
+  </div>
+</nav>

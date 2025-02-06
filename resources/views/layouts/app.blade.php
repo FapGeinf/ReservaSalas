@@ -18,11 +18,11 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <body class="font-sans antialiased">
       
-    {{-- @include('components.navbar') --}}
-    @include('layouts.sidenav')
+    @include('components.navbar')
 
     <!-- Page Content -->
-    <main class="main-content" style="margin-top: 1rem; padding-left: 4rem;">
+    {{-- <main class="main-content" style="margin-top: 1rem; padding-left: 4rem;"> --}}
+    <main class="main-content">
       @yield('content') 
     </main>
 

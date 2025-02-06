@@ -1,0 +1,18 @@
+a.nav-buttons {
+  border: none;
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 4px 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  background-color: #f1f1f1;
+}
+
+a.nav-buttons:hover {
+  color: #fff;
+  background-color: #1d3a3a !important;
+}
