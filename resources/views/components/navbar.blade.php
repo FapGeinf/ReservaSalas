@@ -15,14 +15,14 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav">
         <li class="nav-item my-auto">
           <a class="nav-link nav-buttons" aria-current="page" href="{{ route('home') }}">
             <i class="bi bi-house me-1"></i>Início
           </a>
         </li>
 
-        <li class="nav-item my-auto ms-2">
+        <li class="nav-item my-auto ms-2" style="padding-right: 6rem;">
           <a class="nav-link nav-buttons" href="{{ route('salas') }}">
             <i class="bi bi-door-open me-1"></i>Lista de Salas
           </a>
@@ -31,8 +31,14 @@
 
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <span class="navbar-text" style="color: #fff; font-size: 14px;">
-            {{ Auth::user()->name }} | {{ Auth::user()->unidade->nome }}
+          <span class="navbar-text fw-bold" style="color: #fff; font-size: 14px;">
+            <i class="fa-regular fa-user"></i>
+            {{ Auth::user()->name }}
+            
+            <span class="mx-2">-</span>
+            
+            <i class="fa-regular fa-building"></i>
+            {{ Auth::user()->unidade->nome }}
           </span>
         </li>
       </ul>
