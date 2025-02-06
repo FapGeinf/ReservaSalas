@@ -19,10 +19,6 @@ body {
   padding: 20px;
 }
 
-.padding__left4 {
-  padding-left: 2rem;
-}
-
 .card-custom-width {
   width: 65%;
 }
@@ -31,7 +27,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0 10px;
-  padding-left: 4rem !important;
 }
 
 .dataTables_wrapper .dataTables_filter input {
