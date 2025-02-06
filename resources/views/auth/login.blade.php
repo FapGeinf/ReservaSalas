@@ -28,34 +28,20 @@
           <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <!-- Email -->
-            <div class="mb-3 form-box">
-              <label for="email">Email:</label>
+            <label for="email">Email:</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" autofocus required autocomplete="username">
 
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-envelope-at"></i>
-                </span>
-
-                <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" autofocus required autocomplete="username">
-              </div>
-              
-              <x-input-error :messages="$errors->get('email')" class="mt-2" />
+              <x-input-error :messages="$errors->get('email')" class="mt-2"/>
             </div>
 
-            <!-- Senha -->
-            <div class="mb-3">
-              <label for="password">Senha:</label>
+            <label for="password">Senha:</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="bi bi-shield-lock"></i>
-                </span>
-
-                <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
-              </div>
-              
-              <x-input-error :messages="$errors->get('password')" class="mt-2" />
+              <x-input-error :messages="$errors->get('password')" class="mt-2"/>
             </div>
 
             <!-- Lembrar de Mim -->
@@ -66,18 +52,22 @@
               </label>
             </div>
 
-            <button type="submit" class="login-btn w-50 mt-4 mb-3">Entrar</button>
+            <div class="d-flex justify-content-center mt-3">
+              <button type="submit" class="button-blue">Entrar</button>
+            </div>
           </form>
 
-          <!-- Registrar-se -->
           <div class="text-start register-link mt-4">
             <a href="{{ route('password.request') }}" class="">Esqueceu a senha?</a>
             <p class="mt-1">Primeira vez usando o Agendaí? <a href="{{ route('register') }}" class="">Cadastre-se</a></p>
           </div>
-
+          
         </div>
       </div>
     </div>
+
+    
+
   </div>
 </body>
 
