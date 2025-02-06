@@ -77,7 +77,10 @@
             </div>
 
 
-            <button type="submit" class="button-green">Atualizar Perfil</button>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="button-green">Atualizar Perfil</button>
+            </div>
+            
           </form>
         </div>
       </div>
