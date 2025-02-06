@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -24,7 +23,6 @@
           <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
             <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
           </div>
-
 
           <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column">
@@ -63,9 +61,10 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
-    @endforeach
+      @endforeach
     </div>
 
     @if (session('error'))
@@ -79,6 +78,7 @@
         {{ session('success') }}
       </div>
     @endif
+
   </div>
 </div>
 
@@ -87,7 +87,8 @@
   <div class="custom__form_create">
     <div class="table-responsive">
       <table id="reservasTable" class="table table-striped"
-        style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+      style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+
         <thead>
           <tr>
             <th colspan="7" class="text-center fs-4">Reservas</th>
@@ -112,11 +113,14 @@
 
             <td>
               <div class="d-flex align-items-center">
+                
               @if($reserva->sala && $reserva->sala->imagem)
               <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
+              
               @else
                 <p>Imagem não disponível</p>
               @endif
+
                 <div class="ms-3">
                   <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
                 </div>
@@ -251,7 +255,7 @@
   }
 
   function carregarReservas(salaId) {
-  $('#reservasContainer').html('<p class="text-center">🔄 Carregando reservas...</p>');
+  $('#reservasContainer').html('<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>');
 
   $.ajax({
     url: '/reservas/dia/' + salaId,
@@ -325,25 +329,29 @@
 <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
+
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas do dia</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
         <div id="reservasContainer">
-          <p class="text-center">Carregando reservas...</p>
+          <p class="text-center text-muted">
+            <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
+          </p>
         </div>
       </div>
+
     </div>
   </div>
 </div>
 
-
 @endsection
 
 <!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+
   <div class="modal-dialog modal-dialog-top">
     <div class="modal-content">
       <div class="modal-header">
