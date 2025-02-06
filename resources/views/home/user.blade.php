@@ -11,8 +11,8 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-<div class="padding__left4">
-  <div class="p-30 mx-auto mt-5" style="width: 80%">
+<div class="">
+  <div class="p-30 mx-auto mt-5" style="width: 80.5%">
 
     <div class="row">
       @foreach($salas as $index => $sala)
@@ -111,7 +111,7 @@
 
             <td class="text-center td__data">{{ $reserva->id }}</td>
 
-            <td>
+            <td class="text-center">
               <div class="d-flex align-items-center">
                 
               @if($reserva->sala && $reserva->sala->imagem)
@@ -127,19 +127,19 @@
               </div>
             </td>
 
-            <td>
+            <td class="text-center">
               <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
             </td>
 
-            <td>
+            <td class="text-center">
               <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
             </td>
 
-            <td>
+            <td class="text-center">
               <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
             </td>
             
-            <td>
+            <td class="text-center">
               <p class="fw-normal mb-1">
               {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
             </td>
