@@ -31,7 +31,7 @@
 
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <span class="navbar-text fw-bold" style="color: #fff; font-size: 14px;">
+          <span class="navbar-text fw-bold" style="color: #f1f1f1; font-size: 14px;">
             <i class="fa-regular fa-user"></i>
             {{ Auth::user()->name }}
             

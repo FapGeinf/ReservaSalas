@@ -12,7 +12,7 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 <div class="">
-  <div class="p-30 mx-auto mt-5" style="width: 80.5%">
+  <div class="p-30 mx-auto mt-4" style="width: 80.5%">
 
     <div class="row">
       @foreach($salas as $index => $sala)
