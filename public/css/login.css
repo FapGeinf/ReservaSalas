@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6, td, th, label, input {
 }
 
 label {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 form, .register-link {
@@ -52,6 +52,19 @@ a:hover {
   width: 100%;
   max-width: 500px;
   height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-4-wrapper {
+  background: #fff; /* Fundo branco com 80% de opacidade */
+  padding: 50px;
+  /* border-radius: 8px; */
+  width: 100%;
+  max-width: 500px;
+  /* height: 750px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
