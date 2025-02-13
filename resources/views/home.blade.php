@@ -252,14 +252,14 @@
         html += '<div class="reservas-grid">';
 
         reservas.forEach(reserva => {
-          const unidade = reserva.user?.unidade ?? 'Unidade Desconhecida';
+          const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
           const usuario = reserva.user ? reserva.user.name : 'N/A';
           const horaInicio = reserva.data_inicio.split(' ')[1];
           const horaFim = reserva.data_fim.split(' ')[1];
 
           // Cada reserva será exibida como um card separado
           html += `<div class="reserva-card">
-                    <h5 class="text-primary">🏢 Unidade: ${unidade}</h5>
+                    <h5 class="text">🏢 Unidade: ${unidade}</h5>
                     <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
                     <p><strong>👤 Reservado por:</strong> ${usuario}</p>
                   </div>`;
@@ -286,7 +286,6 @@
       <!-- Cabeçalho -->
       <div class="modal-header custom-header">
         <h5 class="modal-title w-100 text-center">📅 Reservas do Dia</h5>
-        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
 
       <!-- Corpo do modal -->

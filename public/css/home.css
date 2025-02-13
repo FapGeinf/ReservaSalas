@@ -507,3 +507,32 @@ table.dataTable thead th {
   font-size: 14px;
   color: #333;
 }
+
+
+
+ /* modal de ver reservas  */
+.reservas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.reserva-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 15px;
+  width: calc(33.333% - 10px); /* Ajuste a largura conforme necessário */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reserva-card h5 {
+  margin-bottom: 10px;
+  color: #085757;
+}
+
+.reserva-card p {
+  margin-bottom: 5px;
+}
+
+  
