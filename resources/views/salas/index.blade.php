@@ -21,12 +21,12 @@
     <div class="row justify-content-center">
       <div class="col">
         <div class="box__no-border">
-          <div class="container border-table" style="padding: 0 !important;">
+          <div class=" border-table" style="padding: 0 !important;">
             
-          
             @if($salas->isEmpty())
               <p>Não há salas cadastradas no momento.</p>
             @else
+
             <table class="table table-bordered table-striped" style="border: 1px solid #c0c4c9; font-size: 17px; margin-bottom: 0;">
             <thead style="border: 1px solid #c0c4c9;">
                   <tr>
@@ -54,14 +54,14 @@
                       </td>
 
                       <td class="text-center border-none">
-                        <a href="#" class="button-yellow text-decoration-none" data-bs-toggle="modal" data-bs-target="#editarSalaModal{{ $sala->id }}">
+                        <a href="#" class="button-yellow td-mb text-decoration-none" data-bs-toggle="modal" data-bs-target="#editarSalaModal{{ $sala->id }}">
                           <i class="fas fa-pen"></i>
                         </a>
 
                         <form action="{{ route('salas.destroy', $sala) }}" method="POST" style="display:inline-block;">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class="button-red">
+                          <button type="submit" class="button-red td-mb">
                             <i class="fas fa-trash"></i>
                           </button>
                         </form>
@@ -112,8 +112,7 @@
                   @endforeach
                 </tbody>
               </table>
-              @endif
-             
+            @endif
           </div>
         </div>
       </div>
@@ -121,15 +120,12 @@
   </div>
 </div>
 
-<div class="mx-auto form_create">
-  <div class="row justify-content-center">
-    <div class="col">
-      <div class="box__no-border no-margin-bottom title-bg" style="background-color: #f1f1f1;">
-        <a href="#" class="button-blue text-decoration-none float-end" style="font-size: 16px;" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
-          
-          Nova Sala
-        </a>
-      </div>
+<div class="p-30__no-top">
+  <div class="mx-auto form_create__no-border">
+    <div class="box__no-border no-margin-bottom" style="background-color: #f1f1f1;">
+      <a href="#" class="button-blue text-decoration-none float-end" style="font-size: 16px;" data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
+        Nova Sala
+      </a>
     </div>
   </div>
 </div>

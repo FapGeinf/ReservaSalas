@@ -1,10 +1,25 @@
+body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-control {
+  font-family: sans-serif !important; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
+}
+
+label, h1, h2, h3, h4, h5, h6, td, th {
+  color: #374151 !important;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+  border-bottom: 0px !important;
+}
+
 body {
     background-image: url('/bg-white.jpg');
     background-size: cover;
     background-attachment: fixed;
-  
   }
-  
+
+  .card {
+    border-radius: 0 !important;
+  }
+
   .maxw-1000 {
     max-width: 90%;
   }
@@ -15,13 +30,9 @@ body {
   
   .custom__form_create {
     background-color: transparent;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
-  }
-  
-  .padding__left4 {
-    padding-left: 2rem;
   }
   
   .card-custom-width {
@@ -32,7 +43,6 @@ body {
     justify-content: center;
     align-items: center;
     padding: 0 10px;
-    padding-left: 4rem !important;
   }
   
   .dataTables_wrapper .dataTables_filter input {
@@ -102,53 +112,14 @@ body {
     color: #1ab394;
   }
   
-  h4, h3 {
-    color: #000;
-  }
-  
-  .text-light {
-    color: #f8f9fa !important;
-  }
-  
-  .text-center {
-    text-align: center !important;
-  }
-  
-  .d-flex {
-    display: flex !important;
-  }
-  
-  .justify-content-between {
-    justify-content: space-between !important;
-  }
-  
-  .align-items-center {
-    align-items: center !important;
-  }
-  
-  .mt-4 {
-    margin-top: 1.5rem !important;
-  }
-  
-  .mb-0 {
-    margin-bottom: 0 !important;
-  }
-  
-  .p-3 {
-    padding: 1rem !important;
-  }
-  
-  .p-4 {
-    padding: 1.5rem !important;
-  }
-  
-  .w-100 {
-    width: 100% !important;
-  }
-  
   .th__title {
     color: #fff !important;
     background-color: #255957 !important;
+    border-right: 1px solid #2d5857;
+  }
+
+  .td__data {
+    background-color: red;
   }
   
   .mx-auto {
@@ -159,160 +130,16 @@ body {
   #reservasTable {
     border: 1px solid #959595 !important;
     width: 100% !important;
-  }
+    border: 1px solid #fff !important;
+    width: 100% !important;
+    /* border-left: 1px solid #ccc !important; */
+    border-bottom: 1px solid #ccc !important;
+    border-top: 1px solid #ccc !important;
+    /* border-right: 1px solid #ccc !important; */
+}
   
   table.dataTable thead th {
     border-bottom: 1px solid #959595 !important;
-  }
-  
-  .button-all {
-    appearance: none;
-    backface-visibility: hidden;
-    background-color: #1ab394;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: normal;
-    line-height: 1.5;
-    outline: none;
-    overflow: hidden;
-    padding: 7px 18px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transform: translate3d(0, 0, 0);
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    white-space: nowrap;
-  }
-  
-  .button-bg-blue {
-    background-color: #45aeff;
-  }
-  
-  .button-bg-blue:hover {
-    background-color: #2e7fbd;
-    opacity: 1;
-    transform: translateY(0);
-    transition-duration: .35s;
-  }
-  
-  .button-bg-yellow {
-    background-color: #F7C548;
-  }
-  
-  .button-bg-yellow:hover {
-    background-color: #e0b139;
-  }
-  
-  .button-bg-red {
-    background-color: #b22720;
-  }
-  
-  .button-bg-red:hover {
-    background-color: #8a1b15;
-  }
-  
-  .button-68 {
-    appearance: none;
-    backface-visibility: hidden;
-    background-color: #1ab394;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: normal;
-    outline: none;
-    overflow: hidden;
-    padding: 8px 20px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transform: translate3d(0, 0, 0);
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    white-space: nowrap;
-  }
-  
-  .button-69 {
-    appearance: none;
-    backface-visibility: hidden;
-    background-color: #1ab394;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: normal;
-    outline: none;
-    overflow: hidden;
-    padding: 4px 8px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transform: translate3d(0, 0, 0);
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    white-space: nowrap;
-  }
-  
-  .button-68:hover {
-    background-color: #0f8d74;
-    opacity: 1;
-    transform: translateY(0);
-    transition-duration: .35s;
-  }
-  
-  .button-68:active {
-    transform: translateY(2px);
-    transition-duration: .35s;
-  }
-  
-  .button-68:hover {
-    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
-  }
-  
-  .button-69:hover {
-    background-color: #0f8d74;
-    opacity: 1;
-    transform: translateY(0);
-    transition-duration: .35s;
-  }
-  
-  .button-69:active {
-    transform: translateY(2px);
-    transition-duration: .35s;
-  }
-  
-  .button-69:hover {
-    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
   }
   
   #reservasTable_paginate {
@@ -358,6 +185,7 @@ body {
   
   .dataTables_scrollBody {
     border-bottom: none !important;
+    border-right: 1px solid #ccc;
   }
   
   
@@ -374,7 +202,7 @@ body {
     text-align: center;     
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     padding: 20px;          
-    border-radius: 8px;     
+    /* border-radius: 8px;      */
   }
   
   /* Estiliza o modal */
@@ -393,7 +221,7 @@ body {
   }
   
   /* Container das reservas */
-  .reservas-container {
+  /* .reservas-container {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -401,7 +229,7 @@ body {
     max-height: 400px;
     overflow-y: auto;
     padding: 10px;
-  }
+  } */
   
   /* Footer do modal */
   .custom-footer {
@@ -417,81 +245,38 @@ body {
     width: 120px;
     font-size: 16px;
     font-weight: bold;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     
   }
-  .btn-1 {
-    appearance: none;
-    backface-visibility: hidden;
-    background-color: #1ab394;
-    border-radius: 8px;
-    border-style: none;
-    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: normal;
-    outline: none;
-    overflow: hidden;
-    padding: 6px 10px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transform: translate3d(0, 0, 0);
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    white-space: nowrap;
   
-  }
-  
-  .btn-1:hover {
-    background-color: #0f8d74;
-    opacity: 1;
-    transform: translateY(0);
-    transition-duration: .35s;
-  }
-  
-  .btn-1:active {
-    transform: translateY(2px);
-    transition-duration: .35s;
-  }
-  
-  .btn-1:hover {
-    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
-  }
-  
-  /* Container principal das reservas */
+  /* Container principal das reservas 
   .reservas-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsivo */
-    gap: 15px; /* Espaço entre os itens */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
     padding: 10px;
-    max-height: 400px; /* Definir altura máxima */
-    overflow-y: auto; /* Ativar scroll se necessário */
+    max-height: 400px;
+    overflow-y: auto;
     background: #f9f9f9;
     border-radius: 10px;
   }
+  */
   
   /* Cada cartão de reserva */
   .reserva-card {
     background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    text-align: center;
+    /* border-radius: 10px; */
+    padding: 10px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: start;
     transition: transform 0.2s ease-in-out;
+    border: 1px solid #f1f1f1;
+    margin-bottom: 7px;
   }
   
   /* Efeito ao passar o mouse */
   .reserva-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
   }
   
   /* Título da reserva */
@@ -508,3 +293,102 @@ body {
     color: #333;
   }
   
+  /* BOTÕES */
+
+.button-green,
+.button-green-index,
+.button-yellow,
+.button-grey,
+.button-blue,
+.button-red {
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.button-blue {
+  background-color: #2563eb;
+}
+
+.button-blue:hover {
+  background-color: #1d4ed8;
+}
+
+.button-green {
+  background-color: #10b981;
+}
+
+.button-green:hover {
+  background-color: #0ea271;
+}
+
+.button-green-index {
+  font-size: 15px;
+  background-color: #27b394;
+}
+
+.button-green-index:hover {
+  background-color: #1b8d74;
+}
+
+.button-grey {
+  background-color: #6b7280;
+}
+
+.button-grey:hover {
+  background-color: #575d68;
+}
+
+.button-yellow {
+  background-color: #fc0;
+}
+
+.button-yellow:hover { 
+background-color: #f0be3f;
+}
+
+.button-red {
+  background-color: #b22720;
+}
+
+.button-red:hover {
+  background-color: #b63f39;
+}
+
+.button-blue i,
+.button-yellow i,
+.button-red i {
+  font-size: 16px;
+}
+
+.span-warning {
+  color: #e5534b;
+}
+
+.modal-content {
+  border-radius: 0 !important;
+}
+
+.modal-footer {
+  border-top: 0;
+  background-color: #f1f1f1;
+}
+
+#reservasTable th {
+  border-bottom: 1px solid #d3d3d3 !important; /* Define uma borda fina no cabeçalho */
+}
+
+#reservasTable thead tr:first-child th {
+  border-bottom: none !important; /* Remove borda duplicada na primeira linha */
+}
+
+#reservasTable tbody {
+  border-top: none !important; /* Evita uma linha extra entre thead e tbody */
+}

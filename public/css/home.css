@@ -15,13 +15,8 @@ body {
 
 .custom__form_create {
   background-color: transparent;
-  border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 20px;
-}
-
-.padding__left4 {
-  padding-left: 2rem;
 }
 
 .card-custom-width {
@@ -32,7 +27,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0 10px;
-  padding-left: 4rem !important;
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -102,50 +96,6 @@ body {
   color: #1ab394;
 }
 
-h4, h3 {
-  color: #000;
-}
-
-.text-light {
-  color: #f8f9fa !important;
-}
-
-.text-center {
-  text-align: center !important;
-}
-
-.d-flex {
-  display: flex !important;
-}
-
-.justify-content-between {
-  justify-content: space-between !important;
-}
-
-.align-items-center {
-  align-items: center !important;
-}
-
-.mt-4 {
-  margin-top: 1.5rem !important;
-}
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-
-.p-3 {
-  padding: 1rem !important;
-}
-
-.p-4 {
-  padding: 1.5rem !important;
-}
-
-.w-100 {
-  width: 100% !important;
-}
-
 .th__title {
   color: #fff !important;
   background-color: #255957 !important;
@@ -163,156 +113,6 @@ h4, h3 {
 
 table.dataTable thead th {
   border-bottom: 1px solid #959595 !important;
-}
-
-.button-all {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: #1ab394;
-  border-radius: 8px;
-  border-style: none;
-  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: normal;
-  line-height: 1.5;
-  outline: none;
-  overflow: hidden;
-  padding: 7px 18px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
-}
-
-.button-bg-blue {
-  background-color: #45aeff;
-}
-
-.button-bg-blue:hover {
-  background-color: #2e7fbd;
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
-}
-
-.button-bg-yellow {
-  background-color: #F7C548;
-}
-
-.button-bg-yellow:hover {
-  background-color: #e0b139;
-}
-
-.button-bg-red {
-  background-color: #b22720;
-}
-
-.button-bg-red:hover {
-  background-color: #8a1b15;
-}
-
-.button-68 {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: #1ab394;
-  border-radius: 8px;
-  border-style: none;
-  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: normal;
-  outline: none;
-  overflow: hidden;
-  padding: 8px 20px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
-}
-
-.button-69 {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: #1ab394;
-  border-radius: 8px;
-  border-style: none;
-  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: normal;
-  outline: none;
-  overflow: hidden;
-  padding: 4px 8px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
-}
-
-.button-68:hover {
-  background-color: #0f8d74;
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
-}
-
-.button-68:active {
-  transform: translateY(2px);
-  transition-duration: .35s;
-}
-
-.button-68:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
-}
-
-.button-69:hover {
-  background-color: #0f8d74;
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
-}
-
-.button-69:active {
-  transform: translateY(2px);
-  transition-duration: .35s;
-}
-
-.button-69:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
 }
 
 #reservasTable_paginate {
@@ -374,12 +174,12 @@ table.dataTable thead th {
   text-align: center;     
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   padding: 20px;          
-  border-radius: 8px;     
+  /* border-radius: 8px;      */
 }
 
 /* Estiliza o modal */
 .custom-modal {
-  border-radius: 15px;
+  /* border-radius: 15px;  */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   background: #fff;
 }
@@ -418,53 +218,6 @@ table.dataTable thead th {
   font-size: 16px;
   font-weight: bold;
   border-radius: 8px;
-  
-}
-.btn-1 {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: #1ab394;
-  border-radius: 8px;
-  border-style: none;
-  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: normal;
-  outline: none;
-  overflow: hidden;
-  padding: 6px 10px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
-
-}
-
-.btn-1:hover {
-  background-color: #0f8d74;
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
-}
-
-.btn-1:active {
-  transform: translateY(2px);
-  transition-duration: .35s;
-}
-
-.btn-1:hover {
-  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
 }
 
 /* Container principal das reservas */
@@ -476,13 +229,13 @@ table.dataTable thead th {
   max-height: 400px; /* Definir altura máxima */
   overflow-y: auto; /* Ativar scroll se necessário */
   background: #f9f9f9;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 /* Cada cartão de reserva */
 .reserva-card {
   background: white;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: 15px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
   text-align: center;

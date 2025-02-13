@@ -68,3 +68,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.td-mb {
+  margin-bottom: 5px;
+}

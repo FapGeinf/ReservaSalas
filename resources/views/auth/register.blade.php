@@ -21,7 +21,7 @@
 
       <!-- Lado Direito -->
       <div class="col-lg-6 d-flex align-items-center justify-content-center right-side form-box">
-        <div class="form-3-wrapper">
+        <div class="form-4-wrapper">
 
           <div class="logo text-center mb-4">
             <img src="{{ asset('/img/logo-alone.png') }}" alt="Logo Agendaí">
@@ -77,18 +77,19 @@
             <div class="mb-3 form-box">
               <label for="unidade_fk">Unidade:</label>
 
-           <div class="input-group">
-            <span class="input-group-text">
-         <i class="bi bi-building"></i>
-        </span>
-            <select name="unidade_fk" id="unidade_fk" class="form-select" required>
-             <option value="">Selecione a unidade</option>
-               @foreach($unidades as $unidade)
-               <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-               @endforeach
-            </select>
-           </div>
-         </div>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-building"></i>
+                </span>
+                
+                <select name="unidade_fk" id="unidade_fk" class="form-control" required>
+                    <option value="">Selecione a unidade </option>
+                  @foreach($unidades as $unidade)
+                  <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
 
             <!-- Campo para setor -->
             {{-- <div class="mb-3 form-box">
@@ -125,11 +126,14 @@
               <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-            <button type="submit" class="login-btn w-50 mt-4 mb-3">Registrar</button>
+            <div class="text-center">
+              <button type="submit" class="button-blue">Registrar</button>
+            </div>
+            
 
           </form>
 
-          <div class="text-start d-flex register-link mt-3">
+          <div class="text-start d-flex register-link mt-4">
             <p style="margin-right: 5px;">Já possui cadastro?</p>
             <a href="{{ route('login') }}">Fazer login</a>
           </div>

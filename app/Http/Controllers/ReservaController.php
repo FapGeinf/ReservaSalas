@@ -29,6 +29,7 @@ class ReservaController extends Controller
     }
 
     public function store(Request $request)
+
     {
         $request->validate([
             'sala_fk' => 'required|exists:salas,id',
@@ -36,6 +37,16 @@ class ReservaController extends Controller
             'hora_inicio' => 'required|date_format:H:i',
             'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
         ]);
+    }
+{
+   
+    $request->validate([
+        'sala_fk' => 'required|exists:salas,id',
+        'data_reserva' => 'required|date',
+        'hora_inicio' => 'required|date_format:H:i',
+        'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
+    ]);
+
 
         $salaId = $request->input('sala_fk');
         $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');

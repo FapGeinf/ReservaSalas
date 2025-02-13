@@ -1,28 +1,3 @@
-:root {
-  --bg-black100: #353535;
-  --bg-black50: #eef0f4;
-  --bg-black20: #414546;
-  --color-black: #2f4050;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body { overflow: auto; }
-
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0;
-}
-
-body.dark {
-  --bg-black100: #fff;
-  --bg-black50: #000;
-  --bg-black20: #eef0f4;
-}
-
 .menu {
   position: absolute;
   width: 60px;
@@ -127,13 +102,6 @@ body.dark {
   transform: translateX(0);
 }
 
-.menu .menuBreak {
-  width: 100%;
-  height: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .menu .menuBreak hr {
   width: 50%;
