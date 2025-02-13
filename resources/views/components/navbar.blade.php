@@ -9,9 +9,7 @@
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-
       <span class="navbar-toggler-icon"></span>
-
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -22,11 +20,13 @@
           </a>
         </li>
 
+        @if(Auth::check() && Auth::user()->role === 'admin')
         <li class="nav-item my-auto ms-2" style="padding-right: 6rem;">
           <a class="nav-link nav-buttons" href="{{ route('salas') }}">
             <i class="bi bi-door-open me-1"></i>Lista de Salas
           </a>
         </li>
+        @endif
       </ul>
 
       <ul class="navbar-nav mx-auto">
@@ -38,7 +38,7 @@
             <span class="mx-2">-</span>
             
             <i class="fa-regular fa-building"></i>
-            {{ Auth::user()->unidade->nome }}
+            {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }}
           </span>
         </li>
       </ul>
@@ -62,7 +62,7 @@
             </li>
           </ul>
           
-        </li>
+          </li>
       </ul>
     </div>
 

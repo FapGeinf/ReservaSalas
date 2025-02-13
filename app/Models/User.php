@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
         'unidade_fk',
         'role', // Add role to fillable attributes
-        'is_admin',
+        'image',
     ];
 
     /**
@@ -53,6 +53,6 @@ class User extends Authenticatable
 
     public function unidade()
     {
-        return $this->belongsTo(Unidade::class, 'unidade_fk','id');
+        return $this->belongsTo(Unidade::class, 'unidade_fk');
     }
 }

@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'password' => bcrypt('12345678'),
-                'is_admin' => true,
+                'role' => 'admin', // Defina o campo role como admin
             ]
         );
     }
