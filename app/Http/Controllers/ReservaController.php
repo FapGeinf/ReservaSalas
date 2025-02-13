@@ -29,17 +29,8 @@ class ReservaController extends Controller
     }
 
     public function store(Request $request)
-
-    {
-        $request->validate([
-            'sala_fk' => 'required|exists:salas,id',
-            'data_reserva' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-        ]);
-    }
 {
-   
+    // dd($request);
     $request->validate([
         'sala_fk' => 'required|exists:salas,id',
         'data_reserva' => 'required|date',
@@ -47,36 +38,36 @@ class ReservaController extends Controller
         'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
     ]);
 
+    $salaId = $request->input('sala_fk');
+    $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
+    $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
 
-        $salaId = $request->input('sala_fk');
-        $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
-        $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
+    $conflito = Reserva::where('sala_fk', $salaId)
+        ->where(function ($query) use ($dataInicio, $dataFim) {
+            $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
+                  ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
+                  ->orWhere(function ($query) use ($dataInicio, $dataFim) {
+                      $query->where('data_inicio', '<=', $dataInicio)
+                            ->where('data_fim', '>=', $dataFim);
+                  });
+        })
+        ->exists();
 
-        $conflito = Reserva::where('sala_fk', $salaId)
-            ->where(function ($query) use ($dataInicio, $dataFim) {
-                $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
-                      ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
-                      ->orWhere(function ($query) use ($dataInicio, $dataFim) {
-                          $query->where('data_inicio', '<=', $dataInicio)
-                                ->where('data_fim', '>=', $dataFim);
-                      });
-            })
-            ->exists();
-
-        if ($conflito) {
-            return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
-        }
-
-        Reserva::create([
-            'sala_fk' => $salaId,
-            'data_inicio' => $dataInicio,
-            'data_fim' => $dataFim,
-            'user_id' => auth()->user()->id,
-            'unidade_fk' => auth()->user()->unidade_id,
-        ]);
-
-        return redirect()->route('reservas.index')->with('success', 'Reserva criada com sucesso!');
+    if ($conflito) {
+        return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
     }
+
+    // Cria a reserva com os campos necessários
+    Reserva::create([
+        'sala_fk' => $salaId,
+        'data_inicio' => $dataInicio,
+        'data_fim' => $dataFim,
+        'user_id' => auth()->user()->id,
+        'unidade_fk' => auth()->user()->unidade_id, // Salva a unidade do usuário
+    ]);
+
+    return redirect()->route('reservas.index')->with('success', 'Reserva criada com sucesso!');
+}
 
     public function show(Reserva $reserva)
     {

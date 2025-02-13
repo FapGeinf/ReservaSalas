@@ -274,50 +274,11 @@
           const horaFim = reserva.data_fim.split(' ')[1];
 
           // Cada reserva será exibida como um card separado
-
           html += `<div class="reserva-card">
                     <h5 class="text">🏢 Unidade: ${unidade}</h5>
                     <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
                     <p><strong>👤 Reservado por:</strong> ${usuario}</p>
                   </div>`;
-
-          html += `<div class="reserva-card ps-2">
-
-            <div>
-              <span class="fw-bold" style="color: #374151;">
-                <i class="fa-regular fa-building"></i>
-                Unidade: 
-              </span>
-
-              <span>
-                ${unidade}
-              </span>
-            </div>
-
-            <div>
-              <span class="fw-bold" style="color: #374151;">
-                <i class="fa-regular fa-clock"></i>
-                Hora:
-              </span>
-
-              <span>
-                ${horaInicio} - ${horaFim}
-              </span>
-            </div>
-          
-            <div>
-              <span class="fw-bold" style="color: #374151;">
-                <i class="fa-regular fa-user"></i>
-                Reservado por: 
-              </span>
-
-              <span>
-                ${usuario}
-              </span>
-            </div>
-
-          </div>`;
-
         });
 
         html += '</div>'; // Fechar o container grid
@@ -340,8 +301,6 @@
       <div class="modal-header custom-header">
 
         <h5 class="modal-title w-100 text-center">📅 Reservas do Dia</h5>
-
-        <h5 class="modal-title fw-bold">Reservas do dia</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
       </div>
