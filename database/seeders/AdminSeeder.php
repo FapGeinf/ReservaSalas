@@ -15,6 +15,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Admin',
                 'password' => bcrypt('12345678'),
                 'role' => 'admin', // Defina o campo role como admin
+                'unidade_fk' => 1, // Certifique-se de substituir pelo ID da unidade apropriada
             ]
         );
     }
