@@ -36,6 +36,7 @@ class ReservaController extends Controller
         'data_reserva' => 'required|date',
         'hora_inicio' => 'required|date_format:H:i',
         'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
+        'unidade_fk' => 'requerid|exists:unidade,id',
     ]);
 
     $salaId = $request->input('sala_fk');
@@ -57,13 +58,16 @@ class ReservaController extends Controller
         return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
     }
 
+       $unidadeId = auth()->user()->unidade_fk;
+
     // Cria a reserva com os campos necessários
     Reserva::create([
         'sala_fk' => $salaId,
         'data_inicio' => $dataInicio,
         'data_fim' => $dataFim,
         'user_id' => auth()->user()->id,
-        'unidade_fk' => auth()->user()->unidade_id, // Salva a unidade do usuário
+        'unidade_fk' => $unidadeId,
+
     ]);
 
     return redirect()->route('reservas.index')->with('success', 'Reserva criada com sucesso!');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->dateTime('data_inicio')->nullable();
             $table->dateTime('data_fim')->nullable();
-            $table->unsignedBigInteger('unidade_fk')->nullable(); 
+            $table->unsignedBigInteger('unidade_fk'); 
             $table->foreign('unidade_fk')->references('id')->on('unidades');
             $table->unsignedBigInteger('sala_fk')->nullable();
             $table->foreign('sala_fk')->references('id')->on('salas')->onDelete('set null');
