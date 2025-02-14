@@ -18,11 +18,19 @@ class HomeController extends Controller
         $reservas = Reserva::with('sala')->get();
 
         // Redirecionar conforme o tipo de usuário
-        if (Auth::user()->is_admin) {
+        // if (Auth::user()->is_admin) {
+        //     return view('home', compact('salas', 'reservas'));
+        // } else {
+        //     return view('home.user', compact('salas', 'reservas'));
+        // }
+
+        if (Auth::user()->role === 'admin') {
             return view('home', compact('salas', 'reservas'));
         } else {
-            return view('home.user', compact('salas', 'reservas'));
+            return view('home', compact('salas', 'reservas'));
         }
+
+
     }
 
     public function adminHome()
