@@ -36,7 +36,7 @@ class ReservaController extends Controller
         'data_reserva' => 'required|date',
         'hora_inicio' => 'required|date_format:H:i',
         'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-        'unidade_fk' => 'requerid|exists:unidade,id',
+        'unidade_fk' => 'required|exists:unidades,id',
     ]);
 
     $salaId = $request->input('sala_fk');
