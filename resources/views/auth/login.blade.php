@@ -28,13 +28,12 @@
           <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <label for="email">Email:</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input type="email" id="email" name="email" class="form-control" :value="old('email')" placeholder="meuemail@email.com" autofocus required autocomplete="username">
-
-              <x-input-error :messages="$errors->get('email')" class="mt-2"/>
-            </div>
+           <div class="mb-3 form-box">
+              <label for="cpf">CPF</label>
+                <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                <input type="text" class="form-control" id="cpf" name="cpf" required>
+           </div>
 
             <label for="password">Senha:</label>
             <div class="input-group mb-3">
