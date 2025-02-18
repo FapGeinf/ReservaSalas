@@ -25,6 +25,7 @@ class User extends Authenticatable
         'unidade_fk',
         'role', // Add role to fillable attributes
         'image',
+        'cpf',
     ];
 
     /**

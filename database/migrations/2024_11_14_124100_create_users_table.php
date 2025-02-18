@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('cpf')->default('00000000000');
+            $table->string('cpf')->unique(); // Adicionando a coluna CPF
             $table->unsignedBigInteger('unidade_fk')->nullable();
             $table->foreign('unidade_fk')->references('id')->on('unidades')->onDelete('set null');
 
