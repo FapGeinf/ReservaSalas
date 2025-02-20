@@ -88,11 +88,24 @@ class SalaController extends Controller
             'situacao' => 'required|in:ativa,inativa',
          ]);
 
-         // Atualização da sala 
-         $sala->update($request->all()); 
 
-         // Redirecionamento após atualização da sala 
-         return redirect()->route('salas');
+         // Atualiza a sala
+    $sala->update([
+        'nome' => $request->nome,
+        'descricao' => $request->descricao,
+        'situacao' => $request->situacao,
+    ]);
+
+    // Redireciona com mensagem de sucesso
+    return redirect()->route('salas')->with('success', 'Sala atualizada com sucesso!');
+
+
+        //  // Atualização da sala 
+        //  $sala->update($request->all()); 
+
+        //  // Redirecionamento após atualização da sala 
+        //  return redirect()->route('salas');
+        
     }
 
       // Método para excluir uma sala

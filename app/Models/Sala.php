@@ -14,11 +14,14 @@ class Sala extends Model
     protected $table = 'salas'; // Nome correto da tabela
     protected $primaryKey = 'id'; // Certifique-se de que a chave primária está definida corretamente
     
-    public function setSituacaoAttribute($value) { 
-       $this->attributes['situacao'] = ($value === 'ativa') ? 1 : 0; } // Accessor para converter booleano de volta para string 
-       
-       public function getSituacaoAttribute($value) { return $value ? 'Ativa' : 'Inativa'; } 
-
+    // public function setSituacaoAttribute($value) { 
+    //    $this->attributes['situacao'] = ($value === 'ativa') ? 'ativa' : 'inativa';  // Accessor para converter booleano de volta para string 
+    // }
+       // Na model Sala
+public function getSituacaoAttribute($value)
+{
+    return $value === 'ativa' ? 'Ativa' : 'Inativa';
+}
     public function Reserva()
     {
         return $this->hasMany(Reserva::class,'reserva_fk','id');

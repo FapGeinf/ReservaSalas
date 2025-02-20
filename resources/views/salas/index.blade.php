@@ -94,8 +94,8 @@
                                 <div class="mt-4 col-5">
                                   <label for="situacao{{ $sala->id }}" class="fw-bold fs-16">Situação:</label>
                                   <select name="situacao" id="situacao{{ $sala->id }}" class="form-select" required>
-                                    <option value="ativa" {{ $sala->situacao === 'Ativa' ? 'selected' : '' }}>Ativa</option>
-                                    <option value="inativa" {{ $sala->situacao === 'Inativa' ? 'selected' : '' }}>Inativa</option>
+                                     <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
+                                     <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
                                   </select>
                                 </div>
 
