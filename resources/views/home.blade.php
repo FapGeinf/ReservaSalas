@@ -11,11 +11,16 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <div class="">
   <div class="p-30 mx-auto mt-5" style="width: 80.5%">
 
     <div class="row">
-      @foreach($salas as $index => $sala)
+    @foreach($salas as $index => $sala)
+    
 
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card border">
@@ -38,17 +43,23 @@
             </div>
           </div>
 
+
           <div class="card-body card-fofinho" style="background-color: #f1f1f1; padding: 10px 30px;">
             <div class="title-teste text-center d-flex flex-column">
               <div class="d-flex justify-content-center gap-3 py-2">
-                <button 
-                  type="button" 
-                  class="button-green-index" 
-                  data-bs-toggle="modal" 
-                  data-bs-target="#criarReservaModal" 
-                  onclick="selecionarSala({{ $sala->id }})">
-                  Reservar
-                </button>
+              @php
+               $situacao = strtolower(trim($sala->situacao));
+             @endphp
+
+             <button 
+               type="button" 
+               class="button-green-index {{ $situacao == 'inativa' ? 'disabled' : '' }}" 
+               data-bs-toggle="modal" 
+               data-bs-target="{{ $situacao == 'ativa' ? '#criarReservaModal' : '' }}" 
+               onclick="{{ $situacao == 'ativa' ? 'selecionarSala(' . $sala->id . ')' : 'return false;' }}"
+               {{ $situacao == 'inativa' ? 'disabled' : '' }}>
+               Reservar
+             </button>
 
                 <button 
                   type="button" 
@@ -171,44 +182,32 @@
 </div>
 
   <!-- Modal -->
-<div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
+  <div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
+    
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="criarReservaModalLabel">Criar Reserva</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
-      <div class="d-flex justify-content-center mt-1">
-        <span class="fst-italic" style="font-size: 14px; color: #374151;">Campos marcados com <span class="span-warning">*</span> são obrigatórios</span>
-      </div>
-
       <div class="modal-body">
         <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
           @csrf
           <input type="hidden" name="sala_fk" id="sala_fk">
-
           <div class="mb-3">
             <label for="data_reserva" class="fw-bold">Data:</label>
             <input type="date" name="data_reserva" id="data_reserva" class="input-custom" required>
           </div>
-
           <div class="mb-3">
             <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
             <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
           </div>
-
           <div class="mb-3">
             <label for="hora_termino" class="fw-bold">Hora de Término:</label>
             <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
           </div>
-
-      <!-- Campo oculto para unidade_fk -->
-       {{-- <input type="hidden" name="unidade_fk" id="unidade_fk" value="{{ auth()->user()->unidade_id }}"> --}}
-
         </form>
       </div>
-
       <div class="modal-footer">
         <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
         <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
@@ -217,11 +216,7 @@
   </div>
 </div>
 
-<script>
-  function selecionarSala(salaId) {
-    document.getElementById('sala_fk').value = salaId;
-  }
-</script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -252,6 +247,13 @@
       const deleteForm = document.getElementById('deleteForm');
       deleteForm.action = action;
   }
+
+  function selecionarSala(salaId) {
+    console.log('Sala selecionada:', salaId); // Depuração
+    document.getElementById('sala_fk').value = salaId;
+}
+
+
 
   function carregarReservas(salaId) {
   $('#reservasContainer').html('<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>');
