@@ -22,19 +22,24 @@
     @foreach($salas as $index => $sala)
     
 
-      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card border">
+      <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card border position-relative">
 
           <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0">
-            <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+          <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+            @if(!$sala->situacao)
+              <div class="overlay">
+                <span class="overlay-text">Sala em Manutenção</span>
+              </div>
+            @endif
           </div>
 
           <div class="card-body card-fofinho">
             <div class="title-teste text-center d-flex flex-column" style="margin-bottom: 1rem; margin-top: .5rem;">
               <span>Local</span>
               
-              <!-- <h3 class="fw-bold text-uppercase word-wrap: normal">{{ $sala->nome }}</h3> -->
-              <h3 class="fw-bold text-uppercase" style="white-space: nowrap; ">{{ $sala->nome }}</h3>
+               <h3 class="fw-bold text-uppercase word-wrap: normal">{{ $sala->nome }}</h3> -->
+              <!-- <h3 class="fw-bold text-uppercase" style="white-space: nowrap; ">{{ $sala->nome }}</h3>
 
               <span class="mt-2">Descrição</span>
               <span class="" style="color:rgb(134, 132, 132); font-size: 14px;">
@@ -61,8 +66,6 @@
                Reservar
              </button>
 
-
-
                 <button 
                   type="button" 
                   class="button-blue" 
@@ -77,7 +80,68 @@
           </div>
 
         </div>
+      </div> --> 
+
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+    <div class="card border position-relative">
+
+    <!-- Imagem da Sala com Sobreposição -->
+    <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0 position-relative">
+      <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+
+      <!-- Sobreposição para Sala Inativa -->
+      @php
+        $situacao = strtolower(trim($sala->situacao)); // Normaliza o valor de 'situacao'
+      @endphp
+
+      @if($situacao === 'inativa')
+        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+             style="background-color: rgba(0, 0, 0, 0.7);">
+          <span class="text-white fw-bold fs-5">Sala em Manutenção</span>
+        </div>
+      @endif
+    </div>
+
+    <!-- Corpo do Card -->
+    <div class="card-body card-fofinho">
+      <div class="title-teste text-center d-flex flex-column" style="margin-bottom: 1rem; margin-top: .5rem;">
+        <span>Local</span>
+        <h3 class="fw-bold text-uppercase" style="white-space: nowrap;">{{ $sala->nome }}</h3>
+        <span class="mt-2">Descrição</span>
+        <span class="" style="color:rgb(134, 132, 132); font-size: 14px;">
+          <p class="card-text">{{ $sala->descricao }}</p>
+        </span>
       </div>
+    </div>
+
+    <!-- Botões de Reserva e Ver Reservas -->
+    <div class="card-body card-fofinho" style="background-color: #f1f1f1; padding: 10px 30px;">
+      <div class="title-teste text-center d-flex flex-column">
+        <div class="d-flex justify-content-center gap-3 py-2">
+          <button 
+            type="button" 
+            class="button-green-index {{ $situacao === 'inativa' ? 'disabled' : '' }}" 
+            data-bs-toggle="modal" 
+            data-bs-target="{{ $situacao === 'ativa' ? '#criarReservaModal' : '' }}" 
+            onclick="{{ $situacao === 'ativa' ? 'selecionarSala(' . $sala->id . ')' : 'return false;' }}"
+            {{ $situacao === 'inativa' ? 'disabled' : '' }}>
+            Reservar
+          </button>
+
+          <button 
+            type="button" 
+            class="button-blue" 
+            data-bs-toggle="modal" 
+            data-bs-target="#verReservasModal" 
+            onclick="carregarReservas({{ $sala->id }})"
+            style="font-size: 15px;">
+            Ver Reservas
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       @endforeach
     </div>
 
