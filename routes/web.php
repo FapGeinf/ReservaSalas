@@ -70,6 +70,8 @@ Route::post('/logout', function () {
 
 Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia']);
 
+Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
+
 
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';

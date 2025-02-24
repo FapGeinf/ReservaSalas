@@ -129,14 +129,15 @@
           </button>
 
           <button 
-            type="button" 
-            class="button-blue" 
-            data-bs-toggle="modal" 
-            data-bs-target="#verReservasModal" 
-            onclick="carregarReservas({{ $sala->id }})"
-            style="font-size: 15px;">
-            Ver Reservas
-          </button>
+           type="button" 
+           class="button-blue" 
+           data-bs-toggle="modal" 
+           data-bs-target="#verReservasModal" 
+           data-sala-id="{{ $sala->id }}" 
+           onclick="carregarReservas({{ $sala->id }})"
+           style="font-size: 15px;">
+           Ver Reservas
+         </button>
         </div>
       </div>
     </div>
@@ -321,49 +322,105 @@
 
 
 
-  function carregarReservas(salaId) {
+//   function carregarReservas(salaId) {
+//   $('#reservasContainer').html('<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>');
+
+//   $.ajax({
+//     url: '/reservas/dia/' + salaId,
+//     type: 'GET',
+//     success: function (reservas) {
+//       let html = '';
+
+//       if (reservas.length === 0) {
+//         html = '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para hoje.</p>';
+//       } else {
+//         // Criar um container flexível para exibir em formato de grid
+//         html += '<div class="reservas-grid">';
+
+//         reservas.forEach(reserva => {
+//           const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
+//           const usuario = reserva.user ? reserva.user.name : 'N/A';
+//           const horaInicio = reserva.data_inicio.split(' ')[1];
+//           const horaFim = reserva.data_fim.split(' ')[1];
+
+//           // Cada reserva será exibida como um card separado
+//           html += `<div class="reserva-card">
+//                     <h5 class="text">🏢 Unidade: ${unidade}</h5>
+//                     <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
+//                     <p><strong>👤 Reservado por:</strong> ${usuario}</p>
+//                   </div>`;
+//         });
+
+//         html += '</div>'; // Fechar o container grid
+//       }
+
+//       $('#reservasContainer').html(html);
+//     },
+//     error: function () {
+//       $('#reservasContainer').html('<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para hoje.</p>');
+//     }
+//   });
+// }
+function carregarReservas(salaId) {
+  const dataSelecionada = document.getElementById('dataSelecionada').value;
+
   $('#reservasContainer').html('<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>');
 
   $.ajax({
-    url: '/reservas/dia/' + salaId,
+    url: '/reservas/sala/' + salaId,
     type: 'GET',
+    data: { data: dataSelecionada },
     success: function (reservas) {
       let html = '';
 
       if (reservas.length === 0) {
-        html = '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para hoje.</p>';
+        html = '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para esta data.</p>';
       } else {
-        // Criar um container flexível para exibir em formato de grid
         html += '<div class="reservas-grid">';
-
         reservas.forEach(reserva => {
           const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
           const usuario = reserva.user ? reserva.user.name : 'N/A';
           const horaInicio = reserva.data_inicio.split(' ')[1];
           const horaFim = reserva.data_fim.split(' ')[1];
 
-          // Cada reserva será exibida como um card separado
           html += `<div class="reserva-card">
                     <h5 class="text">🏢 Unidade: ${unidade}</h5>
                     <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
                     <p><strong>👤 Reservado por:</strong> ${usuario}</p>
                   </div>`;
         });
-
-        html += '</div>'; // Fechar o container grid
+        html += '</div>';
       }
 
       $('#reservasContainer').html(html);
     },
     error: function () {
-      $('#reservasContainer').html('<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para hoje.</p>');
+      $('#reservasContainer').html('<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>');
     }
   });
 }
+
+$(document).ready(function () {
+  $('#dataSelecionada').on('change', function () {
+    const salaId = $('#verReservasModal').data('sala-id');
+    carregarReservas(salaId);
+  });
+
+  $('#verReservasModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const salaId = button.data('sala-id');
+    $('#verReservasModal').data('sala-id', salaId);
+
+    const hoje = new Date().toISOString().split('T')[0];
+    $('#dataSelecionada').val(hoje);
+
+    carregarReservas(salaId);
+  });
+});
 </script>
 
-
-<div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
+<!-- modal de ver reservas -->
+<!-- <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content custom-modal">
       
@@ -382,6 +439,32 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div> -->
+
+<div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content custom-modal">
+      <div class="modal-header custom-header">
+        <h5 class="modal-title w-100 text-center">📅 Reservas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Seletor de Data -->
+        <div class="mb-3">
+          <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
+          <input type="date" id="dataSelecionada" class="form-control">
+        </div>
+
+        <!-- Container para Exibir as Reservas -->
+        <div id="reservasContainer" class="reservas-container">
+          <p class="text-center text-muted">
+            <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
