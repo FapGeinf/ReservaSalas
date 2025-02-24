@@ -8,6 +8,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+   
 </head>
 
 <body>
@@ -28,12 +29,13 @@
           <form method="POST" action="{{ route('login') }}">
             @csrf
 
-           <div class="mb-3 form-box">
-              <label for="cpf">CPF</label>
-                <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
-                <input type="text" class="form-control" id="cpf" name="cpf" required>
-           </div>
+          <div class="mb-3 form-box">
+            <label for="cpf">CPF</label>
+            <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+            <input type="text" class="form-control" id="cpf" name="cpf" required>
+         </div>
+       </div>
 
             <label for="password">Senha:</label>
             <div class="input-group mb-3">
@@ -65,6 +67,19 @@
       </div>
     </div>
 
+     <!-- jQuery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+     <!-- jQuery Mask Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    
+      <script>
+  $(document).ready(function () {
+    // Aplica a máscara de CPF ao campo com o ID "cpf"
+    $('#cpf').mask('000.000.000-00', { reverse: true });
+  });
+</script>
+    
     
 
   </div>
