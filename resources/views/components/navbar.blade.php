@@ -30,7 +30,7 @@
       </ul>
 
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
+        <li class="nav-item" @if(Auth::check() && Auth::user()->role === 'admin') style="margin-left: -122px" @endif>
           <span class="navbar-text fw-bold text-uppercase" style="color: #f1f1f1; font-size: 14px;">
             <i class="fa-regular fa-user"></i>
             {{ Auth::user()->name }}
