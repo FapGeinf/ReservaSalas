@@ -106,7 +106,7 @@
     <div class="card-body card-fofinho">
       <div class="title-teste text-center d-flex flex-column" style="margin-bottom: 1rem; margin-top: .5rem;">
         <span>Local</span>
-        <h3 class="fw-bold text-uppercase" style="white-space: nowrap;">{{ $sala->nome }}</h3>
+        <h3 class="fw-bold text-uppercase" style="word-wrap:normal;">{{ $sala->nome }}</h3>
         <span class="mt-2">Descrição</span>
         <span class="" style="color:rgb(134, 132, 132); font-size: 14px;">
           <p class="card-text">{{ $sala->descricao }}</p>

@@ -31,11 +31,12 @@
 
           <div class="mb-3 form-box">
             <label for="cpf">CPF</label>
+            
             <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
-            <input type="text" class="form-control" id="cpf" name="cpf" required>
-         </div>
-       </div>
+              <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+              <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+            </div>
+          </div>
 
             <label for="password">Senha:</label>
             <div class="input-group mb-3">
