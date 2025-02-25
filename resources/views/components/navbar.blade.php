@@ -21,7 +21,7 @@
         </li>
 
         @if(Auth::check() && Auth::user()->role === 'admin')
-        <li class="nav-item my-auto ms-2" style="padding-right: 6rem;">
+        <li class="nav-item my-auto ms-2">
           <a class="nav-link nav-buttons" href="{{ route('salas') }}">
             <i class="bi bi-door-open me-1"></i>Lista de Salas
           </a>
