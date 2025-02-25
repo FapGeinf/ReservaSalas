@@ -222,23 +222,25 @@
             <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
           </td>
 
-          <td class="text-center">
-            <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
+            <td class="text-center">
+            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center gap-2">
+              <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
               <i class="fas fa-info-circle"></i>
-            </a>
-            
-            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
+              </a>
+              
+              <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
               <i class="fa-regular fa-pen-to-square"></i>
-            </a>
-        
-            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" style="display:inline;">
+              </a>
+            
+              <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
               @csrf
               @method('DELETE')
-              <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')"><i class="fa-solid fa-trash"></i>
+              <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+                <i class="fa-solid fa-trash"></i>
               </button>
-
-            </form>
-          </td>
+              </form>
+            </div>
+            </td>
         </tr>
         @endforeach
         </tbody>
