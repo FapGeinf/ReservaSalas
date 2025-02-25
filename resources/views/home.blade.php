@@ -16,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="">
-  <div class="p-30 mx-auto mt-5" style="width: 80.5%">
+  <div class="p-30 mx-auto mt-5 divCards">
 
     <div class="row">
     @foreach($salas as $index => $sala)
@@ -161,7 +161,7 @@
   </div>
 </div>
 
-<div class="form-wrapper p-30 pt-3 mx-auto" style="width: 80.5%">
+<div class="form-wrapper p-30 pt-3 mx-auto divTable">
 
   <div class="custom__form_create">
     <div class="table-responsive">
