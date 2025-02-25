@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('nome');
             $table->string('descricao');
-            $table->string('situacao', 10); 
+            $table->string('situacao', 10)->default('ativo'); // Adicionando valor padrão; 
             // $table->string('imagem')->nullable();
             
         });

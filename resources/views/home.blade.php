@@ -120,7 +120,7 @@
               <div class="d-flex justify-content-center gap-3 py-2">
                 <button 
                   type="button" 
-                  class="button-green-index {{ $situacao === 'inativa' ? 'disabled' : '' }}" 
+                  class="button-green-index {{ $situacao === 'inativa' ? 'disabled d-none' : '' }}" 
                   data-bs-toggle="modal" 
                   data-bs-target="{{ $situacao === 'ativa' ? '#criarReservaModal' : '' }}" 
                   onclick="{{ $situacao === 'ativa' ? 'selecionarSala(' . $sala->id . ')' : 'return false;' }}"
