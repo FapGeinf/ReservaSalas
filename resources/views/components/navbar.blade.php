@@ -12,7 +12,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse d-flex d-mt2" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item my-auto">
           <a class="nav-link nav-buttons" aria-current="page" href="{{ route('home') }}">
