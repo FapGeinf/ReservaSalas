@@ -19,13 +19,6 @@ a.nav-buttons:hover {
 }
 
 @media only screen and (max-width: 1000px) {
-  .navbar-nav {
-    flex-direction: row;
-  }
-}
-
-
-@media only screen and (max-width: 1000px) {
   .d-mt2 {
     margin-top: 1rem;
   }
