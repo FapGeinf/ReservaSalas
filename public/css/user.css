@@ -392,3 +392,15 @@ background-color: #f0be3f;
 #reservasTable tbody {
   border-top: none !important; /* Evita uma linha extra entre thead e tbody */
 }
+
+.divCards,
+.divTable {
+  width: 80.5%;
+}
+
+@media only screen and (max-width: 1366px) {
+  .divCards,
+  .divTable {
+    width: 100%;
+  }
+}
