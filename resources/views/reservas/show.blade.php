@@ -24,7 +24,7 @@
   <div class="mx-auto form_create__no-border-800">
     <div class="row justify-content-center">
       <div class="col">
-        <div class="box__no-border" style="padding-bottom: 4rem;">
+        <div class="box__no-border" style="padding-bottom: 4rem; margin-bottom: 2rem;">
           <div class="" style="padding: 0 !important;">
 
             <div class="row g-3">

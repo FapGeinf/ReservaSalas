@@ -219,7 +219,8 @@ background-color: #e0b139;
 }
 
 @media only screen and (max-width: 1366px) {
-  .form_create-800 {
+  .form_create-800,
+  .form_create__no-border-800 {
     max-width: 630px;
   }
 }
