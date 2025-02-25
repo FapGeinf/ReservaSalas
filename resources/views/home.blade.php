@@ -161,7 +161,7 @@
   </div>
 </div>
 
-<div class="form-wrapper p-30 pt-3 mx-auto divTable">
+<div class="form-wrapper p-30 py-3 mx-auto divTable">
 
   <div class="custom__form_create">
     <div class="table-responsive">
