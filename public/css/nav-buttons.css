@@ -18,6 +18,13 @@ a.nav-buttons:hover {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
+@media only screen and (max-width: 978px) {
+  .navbar-nav {
+    flex-direction: row;
+  }
+}
+
+
 @media only screen and (max-width: 960px) {
   .d-mt2 {
     margin-top: 1rem;
