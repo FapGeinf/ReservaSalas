@@ -229,10 +229,15 @@ button.login-btn:hover {
 
   .form-4-wrapper {
     max-width: 430px;
-    padding: 0 50px;
+    padding: 10px 50px;
 
-    margin-top: 8rem;
+    margin-top: 9rem;
     margin-bottom: 1rem;
+  }
+
+  .button-blue {
+    font-size: 14px;
+    padding: 7px 45px;
   }
 }
 
