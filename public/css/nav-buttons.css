@@ -18,7 +18,7 @@ a.nav-buttons:hover {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
-@media only screen and (max-width: 978px) {
+@media only screen and (max-width: 1000px) {
   .navbar-nav {
     flex-direction: row;
   }
