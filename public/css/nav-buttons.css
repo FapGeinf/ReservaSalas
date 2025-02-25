@@ -22,4 +22,8 @@ a.nav-buttons:hover {
   .d-mt2 {
     margin-top: 1rem;
   }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
 }
