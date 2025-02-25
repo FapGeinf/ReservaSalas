@@ -217,3 +217,9 @@ background-color: #e0b139;
 .menu.open ~ .main-content {
   margin-left: 10.5rem;
 }
+
+@media only screen and (max-width: 1366px) {
+  .form_create-800 {
+    max-width: 630px;
+  }
+}
