@@ -220,6 +220,13 @@ button.login-btn:hover {
 
 /* MEDIA QUERIES */
 
+@media only screen and (max-width: 1366px) {
+  .form-2-wrapper {
+    max-width: 430px;
+    height: 500px;
+  }
+}
+
 @media only screen and (max-width: 1472px) {
   body {
     background-image: url('/img/bg-blessing.png');
