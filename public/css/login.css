@@ -226,6 +226,14 @@ button.login-btn:hover {
     max-width: 430px;
     height: 500px;
   }
+
+  .form-4-wrapper {
+    max-width: 430px;
+    padding: 0 50px;
+
+    margin-top: 8rem;
+    margin-bottom: 1rem;
+  }
 }
 
 @media only screen and (max-width: 1472px) {
