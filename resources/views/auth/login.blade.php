@@ -30,7 +30,7 @@
             @csrf
 
           <div class="mb-3 form-box">
-            <label for="cpf">CPF</label>
+            <label for="cpf">CPF:</label>
             
             <div class="input-group">
               <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
