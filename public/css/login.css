@@ -222,6 +222,22 @@ button.login-btn:hover {
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1366px) {
+  label {
+    font-size: 14px;
+  }
+
+  .input-group-text {
+    font-size: .9rem;
+  }
+
+  .input.form-control {
+    padding: 9px;
+  }
+
+  .form-control::placeholder {
+    font-size: 12px;
+  }
+
   .form-2-wrapper {
     max-width: 430px;
     height: 500px;
