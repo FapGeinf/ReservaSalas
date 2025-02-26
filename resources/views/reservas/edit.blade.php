@@ -7,6 +7,8 @@
 
 @section('content')
 
+@section('title') {{ 'Editar Reserva' }} @endsection
+
 <div class="p-30__no-bottom">
   <div class="mx-auto form_create-800">
     <div class="row justify-content-center">

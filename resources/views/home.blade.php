@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+@section('title') {{ 'Home' }} @endsection
+
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
