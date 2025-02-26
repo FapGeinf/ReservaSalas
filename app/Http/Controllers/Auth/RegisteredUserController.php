@@ -1,8 +1,8 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Unidade;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -19,10 +19,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $unidades = Unidade::all();
-        $usuarios = User::all(); // Carregar todos os usuários
-
-        return view('auth.register', compact('unidades', 'usuarios'));
+        return view('auth.register');
     }
 
     /**
@@ -34,7 +31,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'cpf' => 'required|string|max:14|unique:users', // Validação do CPF
             'unidade_fk' => 'required|exists:unidades,id'
@@ -52,59 +49,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard'));
+        return redirect(route('dashboard', absolute: false));
     }
-
-//     public function edit($id): View
-// {
-//     $usuario = User::findOrFail($id); // Busca o usuário pelo ID
-//     $unidades = Unidade::all(); // Busca todas as unidades para o dropdown
-//     return view('auth.edit', compact('usuario', 'unidades'));
-// }
-
-public function edit($id): View
-{
-    $usuario = User::find($id); // Busca o usuário pelo ID
-
-    // Verifica se o usuário existe
-    if (!$usuario) {
-        return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
-    }
-
-    $unidades = Unidade::all(); // Busca todas as unidades para o dropdown
-    return view('profile.edit', compact('usuario', 'unidades'));
-}
-
-
-public function update(Request $request, $id): RedirectResponse
-{
-    // Validação dos dados
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-        'cpf' => 'required|string|max:14|unique:users,cpf,' . $id,
-        'unidade_fk' => 'required|exists:unidades,id',
-    ]);
-
-    // Atualiza o usuário
-    $usuario = User::findOrFail($id);
-    $usuario->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'cpf' => $request->cpf,
-        'unidade_fk' => $request->unidade_fk,
-    ]);
-
-    return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
-}
-
-public function destroy($id): RedirectResponse
-{
-    $usuario = User::findOrFail($id);
-    $usuario->delete();
-
-    return redirect()->route('usuarios.index')->with('success', 'Usuário excluído com sucesso!');
-}
-
-
 }
