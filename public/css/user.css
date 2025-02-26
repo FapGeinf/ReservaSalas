@@ -188,12 +188,10 @@ body {
     border-right: 1px solid #ccc;
   }
   
-  
   .alert-container {
     display: flex;
     justify-content: center; 
     align-items: center;    
-   
   }
   
   .alert {
@@ -220,18 +218,6 @@ body {
     border-top-right-radius: 15px;
   }
   
-  /* Container das reservas */
-  /* .reservas-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    max-height: 400px;
-    overflow-y: auto;
-    padding: 10px;
-  } */
-  
-  /* Footer do modal */
   .custom-footer {
     background: #f8fafa;
     border-bottom-left-radius: 15px;
@@ -245,22 +231,7 @@ body {
     width: 120px;
     font-size: 16px;
     font-weight: bold;
-    /* border-radius: 8px; */
-    
   }
-  
-  /* Container principal das reservas 
-  .reservas-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 10px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #f9f9f9;
-    border-radius: 10px;
-  }
-  */
   
   /* Cada cartão de reserva */
   .reserva-card {
@@ -391,4 +362,16 @@ background-color: #f0be3f;
 
 #reservasTable tbody {
   border-top: none !important; /* Evita uma linha extra entre thead e tbody */
+}
+
+.divCards,
+.divTable {
+  width: 80.5%;
+}
+
+@media only screen and (max-width: 1366px) {
+  .divCards,
+  .divTable {
+    width: 100%;
+  }
 }

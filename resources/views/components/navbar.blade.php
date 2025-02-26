@@ -12,7 +12,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse d-flex d-mt2" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item my-auto">
           <a class="nav-link nav-buttons" aria-current="page" href="{{ route('home') }}">
@@ -21,7 +21,7 @@
         </li>
 
         @if(Auth::check() && Auth::user()->role === 'admin')
-        <li class="nav-item my-auto ms-2" style="padding-right: 6rem;">
+        <li class="nav-item my-auto ms-2">
           <a class="nav-link nav-buttons" href="{{ route('salas') }}">
             <i class="bi bi-door-open me-1"></i>Lista de Salas
           </a>
@@ -30,8 +30,8 @@
       </ul>
 
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <span class="navbar-text fw-bold" style="color: #f1f1f1; font-size: 14px;">
+        <li class="nav-item" @if(Auth::check() && Auth::user()->role === 'admin') style="margin-left: -122px" @endif>
+          <span class="navbar-text fw-bold text-uppercase" style="color: #f1f1f1; font-size: 14px;">
             <i class="fa-regular fa-user"></i>
             {{ Auth::user()->name }}
             
@@ -43,7 +43,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle nav-buttons" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Conta

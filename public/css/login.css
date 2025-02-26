@@ -1,4 +1,4 @@
-body{
+body {
   margin: 0;
   padding: 0;
   display: flex;
@@ -8,6 +8,7 @@ body{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   height: 100vh;
   font-family: 'Roboto', sans-serif;
   transition: .2s;
@@ -219,6 +220,26 @@ button.login-btn:hover {
 }
 
 /* MEDIA QUERIES */
+
+@media only screen and (max-width: 1366px) {
+  .form-2-wrapper {
+    max-width: 430px;
+    height: 500px;
+  }
+
+  .form-4-wrapper {
+    max-width: 430px;
+    padding: 10px 50px;
+
+    margin-top: 9rem;
+    margin-bottom: 1rem;
+  }
+
+  .button-blue {
+    font-size: 14px;
+    padding: 7px 45px;
+  }
+}
 
 @media only screen and (max-width: 1472px) {
   body {
