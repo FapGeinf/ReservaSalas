@@ -54,6 +54,11 @@
               <a class="dropdown-item" href="{{ route('profile.edit') }}">Editar Perfil</a>
             </li>
 
+            @if(Auth::check() && Auth::user()->role === 'admin')
+            <li>
+              <a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuários</a>
+            </li>
+            @endif
             <li>
               <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
                 @csrf
@@ -68,6 +73,16 @@
 
   </div>
 </nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl);
+        });
+    });
+</script>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
