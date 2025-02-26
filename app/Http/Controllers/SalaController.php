@@ -112,6 +112,8 @@ class SalaController extends Controller
     public function destroy(Sala $sala)
     {
         $sala->delete();
-        return redirect()->route('salas');
+        return redirect()->route('salas', 'salas.index')->with('success', 'Sala excluída com sucesso!');
     }
+
+   
 }

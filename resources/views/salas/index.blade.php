@@ -8,6 +8,16 @@
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
+
+@if(session('success'))
+  <div class="d-flex justify-content-center">
+    <div class="alert alert-success alert-dismissible fade show text-center alert-custom" style="max-width: 30%;" role="alert">
+      {{ session('success') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+  </div>
+@endif
+
 <div class="p-30__no-bottom">
   <div class="mx-auto form_create">
     <div class="row justify-content-center">
@@ -60,13 +70,41 @@
                           <i class="fas fa-pen"></i>
                         </a>
 
-                        <form action="{{ route('salas.destroy', $sala) }}" method="POST" style="display:inline-block;">
+                        <!-- <form action="{{ route('salas.destroy', $sala) }}" method="POST" style="display:inline-block;">
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="button-red td-mb">
                             <i class="fas fa-trash"></i>
                           </button>
-                        </form>
+                        </form> -->
+                        <!-- Botão de Exclusão (Abre o Modal) -->
+<button type="button" class="button-red td-mb" data-bs-toggle="modal" data-bs-target="#confirmarExclusaoModal{{ $sala->id }}">
+  <i class="fas fa-trash"></i>
+</button>
+
+<!-- Modal de Confirmação -->
+<div class="modal fade" id="confirmarExclusaoModal{{ $sala->id }}" tabindex="-1" aria-labelledby="confirmarExclusaoModalLabel{{ $sala->id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmarExclusaoModalLabel{{ $sala->id }}">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza de que deseja excluir a sala "{{ $sala->nome }}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <!-- Botão de Confirmação (Submete o Formulário) -->
+        <form action="{{ route('salas.destroy', $sala) }}" method="POST" style="display:inline-block;">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Confirmar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
                       </td>
                     </tr>
           
@@ -185,3 +223,7 @@
 </div>
 <!-- Fim do Modal de Cadastro -->
 @endsection
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
