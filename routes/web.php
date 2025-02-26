@@ -73,13 +73,5 @@ Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia'
 Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
 
 
-// Rotas para usuários
-Route::get('/usuarios/{id}/edit', [RegisteredUserController::class, 'edit'])->name('usuarios.edit');
-Route::put('/usuarios/{id}', [RegisteredUserController::class, 'update'])->name('usuarios.update');
-Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy'])->name('usuarios.destroy');
-
-
-
-
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';
