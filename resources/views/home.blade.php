@@ -457,7 +457,7 @@ $(document).ready(function () {
         <!-- Seletor de Data -->
         <div class="mb-3">
           <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
-          <input type="date" id="dataSelecionada" class="form-control">
+          <input type="date" id="dataSelecionada" class="input-custom">
         </div>
 
         <!-- Container para Exibir as Reservas -->
