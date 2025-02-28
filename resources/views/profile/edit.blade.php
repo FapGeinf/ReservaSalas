@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+@section('title') {{ 'Editar Perfil' }} @endsection
+
 <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
