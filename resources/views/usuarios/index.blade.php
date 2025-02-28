@@ -67,8 +67,8 @@
                   </td>
 
                   <td class="td-bg border-none text-center">
-                    <a href="{{ route('usuarios.edit', $usuario->id) }}" class="button-blue">
-                      <i class="bi bi-pencil"></i>
+                    <a href="{{ route('usuarios.edit', $usuario->id) }}" class="button-yellow text-decoration-none">
+                      <i class="fas fa-pen"></i>
                     </a>
       
                     <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline;">
@@ -76,7 +76,7 @@
                       @method('DELETE')
       
                       <button type="submit" class="button-red" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
-                        <i class="bi bi-trash" style="font-size: 14px"></i>
+                        <i class="fas fa-trash"></i>
                       </button>
                     </form>
                   </td>
