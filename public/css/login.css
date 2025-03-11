@@ -260,3 +260,21 @@ button.login-btn:hover {
     margin-right: auto;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  label, p {
+    font-size: 14px;
+  }
+
+  .form-2-wrapper {
+    padding: 30px;
+  }
+
+  input.form-control {
+    padding: 8px;
+  }
+
+  .register-link a {
+    font-size: 14px;
+  }
+}
