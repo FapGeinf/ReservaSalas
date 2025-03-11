@@ -58,7 +58,7 @@
             @endif
 
             <li>
-              <form method="POST" action="{{ route('logout') }}">
+              <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
                 @csrf
                 <button class="dropdown-item" type="submit">Sair</button>
               </form>
