@@ -106,7 +106,6 @@ body {
   min-height: 100vh; /* Ocupa toda a altura da tela */
 }
 
-
-
-
-
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}

@@ -2,6 +2,10 @@ body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-c
   font-family: sans-serif !important; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
 }
 
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
 h1, h2, h3, h4, h5, h6, td, th {
   color: #374151 !important;
 }

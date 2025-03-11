@@ -2,7 +2,10 @@ body {
   background-image: url('/bg-white.jpg');
   background-size: cover;
   background-attachment: fixed;
+}
 
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .maxw-1000 {
