@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-@section('title') {{ 'Home' }} @endsection
+@section('title') {{ 'Início' }} @endsection
 
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
@@ -202,28 +202,35 @@
     
   <div class="modal-dialog">
     <div class="modal-content">
+
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="criarReservaModalLabel">Criar Reserva</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
         <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
           @csrf
           <input type="hidden" name="sala_fk" id="sala_fk">
+
           <div class="mb-3">
             <label for="data_reserva" class="fw-bold">Data:</label>
             <input type="date" name="data_reserva" id="data_reserva" class="input-custom" required>
           </div>
+
           <div class="mb-3">
             <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
             <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
           </div>
+
           <div class="mb-3">
             <label for="hora_termino" class="fw-bold">Hora de Término:</label>
             <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
           </div>
+          
         </form>
       </div>
+
       <div class="modal-footer">
         <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
         <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
