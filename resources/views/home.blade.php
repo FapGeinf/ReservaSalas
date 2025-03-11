@@ -287,7 +287,7 @@ function carregarReservas(salaId) {
       let html = '';
 
       if (reservas.length === 0) {
-        html = '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Nenhuma reserva para esta data.</p>';
+        html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
       } else {
         html += '<div class="reservas-grid">';
         reservas.forEach(reserva => {

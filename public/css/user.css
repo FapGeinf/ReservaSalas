@@ -256,6 +256,7 @@ body {
 
 
 
+
 /* Estilização das informações */
 .reserva-info {
     font-size: 0.95rem;
@@ -288,6 +289,25 @@ body {
     color: #333;
     display: block;
   }
+
+  .reserva-vazia {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #b22720; /* Cor vermelha suave para indicar ausência */
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Estilização do ícone */
+.reserva-vazia i {
+    font-size: 1.2rem;
+    color: #b22720;
+}
+
   
   /* BOTÕES */
 
