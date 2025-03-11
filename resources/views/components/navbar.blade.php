@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav gap-1 me-auto">
         <li class="nav-item">
-          <a class="nav-link nav-buttons" href="{{ route('home') }}>
+          <a class="nav-link nav-buttons" href="{{ route('home') }}">
             <i class="bi bi-house me-1"></i>Início
           </a>
         </li>
