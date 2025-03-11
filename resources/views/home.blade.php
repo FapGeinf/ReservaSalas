@@ -227,7 +227,7 @@
             <label for="hora_termino" class="fw-bold">Hora de Término:</label>
             <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
           </div>
-          
+
         </form>
       </div>
 
@@ -296,11 +296,24 @@ function carregarReservas(salaId) {
           const horaInicio = reserva.data_inicio.split(' ')[1];
           const horaFim = reserva.data_fim.split(' ')[1];
 
-          html += `<div class="reserva-card">
-                    <h5 class="text">🏢 Unidade: ${unidade}</h5>
-                    <p><strong>🕒 Hora:</strong> ${horaInicio} - ${horaFim}</p>
-                    <p><strong>👤 Reservado por:</strong> ${usuario}</p>
-                  </div>`;
+          html += `
+          <div class="reserva-card">
+            <span class="reserva-info">
+              <i class="bi bi-building"></i>
+              <strong>Unidade:</strong> ${unidade}
+            </span>
+
+            <span class="reserva-info">
+              <i class="bi bi-clock"></i>
+              <strong>Hora:</strong> ${horaInicio} - ${horaFim}
+            </span>
+
+            <span class="reserva-info">
+              <i class="bi bi-person"></i>
+              <strong>Reservado por:</strong> ${usuario}
+            </span>
+          </div>
+          `;
         });
         html += '</div>';
       }
@@ -335,19 +348,18 @@ $(document).ready(function () {
 <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content custom-modal">
-      <div class="modal-header custom-header">
-        <h5 class="modal-title w-100 text-center">📅 Reservas</h5>
+
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Reservas</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
-        <!-- Seletor de Data -->
         <div class="mb-3">
           <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
           <input type="date" id="dataSelecionada" class="input-custom">
         </div>
 
-        <!-- Container para Exibir as Reservas -->
         <div id="reservasContainer" class="reservas-container">
           <p class="text-center text-muted">
             <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
