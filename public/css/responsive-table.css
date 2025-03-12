@@ -1,0 +1,139 @@
+table {
+  width: 100%;
+  width: min(900px, 100%-3rem);
+  margin-inline: auto;
+  border-collapse: collapse;
+  border-spacing: 2rem;
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+}
+
+th, td, caption {
+  padding: 1rem;
+  text-align: center;
+}
+
+th {
+  padding: 1rem;
+}
+
+td {
+  border-bottom: 2px dashed #eeeded;
+  font-weight: 400;
+  font-size: 16px;
+  color: #686868;
+}
+
+/* Alternância de cores para as linhas pares e ímpares */
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e6e6e6;
+}
+
+@media (max-width: 1100px) {
+  td {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem 2rem;
+    background-color: transparent !important;
+  }
+
+  th {
+    display: none;
+  }
+
+  td::before {
+    content: attr(data-cell);
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  /* Alternância de cores nas linhas quando em modo responsivo */
+  tbody tr:nth-child(odd) td {
+    background-color: rgba(242, 242, 242, 0.8) !important;
+  }
+
+  tbody tr:nth-child(even) td {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+
+/* table {
+  width: 100%;
+
+  width: min(900px, 100%-3rem);
+  margin-inline: auto;
+
+  border-collapse: collapse;
+  border-spacing: 2rem;
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+
+  th,
+  td,
+  caption {
+    padding: 1rem;
+  }
+
+  td {
+    border-bottom: 2px dashed #eeeded;
+    font-weight: 400;
+    font-size: 16px;
+    color: #686868;
+    
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+  }
+  tr:last-child {
+    td {
+      border-bottom: none;
+    }
+  }
+
+  col:nth-child(2) {
+    background: #f4feff;
+  }
+}
+caption,
+th,
+td {
+  text-align: center;
+}
+
+
+@media (max-width: 900px) {
+  td {
+    display: grid;
+    gap: 2.5rem;
+
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem 2rem;
+  }
+  td:first-child{
+    padding-top:2rem;
+  }
+    td:last-child{
+    padding-top:2rem;
+  }
+
+  th {
+    display: none;
+  }
+  td::before {
+    content: attr(data-cell);
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+  }
+} */

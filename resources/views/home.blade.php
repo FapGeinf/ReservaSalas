@@ -6,12 +6,12 @@
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+<link rel="stylesheet" href="{{ asset('css/responsive-table.css') }}">
 
 <style>
   .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.5) !important; /* Mais claro que o padrão (0.5) */
 }
-
 </style>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -110,8 +110,7 @@
 
 <div class="form-wrapper p-30 py-3 mx-auto divTable">
 
-  <div class="custom__form_create">
-    <div class="table-responsive">
+    {{-- <div class="table-responsive">
       <table id="reservasTable" class="table table-striped"
       style="border-collapse: collapse; border: 1px solid #d3d3d3;">
         
@@ -193,9 +192,108 @@
         </tbody>
 
       </table>
+    </div> --}}
+
+    <div class="table-container">
+      <table id="reservasTable" class="table table-striped">
+        
+        <thead>
+          <tr>
+            <th colspan="7" class="text-center fs-4">Reservas</th>
+          </tr>
+
+          <tr>
+            <th class="th-bg">ID</th>
+            <th class="th-bg">SALA</th>
+            <th class="th-bg">HORA INÍCIO</th>
+            <th class="th-bg">HORA TÉRMINO</th>
+            <th class="th-bg">RESERVADO POR</th>
+            <th class="th-bg">UNIDADE</th>
+            <th class="th-bg">AÇÕES</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @foreach($reservas as $reserva)
+
+          <tr>
+
+            <!-- ID -->
+            <td data-cell="id">
+              {{ $reserva->id }}
+            </td>
+
+            <!-- SALA -->
+            <td data-cell="sala">
+              <div class="d-flex align-items-center justify-content-center text-center">
+
+                @if($reserva->sala && $reserva->sala->imagem)
+                  <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
+  
+                @else
+                  <p>Imagem não disponível</p>
+                @endif
+                
+                <div class="ms-3">
+                  <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+                </div>
+              </div>
+            </td>
+
+            <!-- HORA INÍCIO -->
+            <td data-cell="hora início">
+              <p class="fw-normal mb-1">
+                {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
+              </p>
+            </td>
+
+            <!-- HORA TÉRMINO -->
+            <td data-cell="hora fim">
+              <p class="fw-normal mb-1">
+                {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
+              </p>
+            </td>
+
+            <!-- RESERVADO POR -->
+            <td data-cell="reservado por">
+              <p class="fw-normal mb-1">
+                {{ $reserva->user ? $reserva->user->name : '' }}
+              </p>
+            </td>
+
+            <!-- UNIDADE -->
+            <td data-cell="unidade">
+              <p class="fw-normal mb-1">
+                {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
+              </p>
+            </td>
+
+            <!-- AÇÕES -->
+            <td data-cell="ações">
+              <div class="d-flex flex-row align-items-center justify-content-center gap-2">
+                <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
+                  <i class="fas fa-info-circle"></i>
+                </a>
+                
+                <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+              
+                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+                  @csrf
+                  @method('DELETE')
+                  <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
 
   <!-- Modal -->
   <div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
@@ -257,7 +355,7 @@
           previous: "Anterior"
         }
       },
-      scrollY: '200px',
+      // scrollY: '200px',
       scrollCollapse: true,
       paging: true
     });

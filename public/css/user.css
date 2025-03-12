@@ -54,7 +54,7 @@ body {
   }
   
   .dataTables_wrapper .dataTables_length {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
   }
   
   .p-30 {
@@ -130,16 +130,27 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+
+  .table-container {
+    background-color: transparent;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+  }
+
+  .th-bg {
+    color: #fff !important;
+    background-color: #255957 !important;
+  }
   
   #reservasTable {
     border: 1px solid #959595 !important;
     width: 100% !important;
     border: 1px solid #fff !important;
     width: 100% !important;
-    /* border-left: 1px solid #ccc !important; */
-    border-bottom: 1px solid #ccc !important;
-    border-top: 1px solid #ccc !important;
-    /* border-right: 1px solid #ccc !important; */
+
+    /* border-bottom: 1px solid #ccc !important; */
+    /* border-top: 1px solid #ccc !important; */
+
 }
   
   table.dataTable thead th {
@@ -150,7 +161,14 @@ body {
     padding-bottom: 1.5rem;
   }
   
-  /* BOTÕES DE PAGINAÇÃO */
+  table.dataTable thead th,table.dataTable thead td {
+    padding: 15px 18px !important;
+  }
+
+  table.dataTable tbody th,table.dataTable tbody td {
+    vertical-align: middle !important;
+  }
+  
   .dataTables_wrapper .dataTables_info {
     line-height: 39px;
     padding-bottom: 2rem;
@@ -179,9 +197,7 @@ body {
     background: #d2d2d2 !important;
     border: 1px solid transparent !important;
   }
-  /* BOTÕES DE PAGINAÇÃO END */
   
-  /* BOTÃO DE PAGINAÇÃO */
   .dataTables_wrapper .dataTables_length select {
     background-color: #fff !important;
     border-radius: 8px !important;
@@ -444,18 +460,18 @@ background-color: #f0be3f;
   border-top: 0;
   background-color: #f1f1f1;
 }
-
+/* 
 #reservasTable th {
-  border-bottom: 1px solid #d3d3d3 !important; /* Define uma borda fina no cabeçalho */
+  border-bottom: 1px solid #d3d3d3 !important;
 }
 
 #reservasTable thead tr:first-child th {
-  border-bottom: none !important; /* Remove borda duplicada na primeira linha */
+  border-bottom: none !important;
 }
 
 #reservasTable tbody {
-  border-top: none !important; /* Evita uma linha extra entre thead e tbody */
-}
+  border-top: none !important;
+} */
 
 .divCards,
 .divTable {
