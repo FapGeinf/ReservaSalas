@@ -86,7 +86,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px 30px;
+    /* padding: 5px 30px; */
   }
   
   .bg__card_pattern {
