@@ -62,7 +62,7 @@
           </div>
 
           <!-- Botões de Reserva e Ver Reservas -->
-          <div class="card-body card-fofinho" style="background-color: #f1f1f1; padding: 10px 30px;">
+          <div class="card-body card-fofinho" style="background-color: #f1f1f1; /* padding: 10px 30px; */">
             <div class="title-teste text-center d-flex flex-column">
               <div class="d-flex justify-content-center gap-3 py-2">
                 <button 
