@@ -55,7 +55,7 @@ tbody tr:nth-child(even) {
     border-radius: 5px;
   }
 
-  /* A COR PADRÃO ESTÁ SETADA NO E TODAS SÃO ACEITAS, MENOS CORES MUITO CLARAS, SABE DEUS PQ */
+  /* A COR PADRÃO ESTÁ SETADA NO CÓDIGO E TODAS SÃO ACEITAS, MENOS CORES MUITO CLARAS, SABE DEUS PQ */
 
   /* tbody tr:nth-child(odd) td {
     background-color: rgba(242, 242, 242, 0.8) !important;
