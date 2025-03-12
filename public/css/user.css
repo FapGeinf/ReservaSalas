@@ -68,7 +68,7 @@ body {
   .card {
     background-color: #f7f7f7;
     transition: .2s;
-    min-height: 325px;
+    min-height: 360px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
