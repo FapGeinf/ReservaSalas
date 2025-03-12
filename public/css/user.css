@@ -132,9 +132,10 @@ body {
   }
 
   .table-container {
-    background-color: transparent;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    background-color: #f7f7f7 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
     padding: 20px;
+    border: 1px solid #f0f0f0;
   }
 
   .th-bg {
@@ -145,7 +146,7 @@ body {
   #reservasTable {
     border: 1px solid #959595 !important;
     width: 100% !important;
-    border: 1px solid #fff !important;
+    border: 1px solid #ccc !important;
     width: 100% !important;
 
     /* border-bottom: 1px solid #ccc !important; */
