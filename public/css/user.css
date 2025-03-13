@@ -54,7 +54,7 @@ body {
   }
   
   .dataTables_wrapper .dataTables_length {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
   }
   
   .p-30 {
@@ -68,7 +68,7 @@ body {
   .card {
     background-color: #f7f7f7;
     transition: .2s;
-    min-height: 325px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -86,7 +86,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px 30px;
+    /* padding: 5px 30px; */
   }
   
   .bg__card_pattern {
@@ -130,16 +130,28 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+
+  .table-container {
+    background-color: #f7f7f7 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .th-bg {
+    color: #fff !important;
+    background-color: #255957 !important;
+  }
   
   #reservasTable {
     border: 1px solid #959595 !important;
     width: 100% !important;
-    border: 1px solid #fff !important;
+    border: 1px solid #ccc !important;
     width: 100% !important;
-    /* border-left: 1px solid #ccc !important; */
-    border-bottom: 1px solid #ccc !important;
-    border-top: 1px solid #ccc !important;
-    /* border-right: 1px solid #ccc !important; */
+
+    /* border-bottom: 1px solid #ccc !important; */
+    /* border-top: 1px solid #ccc !important; */
+
 }
   
   table.dataTable thead th {
@@ -150,7 +162,14 @@ body {
     padding-bottom: 1.5rem;
   }
   
-  /* BOTÕES DE PAGINAÇÃO */
+  table.dataTable thead th,table.dataTable thead td {
+    padding: 15px 18px !important;
+  }
+
+  table.dataTable tbody th,table.dataTable tbody td {
+    vertical-align: middle !important;
+  }
+  
   .dataTables_wrapper .dataTables_info {
     line-height: 39px;
     padding-bottom: 2rem;
@@ -179,9 +198,7 @@ body {
     background: #d2d2d2 !important;
     border: 1px solid transparent !important;
   }
-  /* BOTÕES DE PAGINAÇÃO END */
   
-  /* BOTÃO DE PAGINAÇÃO */
   .dataTables_wrapper .dataTables_length select {
     background-color: #fff !important;
     border-radius: 8px !important;
@@ -254,6 +271,54 @@ body {
     box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
 } */
 
+@media (max-width: 576px) { /* Ajustes para telas menores que 576px (celulares) */
+    
+    .col-sm-12 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    /* Ajustando a imagem da sala */
+    .fit-image {
+        width: 100%;
+        height: 150px; /* Reduzindo altura para telas menores */
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    /* Ajustando textos dentro do card */
+    .card-body.card-fofinho {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .title-teste h3 {
+        font-size: 1.2rem; /* Reduzindo tamanho do nome da sala */
+    }
+
+    .card-text {
+        font-size: 0.9rem; /* Texto menor para melhor legibilidade */
+    }
+
+    /* Ajustando botões */
+    .d-flex.justify-content-center.gap-3.py-2 {
+        flex-direction: column; /* Empilhar botões */
+        gap: 10px;
+    }
+
+    .button-green-index, .button-blue {
+        font-size: 14px;
+        padding: 8px 12px;
+        width: 100%; /* Ocupando toda a largura */
+    }
+}
 
 
 
@@ -396,22 +461,22 @@ background-color: #f0be3f;
   border-top: 0;
   background-color: #f1f1f1;
 }
-
+/* 
 #reservasTable th {
-  border-bottom: 1px solid #d3d3d3 !important; /* Define uma borda fina no cabeçalho */
+  border-bottom: 1px solid #d3d3d3 !important;
 }
 
 #reservasTable thead tr:first-child th {
-  border-bottom: none !important; /* Remove borda duplicada na primeira linha */
+  border-bottom: none !important;
 }
 
 #reservasTable tbody {
-  border-top: none !important; /* Evita uma linha extra entre thead e tbody */
-}
+  border-top: none !important;
+} */
 
 .divCards,
 .divTable {
-  width: 80.5%;
+  width: 82.5%;
 }
 
 @media only screen and (max-width: 1366px) {
