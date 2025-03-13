@@ -78,15 +78,93 @@ class ReservaController extends Controller
         return view('reservas.show', compact('reserva'));
     }
 
+
+
+    //    inicio (modificação realizada 13-03-25)
+//     public function edit(Reserva $reserva)
+//     { 
+//         $salas = Sala::all(); 
+//         $users = User::all(); 
+//         return view('reservas.edit', compact('reserva', 'salas', 'users'));
+//     }
+
+//     public function update(Request $request, Reserva $reserva)
+//     {
+//         $request->validate([
+//             'sala_id' => 'required|exists:salas,id',
+//             'data_inicio' => 'required|date',
+//             'hora_inicio' => 'required|date_format:H:i',
+//             'data_fim' => 'required|date_format:H:i|after:hora_inicio',
+//         ]);
+    
+//         // Verificar conflitos de horários
+//         $dataInicioCompleto = $request->input('data_inicio') . ' ' . $request->input('hora_inicio');
+//         $dataFimCompleto = $request->input('data_inicio') . ' ' . $request->input('data_fim');
+    
+//         $conflito = Reserva::where('sala_fk', $request->input('sala_id'))
+//             ->where('id', '!=', $reserva->getKey()) // Ignorar a reserva atual ao verificar conflitos
+//             ->where(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
+//                 $query->whereBetween('data_inicio', [$dataInicioCompleto, $dataFimCompleto])
+//                       ->orWhereBetween('data_fim', [$dataInicioCompleto, $dataFimCompleto])
+//                       ->orWhere(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
+//                           $query->where('data_inicio', '<=', $dataInicioCompleto)
+//                                 ->where('data_fim', '>=', $dataFimCompleto);
+//                       });
+//             })
+//             ->exists();
+    
+//         if ($conflito) {
+//             return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
+//         }
+    
+//         // Atualizar os dados da reserva
+//         $reserva->update([
+//             'sala_fk' => $request->input('sala_id'),
+//             'data_inicio' => $dataInicioCompleto,
+//             'data_fim' => $dataFimCompleto,
+//         ]);
+    
+//         return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
+//     }
+    
+
+//     public function destroy(Reserva $reserva)
+// {
+//     try {
+//         $reserva->delete();
+//         return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+//     } catch (\Exception $e) {
+//         return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+//     }
+// }
+
+    
+        // $reserva->delete();
+        // return redirect()->route('reservas.index');
+    
+    // Método personalizado para visualizar uma reserva específica 
+
+    //    fim (modificação realizada 13-03-25)
+
     public function edit(Reserva $reserva)
-    { 
+    {
+        // Verifica se o usuário é admin OU se a reserva pertence a ele
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para editar esta reserva.');
+        }
+    
         $salas = Sala::all(); 
         $users = User::all(); 
         return view('reservas.edit', compact('reserva', 'salas', 'users'));
     }
-
+    
     public function update(Request $request, Reserva $reserva)
     {
+        // Bloqueia se o usuário não for admin e não for o dono da reserva
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
+        }
+    
         $request->validate([
             'sala_id' => 'required|exists:salas,id',
             'data_inicio' => 'required|date',
@@ -94,52 +172,34 @@ class ReservaController extends Controller
             'data_fim' => 'required|date_format:H:i|after:hora_inicio',
         ]);
     
-        // Verificar conflitos de horários
-        $dataInicioCompleto = $request->input('data_inicio') . ' ' . $request->input('hora_inicio');
-        $dataFimCompleto = $request->input('data_inicio') . ' ' . $request->input('data_fim');
-    
-        $conflito = Reserva::where('sala_fk', $request->input('sala_id'))
-            ->where('id', '!=', $reserva->getKey()) // Ignorar a reserva atual ao verificar conflitos
-            ->where(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
-                $query->whereBetween('data_inicio', [$dataInicioCompleto, $dataFimCompleto])
-                      ->orWhereBetween('data_fim', [$dataInicioCompleto, $dataFimCompleto])
-                      ->orWhere(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
-                          $query->where('data_inicio', '<=', $dataInicioCompleto)
-                                ->where('data_fim', '>=', $dataFimCompleto);
-                      });
-            })
-            ->exists();
-    
-        if ($conflito) {
-            return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
-        }
-    
-        // Atualizar os dados da reserva
         $reserva->update([
             'sala_fk' => $request->input('sala_id'),
-            'data_inicio' => $dataInicioCompleto,
-            'data_fim' => $dataFimCompleto,
+            'data_inicio' => $request->input('data_inicio') . ' ' . $request->input('hora_inicio'),
+            'data_fim' => $request->input('data_inicio') . ' ' . $request->input('data_fim'),
         ]);
     
         return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
     }
     
-
     public function destroy(Reserva $reserva)
-{
-    try {
-        $reserva->delete();
-        return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-    } catch (\Exception $e) {
-        return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+    {
+        // Permite que apenas administradores ou o próprio usuário excluam a reserva
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta reserva.');
+        }
+    
+        try {
+            $reserva->delete();
+            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+        }
     }
-}
+    
 
-    
-        // $reserva->delete();
-        // return redirect()->route('reservas.index');
-    
-    // Método personalizado para visualizar uma reserva específica 
+
+
+
     public function view($id) 
     { 
         $reserva = Reserva::findOrFail($id); 
@@ -179,6 +239,7 @@ public function getReservasPorSalaEData($salaId, Request $request)
 
     return response()->json($reservas);
 }
+
 
 
 }

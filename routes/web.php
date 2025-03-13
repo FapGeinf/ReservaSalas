@@ -81,12 +81,8 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
     Route::get('/usuarios/{id}/edit', [RegisteredUserController::class, 'edit'])->name('usuarios.edit');
     Route::patch('/usuarios/{id}', [RegisteredUserController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy'])->name('usuarios.destroy');
-
-   
-
     // Rota para exibir o formulário de cadastro de usuários
-    Route::get('/usuarios/create', [UserController::class, 'create'])->name('usuarios.create');
-    
+    Route::get('/usuarios/create', [UserController::class, 'create'])->name('usuarios.create'); 
     // Rota para processar o cadastro de usuários
     Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
   

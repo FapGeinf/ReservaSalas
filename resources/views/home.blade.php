@@ -269,7 +269,7 @@
             </td>
 
             <!-- AÇÕES -->
-            <td data-cell="ações">
+            <!-- <td data-cell="ações">
               <div class="d-flex flex-row align-items-center justify-content-center gap-2">
                 <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
                   <i class="fas fa-info-circle"></i>
@@ -287,7 +287,29 @@
                   </button>
                 </form>
               </div>
-            </td>
+            </td> -->
+              <!-- AÇÕES -->
+            <td data-cell="ações">
+     <div class="d-flex flex-row align-items-center justify-content-center gap-2">
+        <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
+            <i class="fas fa-info-circle"></i>
+        </a>
+
+        @if(auth()->user()->role === 'admin' || auth()->user()->id === $reserva->user_id)
+            <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+
+            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="button-red">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
+         @endif
+       </div>
+    </td>
           </tr>
           @endforeach
         </tbody>
