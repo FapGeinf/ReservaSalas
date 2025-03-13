@@ -20,7 +20,7 @@
   </div>
 @endif
 
-<div class="p-30__no-bottom">
+<!-- <div class="p-30__no-bottom">
   <div class="mx-auto form_create">
     <div class="row justify-content-center">
       <div class="col">
@@ -29,7 +29,29 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+
+  <div class="p-30__no-bottom">
+  <div class="mx-auto form_create">
+    <div class="row justify-content-center">
+      <div class="col">
+        <!-- Título da Página -->
+        <div class="box__no-border no-margin-bottom title-bg">
+          <h3 class="text-center fw-bold">Usuários Cadastrados</h3>
+    
+
+        <!-- Botão de Cadastrar Novo Usuário -->
+        <div class="d-flex justify-content-end mb-3">
+          <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none">
+            <i class="fas fa-plus"></i> Cadastrar Novo Usuário
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
 
   <div class="mx-auto form_create__no-border">
     <div class="row justify-content-center">

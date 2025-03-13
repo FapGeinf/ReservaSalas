@@ -6,6 +6,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SalaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserController;
 
 Route::middleware('auth')->group(function () {
     // Página "Home"
@@ -81,8 +82,14 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
     Route::patch('/usuarios/{id}', [RegisteredUserController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy'])->name('usuarios.destroy');
 
+   
 
-
+    // Rota para exibir o formulário de cadastro de usuários
+    Route::get('/usuarios/create', [UserController::class, 'create'])->name('usuarios.create');
+    
+    // Rota para processar o cadastro de usuários
+    Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
+  
 
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';

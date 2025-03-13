@@ -63,10 +63,16 @@
             </div>
           </form>
 
-          <div class="text-start register-link mt-4">
+          <p class="mt-1">
+           <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="" target="_blank">Esqueceu a senha?</a>
+          </p>
+       </div>
+
+
+          <!-- <div class="text-start register-link mt-4">
             <a href="{{ route('password.request') }}" class="">Esqueceu a senha?</a>
             <p class="mt-1">Primeira vez usando o Agendaí? <a href="{{ route('register') }}" class="">Cadastre-se</a></p>
-          </div>
+          </div> -->
           
         </div>
       </div>
