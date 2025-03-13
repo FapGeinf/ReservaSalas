@@ -109,7 +109,8 @@
 </div>
 
 <div class="form-wrapper p-30 py-3 mx-auto divTable">
-  <table class="table-responsive">
+  <div class="table-container">
+    <table class="">
     <thead>
       <tr>
         <th><label class="text-light">Id</label></th>
@@ -182,6 +183,8 @@
      @endforeach
    </tbody>
   </table>
+  </div>
+  
 </div>
 
   <!-- Modal -->
