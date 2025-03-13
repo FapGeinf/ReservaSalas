@@ -1,129 +1,120 @@
 table {
-  width: 100%;
-  width: min(900px, 100%-3rem);
-  margin-inline: auto;
-  border-collapse: collapse;
-  border-spacing: 2rem;
-  box-shadow: 0px 4px px rgba(0, 0, 0, 0.05);
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	/* table-layout: fixed; */
 }
 
-th, td, caption {
-  padding: 1rem;
-  text-align: center;
+table caption {
+	font-size: 1.5em;
+	margin: .5em 0 .75em;
 }
 
-th {
-  padding: 1rem;
+table tr {
+	background-color: #fff;
+	border: 1px solid #e1e5e9;
+	padding: .35em;
+	border-radius: 3px;
 }
 
+table thead tr:first-child {
+    border: 1px solid #255957;
+}
 
-@media (max-width: 1100px) {
-  td {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: 1fr 3fr;
-    padding: 2rem 2rem;
-  }
+table th,
+table td {
+	padding: 1.625em;
+	text-align: center;
+	color: #9da9b9;
+	font-size: 14px;
+}
 
-  th {
-    display: none;
-  }
+/* table td:nth-child(4) {
+	font-size: 18px;
+} */
 
-  /* ODD */
+table th {
+	font-size: .85em;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	background: #255957;
+	color: #FFF;
+}
 
-  tbody tr:nth-child(odd) td:nth-of-type(1)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+table tbody tr td .btn-invoice {
+	background: #3fb293;
+	color: #FFF;
+	font-size: 13px;
+	padding: 10px 20px;
+	border: 0;
+}
 
-  tbody tr:nth-child(odd) td:nth-of-type(2)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+tbody tr:nth-child(even) {
+	background-color: #eee;
+}
 
-  tbody tr:nth-child(odd) td:nth-of-type(3)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+tbody tr:nth-child(odd) {
+	background-color: #fff;
+}
 
-  tbody tr:nth-child(odd) td:nth-of-type(4)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+@media screen and (max-width: 600px) {
+	table {
+		border: 0;
+	}
 
-  tbody tr:nth-child(odd) td:nth-of-type(5)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+	table caption {
+		font-size: 1.3em;
+	}
 
-  tbody tr:nth-child(odd) td:nth-of-type(6)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+	table thead {
+		border: none;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		position: absolute;
+		width: 1px;
+		padding: 0;
+	}
 
-  tbody tr:nth-child(odd) td:nth-of-type(7)::before {
-    content: attr(data-cell);
-    background: #255957;
-    color: #fff;
-  }
+	table tr {
+		border-bottom: 3px solid #e1e5e9;
+		display: block;
+		margin-bottom: .625em;
+	}
 
-  /* EVEN */
-  
-   tbody tr:nth-child(even) td:nth-of-type(1)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
+	table th,
+	table td {
+		padding: 0.625em;
+	}
 
-  tbody tr:nth-child(even) td:nth-of-type(2)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
+	table td {
+		border-bottom: 1px solid #e1e5e9;
+		display: block;
+		font-size: .8em;
+		text-align: right;
+		color: #9da9b9;
+	}
 
-  tbody tr:nth-child(even) td:nth-of-type(3)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
+	table td::before {
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #656971;
+	}
 
-  tbody tr:nth-child(even) td:nth-of-type(4)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
+	table td:last-child {
+		border-bottom: 0;
+	}
 
-  tbody tr:nth-child(even) td:nth-of-type(5)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
+	/* table td:nth-child(4) {
+		font-size: 0.8em;
+	} */
 
-  tbody tr:nth-child(even) td:nth-of-type(6)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
 
-  tbody tr:nth-child(even) td:nth-of-type(7)::before {
-    content: attr(data-cell);
-    background: #5b9d9c;
-    color: #fff;
-  }
 
-  td::before {
-    content: attr(data-cell);
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-    padding: 0.5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-  }
+ 
 }

@@ -109,191 +109,80 @@
 </div>
 
 <div class="form-wrapper p-30 py-3 mx-auto divTable">
+  <table class="table-responsive">
+    <thead>
+      <tr>
+        <th><label class="text-light">Id</label></th>
+        <th><label class="text-light">Sala</label></th>
+        <th><label class="text-light">Hora Início</label></th>
+        <th><label class="text-light">Hora Término</label></th>
+        <th><label class="text-light">Reservado Por</label></th>
+        <th><label class="text-light">Unidade</label></th>
+        <th><label class="text-light">Opções</label></th>
+      </tr>
+    </thead>
 
-    {{-- <div class="table-responsive">
-      <table id="reservasTable" class="table table-striped"
-      style="border-collapse: collapse; border: 1px solid #d3d3d3;">
+   <tbody>
+    @foreach($reservas as $reserva)
+     <tr>
+       <td data-label="Id">
+        {{ $reserva->id }}
+       </td>
+
+       <td data-label="Sala">   
+        @if($reserva->sala && $reserva->sala->imagem)
+          <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
+
+        @else
+          <p>Imagem não disponível</p>
+        @endif
         
-      <thead>
-        <tr>
-          <th colspan="7" class="text-center fs-4">Reservas</th>
-        </tr>
+        <div class="mt-1">
+          <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+        </div>
+       </td>
 
-        <tr class="text-center">
-          <th class="th__title">ID</th>
-          <th class="th__title">SALA</th>
-          <th class="th__title" style="white-space: nowrap">HORA INÍCIO</th>
-          <th class="th__title" style="white-space: nowrap">HORA TÉRMINO</th>
-          <th class="th__title" style="white-space: nowrap">RESERVADO POR</th>
-          <th class="th__title">UNIDADE</th>
-          <th class="th__title">AÇÕES</th>
-        </tr>
-      </thead>
-   
-      <tbody style="border-left: 1px solid #ccc;">
-        @foreach($reservas as $reserva)
-        <tr>
+       <td data-label="Hora Início">
+        {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
+       </td>
 
-          <td class="text-center td__data">{{ $reserva->id }}</td>
+       <td data-label="Hora Término">
+        {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
+       </td>
 
-          <td class="text-center">
-            <div class="d-flex align-items-center">
+       <td data-label="Reservado Por">
+        {{ $reserva->user ? $reserva->user->name : '' }}
+       </td>
 
-              @if($reserva->sala && $reserva->sala->imagem)
-                <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
+       <td data-label="Unidade">
+        {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
+       </td>
 
-              @else
-                <p>Imagem não disponível</p>
-              @endif
-              
-              <div class="ms-3">
-                <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
-              </div>
-            </div>
-          </td>
-
-          <td class="text-center">
-            <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}</p>
-          </td>
-
-          <td class="text-center">
-            <p class="fw-normal mb-1">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}</p>
-          </td>
-
-          <td class="text-center">
-            <p class="fw-normal mb-1">{{ $reserva->user ? $reserva->user->name : '' }}</p>
-          </td>
-
-          <td class="text-center">
-            <p class="fw-normal mb-1">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</p>
-          </td>
-
-            <td class="text-center">
-            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center gap-2">
-              <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
-              <i class="fas fa-info-circle"></i>
-              </a>
-              
-              <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
-              <i class="fa-regular fa-pen-to-square"></i>
-              </a>
-            
-              <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
-              @csrf
-              @method('DELETE')
-              <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-              </form>
-            </div>
-            </td>
-        </tr>
-        @endforeach
-        </tbody>
-
-      </table>
-    </div> --}}
-
-    <div class="table-container">
-      <table id="reservasTable" class="table table-striped">
+       <td data-label="Opções">
+        <div class="d-flex flex-row align-items-center justify-content-center gap-2">
+          <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
+            <i class="fas fa-info-circle"></i>
+          </a>
+          
+          <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </a>
         
-        <thead>
-          <tr>
-            <th colspan="7" class="text-center fs-4">Reservas</th>
-          </tr>
+          <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+            @csrf
+            @method('DELETE')
+            <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </form>
+        </div>
+       </td>
 
-          <tr>
-            <th class="th-bg">ID</th>
-            <th class="th-bg">SALA</th>
-            <th class="th-bg">HORA INÍCIO</th>
-            <th class="th-bg">HORA TÉRMINO</th>
-            <th class="th-bg">RESERVADO POR</th>
-            <th class="th-bg">UNIDADE</th>
-            <th class="th-bg">AÇÕES</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @foreach($reservas as $reserva)
-
-          <tr>
-
-            <!-- ID -->
-            <td data-cell="id">
-              {{ $reserva->id }}
-            </td>
-
-            <!-- SALA -->
-            <td data-cell="sala">
-              <div class="d-flex align-items-center justify-content-center text-center">
-
-                @if($reserva->sala && $reserva->sala->imagem)
-                  <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
-  
-                @else
-                  <p>Imagem não disponível</p>
-                @endif
-                
-                <div class="ms-3">
-                  <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
-                </div>
-              </div>
-            </td>
-
-            <!-- HORA INÍCIO -->
-            <td data-cell="hora início">
-              <p class="fw-normal mb-1">
-                {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
-              </p>
-            </td>
-
-            <!-- HORA TÉRMINO -->
-            <td data-cell="hora fim">
-              <p class="fw-normal mb-1">
-                {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
-              </p>
-            </td>
-
-            <!-- RESERVADO POR -->
-            <td data-cell="reservado por">
-              <p class="fw-normal mb-1">
-                {{ $reserva->user ? $reserva->user->name : '' }}
-              </p>
-            </td>
-
-            <!-- UNIDADE -->
-            <td data-cell="unidade">
-              <p class="fw-normal mb-1">
-                {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
-              </p>
-            </td>
-
-            <!-- AÇÕES -->
-            <td data-cell="ações">
-              <div class="d-flex flex-row align-items-center justify-content-center gap-2">
-                <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
-                  <i class="fas fa-info-circle"></i>
-                </a>
-                
-                <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </a>
-              
-                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
-                  @csrf
-                  @method('DELETE')
-                  <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </form>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
-  </div>
+     </tr>
+     @endforeach
+   </tbody>
+  </table>
+</div>
 
   <!-- Modal -->
   <div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
