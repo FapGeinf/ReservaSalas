@@ -110,7 +110,7 @@
 
 <div class="form-wrapper p-30 py-3 mx-auto divTable">
   <div class="table-container">
-    <table class="">
+    <table id="reservas">
     <thead>
       <tr>
         <th><label class="text-light">Id</label></th>
@@ -237,7 +237,7 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#reservasTable').DataTable({
+    $('#reservas').DataTable({
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
         search: "Procurar:",

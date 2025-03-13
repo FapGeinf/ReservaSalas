@@ -52,12 +52,16 @@ table tbody tr td .btn-invoice {
 	border: 0;
 }
 
+table.dataTable.no-footer {
+	border-bottom: 1px solid #cccccc !important;
+}
+
 tbody tr:nth-child(even) {
-	background-color: #eee;
+	background-color: #eee !important;
 }
 
 tbody tr:nth-child(odd) {
-	background-color: #fff;
+	background-color: #fff !important;
 }
 
 @media screen and (max-width: 1000px) {
