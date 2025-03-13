@@ -30,7 +30,7 @@
     <div class="row">
     @foreach($salas as $index => $sala)
 
-      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
         <div class="card border position-relative">
 
           <!-- Imagem da Sala com Sobreposição -->
@@ -160,7 +160,7 @@
        </td>
 
        <td data-label="Opções">
-        <div class="d-flex flex-row align-items-center justify-content-center gap-2">
+        {{-- <div class="d-flex flex-row align-items-center justify-content-center gap-2">
           <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
             <i class="fas fa-info-circle"></i>
           </a>
@@ -176,7 +176,11 @@
               <i class="fa-solid fa-trash"></i>
             </button>
           </form>
-        </div>
+        </div> --}}
+        <button class="btn-invoice"><i class="fas fa-info-circle"></i></button>
+        <button class="btn-invoice"><i class="fa-regular fa-pen-to-square"></i></button>
+        <button class="btn-invoice"><i class="fa-solid fa-trash"></i></button>
+
        </td>
 
      </tr>
