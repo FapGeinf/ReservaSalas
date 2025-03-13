@@ -44,7 +44,7 @@
 
             @if($situacao === 'inativa')
               <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0, 0, 0, 0.7);">
-                <span class="text-white fw-bold fs-5">Sala em Manutenção</span>
+                <span class="text-white fw-bold fs-6">SALA EM MANUTENÇÃO</span>
               </div>
             @endif
           </div>
