@@ -63,10 +63,9 @@ a.nav-buttons:hover {
   background: none;
   border: 1px solid #6c757d;
   cursor: pointer;
-  /* font-size: 1.2rem; */
   padding: 5px 10px;
   border-radius: 4px;
-  background-color: #6c757d; /* Cor do botão do Bootstrap */
+  background-color: #6c757d;
   color: white;
 }
 
@@ -74,20 +73,9 @@ a.nav-buttons:hover {
   background-color: #5b6c7a;
 }
 
-/* Responsividade: Ajusta posição quando tela for menor que 768px */
 @media (max-width: 768px) {
   .dropdown-menu-custom {
     left: -80px; /* Ajusta o menu para a esquerda */
     right: auto;
   }
 }
-
-/* @media only screen and (max-width: 1000px) {
-  .d-mt2 {
-    margin-top: 1rem;
-  }
-
-  .navbar-nav {
-    flex-direction: row;
-  }
-} */

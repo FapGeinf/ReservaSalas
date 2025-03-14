@@ -123,12 +123,4 @@ tbody tr:nth-child(odd) {
 	table td:last-child {
 		border-bottom: 0;
 	}
-
-	/* table td:nth-child(4) {
-		font-size: 0.8em;
-	} */
-
-
-
- 
 }
