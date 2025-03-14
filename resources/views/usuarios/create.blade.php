@@ -10,6 +10,12 @@
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
+<style>
+  label {
+    font-size: 16px;
+  }
+</style>
+
 @if(session('success'))
   <div class="d-flex justify-content-center">
     <div class="alert alert-success alert-dismissible fade show text-center alert-custom" style="max-width: 30%;" role="alert">
@@ -20,7 +26,7 @@
 @endif
 
 <div class="p-30__no-bottom">
-  <div class="mx-auto form_create">
+  <div class="mx-auto form_create-800">
     <div class="row justify-content-center">
       <div class="col">
         <div class="box__no-border no-margin-bottom title-bg">
@@ -30,7 +36,7 @@
     </div>
   </div>
 
-  <div class="mx-auto form_create__no-border">
+  <div class="mx-auto form_create__no-border-800">
     <div class="row justify-content-center">
       <div class="col">
         <div class="box__no-border">
@@ -39,26 +45,27 @@
 
             <!-- Nome -->
             <div class="mb-3">
-              <label for="name" class="form-label">Nome</label>
-              <input type="text" class="form-control input-text" id="name" name="name" required>
+              <label for="name" class="fw-bold">Nome:</label>
+              <input type="text" class="input-custom
+              " id="name" name="name" required>
             </div>
 
             <!-- Email -->
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control input-text" id="email" name="email" required>
+              <label for="email" class="fw-bold">Email:</label>
+              <input type="email" class="input-custom" id="email" name="email" required>
             </div>
 
             <!-- CPF -->
             <div class="mb-3">
-              <label for="cpf" class="form-label">CPF</label>
-              <input type="text" class="form-control input-text" id="cpf" name="cpf" required>
+              <label for="cpf" class="fw-bold">CPF:</label>
+              <input type="text" class="input-custom" id="cpf" name="cpf" required>
             </div>
 
             <!-- Unidade -->
             <div class="mb-3">
-              <label for="unidade_fk" class="form-label">Unidade</label>
-              <select class="form-control input-text" id="unidade_fk" name="unidade_fk" required>
+              <label for="unidade_fk" class="fw-bold">Unidade:</label>
+              <select class="form-select" id="unidade_fk" name="unidade_fk" required>
                 <option value="">Selecione a unidade</option>
                 @foreach($unidades as $unidade)
                   <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
@@ -68,19 +75,19 @@
 
             <!-- Senha -->
             <div class="mb-3">
-              <label for="password" class="form-label">Senha</label>
-              <input type="password" class="form-control input-text" id="password" name="password" required>
+              <label for="password" class="fw-bold">Senha:</label>
+              <input type="password" class="input-custom" id="password" name="password" required>
             </div>
 
             <!-- Confirmação de Senha -->
             <div class="mb-3">
-              <label for="password_confirmation" class="form-label">Confirme a Senha</label>
-              <input type="password" class="form-control input-text" id="password_confirmation" name="password_confirmation" required>
+              <label for="password_confirmation" class="fw-bold">Confirme a Senha:</label>
+              <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>
             </div>
 
             <div class="d-flex justify-content-end">
-              <button type="submit" class="button-blue">
-                <i class="fas fa-save"></i> Cadastrar
+              <button type="submit" class="button-green">
+                Cadastrar
               </button>
             </div>
           </form>
