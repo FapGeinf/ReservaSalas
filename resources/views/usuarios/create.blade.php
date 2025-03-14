@@ -86,7 +86,7 @@
             </div>
 
             <div class="d-flex justify-content-end">
-              <button type="submit" class="button-blue">
+              <button type="submit" class="button-green">
                 Cadastrar
               </button>
             </div>
