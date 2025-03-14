@@ -177,9 +177,17 @@
             </button>
           </form>
         </div> --}}
-        <button class="btn-invoice"><i class="fas fa-info-circle"></i></button>
-        <button class="btn-invoice"><i class="fa-regular fa-pen-to-square"></i></button>
-        <button class="btn-invoice"><i class="fa-solid fa-trash"></i></button>
+        <div class="dropdown-custom">
+          <button class="btn-dropdown" onclick="toggleDropdown(this)">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+          
+          <div class="dropdown-menu-custom">
+            <button class="dropdown-item">Detalhes</button>
+            <button class="dropdown-item">Editar</button>
+            <button class="dropdown-item text-danger">Excluir</button>
+          </div>
+        </div>
 
        </td>
 
@@ -232,6 +240,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  function toggleDropdown(button) {
+    const dropdown = button.parentElement;
+    dropdown.classList.toggle("open");
+
+    // Fecha o dropdown ao clicar fora dele
+    document.addEventListener("click", function closeDropdown(event) {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove("open");
+        document.removeEventListener("click", closeDropdown);
+      }
+    });
+  }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
