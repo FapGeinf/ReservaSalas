@@ -64,6 +64,10 @@ tbody tr:nth-child(odd) {
 	background-color: #fff !important;
 }
 
+.dataTables_wrapper .dataTables_info {
+	padding-bottom: 0;
+}
+
 @media screen and (max-width: 1000px) {
 	/* table {
 		overflow-x: auto;
@@ -127,4 +131,12 @@ tbody tr:nth-child(odd) {
 	.img-table {
 		display: none;
 	}
+
+	table {
+		border: none !important;
+	}
+
+	/* .dataTables_wrapper .dataTables_info {
+		padding-bottom: 0;
+	} */
 }
