@@ -107,7 +107,7 @@ tbody tr:nth-child(odd) {
 	table td {
 		border-bottom: 1px solid #e1e5e9;
 		display: block;
-		font-size: .8em;
+		font-size: 14px;
 		text-align: right;
 		color: #9da9b9;
 	}
@@ -122,5 +122,9 @@ tbody tr:nth-child(odd) {
 
 	table td:last-child {
 		border-bottom: 0;
+	}
+
+	.img-table {
+		display: none;
 	}
 }

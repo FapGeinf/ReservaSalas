@@ -132,7 +132,7 @@
 
        <td data-label="Sala">   
         @if($reserva->sala && $reserva->sala->imagem)
-          <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square"/>
+          <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square img-table"/>
 
         @else
           <p>Imagem não disponível</p>
@@ -181,7 +181,7 @@
           <button class="btn-dropdown" onclick="toggleDropdown(this)">
             <i class="fas fa-ellipsis-v"></i>
           </button>
-          
+
           <div class="dropdown-menu-custom">
             <button class="dropdown-item">Detalhes</button>
             <button class="dropdown-item">Editar</button>
