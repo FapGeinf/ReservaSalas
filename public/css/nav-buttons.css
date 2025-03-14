@@ -29,6 +29,10 @@ a.nav-buttons:hover {
   display: inline-block;
 }
 
+.dropdown-menu {
+  font-size: 14px !important;
+}
+
 .dropdown-menu-custom {
   display: none;
   position: absolute;
