@@ -111,112 +111,130 @@
 <div class="form-wrapper p-30 py-3 mx-auto divTable">
   <div class="table-container">
     <table id="reservas">
-    <thead>
-      <tr>
-        <th><label class="text-light">Id</label></th>
-        <th><label class="text-light">Sala</label></th>
-        <th><label class="text-light">Hora Início</label></th>
-        <th><label class="text-light">Hora Término</label></th>
-        <th><label class="text-light">Reservado Por</label></th>
-        <th><label class="text-light">Unidade</label></th>
-        <th><label class="text-light">Opções</label></th>
-      </tr>
-    </thead>
+      <thead>
+        <tr>
+          <th>
+            <label class="text-light">Id</label>
+          </th>
 
-   <tbody>
-    @foreach($reservas as $reserva)
-     <tr>
-       <td data-label="Id">
-        {{ $reserva->id }}
-       </td>
+          <th>
+            <label class="text-light">Sala</label>
+          </th>
 
-       <td data-label="Sala">   
-        @if($reserva->sala && $reserva->sala->imagem)
-          <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square img-table"/>
+          <th>
+            <label class="text-light">Hora Início</label>
+          </th>
 
-        @else
-          <p>Imagem não disponível</p>
-        @endif
-        
-        <div class="mt-1">
-          <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
-        </div>
-       </td>
+          <th>
+            <label class="text-light">Hora Término</label>
+          </th>
 
-       <td data-label="Hora Início">
-        {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
-       </td>
+          <th>
+            <label class="text-light">Reservado Por</label>
+          </th>
 
-       <td data-label="Hora Término">
-        {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
-       </td>
+          <th>
+            <label class="text-light">Unidade</label>
+          </th>
 
-       <td data-label="Reservado Por">
-        {{ $reserva->user ? $reserva->user->name : '' }}
-       </td>
+          <th>
+            <label class="text-light">Opções</label>
+          </th>
+        </tr>
+      </thead>
 
-       <td data-label="Unidade">
-        {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
-       </td>
+      <tbody>
+        @foreach($reservas as $reserva)
+        <tr>
+          <td data-label="Id">
+            {{ $reserva->id }}
+          </td>
 
-       <td data-label="Opções">
-        {{-- <div class="d-flex flex-row align-items-center justify-content-center gap-2">
-          <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
-            <i class="fas fa-info-circle"></i>
-          </a>
-          
-          <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </a>
-        
-          <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
-            @csrf
-            @method('DELETE')
-            <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </form>
-        </div> --}}
-        <div class="dropdown-custom">
-          <button class="btn-dropdown" onclick="toggleDropdown(this)">
-            <i class="fas fa-ellipsis-v"></i>
-          </button>
+          <td data-label="Sala">   
+            @if($reserva->sala && $reserva->sala->imagem)
+              <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square img-table"/>
 
-          <div class="dropdown-menu-custom">
-            <button class="btn-dropdown dropdown-item">
-              <a href="{{ route('reservas.show', $reserva->id) }}" class="text-decoration-none text-pattern">
-                {{-- <i class="fas fa-info-circle"></i> --}}
-                Detalhes
-              </a>
-            </button>
-
-            <button class="btn-dropdown dropdown-item">
-              <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-decoration-none text-pattern">
-                {{-- <i class="fa-regular fa-pen-to-square"></i> --}}
-                Editar
-              </a>
-            </button>
+            @else
+              <p>Imagem não disponível</p>
+            @endif
             
+            <div class="mt-1">
+              <p class="mb-1 text-uppercase">{{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
+            </div>
+          </td>
+
+          <td data-label="Hora Início">
+            {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
+          </td>
+
+          <td data-label="Hora Término">
+            {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
+          </td>
+
+          <td data-label="Reservado Por">
+            {{ $reserva->user ? $reserva->user->name : '' }}
+          </td>
+
+          <td data-label="Unidade">
+            {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
+          </td>
+
+          <td data-label="Opções">
+            {{-- <div class="d-flex flex-row align-items-center justify-content-center gap-2">
+              <a href="{{ route('reservas.show', $reserva->id) }}" class="button-blue text-decoration-none">
+                <i class="fas fa-info-circle"></i>
+              </a>
+              
+              <a href="{{ route('reservas.edit', $reserva->id) }}" class="button-yellow text-decoration-none">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </a>
             
-            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
-              @csrf
-              @method('DELETE')
-              <button type="button" class="btn-dropdown dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-                {{-- <i class="fa-solid fa-trash"></i> --}}
-                Excluir
+              <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </form>
+            </div> --}}
+            <div class="dropdown-custom">
+              <button class="btn-dropdown" onclick="toggleDropdown(this)">
+                <i class="fas fa-ellipsis-v"></i>
               </button>
-            </form>
-          </div>
-        </div>
 
-       </td>
+              <div class="dropdown-menu-custom">
+                <button class="btn-dropdown dropdown-item">
+                  <a href="{{ route('reservas.show', $reserva->id) }}" class="text-decoration-none text-pattern">
+                    {{-- <i class="fas fa-info-circle"></i> --}}
+                    Detalhes
+                  </a>
+                </button>
 
-     </tr>
-     @endforeach
-   </tbody>
-  </table>
+                <button class="btn-dropdown dropdown-item">
+                  <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-decoration-none text-pattern">
+                    {{-- <i class="fa-regular fa-pen-to-square"></i> --}}
+                    Editar
+                  </a>
+                </button>
+                
+                
+                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+                  @csrf
+                  @method('DELETE')
+                  <button type="button" class="btn-dropdown dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+                    {{-- <i class="fa-solid fa-trash"></i> --}}
+                    Excluir
+                  </button>
+                </form>
+              </div>
+            </div>
+            
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
   </div>
-  
 </div>
 
   <!-- Modal -->

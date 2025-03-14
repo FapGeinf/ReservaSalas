@@ -75,7 +75,7 @@ tbody tr:nth-child(odd) {
 	} */
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
 	/* table {
 		border: 0;
 		overflow-x: unset;

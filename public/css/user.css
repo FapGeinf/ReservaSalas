@@ -139,6 +139,22 @@ body {
     border: 1px solid #dee2e6;
   }
 
+  .table-container-no-top {
+    background-color: #f8f9fa !important;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10); */
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-top: 0; /* Remove a borda superior */
+  }
+
+  .table-container-no-bottom {
+    background-color: #f8f9fa !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-bottom: 0; /* Remove a borda superior */
+  }
+
   .th-bg {
     color: #fff !important;
     background-color: #255957 !important;
@@ -480,9 +496,9 @@ background-color: #f0be3f;
   width: 82.5%;
 }
 
-@media only screen and (max-width: 1366px) {
+/* @media only screen and (max-width: 1366px) {
   .divCards,
   .divTable {
     width: 100%;
   }
-}
+} */
