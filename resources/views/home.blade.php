@@ -183,9 +183,29 @@
           </button>
 
           <div class="dropdown-menu-custom">
-            <button class="dropdown-item">Detalhes</button>
-            <button class="dropdown-item">Editar</button>
-            <button class="dropdown-item text-danger">Excluir</button>
+            <button class="btn-dropdown dropdown-item">
+              <a href="{{ route('reservas.show', $reserva->id) }}" class="text-decoration-none text-pattern">
+                {{-- <i class="fas fa-info-circle"></i> --}}
+                Detalhes
+              </a>
+            </button>
+
+            <button class="btn-dropdown dropdown-item">
+              <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-decoration-none text-pattern">
+                {{-- <i class="fa-regular fa-pen-to-square"></i> --}}
+                Editar
+              </a>
+            </button>
+            
+            
+            <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+              @csrf
+              @method('DELETE')
+              <button type="button" class="btn-dropdown dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+                {{-- <i class="fa-solid fa-trash"></i> --}}
+                Excluir
+              </button>
+            </form>
           </div>
         </div>
 
