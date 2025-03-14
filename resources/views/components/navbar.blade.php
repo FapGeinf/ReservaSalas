@@ -2,13 +2,19 @@
 <link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
-<nav class="navbar navbar-expand-lg" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);">
+<style>
+  body {
+    padding-top: 40px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ route('home') }}">
       <img src="{{ asset('/img/logo-letras-white-light.png') }}" alt="Logo" height="30">
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler nav-buttons" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
