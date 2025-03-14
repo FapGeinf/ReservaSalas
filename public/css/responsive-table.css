@@ -65,18 +65,18 @@ tbody tr:nth-child(odd) {
 }
 
 @media screen and (max-width: 1000px) {
-	table {
+	/* table {
 		overflow-x: auto;
 		display: block;
-	}
+	} */
 }
 
-@media screen and (max-width: 768px) {
-	table {
+@media screen and (max-width: 800px) {
+	/* table {
 		border: 0;
 		overflow-x: unset;
 		display: table;
-	}
+	} */
 
 	table caption {
 		font-size: 1.3em;
