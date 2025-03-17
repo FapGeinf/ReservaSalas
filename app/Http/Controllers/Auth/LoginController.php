@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use LdapRecord\Models\ActiveDirectory\User as LdapUser;
+use Illuminate\Http\Request;
 
 class LdapSyncController extends Controller
 {
