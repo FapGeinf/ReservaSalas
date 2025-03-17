@@ -5,7 +5,7 @@ use App\Models\User;
 use LdapRecord\Models\ActiveDirectory\User as LdapUser;
 use Illuminate\Http\Request;
 
-class LdapSyncController extends Controller
+class LoginController extends Controller
 {
     public function syncUsersWithLdap()
     {

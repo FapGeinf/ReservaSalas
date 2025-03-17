@@ -66,9 +66,9 @@ class RegisteredUserController extends Controller
         $usuario = User::find($id); // Busca o usuário pelo ID
 
         // Verifica se o usuário existe
-        if (!$usuario) {
-            return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
-        }
+        // if (!$usuario) {
+        //     return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
+        // }
 
         $unidades = Unidade::all(); // Busca todas as unidades para o dropdown
         return view('profile.edit', compact('usuario', 'unidades'));
