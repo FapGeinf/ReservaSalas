@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/responsive-table.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
 @if(session('success'))
   <div class="d-flex justify-content-center">
@@ -22,9 +23,9 @@
   
   <div class="form-wrapper p-30 py-3 mx-auto divTable">
     <div class="table-container-no-bottom text-center p-30 mt-5">
-      <h4 class="fw-bold">
+      <h3 class="fw-bold">
         USUÁRIOS CADASTRADOS
-      </h4>
+      </h3>
       
     </div>
 
@@ -35,7 +36,7 @@
         </a>
       </div>
 
-      <table>
+      <table id="tableUsers">
         <thead>
           <th>
             <label class="text-light">Id</label>
@@ -122,6 +123,31 @@
     </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#tableUsers').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+        search: "Procurar:",
+        lengthMenu: "Paginação: _MENU_",
+        info: 'Mostrando página _PAGE_ de _PAGES_',
+        infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+        infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+        paginate: {
+          next: "Próximo",
+          previous: "Anterior"
+        }
+      },
+      // scrollY: '200px',
+      scrollCollapse: true,
+      paging: true
+    });
+  });
+</script>
 
 <!-- Script para passar o ID do usuário ao modal -->
 <script>
