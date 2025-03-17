@@ -6,22 +6,32 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\SalaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LdapSyncController;
+
+
+
+// Rotas de login e logout
+Route::get('/sync-ldap-users', [LdapSyncController::class, 'syncUsersWithLdap']);
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     // Página "Home"
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-
-   // Rotas acessíveis por todos os usuários autenticados
+    // Rotas acessíveis por todos os usuários autenticados
     Route::middleware(['auth'])->group(function () {
-      Route::get('/home', [HomeController::class, 'index'])->name('home');
-      Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
-});
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
+    });
 
-// Rotas exclusivas para administradores
+    // Rotas exclusivas para administradores
     Route::middleware(['auth', 'admin'])->group(function () {
-       Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-});
+        Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    });
+
     // Dashboard (redireciona para a raiz)
     Route::get('/dashboard', function () {
         return redirect('home');
@@ -36,8 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('salas', SalaController::class)->names([
         'index' => 'salas', // Nome personalizado para a rota index
     ]);
-
-    
 
     // Rotas de Reservas (CRUD)
     Route::prefix('reservas')->group(function () {
@@ -56,33 +64,28 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-// Rotas de registro
-Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); 
-Route::post('register', [RegisteredUserController::class, 'store']);
+// // Rotas de registro
+// Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+// Route::post('register', [RegisteredUserController::class, 'store']);
 
-// Rota de logout
-Route::post('/logout', function () {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-    return redirect('/login'); // Redirecione para a página de login ou outra página desejada
-})->name('logout');
+// // Rota de logout - Remover a rota duplicada de logout
+// // A rota de logout está definida no LoginController, então não é necessário definir aqui
+// // Route::post('/logout', function () {
+// //     Auth::logout();
+// //     request()->session()->invalidate();
+// //     request()->session()->regenerateToken();
+// //     return redirect('/login');
+// // })->name('logout');
 
-Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia']);
+// // Outras rotas
+// Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia']);
+// Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
 
-Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
-
-
-
-// Rotas de usuários
-
-    Route::get('/usuarios', [RegisteredUserController::class, 'index'])->name('usuarios.index');
-    Route::get('/usuarios/{id}/edit', [RegisteredUserController::class, 'edit'])->name('usuarios.edit');
-    Route::patch('/usuarios/{id}', [RegisteredUserController::class, 'update'])->name('usuarios.update');
-    Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy'])->name('usuarios.destroy');
-
-
-
+// // Rotas de usuários
+// Route::get('/usuarios', [RegisteredUserController::class, 'index'])->name('usuarios.index');
+// Route::get('/usuarios/{id}/edit', [RegisteredUserController::class, 'edit'])->name('usuarios.edit');
+// Route::patch('/usuarios/{id}', [RegisteredUserController::class, 'update'])->name('usuarios.update');
+// Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy'])->name('usuarios.destroy');
 
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';

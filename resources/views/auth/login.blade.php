@@ -33,22 +33,39 @@
           <form method="POST" action="{{ route('login') }}">
             @csrf
 
-          <div class="mb-3 form-box">
+         <!-- Alterando o campo cpf para username -->
+<div class="mb-3 form-box">
+    <label for="username">Usuário:</label>
+    <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome de usuário" required>
+    </div>
+</div>
+
+            <!-- <div class="mb-3 form-box">
             <label for="cpf">CPF:</label>
             
             <div class="input-group">
               <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
               <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
             </div>
-          </div>
+          </div> -->
 
-            <label for="password">Senha:</label>
+          <div class="mb-3 form-box">
+    <label for="password">Senha:</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text">@</span>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Digite sua senha" required autocomplete="current-password">
+    </div>
+</div>
+
+            <!-- <label for="password">Senha:</label>
             <div class="input-group mb-3">
               <span class="input-group-text">@</span>
               <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 
               <x-input-error :messages="$errors->get('password')" class="mt-2"/>
-            </div>
+            </div> -->
 
             <!-- Lembrar de Mim -->
             <div class="block mt-0">
