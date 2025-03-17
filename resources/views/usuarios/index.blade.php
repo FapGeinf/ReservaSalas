@@ -104,7 +104,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmação de Exclusão</h5>
+        <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmação de Exclusão</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
@@ -113,12 +113,13 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <form id="deleteForm" action="" method="POST">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger">Excluir</button>
+          <button type="submit" class="button-red">Excluir</button>
         </form>
+
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
