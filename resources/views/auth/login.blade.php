@@ -35,11 +35,11 @@
             @csrf
 
           <div class="mb-3 form-box">
-            <label for="name">Nome:</label>
+            <label for="login">Login:</label>
             
             <div class="input-group">
               <span class="input-group-text"><i class="bi bi-person"></i></span>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo" required>
+              <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
             </div>
           </div>
 
