@@ -33,6 +33,20 @@ class AdminSeeder extends Seeder
                 'cpf' => '892.883.512-72', // Adicione o campo CPF
             ]
         );
+
+        // Terceiro usuário admin
+        User::firstOrCreate(
+            ['email' => 'admin1@email.com'],
+            [
+                'name' => 'Admin1',
+                'login' => 'admin1',
+                'password' => bcrypt('12345678'),
+                'role' => 'admin',
+                'unidade_fk' => 2, // Certifique-se de substituir pelo ID da unidade apropriada
+                'cpf' => '000.000.000-04', // Adicione o campo CPF
+            ]
+        );
+
     }
 }
 

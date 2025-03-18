@@ -45,6 +45,8 @@
           <th>
             <label class="text-light">Nome</label>
           </th>
+
+          <th><label class="text-light">Login</label></th> 
         
           <th>
             <label class="text-light">Email</label>
@@ -73,6 +75,8 @@
             <td data-label="Nome">
               {{ $usuario->name }}
             </td>
+
+            <td data-label="Login">{{ $usuario->login }}</td>
 
             <td data-label="Email">
               {{ $usuario->email }}
