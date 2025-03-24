@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'login' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'cpf' => 'required|string|max:14|unique:users', // Validação do CPF
@@ -42,6 +43,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'login' => $request->login,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'cpf'=> $request->cpf,
@@ -79,6 +81,7 @@ class RegisteredUserController extends Controller
         // Validação dos dados
         $request->validate([
             'name' => 'required|string|max:255',
+            'login' => 'required|string|max:255|unique:users,login,' . $id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'cpf' => 'required|string|max:14|unique:users,cpf,' . $id,
             'unidade_fk' => 'required|exists:unidades,id',
@@ -88,6 +91,7 @@ class RegisteredUserController extends Controller
         $usuario = User::findOrFail($id);
         $usuario->update([
             'name' => $request->name,
+            'login' => $request->login,
             'email' => $request->email,
             'cpf' => $request->cpf,
             'unidade_fk' => $request->unidade_fk,

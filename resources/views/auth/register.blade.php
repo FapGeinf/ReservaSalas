@@ -45,6 +45,22 @@
               <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
+            
+            <!-- Login -->
+            <div class="mb-3 form-box">
+              <label for="login">Login:</label>
+
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-person-circle"></i>
+                </span>
+
+                <input type="text" id="login" name="login" class="form-control" :value="old('login')" required placeholder="ex: julliany.souza" autocomplete="username">
+              </div>
+
+              <x-input-error :messages="$errors->get('login')" class="mt-2" />
+            </div>
+
             <!-- Email -->
             <div class="mb-3 form-box">
               <label for="email">Email:</label>
