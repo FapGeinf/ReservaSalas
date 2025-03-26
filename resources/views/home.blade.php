@@ -3,6 +3,7 @@
 
 @section('title') {{ 'Início' }} @endsection
 
+<!-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> -->
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
@@ -23,6 +24,11 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- fullcalendar -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script src=''></script>
+
 
 <div class="">
   <div class="p-30 mx-auto mt-5 divCards">
@@ -237,6 +243,7 @@
   </div>
 </div>
 
+
   <!-- Modal -->
   <div class="modal fade" id="criarReservaModal" tabindex="-1" aria-labelledby="criarReservaModalLabel" aria-hidden="true">
     
@@ -248,6 +255,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
+
+      <div id='calendar'></div>
+      
       <div class="modal-body">
         <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
           @csrf
@@ -278,6 +288,24 @@
     </div>
   </div>
 </div>
+
+
+<!-- fullcalendar -->
+<script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          locale: 'pt-br'
+        });
+        calendar.render();
+      });
+
+    </script>
+
+
+
 
 <script>
   function toggleDropdown(button) {
