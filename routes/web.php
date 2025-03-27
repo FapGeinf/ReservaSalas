@@ -87,5 +87,15 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
     Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
   
 
+    
+    // Rotas de fullcalendar
+    // Route::get('/eventos', [ReservaController::class, 'getEventos']);
+    // Route::post('/reservas/store', [ReservaController::class, 'store'])->name('reservas.store');
+   
+
+     Route::get('/eventos', [ReservaController::class, 'getEventos']);
+     Route::post('/reservas/store', [ReservaController::class, 'store'])->name('reservas.store');
+
+
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';
