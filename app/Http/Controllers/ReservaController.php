@@ -285,15 +285,38 @@ public function getReservasPorSalaEData($salaId, Request $request)
 
 
 
-public function getEventos()
+// public function getEventos()
+// {
+//     $eventos = Reserva::with('user.unidade','sala')->get()->map(function ($reserva) {
+        
+//         return [
+//             'id' => $reserva->id,
+//             'title' => $reserva->sala->nome, // Nome da sala como título
+//             'color' => '#007bff', // Cor azul, pode personalizar
+//             'start' => $reserva->data_inicio,
+//             'end' => $reserva->data_fim,
+//         ];
+//     });
+
+//     return response()->json($eventos);
+// }
+
+public function eventos()
 {
-    $eventos = Reserva::with('sala')->get()->map(function ($reserva) {
+    $reservas = Reserva::with('user.unidade')->get();
+
+    $eventos = $reservas->map(function ($reserva) {
         return [
-            'id' => $reserva->id,
-            'title' => $reserva->sala->nome, // Nome da sala como título
-            'color' => '#007bff', // Cor azul, pode personalizar
+            'id'    => $reserva->id,
+            'title' => "Unidade: " . ($reserva->user->unidade->nome ?? 'Desconhecida') . 
+                       "\nHora: " . date('H:i', strtotime($reserva->data_inicio)) . " - " . date('H:i', strtotime($reserva->data_fim)) . 
+                       "\nReservado por: " . ($reserva->user->name ?? 'N/A'),
             'start' => $reserva->data_inicio,
-            'end' => $reserva->data_fim,
+            'end'   => $reserva->data_fim,
+            // 'backgroundColor' => '#E9E9EA', // Verde para reservas ativas
+            'borderColor'     => '#1e7e34',
+            'textColor'       => '#ffffff',
+            'display' => 'block', // Garante que aparece como uma "caixa"
         ];
     });
 

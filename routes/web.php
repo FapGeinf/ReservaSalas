@@ -89,12 +89,10 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
 
     
     // Rotas de fullcalendar
-    // Route::get('/eventos', [ReservaController::class, 'getEventos']);
-    // Route::post('/reservas/store', [ReservaController::class, 'store'])->name('reservas.store');
    
-
-     Route::get('/eventos', [ReservaController::class, 'getEventos']);
+    //  Route::get('/eventos', [ReservaController::class, 'getEventos']);
      Route::post('/reservas/store', [ReservaController::class, 'store'])->name('reservas.store');
+     Route::get('/eventos', [ReservaController::class, 'eventos']);
 
 
 // Inclusão das rotas de autenticação

@@ -307,7 +307,7 @@ function toggleDropdown(button) {
 }
 </script>
 
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -329,7 +329,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     calendar.render();
+}); -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'pt-br',
+        events: '/eventos', // API que retorna as reservas
+        selectable: true,
+        editable: false, // Evita mover reservas acidentalmente
+        eventDisplay: 'block', // Exibe as reservas como caixas
+
+        eventClick: function(info) {
+            alert(info.event.title); // Exibe detalhes ao clicar no evento
+        },
+
+        dateClick: function(info) {
+            console.log("Data clicada:", info.dateStr);
+
+            $('#data_reserva').val(info.dateStr);
+            $('#dataSelecionada').val(info.dateStr);
+
+            let salaId = $('#sala_fk').val();
+            if (salaId) {
+                carregarReservas(salaId);
+            }
+
+            $('#modalCalendario').modal('hide');
+            $('#modalReserva').modal('show');
+        }
+    });
+
+    calendar.render();
 });
+</script>
+
+<script>
 
 function abrirModalCalendario(salaId) {
     console.log("Sala selecionada:", salaId);
@@ -351,14 +389,24 @@ $('#reservaForm').submit(function(e) {
         success: function(response) {
             console.log("Reserva salva com sucesso!", response);
 
-            // Fechar o modal de reserva
-            $('#modalReserva').modal('hide');
+            if (response.success) {
+                $('#modalReserva').modal('hide');
 
-            // Atualizar o calendário para exibir a nova reserva
-            $('#calendar').fullCalendar('refetchEvents');
+                // Atualiza os eventos do calendário
+                $('#calendar').fullCalendar('refetchEvents');
 
-            // Atualizar a tabela de reservas automaticamente
-            $('#tabelaReservas').load(location.href + " #tabelaReservas>*", "");
+                // Atualiza a tabela de reservas
+                $('#tabelaReservas').load(location.href + " #tabelaReservas>*", "");
+
+                let salaId = $('#sala_fk').val();
+                if (salaId) {
+                    carregarReservas(salaId);
+                }
+
+                alert("Reserva realizada com sucesso!");
+            } else {
+                alert(response.message);
+            }
         },
         error: function(xhr) {
             console.error("Erro ao reservar:", xhr.responseText);
@@ -366,6 +414,7 @@ $('#reservaForm').submit(function(e) {
         }
     });
 });
+
 </script>
 <script>
 $(document).ready(function() {
