@@ -314,7 +314,7 @@ public function eventos()
             'start' => $reserva->data_inicio,
             'end'   => $reserva->data_fim,
             // 'backgroundColor' => '#E9E9EA', // Verde para reservas ativas
-            'borderColor'     => '#1e7e34',
+            'borderColor'     => '#1D4ED8',
             'textColor'       => '#ffffff',
             'display' => 'block', // Garante que aparece como uma "caixa"
         ];

@@ -291,6 +291,18 @@
     </div>
 </div>
 
+<!-- Modal de Detalhes da Reserva -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toastReserva" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Detalhes da Reserva</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+        </div>
+        <div class="toast-body" id="toastBodyReserva"></div>
+    </div>
+</div>
+
+
 
 <script>
 function toggleDropdown(button) {
@@ -331,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
 }); -->
 
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -345,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         eventClick: function(info) {
             alert(info.event.title); // Exibe detalhes ao clicar no evento
+            
         },
 
         dateClick: function(info) {
@@ -456,8 +469,120 @@ $(document).ready(function() {
     });
 });
 </script>
+ -->
 
 
+ <!-- Adicione a biblioteca SweetAlert2 no <head> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'pt-br',
+        events: '/eventos', // API que retorna as reservas
+        selectable: true,
+        editable: false, // Evita mover reservas acidentalmente
+        eventDisplay: 'block', // Exibe as reservas como caixas
+
+        // Evento ao clicar na reserva (SweetAlert2)
+        eventClick: function(info) {
+            Swal.fire({
+                title: 'Detalhes da Reserva',
+                html: `<strong>Unidade:</strong> ${info.event.title.split("\n")[0].replace("Unidade: ", "")}<br>
+                       <strong>Hora:</strong> ${info.event.title.split("\n")[1].replace("Hora: ", "")}<br>
+                       <strong>Reservado por:</strong> ${info.event.title.split("\n")[2].replace("Reservado por: ", "")}`,
+                icon: 'info',
+                confirmButtonText: 'Fechar'
+            });
+        },
+
+        // Evento ao clicar em uma data no calendário
+        dateClick: function(info) {
+            console.log("Data clicada:", info.dateStr);
+
+            $('#data_reserva').val(info.dateStr);
+            $('#dataSelecionada').val(info.dateStr);
+
+            let salaId = $('#sala_fk').val();
+            if (salaId) {
+                carregarReservas(salaId);
+            }
+
+            $('#modalCalendario').modal('hide');
+            $('#modalReserva').modal('show');
+        }
+    });
+
+    calendar.render();
+});
+
+// Função para abrir o modal do calendário e selecionar uma sala
+function abrirModalCalendario(salaId) {
+    console.log("Sala selecionada:", salaId);
+    $('#sala_fk').val(salaId); // Define a sala no formulário
+    $('#modalCalendario').modal('show');
+}
+
+// Captura o envio do formulário via AJAX
+$(document).ready(function() {
+    $('#reservaForm').submit(function(e) {
+        e.preventDefault(); // Evitar o envio tradicional
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            url: "{{ route('reservas.store') }}", // Rota do Laravel
+            type: "POST",
+            data: formData,
+            success: function(response) {
+                console.log("Reserva salva com sucesso!", response);
+
+                if (response.success) {
+                    $('#modalReserva').modal('hide'); // Fecha o modal
+
+                    // Atualiza eventos do calendário
+                    $('#calendar').fullCalendar('refetchEvents');
+
+                    // Atualiza a tabela de reservas
+                    $('#tabelaReservas').load(location.href + " #tabelaReservas>*", "");
+
+                    // Exibir mensagem de sucesso
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Reserva realizada com sucesso!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+
+                    let salaId = $('#sala_fk').val();
+                    if (salaId) {
+                        carregarReservas(salaId);
+                    }
+                } else {
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            error: function(xhr) {
+                console.error("Erro ao reservar:", xhr.responseText);
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Erro ao reservar a sala. Verifique os dados.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
