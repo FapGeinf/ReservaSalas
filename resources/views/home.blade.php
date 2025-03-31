@@ -319,206 +319,82 @@ function toggleDropdown(button) {
 }
 </script>
 
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'pt-br',
-        events: '/eventos', // Ajuste a URL conforme necessário
-        selectable: true,
-        dateClick: function(info) {
-            console.log("Data clicada:", info.dateStr);
-
-            // Preencher automaticamente a data no formulário do modal de reserva
-            $('#data_reserva').val(info.dateStr);
-
-            // Fechar modal do calendário e abrir modal de reserva
-            $('#modalCalendario').modal('hide');
-            $('#modalReserva').modal('show');
-        }
-    });
-
-    calendar.render();
-}); -->
-
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'pt-br',
-        events: '/eventos', // API que retorna as reservas
-        selectable: true,
-        editable: false, // Evita mover reservas acidentalmente
-        eventDisplay: 'block', // Exibe as reservas como caixas
-
-        eventClick: function(info) {
-            alert(info.event.title); // Exibe detalhes ao clicar no evento
-            
-        },
-
-        dateClick: function(info) {
-            console.log("Data clicada:", info.dateStr);
-
-            $('#data_reserva').val(info.dateStr);
-            $('#dataSelecionada').val(info.dateStr);
-
-            let salaId = $('#sala_fk').val();
-            if (salaId) {
-                carregarReservas(salaId);
-            }
-
-            $('#modalCalendario').modal('hide');
-            $('#modalReserva').modal('show');
-        }
-    });
-
-    calendar.render();
-});
-</script>
-
-<script>
-
-function abrirModalCalendario(salaId) {
-    console.log("Sala selecionada:", salaId);
-    $('#sala_fk').val(salaId); // Define a sala no formulário
-    $('#modalCalendario').modal('show');
-}
-
-
-// Capturar o envio do formulário via AJAX
-$('#reservaForm').submit(function(e) {
-    e.preventDefault();
-
-    var formData = $(this).serialize();
-
-    $.ajax({
-        url: "{{ route('reservas.store') }}",
-        type: "POST",
-        data: formData,
-        success: function(response) {
-            console.log("Reserva salva com sucesso!", response);
-
-            if (response.success) {
-                $('#modalReserva').modal('hide');
-
-                // Atualiza os eventos do calendário
-                $('#calendar').fullCalendar('refetchEvents');
-
-                // Atualiza a tabela de reservas
-                $('#tabelaReservas').load(location.href + " #tabelaReservas>*", "");
-
-                let salaId = $('#sala_fk').val();
-                if (salaId) {
-                    carregarReservas(salaId);
-                }
-
-                alert("Reserva realizada com sucesso!");
-            } else {
-                alert(response.message);
-            }
-        },
-        error: function(xhr) {
-            console.error("Erro ao reservar:", xhr.responseText);
-            alert("Erro ao reservar a sala. Verifique os dados.");
-        }
-    });
-});
-
-</script>
-<script>
-$(document).ready(function() {
-    // Enviar o formulário via AJAX
-    $('#reservaForm').submit(function(e) {
-        e.preventDefault(); // Evitar o envio tradicional do formulário
-
-        var formData = $(this).serialize(); // Pega os dados do formulário
-
-        $.ajax({
-            url: "{{ route('reservas.store') }}", // A URL da rota
-            type: "POST", // Método POST
-            data: formData, // Dados do formulário
-            success: function(response) {
-                console.log("Reserva salva com sucesso!", response);
-
-                if (response.success) {
-                    // Fechar o modal de reserva
-                    $('#modalReserva').modal('hide');
-
-                    // Atualizar o calendário para exibir a nova reserva
-                    $('#calendar').fullCalendar('refetchEvents');
-
-                    // Atualizar a tabela de reservas
-                    $('#tabelaReservas').load(location.href + " #tabelaReservas>*", "");
-
-                    // Exibir mensagem de sucesso
-                    alert("Reserva realizada com sucesso!");
-                } else {
-                    alert(response.message); // Exibir mensagem de erro
-                }
-            },
-            error: function(xhr) {
-                // Exibir erro caso haja falha
-                console.error("Erro ao reservar:", xhr.responseText);
-                alert("Erro ao reservar a sala. Verifique os dados.");
-            }
-        });
-    });
-});
-</script>
- -->
 
 
  <!-- Adicione a biblioteca SweetAlert2 no <head> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
 
+
+<script>
+  
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
-        events: '/eventos', // API que retorna as reservas
+        events: '/eventos',
         selectable: true,
-        editable: false, // Evita mover reservas acidentalmente
-        eventDisplay: 'block', // Exibe as reservas como caixas
-
-        // Evento ao clicar na reserva (SweetAlert2)
+        editable: false,
+        eventDisplay: 'block',
+        
+        // Personalize a aparência dos eventos
+        eventContent: function(arg) {
+            // Cria um elemento personalizado para o evento
+            var eventEl = document.createElement('div');
+            eventEl.className = 'fc-event-content';
+            
+            // Adiciona as informações que você quer mostrar
+            eventEl.innerHTML = `
+                <div class="fc-event-title">
+                    <strong>${arg.event.title}</strong>
+                </div>
+                <div class="fc-event-details">
+                    <small>${arg.event.extendedProps.hora_inicio} - ${arg.event.extendedProps.hora_fim}</small><br>
+                    <small>${arg.event.extendedProps.unidade}</small>
+                </div>
+            `;
+            
+            return { domNodes: [eventEl] };
+        },
+        
+        // Evento ao clicar em uma data
+        dateClick: function(info) {
+            var dataFormatada = info.dateStr;
+            document.getElementById('data_reserva').value = dataFormatada;
+            
+            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById('modalCalendario'));
+            modalCalendario.hide();
+            
+            var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+            modalReserva.show();
+            
+            setTimeout(function() {
+                document.getElementById('hora_inicio').focus();
+            }, 500);
+        },
+        
+        // Evento ao clicar em um evento existente
         eventClick: function(info) {
             Swal.fire({
                 title: 'Detalhes da Reserva',
-                html: `<strong>Unidade:</strong> ${info.event.title.split("\n")[0].replace("Unidade: ", "")}<br>
-                       <strong>Hora:</strong> ${info.event.title.split("\n")[1].replace("Hora: ", "")}<br>
-                       <strong>Reservado por:</strong> ${info.event.title.split("\n")[2].replace("Reservado por: ", "")}`,
-                icon: 'info',
+                html: `
+                    <strong>Sala:</strong> ${info.event.title}<br>
+                    <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
+                    <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
+                    <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
+                `,
                 confirmButtonText: 'Fechar'
             });
-        },
-
-        // Evento ao clicar em uma data no calendário
-        dateClick: function(info) {
-            console.log("Data clicada:", info.dateStr);
-
-            $('#data_reserva').val(info.dateStr);
-            $('#dataSelecionada').val(info.dateStr);
-
-            let salaId = $('#sala_fk').val();
-            if (salaId) {
-                carregarReservas(salaId);
-            }
-
-            $('#modalCalendario').modal('hide');
-            $('#modalReserva').modal('show');
         }
     });
-
+    
     calendar.render();
 });
 
+</script>
+<script>
 // Função para abrir o modal do calendário e selecionar uma sala
 function abrirModalCalendario(salaId) {
     console.log("Sala selecionada:", salaId);
@@ -526,62 +402,94 @@ function abrirModalCalendario(salaId) {
     $('#modalCalendario').modal('show');
 }
 
-// Captura o envio do formulário via AJAX
+
 $(document).ready(function() {
     $('#reservaForm').submit(function(e) {
-        e.preventDefault(); // Evitar o envio tradicional
-
-        var formData = $(this).serialize();
+        e.preventDefault();
+        
+        // Mostra loader
+        $('.btn-submit').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
 
         $.ajax({
-            url: "{{ route('reservas.store') }}", // Rota do Laravel
-            type: "POST",
-            data: formData,
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
             success: function(response) {
-                console.log("Reserva salva com sucesso!", response);
-
                 if (response.success) {
-                    $('#modalReserva').modal('hide'); // Fecha o modal
-
-                    // Atualiza eventos do calendário
-                    $('#calendar').fullCalendar('refetchEvents');
-
-                    // Atualiza a tabela de reservas
-                    $('#tabelaReservas').load(location.href + " #tabelaReservas>*", "");
-
-                    // Exibir mensagem de sucesso
+                    $('#modalReserva').modal('hide');
                     Swal.fire({
                         title: 'Sucesso!',
-                        text: 'Reserva realizada com sucesso!',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
+                        text: response.message || 'Reserva realizada com sucesso!',
+                        icon: 'success'
                     });
-
-                    let salaId = $('#sala_fk').val();
-                    if (salaId) {
-                        carregarReservas(salaId);
-                    }
-                } else {
-                    Swal.fire({
-                        title: 'Erro!',
-                        text: response.message,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
+                    // Atualiza calendário
+                    var calendar = FullCalendar.getCalendar('calendar');
+                    if (calendar) calendar.refetchEvents();
                 }
             },
             error: function(xhr) {
-                console.error("Erro ao reservar:", xhr.responseText);
+                let errorMsg = 'Erro ao realizar reserva';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
+                
                 Swal.fire({
-                    title: 'Erro!',
-                    text: 'Erro ao reservar a sala. Verifique os dados.',
+                    title: 'Erro',
+                    html: errorMsg,
                     icon: 'error',
-                    confirmButtonText: 'OK'
+                    showCancelButton: true,
+                    confirmButtonText: 'Ver Calendário',
+                    cancelButtonText: 'Corrigir'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#modalReserva').modal('hide');
+                        $('#modalCalendario').modal('show');
+                    }
                 });
+            },
+            complete: function() {
+                $('.btn-submit').prop('disabled', false).html('Salvar Reserva');
             }
         });
     });
+
+    // Verificação em tempo real
+    $('#hora_inicio, #hora_termino').change(function() {
+        verificarDisponibilidade();
+    });
 });
+
+function verificarDisponibilidade() {
+    const salaId = $('#sala_fk').val();
+    const data = $('#data_reserva').val();
+    const horaInicio = $('#hora_inicio').val();
+    const horaTermino = $('#hora_termino').val();
+
+    if (!salaId || !data || !horaInicio || !horaTermino) return;
+
+    $.ajax({
+        url: '/verificar-disponibilidade',
+        type: 'POST',
+        data: {
+            sala_id: salaId,
+            data_reserva: data,
+            hora_inicio: horaInicio,
+            hora_termino: horaTermino,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            if (response.disponivel) {
+                $('#disponibilidade-status').html('<span class="text-success">Horário disponível</span>');
+                $('.btn-submit').prop('disabled', false);
+            } else {
+                $('#disponibilidade-status').html('<span class="text-danger">' + response.mensagem + '</span>');
+                $('.btn-submit').prop('disabled', true);
+            }
+        }
+    });
+}
+
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -619,6 +527,7 @@ function selecionarSala(salaId) {
     document.getElementById('sala_fk').value = salaId;
 }
 
+
 function carregarReservas(salaId) {
     const dataSelecionada = document.getElementById('dataSelecionada').value;
 
@@ -633,41 +542,32 @@ function carregarReservas(salaId) {
             data: dataSelecionada
         },
         success: function(reservas) {
-            let html = '';
-
             if (reservas.length === 0) {
-                html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
+                $('#reservasContainer').html('<p class="reserva-vazia">Nenhuma reserva para esta data.</p>');
             } else {
-                html += '<div class="reservas-grid">';
+                // Limpa os eventos existentes no calendário
+                const calendar = FullCalendar.getCalendar('calendar');
+                calendar.removeAllEvents();
+
+                // Adiciona os eventos ao calendário
                 reservas.forEach(reserva => {
                     const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
-                    const usuario = reserva.user ? reserva.user.name : 'N/A';
-                    const horaInicio = reserva.data_inicio.split(' ')[1];
-                    const horaFim = reserva.data_fim.split(' ')[1];
+                    const horaInicio = reserva.data_inicio;
+                    const horaFim = reserva.data_fim;
 
-                    html += `
-          <div class="reserva-card">
-            <span class="reserva-info">
-              <i class="bi bi-building"></i>
-              <strong>Unidade:</strong> ${unidade}
-            </span>
-
-            <span class="reserva-info">
-              <i class="bi bi-clock"></i>
-              <strong>Hora:</strong> ${horaInicio} - ${horaFim}
-            </span>
-
-            <span class="reserva-info">
-              <i class="bi bi-person"></i>
-              <strong>Reservado por:</strong> ${usuario}
-            </span>
-          </div>
-          `;
+                    calendar.addEvent({
+                        title: `Unidade: ${unidade}`,
+                        start: horaInicio,
+                        end: horaFim,
+                        extendedProps: {
+                            unidade: unidade
+                        }
+                    });
                 });
-                html += '</div>';
-            }
 
-            $('#reservasContainer').html(html);
+                // Atualiza o calendário
+                calendar.render();
+            }
         },
         error: function() {
             $('#reservasContainer').html(
