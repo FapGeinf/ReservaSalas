@@ -407,8 +407,9 @@ $(document).ready(function() {
     $('#reservaForm').submit(function(e) {
         e.preventDefault();
         
-        // Mostra loader
-        $('.btn-submit').prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
+        // Mostra o loader no botão
+        const submitBtn = $(this).find('button[type="submit"]');
+        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
 
         $.ajax({
             url: $(this).attr('action'),
@@ -416,48 +417,41 @@ $(document).ready(function() {
             data: $(this).serialize(),
             success: function(response) {
                 if (response.success) {
+                    // Fecha o modal de reserva
                     $('#modalReserva').modal('hide');
+                    
+                    // Mostra mensagem de sucesso
                     Swal.fire({
                         title: 'Sucesso!',
-                        text: response.message || 'Reserva realizada com sucesso!',
-                        icon: 'success'
+                        text: 'Reserva realizada com sucesso!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Redireciona para a home após clicar em OK
+                        window.location.href = "{{ route('home') }}";
                     });
-                    // Atualiza calendário
-                    var calendar = FullCalendar.getCalendar('calendar');
-                    if (calendar) calendar.refetchEvents();
                 }
             },
             error: function(xhr) {
-                let errorMsg = 'Erro ao realizar reserva';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMsg = xhr.responseJSON.message;
-                }
-                
                 Swal.fire({
-                    title: 'Erro',
-                    html: errorMsg,
-                    icon: 'error',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ver Calendário',
-                    cancelButtonText: 'Corrigir'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#modalReserva').modal('hide');
-                        $('#modalCalendario').modal('show');
-                    }
+                    title: 'Erro!',
+                    text: xhr.responseJSON?.message || 'Erro ao realizar reserva',
+                    icon: 'error'
                 });
             },
             complete: function() {
-                $('.btn-submit').prop('disabled', false).html('Salvar Reserva');
+                // Restaura o botão
+                submitBtn.prop('disabled', false).html('Salvar Reserva');
             }
         });
     });
+});
 
     // Verificação em tempo real
     $('#hora_inicio, #hora_termino').change(function() {
         verificarDisponibilidade();
     });
-});
+
 
 function verificarDisponibilidade() {
     const salaId = $('#sala_fk').val();
