@@ -246,7 +246,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -281,7 +281,49 @@
             </div>
         </div>
     </div>
+</div> -->
+
+
+
+
+<div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
+                    @csrf
+                    <input type="hidden" name="sala_fk" id="sala_fk">
+
+                    <div class="mb-3">
+                        <label for="data_reserva" class="fw-bold">Data:</label>
+                        <input type="date" name="data_reserva" id="data_reserva" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
+                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hora_termino" class="fw-bold">Hora de Término:</label>
+                        <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 
 <!-- Modal do Calendário -->
 <div class="modal fade" id="modalCalendario" tabindex="-1" aria-labelledby="modalCalendarioLabel" aria-hidden="true">
@@ -335,51 +377,113 @@ function toggleDropdown(button) {
 
 
 <script>
+// document.addEventListener('DOMContentLoaded', function() {
+//     var calendarEl = document.getElementById('calendar');
+
+//     var calendar = new FullCalendar.Calendar(calendarEl, {
+//         initialView: 'dayGridMonth',
+//         locale: 'pt-br',
+//         events: '/eventos',
+//         selectable: true,
+//         editable: false,
+//         eventDisplay: 'block',
+
+//         // Personalize a aparência dos eventos
+//         eventContent: function(arg) {
+//             // Cria um elemento personalizado para o evento
+//             var eventEl = document.createElement('div');
+//             eventEl.className = 'fc-event-content';
+
+//             // Adiciona as informações que você quer mostrar
+//             eventEl.innerHTML = `
+//                 <div class="fc-event-title">
+//                     <strong>${arg.event.title}</strong>
+//                 </div>
+//                 <div class="fc-event-details">
+//                     <small>${arg.event.extendedProps.hora_inicio} - ${arg.event.extendedProps.hora_fim}</small><br>
+//                     <small>${arg.event.extendedProps.unidade}</small>
+//                 </div>
+//             `;
+
+//             return {
+//                 domNodes: [eventEl]
+//             };
+//         },
+
+//         // Evento ao clicar em uma data
+//         dateClick: function(info) {
+//             var dataFormatada = info.dateStr;
+//             document.getElementById('data_reserva').value = dataFormatada;
+
+//             var modalCalendario = bootstrap.Modal.getInstance(document.getElementById(
+//                 'modalCalendario'));
+//             modalCalendario.hide();
+
+//             var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+//             modalReserva.show();
+
+//             setTimeout(function() {
+//                 document.getElementById('hora_inicio').focus();
+//             }, 500);
+//         },
+
+//         // Evento ao clicar em um evento existente
+//         eventClick: function(info) {
+//             Swal.fire({
+//                 title: 'Detalhes da Reserva',
+//                 html: `
+//                     <strong>Sala:</strong> ${info.event.title}<br>
+//                     <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
+//                     <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
+//                     <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
+//                 `,
+//                 confirmButtonText: 'Fechar'
+//             });
+//         }
+//     });
+
+//     calendar.render();
+// });
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'pt-br',
-        events: '/eventos',
+        initialView: 'dayGridMonth', // Visualização inicial (mês)
+        locale: 'pt-br', // Idioma
+        events: '/eventos', // URL para buscar os eventos
         selectable: true,
         editable: false,
         eventDisplay: 'block',
 
-        // Personalize a aparência dos eventos
-        eventContent: function(arg) {
-            // Cria um elemento personalizado para o evento
-            var eventEl = document.createElement('div');
-            eventEl.className = 'fc-event-content';
-
-            // Adiciona as informações que você quer mostrar
-            eventEl.innerHTML = `
-                <div class="fc-event-title">
-                    <strong>${arg.event.title}</strong>
-                </div>
-                <div class="fc-event-details">
-                    <small>${arg.event.extendedProps.hora_inicio} - ${arg.event.extendedProps.hora_fim}</small><br>
-                    <small>${arg.event.extendedProps.unidade}</small>
-                </div>
-            `;
-
-            return {
-                domNodes: [eventEl]
-            };
+        // Configuração da barra de ferramentas
+        headerToolbar: {
+            left: 'prev,next today', // Botões de navegação
+            center: 'title', // Título do calendário
+            right: 'dayGridMonth,timeGridWeek,listWeek' // Modos de visualização
         },
 
         // Evento ao clicar em uma data
         dateClick: function(info) {
+            // Formata a data clicada
             var dataFormatada = info.dateStr;
+
+            // Define a data no campo do modal
             document.getElementById('data_reserva').value = dataFormatada;
 
-            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById(
-                'modalCalendario'));
-            modalCalendario.hide();
+            // Fecha o modal do calendário (se estiver aberto)
+            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById('modalCalendario'));
+            if (modalCalendario) {
+                modalCalendario.hide();
+            }
 
+            // Abre o modal de reserva
             var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
             modalReserva.show();
 
+            // Define o foco no campo de hora de início
             setTimeout(function() {
                 document.getElementById('hora_inicio').focus();
             }, 500);
@@ -396,12 +500,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
                 `,
                 confirmButtonText: 'Fechar'
-            });
-        }
+
+    });
+
+}
+
     });
 
     calendar.render();
 });
+
+
+
 </script>
 <script>
 // Função para abrir o modal do calendário e selecionar uma sala
