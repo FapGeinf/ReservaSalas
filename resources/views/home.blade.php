@@ -90,11 +90,19 @@
                                 </button>
 
 
+                                <!-- <button type="button" class="button-blue" data-bs-toggle="modal"
+                                    data-bs-target="#verReservasModal" data-sala-id="{{ $sala->id }}"
+                                    onclick="carregarReservas({{ $sala->id }})" style="font-size: 15px;">
+                                    Ver Reservas
+                                </button> -->
+
+                                @if ($situacao === 'inativa')
                                 <button type="button" class="button-blue" data-bs-toggle="modal"
                                     data-bs-target="#verReservasModal" data-sala-id="{{ $sala->id }}"
                                     onclick="carregarReservas({{ $sala->id }})" style="font-size: 15px;">
                                     Ver Reservas
                                 </button>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -321,16 +329,15 @@ function toggleDropdown(button) {
 
 
 
- <!-- Adicione a biblioteca SweetAlert2 no <head> -->
+<!-- Adicione a biblioteca SweetAlert2 no <head> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
 <script>
-  
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
@@ -338,13 +345,13 @@ function toggleDropdown(button) {
         selectable: true,
         editable: false,
         eventDisplay: 'block',
-        
+
         // Personalize a aparência dos eventos
         eventContent: function(arg) {
             // Cria um elemento personalizado para o evento
             var eventEl = document.createElement('div');
             eventEl.className = 'fc-event-content';
-            
+
             // Adiciona as informações que você quer mostrar
             eventEl.innerHTML = `
                 <div class="fc-event-title">
@@ -355,26 +362,29 @@ function toggleDropdown(button) {
                     <small>${arg.event.extendedProps.unidade}</small>
                 </div>
             `;
-            
-            return { domNodes: [eventEl] };
+
+            return {
+                domNodes: [eventEl]
+            };
         },
-        
+
         // Evento ao clicar em uma data
         dateClick: function(info) {
             var dataFormatada = info.dateStr;
             document.getElementById('data_reserva').value = dataFormatada;
-            
-            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById('modalCalendario'));
+
+            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById(
+                'modalCalendario'));
             modalCalendario.hide();
-            
+
             var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
             modalReserva.show();
-            
+
             setTimeout(function() {
                 document.getElementById('hora_inicio').focus();
             }, 500);
         },
-        
+
         // Evento ao clicar em um evento existente
         eventClick: function(info) {
             Swal.fire({
@@ -389,10 +399,9 @@ function toggleDropdown(button) {
             });
         }
     });
-    
+
     calendar.render();
 });
-
 </script>
 <script>
 // Função para abrir o modal do calendário e selecionar uma sala
@@ -406,10 +415,11 @@ function abrirModalCalendario(salaId) {
 $(document).ready(function() {
     $('#reservaForm').submit(function(e) {
         e.preventDefault();
-        
+
         // Mostra o loader no botão
         const submitBtn = $(this).find('button[type="submit"]');
-        submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
+        submitBtn.prop('disabled', true).html(
+            '<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
 
         $.ajax({
             url: $(this).attr('action'),
@@ -419,7 +429,7 @@ $(document).ready(function() {
                 if (response.success) {
                     // Fecha o modal de reserva
                     $('#modalReserva').modal('hide');
-                    
+
                     // Mostra mensagem de sucesso
                     Swal.fire({
                         title: 'Sucesso!',
@@ -447,10 +457,10 @@ $(document).ready(function() {
     });
 });
 
-    // Verificação em tempo real
-    $('#hora_inicio, #hora_termino').change(function() {
-        verificarDisponibilidade();
-    });
+// Verificação em tempo real
+$('#hora_inicio, #hora_termino').change(function() {
+    verificarDisponibilidade();
+});
 
 
 function verificarDisponibilidade() {
@@ -476,14 +486,13 @@ function verificarDisponibilidade() {
                 $('#disponibilidade-status').html('<span class="text-success">Horário disponível</span>');
                 $('.btn-submit').prop('disabled', false);
             } else {
-                $('#disponibilidade-status').html('<span class="text-danger">' + response.mensagem + '</span>');
+                $('#disponibilidade-status').html('<span class="text-danger">' + response.mensagem +
+                    '</span>');
                 $('.btn-submit').prop('disabled', true);
             }
         }
     });
 }
-
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -522,6 +531,61 @@ function selecionarSala(salaId) {
 }
 
 
+// function carregarReservas(salaId) {
+//     const dataSelecionada = document.getElementById('dataSelecionada').value;
+
+//     $('#reservasContainer').html(
+//         '<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>'
+//     );
+
+//     $.ajax({
+//         url: '/reservas/sala/' + salaId,
+//         type: 'GET',
+//         data: {
+//             data: dataSelecionada
+//         },
+//         success: function(reservas) {
+//             if (reservas.length === 0) {
+//                 $('#reservasContainer').html('<p class="reserva-vazia">Nenhuma reserva para esta data.</p>');
+//             } else {
+//                 // Limpa os eventos existentes no calendário
+//                 const calendar = FullCalendar.getCalendar('calendar');
+//                 calendar.removeAllEvents();
+
+//                 // Adiciona os eventos ao calendário
+//                 reservas.forEach(reserva => {
+//                     const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
+//                     const horaInicio = reserva.data_inicio;
+//                     const horaFim = reserva.data_fim;
+
+//                     calendar.addEvent({
+//                         title: `Unidade: ${unidade}`,
+//                         start: horaInicio,
+//                         end: horaFim,
+//                         extendedProps: {
+//                             unidade: unidade
+//                         }
+//                     });
+//                 });
+
+//                 // Atualiza o calendário
+//                 calendar.render();
+//             }
+//         },
+//         error: function() {
+//             $('#reservasContainer').html(
+//                 '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
+//             );
+//         }
+//     });
+// }
+
+
+
+
+
+
+
 function carregarReservas(salaId) {
     const dataSelecionada = document.getElementById('dataSelecionada').value;
 
@@ -530,38 +594,45 @@ function carregarReservas(salaId) {
     );
 
     $.ajax({
-        url: '/reservas/sala/' + salaId,
+        url: '/reservas/sala/' + salaId, // Rota para buscar as reservas da sala
         type: 'GET',
         data: {
             data: dataSelecionada
         },
         success: function(reservas) {
-            if (reservas.length === 0) {
-                $('#reservasContainer').html('<p class="reserva-vazia">Nenhuma reserva para esta data.</p>');
-            } else {
-                // Limpa os eventos existentes no calendário
-                const calendar = FullCalendar.getCalendar('calendar');
-                calendar.removeAllEvents();
+            let html = '';
 
-                // Adiciona os eventos ao calendário
+            if (reservas.length === 0) {
+                html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
+            } else {
+                html += '<div class="reservas-grid">';
                 reservas.forEach(reserva => {
                     const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
-                    const horaInicio = reserva.data_inicio;
-                    const horaFim = reserva.data_fim;
+                    const usuario = reserva.user ? reserva.user.name : 'N/A';
+                    const horaInicio = reserva.data_inicio.split(' ')[1];
+                    const horaFim = reserva.data_fim.split(' ')[1];
 
-                    calendar.addEvent({
-                        title: `Unidade: ${unidade}`,
-                        start: horaInicio,
-                        end: horaFim,
-                        extendedProps: {
-                            unidade: unidade
-                        }
-                    });
+                    html += `
+                        <div class="reserva-card">
+                            <span class="reserva-info">
+                                <i class="bi bi-building"></i>
+                                <strong>Unidade:</strong> ${unidade}
+                            </span>
+                            <span class="reserva-info">
+                                <i class="bi bi-clock"></i>
+                                <strong>Hora:</strong> ${horaInicio} - ${horaFim}
+                            </span>
+                            <span class="reserva-info">
+                                <i class="bi bi-person"></i>
+                                <strong>Reservado por:</strong> ${usuario}
+                            </span>
+                        </div>
+                    `;
                 });
-
-                // Atualiza o calendário
-                calendar.render();
+                html += '</div>';
             }
+
+            $('#reservasContainer').html(html);
         },
         error: function() {
             $('#reservasContainer').html(
@@ -570,6 +641,12 @@ function carregarReservas(salaId) {
         }
     });
 }
+
+
+
+
+
+
 
 $(document).ready(function() {
     $('#dataSelecionada').on('change', function() {
@@ -591,7 +668,7 @@ $(document).ready(function() {
 </script>
 
 
-<div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content custom-modal">
 
@@ -614,7 +691,33 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
+</div> -->
+
+
+
+
+<div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content custom-modal">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
+                    <input type="date" id="dataSelecionada" class="input-custom">
+                </div>
+                <div id="reservasContainer" class="reservas-container">
+                    <p class="text-center text-muted">
+                        <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 @endsection
 

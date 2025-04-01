@@ -161,6 +161,20 @@ class ReservaController extends Controller
     } 
 
 
+// public function getReservasPorSalaEData($salaId, Request $request)
+// {
+//     $data = $request->query('data'); // Obtém a data da requisição
+
+//     // Busca as reservas da sala para a data especificada
+//     $reservas = Reserva::where('sala_fk', $salaId)
+//         ->whereDate('data_inicio', $data)
+//         ->with(['user', 'user.unidade'])
+//         ->get();
+
+//     return response()->json($reservas);
+// }
+
+
 public function getReservasPorSalaEData($salaId, Request $request)
 {
     $data = $request->query('data'); // Obtém a data da requisição

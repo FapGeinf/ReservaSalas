@@ -94,6 +94,7 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
      Route::post('/reservas/store', [ReservaController::class, 'store'])->name('reservas.store');
      Route::get('/eventos', [ReservaController::class, 'eventos']);
 
+     Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
 
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';
