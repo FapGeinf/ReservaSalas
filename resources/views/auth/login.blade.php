@@ -34,11 +34,11 @@
             @csrf
 
           <div class="mb-3 form-box">
-            <label for="cpf">CPF:</label>
+            <label for="login">Login:</label>
             
             <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
-              <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
             </div>
           </div>
 
@@ -84,15 +84,6 @@
      <!-- jQuery Mask Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     
-      <script>
-  $(document).ready(function () {
-    // Aplica a máscara de CPF ao campo com o ID "cpf"
-    $('#cpf').mask('000.000.000-00', { reverse: true });
-  });
-</script>
-    
-    
-
   </div>
 </body>
 
