@@ -86,6 +86,12 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
     // Rota para processar o cadastro de usuários
     Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
   
+ 
+    
+
+    Route::get('/eventos', [ReservaController::class, 'eventos']);
+    
+
 
 // Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';

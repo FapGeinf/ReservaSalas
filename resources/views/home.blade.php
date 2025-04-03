@@ -465,25 +465,37 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth,timeGridWeek,listWeek' // Modos de visualização
         },
 
+        // Personalize a aparência dos eventos
+        eventContent: function(arg) {
+            var eventEl = document.createElement('div');
+            eventEl.className = 'fc-event-content';
+
+            eventEl.innerHTML = `
+                <div class="fc-event-title">
+                    <strong>${arg.event.title}</strong>
+                </div>
+                <div class="fc-event-details">
+                    <small>${arg.event.extendedProps.hora_inicio} - ${arg.event.extendedProps.hora_fim}</small><br>
+                    <small>${arg.event.extendedProps.unidade}</small>
+                </div>
+            `;
+
+            return {
+                domNodes: [eventEl]
+            };
+        },
+
         // Evento ao clicar em uma data
         dateClick: function(info) {
-            // Formata a data clicada
             var dataFormatada = info.dateStr;
-
-            // Define a data no campo do modal
             document.getElementById('data_reserva').value = dataFormatada;
 
-            // Fecha o modal do calendário (se estiver aberto)
             var modalCalendario = bootstrap.Modal.getInstance(document.getElementById('modalCalendario'));
-            if (modalCalendario) {
-                modalCalendario.hide();
-            }
+            modalCalendario.hide();
 
-            // Abre o modal de reserva
             var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
             modalReserva.show();
 
-            // Define o foco no campo de hora de início
             setTimeout(function() {
                 document.getElementById('hora_inicio').focus();
             }, 500);
@@ -500,11 +512,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
                 `,
                 confirmButtonText: 'Fechar'
-
-    });
-
-}
-
+            });
+        }
     });
 
     calendar.render();
