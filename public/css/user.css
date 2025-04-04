@@ -6,7 +6,8 @@ body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-c
   background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-label, h1, h2, h3, h4, h5, h6, td, th {
+label, h1, h2, h3, h4, h5, h6, td, th,
+.text-pattern {
   color: #374151 !important;
 }
 
@@ -54,7 +55,7 @@ body {
   }
   
   .dataTables_wrapper .dataTables_length {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
   }
   
   .p-30 {
@@ -68,7 +69,7 @@ body {
   .card {
     background-color: #f7f7f7;
     transition: .2s;
-    min-height: 325px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -86,7 +87,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px 30px;
+    /* padding: 5px 30px; */
   }
   
   .bg__card_pattern {
@@ -130,16 +131,44 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+
+  .table-container {
+    background-color: #f7f7f7 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    border: 1px solid #dee2e6;
+  }
+
+  .table-container-no-top {
+    background-color: #f8f9fa !important;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10); */
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-top: 0; /* Remove a borda superior */
+  }
+
+  .table-container-no-bottom {
+    background-color: #f8f9fa !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-bottom: 0; /* Remove a borda superior */
+  }
+
+  .th-bg {
+    color: #fff !important;
+    background-color: #255957 !important;
+  }
   
   #reservasTable {
     border: 1px solid #959595 !important;
     width: 100% !important;
-    border: 1px solid #fff !important;
+    border: 1px solid #ccc !important;
     width: 100% !important;
-    /* border-left: 1px solid #ccc !important; */
-    border-bottom: 1px solid #ccc !important;
-    border-top: 1px solid #ccc !important;
-    /* border-right: 1px solid #ccc !important; */
+
+    /* border-bottom: 1px solid #ccc !important; */
+    /* border-top: 1px solid #ccc !important; */
+
 }
   
   table.dataTable thead th {
@@ -150,7 +179,14 @@ body {
     padding-bottom: 1.5rem;
   }
   
-  /* BOTÕES DE PAGINAÇÃO */
+  table.dataTable thead th,table.dataTable thead td {
+    padding: 15px 18px !important;
+  }
+
+  table.dataTable tbody th,table.dataTable tbody td {
+    vertical-align: middle !important;
+  }
+  
   .dataTables_wrapper .dataTables_info {
     line-height: 39px;
     padding-bottom: 2rem;
@@ -177,11 +213,13 @@ body {
   .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     color: #000 !important;
     background: #d2d2d2 !important;
-    border: 1px solid transparent !important;
+    /* border: 1px solid transparent !important; */
   }
-  /* BOTÕES DE PAGINAÇÃO END */
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    border: none !important;
+    }
   
-  /* BOTÃO DE PAGINAÇÃO */
   .dataTables_wrapper .dataTables_length select {
     background-color: #fff !important;
     border-radius: 8px !important;
@@ -239,20 +277,85 @@ body {
   
   /* Cada cartão de reserva */
   .reserva-card {
-    background: white;
-    /* border-radius: 10px; */
-    padding: 10px 0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: start;
-    transition: transform 0.2s ease-in-out;
-    border: 1px solid #f1f1f1;
-    margin-bottom: 7px;
-  }
-  
-  /* Efeito ao passar o mouse */
-  .reserva-card:hover {
-    transform: translateY(-3px);
-  }
+    background: #fff;
+    border-radius: 3px; /* Bordas mais suaves */
+    padding: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais profissional */
+    border: 1px solid #e3e3e3;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Efeito hover mais sutil */
+/* .reserva-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
+} */
+
+@media (max-width: 576px) { /* Ajustes para telas menores que 576px (celulares) */
+    
+    .col-sm-12 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    /* Ajustando a imagem da sala */
+    .fit-image {
+        width: 100%;
+        height: 150px; /* Reduzindo altura para telas menores */
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    /* Ajustando textos dentro do card */
+    .card-body.card-fofinho {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .title-teste h3 {
+        font-size: 1.2rem; /* Reduzindo tamanho do nome da sala */
+    }
+
+    .card-text {
+        font-size: 0.9rem; /* Texto menor para melhor legibilidade */
+    }
+
+    /* Ajustando botões */
+    .d-flex.justify-content-center.gap-3.py-2 {
+        flex-direction: column; /* Empilhar botões */
+        gap: 10px;
+    }
+
+    .button-green-index, .button-blue {
+        font-size: 14px;
+        padding: 8px 12px;
+        width: 100%; /* Ocupando toda a largura */
+    }
+}
+
+
+
+/* Estilização das informações */
+.reserva-info {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* Ícones alinhados melhor */
+.reserva-info i {
+    color: #2d5857;
+    margin-right: 5px;
+}
+
   
   /* Título da reserva */
   .reserva-card h5 {
@@ -267,6 +370,30 @@ body {
     font-size: 14px;
     color: #333;
   }
+
+  .reserva-card span {
+    color: #333;
+    display: block;
+  }
+
+  .reserva-vazia {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #b22720; /* Cor vermelha suave para indicar ausência */
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Estilização do ícone */
+.reserva-vazia i {
+    font-size: 1.2rem;
+    color: #b22720;
+}
+
   
   /* BOTÕES */
 
@@ -355,27 +482,27 @@ background-color: #f0be3f;
   border-top: 0;
   background-color: #f1f1f1;
 }
-
+/* 
 #reservasTable th {
-  border-bottom: 1px solid #d3d3d3 !important; /* Define uma borda fina no cabeçalho */
+  border-bottom: 1px solid #d3d3d3 !important;
 }
 
 #reservasTable thead tr:first-child th {
-  border-bottom: none !important; /* Remove borda duplicada na primeira linha */
+  border-bottom: none !important;
 }
 
 #reservasTable tbody {
-  border-top: none !important; /* Evita uma linha extra entre thead e tbody */
-}
+  border-top: none !important;
+} */
 
 .divCards,
 .divTable {
-  width: 80.5%;
+  width: 82.5%;
 }
 
-@media only screen and (max-width: 1366px) {
+/* @media only screen and (max-width: 1366px) {
   .divCards,
   .divTable {
     width: 100%;
   }
-}
+} */

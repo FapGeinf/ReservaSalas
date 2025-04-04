@@ -1,3 +1,4 @@
+<!-- filepath: c:\Users\jfurtado\Documents\GitHub\ReservaSalas\resources\views\auth\login.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,11 +35,11 @@
             @csrf
 
           <div class="mb-3 form-box">
-            <label for="cpf">CPF:</label>
+            <label for="login">Login:</label>
             
             <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
-              <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
             </div>
           </div>
 
@@ -63,10 +64,16 @@
             </div>
           </form>
 
-          <div class="text-start register-link mt-4">
+          <p class="mt-1">
+           <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="" target="_blank">Esqueceu a senha?</a>
+          </p>
+       </div>
+
+
+          <!-- <div class="text-start register-link mt-4">
             <a href="{{ route('password.request') }}" class="">Esqueceu a senha?</a>
             <p class="mt-1">Primeira vez usando o Agendaí? <a href="{{ route('register') }}" class="">Cadastre-se</a></p>
-          </div>
+          </div> -->
           
         </div>
       </div>
@@ -78,15 +85,6 @@
      <!-- jQuery Mask Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     
-      <script>
-  $(document).ready(function () {
-    // Aplica a máscara de CPF ao campo com o ID "cpf"
-    $('#cpf').mask('000.000.000-00', { reverse: true });
-  });
-</script>
-    
-    
-
   </div>
 </body>
 

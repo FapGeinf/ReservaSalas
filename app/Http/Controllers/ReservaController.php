@@ -28,65 +28,92 @@ class ReservaController extends Controller
         return view('reservas.create', compact('salas', 'reservas', 'users'));
     }
 
+   
     public function store(Request $request)
-{
-    // dd($request);
-    $request->validate([
-        'sala_fk' => 'required|exists:salas,id',
-        'data_reserva' => 'required|date',
-        'hora_inicio' => 'required|date_format:H:i',
-        'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-        // 'unidade_fk' => 'required|exists:unidades,id',
-    ]);
-
-    $salaId = $request->input('sala_fk');
-    $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
-    $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
-
-    $conflito = Reserva::where('sala_fk', $salaId)
-        ->where(function ($query) use ($dataInicio, $dataFim) {
-            $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
-                  ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
-                  ->orWhere(function ($query) use ($dataInicio, $dataFim) {
-                      $query->where('data_inicio', '<=', $dataInicio)
-                            ->where('data_fim', '>=', $dataFim);
-                  });
-        })
-        ->exists();
-
-    if ($conflito) {
-        return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
+    {
+        $request->validate([
+            'sala_fk' => 'required|exists:salas,id',
+            'data_reserva' => 'required|date',
+            'hora_inicio' => 'required|date_format:H:i',
+            'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
+        ]);
+    
+        $salaId = $request->input('sala_fk');
+        $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
+        $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
+    
+        // Verificar conflitos de horário
+        $conflito = Reserva::where('sala_fk', $salaId)
+            ->where(function ($query) use ($dataInicio, $dataFim) {
+                $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
+                      ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
+                      ->orWhere(function ($query) use ($dataInicio, $dataFim) {
+                          $query->where('data_inicio', '<=', $dataInicio)
+                                ->where('data_fim', '>=', $dataFim);
+                      });
+            })
+            ->exists();
+    
+        if ($conflito) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false, 
+                    'message' => 'A sala já está reservada neste horário.'
+                ], 400);
+            }
+            return back()->with('error', 'A sala já está reservada neste horário.');
+        }
+    
+        // Criar a reserva
+        $reserva = Reserva::create([
+            'sala_fk' => $salaId,
+            'data_inicio' => $dataInicio,
+            'data_fim' => $dataFim,
+            'user_id' => auth()->id(),
+            'unidade_fk' => auth()->user()->unidade_fk,
+        ]);
+    
+        // Resposta para requisições AJAX
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'reserva' => $reserva,
+                'redirect' => route('home'),
+                'message' => 'Reserva realizada com sucesso!'
+            ]);
+        }
+    
+        // Resposta para requisições normais
+        return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
     }
 
-       $unidadeId = auth()->user()->unidade_fk;
-
-    // Cria a reserva com os campos necessários
-    Reserva::create([
-        'sala_fk' => $salaId,
-        'data_inicio' => $dataInicio,
-        'data_fim' => $dataFim,
-        'user_id' => auth()->user()->id,
-        'unidade_fk' => $unidadeId,
-
-    ]);
-
-    return redirect()->route('reservas.index')->with('success', 'Reserva criada com sucesso!');
-}
 
     public function show(Reserva $reserva)
     {
         return view('reservas.show', compact('reserva'));
     }
 
+
+
     public function edit(Reserva $reserva)
-    { 
+    {
+        // Verifica se o usuário é admin OU se a reserva pertence a ele
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para editar esta reserva.');
+        }
+    
         $salas = Sala::all(); 
         $users = User::all(); 
         return view('reservas.edit', compact('reserva', 'salas', 'users'));
     }
-
+    
     public function update(Request $request, Reserva $reserva)
     {
+        // Bloqueia se o usuário não for admin e não for o dono da reserva
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
+        }
+    
         $request->validate([
             'sala_id' => 'required|exists:salas,id',
             'data_inicio' => 'required|date',
@@ -94,52 +121,31 @@ class ReservaController extends Controller
             'data_fim' => 'required|date_format:H:i|after:hora_inicio',
         ]);
     
-        // Verificar conflitos de horários
-        $dataInicioCompleto = $request->input('data_inicio') . ' ' . $request->input('hora_inicio');
-        $dataFimCompleto = $request->input('data_inicio') . ' ' . $request->input('data_fim');
-    
-        $conflito = Reserva::where('sala_fk', $request->input('sala_id'))
-            ->where('id', '!=', $reserva->getKey()) // Ignorar a reserva atual ao verificar conflitos
-            ->where(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
-                $query->whereBetween('data_inicio', [$dataInicioCompleto, $dataFimCompleto])
-                      ->orWhereBetween('data_fim', [$dataInicioCompleto, $dataFimCompleto])
-                      ->orWhere(function ($query) use ($dataInicioCompleto, $dataFimCompleto) {
-                          $query->where('data_inicio', '<=', $dataInicioCompleto)
-                                ->where('data_fim', '>=', $dataFimCompleto);
-                      });
-            })
-            ->exists();
-    
-        if ($conflito) {
-            return redirect()->back()->with('error', 'A sala já está reservada neste horário.');
-        }
-    
-        // Atualizar os dados da reserva
         $reserva->update([
             'sala_fk' => $request->input('sala_id'),
-            'data_inicio' => $dataInicioCompleto,
-            'data_fim' => $dataFimCompleto,
+            'data_inicio' => $request->input('data_inicio') . ' ' . $request->input('hora_inicio'),
+            'data_fim' => $request->input('data_inicio') . ' ' . $request->input('data_fim'),
         ]);
     
         return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
     }
     
-
     public function destroy(Reserva $reserva)
-{
-    try {
-        $reserva->delete();
-        return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-    } catch (\Exception $e) {
-        return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+    {
+        // Permite que apenas administradores ou o próprio usuário excluam a reserva
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta reserva.');
+        }
+    
+        try {
+            $reserva->delete();
+            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+        }
     }
-}
 
-    
-        // $reserva->delete();
-        // return redirect()->route('reservas.index');
-    
-    // Método personalizado para visualizar uma reserva específica 
+
     public function view($id) 
     { 
         $reserva = Reserva::findOrFail($id); 
@@ -155,17 +161,19 @@ class ReservaController extends Controller
     } 
 
 
-// public function getReservasDoDia($salaId)
+// public function getReservasPorSalaEData($salaId, Request $request)
 // {
-//     $hoje = Carbon::now()->toDateString(); // Pega a data atual no formato YYYY-MM-DD
+//     $data = $request->query('data'); // Obtém a data da requisição
 
+//     // Busca as reservas da sala para a data especificada
 //     $reservas = Reserva::where('sala_fk', $salaId)
-//         ->whereDate('data_inicio', $hoje)
-//         ->with('user.unidade')
+//         ->whereDate('data_inicio', $data)
+//         ->with(['user', 'user.unidade'])
 //         ->get();
 
 //     return response()->json($reservas);
 // }
+
 
 public function getReservasPorSalaEData($salaId, Request $request)
 {
@@ -179,6 +187,32 @@ public function getReservasPorSalaEData($salaId, Request $request)
 
     return response()->json($reservas);
 }
+
+
+public function eventos()
+{
+    $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+    
+    $events = [];
+    foreach ($reservas as $reserva) {
+        $events[] = [
+            'title' => $reserva->sala->nome,
+            'start' => $reserva->data_inicio,
+            'end' => $reserva->data_fim,
+            'extendedProps' => [
+                'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
+                'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+                'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+                'responsavel' => $reserva->user->name
+            ],
+            'color' => '#3788d8', // Cor opcional para o evento
+            'textColor' => '#ffffff' // Cor do texto
+        ];
+    }
+    
+    return response()->json($events);
+}
+
 
 
 }
