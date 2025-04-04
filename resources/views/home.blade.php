@@ -25,6 +25,8 @@
 
 <script src="js/custom.js"></script>
 
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -36,10 +38,19 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 
 
@@ -87,12 +98,12 @@
                         <div class="title-teste text-center d-flex flex-column">
                             <div class="d-flex justify-content-center gap-3 py-2">
 
-                                <button type="button"
+                                <!-- <button type="button"
                                     class="button-green-index {{ $situacao === 'inativa' ? 'disabled d-none' : '' }}"
                                     onclick="{{ $situacao === 'ativa' ? 'abrirModalCalendario(' . $sala->id . ')' : 'return false;' }}"
                                     {{ $situacao === 'inativa' ? 'disabled' : '' }}>
                                     Reservar
-                                </button>
+                                </button> -->
 
 
                                 <!-- <button type="button" class="button-blue" data-bs-toggle="modal"
@@ -115,6 +126,9 @@
             </div>
             @endforeach
         </div>
+
+        <!-- Calendário Único -->
+        <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
 
         @if (session('error'))
         <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
@@ -251,7 +265,7 @@
 </div>
 
 <!-- Modal de Reserva -->
-<div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -285,26 +299,69 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<!-- Modal de Reserva -->
+<div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
+                    @csrf
+                    <input type="hidden" name="data_reserva" id="data_reserva">
+                    <input type="hidden" name="sala_fk" id="sala_fk">
+
+                    <div class="mb-3">
+                        <label for="sala_fk" class="fw-bold">Sala:</label>
+                        <select name="sala_fk" id="sala_fk" class="form-control" required>
+                            <option value="">Selecione uma sala</option>
+                            @foreach($salas as $sala)
+                            <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
+                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hora_termino" class="fw-bold">Hora de Término:</label>
+                        <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 
 <!-- Modal do Calendário -->
-<div class="modal fade" id="modalCalendario" tabindex="-1" aria-labelledby="modalCalendarioLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modalCalendario" tabindex="-1" aria-labelledby="modalCalendarioLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <!-- Adicionado modal-xl para aumentar o tamanho -->
-        <div class="modal-content">
+        <!- Adicionado modal-xl para aumentar o tamanho -->
+<!-- <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCalendarioLabel">Escolha uma Data</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-                <div id="calendar"></div> <!-- O calendário ficará maior agora -->
-            </div>
+                <div id="calendar"></div> <!- O calendário ficará maior agora -->
+<!-- </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Modal de Detalhes da Reserva -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -341,7 +398,7 @@ function toggleDropdown(button) {
 
 
 
-<script>
+<!-- <script>
 // Inicializa o calendário quando o DOM estiver totalmente carregado
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -386,7 +443,8 @@ document.addEventListener('DOMContentLoaded', function() {
             var dataFormatada = info.dateStr;
             document.getElementById('data_reserva').value = dataFormatada;
 
-            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById('modalCalendario'));
+            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById(
+                'modalCalendario'));
             modalCalendario.hide();
 
             var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
@@ -414,10 +472,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 });
+</script> -->
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
 
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth', // Visualização inicial
+        locale: 'pt-br', // Idioma
+        events: '/eventos', // URL para buscar os eventos
+        selectable: true,
+        editable: false,
+        eventDisplay: 'block',
 
+        // Configuração da barra de ferramentas
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,listWeek'
+        },
+
+        // Personaliza o formato do título
+        titleFormat: {
+            month: 'long', // Nome completo do mês
+            year: 'numeric' // Ano
+        },
+
+        // Evento ao clicar em uma data
+        dateClick: function(info) {
+            // Define a data no campo do modal
+            document.getElementById('data_reserva').value = info.dateStr;
+
+            // Abre o modal de reserva
+            var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+            modalReserva.show();
+
+            // Define o foco no campo de seleção de sala
+            setTimeout(function() {
+                document.getElementById('sala_fk').focus();
+            }, 500);
+        },
+
+        // Evento ao clicar em um evento existente
+        eventClick: function(info) {
+            Swal.fire({
+                title: 'Detalhes da Reserva',
+                html: `
+                    <strong>Sala:</strong> ${info.event.title}<br>
+                    <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
+                    <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
+                    <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
+                `,
+                confirmButtonText: 'Fechar'
+            });
+        }
+    });
+
+    calendar.render();
+});
 </script>
+
+
 <script>
 // Função para abrir o modal do calendário e selecionar uma sala
 function abrirModalCalendario(salaId) {

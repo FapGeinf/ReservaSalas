@@ -189,10 +189,35 @@ public function getReservasPorSalaEData($salaId, Request $request)
 }
 
 
-public function eventos()
+// public function eventos()
+// {
+//     $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+    
+//     $events = [];
+//     foreach ($reservas as $reserva) {
+//         $events[] = [
+//             'title' => $reserva->sala->nome,
+//             'start' => $reserva->data_inicio,
+//             'end' => $reserva->data_fim,
+//             'extendedProps' => [
+//                 'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
+//                 'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+//                 'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+//                 'responsavel' => $reserva->user->name
+//             ],
+//             'color' => '#3788d8', // Cor opcional para o evento
+//             'textColor' => '#ffffff' // Cor do texto
+//         ];
+//     }
+    
+//     return response()->json($events);
+// }
+
+
+public function getEventos()
 {
     $reservas = Reserva::with(['sala', 'user.unidade'])->get();
-    
+
     $events = [];
     foreach ($reservas as $reserva) {
         $events[] = [
@@ -201,18 +226,15 @@ public function eventos()
             'end' => $reserva->data_fim,
             'extendedProps' => [
                 'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-                'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-                'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+                'hora_inicio' => \Carbon::parse($reserva->data_inicio)->format('H:i'),
+                'hora_fim' => \Carbon::parse($reserva->data_fim)->format('H:i'),
                 'responsavel' => $reserva->user->name
-            ],
-            'color' => '#3788d8', // Cor opcional para o evento
-            'textColor' => '#ffffff' // Cor do texto
+            ]
         ];
     }
-    
+
     return response()->json($events);
 }
-
 
 
 }

@@ -294,32 +294,21 @@ table.dataTable thead th {
   
 
 /* ------------------------------------------- */
+/* Estiliza o calendário */
 
-#modalCalendario .modal-dialog {
-  max-width: 90vw; /* 90% da largura da tela */
-  width: 150vw;
-}
+    /* Ajusta a largura e altura do calendário */
+    #calendar {
+        max-width: 400px; /* Define a largura máxima */
+        height: 200px; /* Define a altura */
+        margin: 0 auto; /* Centraliza o calendário */
+    }
 
-#calendar {
- min-height: 300px; /* Aumenta o tamanho do calendário */
-}
+    /* Ajusta o tamanho do texto e dos eventos no calendário */
+    .fc-event-title {
+        font-size: 12px; /* Diminui o tamanho do texto dos eventos */
+    }
 
-.fc-event {
- padding: 3px;
- border-radius: 3px;
- margin-bottom: 2px;
-}
-
-.fc-event .fc-event-title {
- font-weight: bold;
- margin-bottom: 2px;
-}
-
-.fc-event .fc-event-details {
- font-size: 0.8em;
- line-height: 1.2;
-}
-
-.fc-daygrid-event-dot {
- display: none;
-}
+    .fc-toolbar-title {
+        font-size: 16px; /* Ajusta o tamanho do título do calendário */
+    }
+    
