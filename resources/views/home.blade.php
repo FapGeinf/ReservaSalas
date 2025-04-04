@@ -245,47 +245,7 @@
     </div>
 </div>
 
-<!-- Modal -->
-<!-- <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
-                    @csrf
-                    <input type="hidden" name="sala_fk" id="sala_fk">
-
-                    <div class="mb-3">
-                        <label for="data_reserva" class="fw-bold">Data:</label>
-                        <input type="date" name="data_reserva" id="data_reserva" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
-                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="hora_termino" class="fw-bold">Hora de Término:</label>
-                        <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
-
-
+<!-- Modal de Reserva -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -377,76 +337,7 @@ function toggleDropdown(button) {
 
 
 <script>
-// document.addEventListener('DOMContentLoaded', function() {
-//     var calendarEl = document.getElementById('calendar');
-
-//     var calendar = new FullCalendar.Calendar(calendarEl, {
-//         initialView: 'dayGridMonth',
-//         locale: 'pt-br',
-//         events: '/eventos',
-//         selectable: true,
-//         editable: false,
-//         eventDisplay: 'block',
-
-//         // Personalize a aparência dos eventos
-//         eventContent: function(arg) {
-//             // Cria um elemento personalizado para o evento
-//             var eventEl = document.createElement('div');
-//             eventEl.className = 'fc-event-content';
-
-//             // Adiciona as informações que você quer mostrar
-//             eventEl.innerHTML = `
-//                 <div class="fc-event-title">
-//                     <strong>${arg.event.title}</strong>
-//                 </div>
-//                 <div class="fc-event-details">
-//                     <small>${arg.event.extendedProps.hora_inicio} - ${arg.event.extendedProps.hora_fim}</small><br>
-//                     <small>${arg.event.extendedProps.unidade}</small>
-//                 </div>
-//             `;
-
-//             return {
-//                 domNodes: [eventEl]
-//             };
-//         },
-
-//         // Evento ao clicar em uma data
-//         dateClick: function(info) {
-//             var dataFormatada = info.dateStr;
-//             document.getElementById('data_reserva').value = dataFormatada;
-
-//             var modalCalendario = bootstrap.Modal.getInstance(document.getElementById(
-//                 'modalCalendario'));
-//             modalCalendario.hide();
-
-//             var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-//             modalReserva.show();
-
-//             setTimeout(function() {
-//                 document.getElementById('hora_inicio').focus();
-//             }, 500);
-//         },
-
-//         // Evento ao clicar em um evento existente
-//         eventClick: function(info) {
-//             Swal.fire({
-//                 title: 'Detalhes da Reserva',
-//                 html: `
-//                     <strong>Sala:</strong> ${info.event.title}<br>
-//                     <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
-//                     <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
-//                     <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
-//                 `,
-//                 confirmButtonText: 'Fechar'
-//             });
-//         }
-//     });
-
-//     calendar.render();
-// });
-
-
-
+// Inicializa o calendário quando o DOM estiver totalmente carregado
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -649,62 +540,6 @@ function selecionarSala(salaId) {
     document.getElementById('sala_fk').value = salaId;
 }
 
-
-// function carregarReservas(salaId) {
-//     const dataSelecionada = document.getElementById('dataSelecionada').value;
-
-//     $('#reservasContainer').html(
-//         '<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>'
-//     );
-
-//     $.ajax({
-//         url: '/reservas/sala/' + salaId,
-//         type: 'GET',
-//         data: {
-//             data: dataSelecionada
-//         },
-//         success: function(reservas) {
-//             if (reservas.length === 0) {
-//                 $('#reservasContainer').html('<p class="reserva-vazia">Nenhuma reserva para esta data.</p>');
-//             } else {
-//                 // Limpa os eventos existentes no calendário
-//                 const calendar = FullCalendar.getCalendar('calendar');
-//                 calendar.removeAllEvents();
-
-//                 // Adiciona os eventos ao calendário
-//                 reservas.forEach(reserva => {
-//                     const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
-//                     const horaInicio = reserva.data_inicio;
-//                     const horaFim = reserva.data_fim;
-
-//                     calendar.addEvent({
-//                         title: `Unidade: ${unidade}`,
-//                         start: horaInicio,
-//                         end: horaFim,
-//                         extendedProps: {
-//                             unidade: unidade
-//                         }
-//                     });
-//                 });
-
-//                 // Atualiza o calendário
-//                 calendar.render();
-//             }
-//         },
-//         error: function() {
-//             $('#reservasContainer').html(
-//                 '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
-//             );
-//         }
-//     });
-// }
-
-
-
-
-
-
-
 function carregarReservas(salaId) {
     const dataSelecionada = document.getElementById('dataSelecionada').value;
 
@@ -764,9 +599,6 @@ function carregarReservas(salaId) {
 
 
 
-
-
-
 $(document).ready(function() {
     $('#dataSelecionada').on('change', function() {
         const salaId = $('#verReservasModal').data('sala-id');
@@ -787,34 +619,8 @@ $(document).ready(function() {
 </script>
 
 
-<!-- <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content custom-modal">
 
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold">Reservas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
-                    <input type="date" id="dataSelecionada" class="input-custom">
-                </div>
-
-                <div id="reservasContainer" class="reservas-container">
-                    <p class="text-center text-muted">
-                        <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
-
-
+<!-- Modal para Ver Reservas -->
 <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content custom-modal">
