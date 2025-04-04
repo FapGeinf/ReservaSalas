@@ -292,3 +292,34 @@ table.dataTable thead th {
 }
 
   
+
+/* ------------------------------------------- */
+
+#modalCalendario .modal-dialog {
+  max-width: 90vw; /* 90% da largura da tela */
+  width: 150vw;
+}
+
+#calendar {
+ min-height: 300px; /* Aumenta o tamanho do calendário */
+}
+
+.fc-event {
+ padding: 3px;
+ border-radius: 3px;
+ margin-bottom: 2px;
+}
+
+.fc-event .fc-event-title {
+ font-weight: bold;
+ margin-bottom: 2px;
+}
+
+.fc-event .fc-event-details {
+ font-size: 0.8em;
+ line-height: 1.2;
+}
+
+.fc-daygrid-event-dot {
+ display: none;
+}
