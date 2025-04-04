@@ -1,20 +1,8 @@
 <?php
 return [
-
-	'paths' => ['api/*', 'sanctum/csrf-cookie'],
-
+	'paths' => ['api/*', 'eventos'], // ← adiciona 'eventos' aqui
 	'allowed_methods' => ['*'],
-
-	'allowed_origins' => ['*'], // Use ['http://localhost:5173'] ou similar no prod
-
-	'allowed_origins_patterns' => [],
-
+	'allowed_origins' => ['*'], // ou coloque o IP/domínio exato se preferir
 	'allowed_headers' => ['*'],
-
-	'exposed_headers' => [],
-
-	'max_age' => 0,
-
 	'supports_credentials' => false,
-
 ];
