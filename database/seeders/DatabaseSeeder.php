@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UnidadeSeeder::class,
             SalasTableSeeder::class,
             AdminSeeder::class,
+            
         ]);
     }
 }
