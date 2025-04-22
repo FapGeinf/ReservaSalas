@@ -39,21 +39,6 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
 
-<!-- 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
-
-
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
-
-
 <div class="">
     <div class="p-30 mx-auto mt-5 divCards">
 
@@ -264,42 +249,6 @@
     </div>
 </div>
 
-<!-- Modal de Reserva -->
-<!-- <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
-                    @csrf
-                    <input type="hidden" name="sala_fk" id="sala_fk">
-
-                    <div class="mb-3">
-                        <label for="data_reserva" class="fw-bold">Data:</label>
-                        <input type="date" name="data_reserva" id="data_reserva" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
-                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="hora_termino" class="fw-bold">Hora de Término:</label>
-                        <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <!-- Modal de Reserva -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
@@ -346,23 +295,6 @@
 
 
 
-
-<!-- Modal do Calendário -->
-<!-- <div class="modal fade" id="modalCalendario" tabindex="-1" aria-labelledby="modalCalendarioLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <!- Adicionado modal-xl para aumentar o tamanho -->
-<!-- <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalCalendarioLabel">Escolha uma Data</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <div id="calendar"></div> <!- O calendário ficará maior agora -->
-<!-- </div>
-        </div>
-    </div>
-</div> -->
-
 <!-- Modal de Detalhes da Reserva -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="toastReserva" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -398,82 +330,6 @@ function toggleDropdown(button) {
 
 
 
-<!-- <script>
-// Inicializa o calendário quando o DOM estiver totalmente carregado
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth', // Visualização inicial (mês)
-        locale: 'pt-br', // Idioma
-        events: '/eventos', // URL para buscar os eventos
-        selectable: true,
-        editable: false,
-        eventDisplay: 'block',
-
-        // Configuração da barra de ferramentas
-        headerToolbar: {
-            left: 'prev,next today', // Botões de navegação
-            center: 'title', // Título do calendário
-            right: 'dayGridMonth,timeGridWeek,listWeek' // Modos de visualização
-        },
-
-        // Personalize a aparência dos eventos
-        eventContent: function(arg) {
-            var eventEl = document.createElement('div');
-            eventEl.className = 'fc-event-content';
-
-            eventEl.innerHTML = `
-                <div class="fc-event-title">
-                    <strong>${arg.event.title}</strong>
-                </div>
-                <div class="fc-event-details">
-                    <small>${arg.event.extendedProps.hora_inicio} - ${arg.event.extendedProps.hora_fim}</small><br>
-                    <small>${arg.event.extendedProps.unidade}</small>
-                </div>
-            `;
-
-            return {
-                domNodes: [eventEl]
-            };
-        },
-
-        // Evento ao clicar em uma data
-        dateClick: function(info) {
-            var dataFormatada = info.dateStr;
-            document.getElementById('data_reserva').value = dataFormatada;
-
-            var modalCalendario = bootstrap.Modal.getInstance(document.getElementById(
-                'modalCalendario'));
-            modalCalendario.hide();
-
-            var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-            modalReserva.show();
-
-            setTimeout(function() {
-                document.getElementById('hora_inicio').focus();
-            }, 500);
-        },
-
-        // Evento ao clicar em um evento existente
-        eventClick: function(info) {
-            Swal.fire({
-                title: 'Detalhes da Reserva',
-                html: `
-                    <strong>Sala:</strong> ${info.event.title}<br>
-                    <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
-                    <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
-                    <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
-                `,
-                confirmButtonText: 'Fechar'
-            });
-        }
-    });
-
-    calendar.render();
-});
-</script> -->
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -494,10 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         // Personaliza o formato do título
-        titleFormat: {
-            month: 'long', // Nome completo do mês
-            year: 'numeric' // Ano
-        },
+        // titleFormat: {
+        //     month: 'long', // Nome completo do mês
+        //     year: 'numeric' // Ano
+        // },
 
         // Evento ao clicar em uma data
         dateClick: function(info) {
