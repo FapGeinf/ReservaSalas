@@ -121,11 +121,11 @@
         </div>
         @endif
 
-        @if (session('success'))
+        <!-- @if (session('success'))
         <div class="alert alert-success text-center mx-auto" style="max-width: 30%;">
             {{ session('success') }}
         </div>
-        @endif
+        @endif -->
 
     </div>
 </div>
@@ -341,6 +341,25 @@ document.addEventListener('DOMContentLoaded', function() {
         selectable: true,
         editable: false,
         eventDisplay: 'block',
+
+        eventContent: function(arg) {
+            const horaInicio = arg.event.extendedProps.hora_inicio || '';
+            const horaFim = arg.event.extendedProps.hora_fim || '';
+            const responsavel = arg.event.extendedProps.responsavel || '';
+            const nomeSala = arg.event.title || '';
+
+            let innerHtml = `
+        <div style="font-size: 0.85em;">
+            <strong>${nomeSala}</strong><br>
+            ${horaInicio} - ${horaFim}<br>
+            ${responsavel}
+        </div>
+    `;
+            return {
+                html: innerHtml
+            };
+        },
+
 
         // Configuração da barra de ferramentas
         headerToolbar: {
@@ -650,3 +669,17 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+
+@if (session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: 'Sucesso!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'Fechar'
+        });
+    });
+</script>
+@endif
+
