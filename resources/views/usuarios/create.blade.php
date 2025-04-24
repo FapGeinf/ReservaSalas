@@ -16,7 +16,7 @@ label {
 }
 </style>
 
-@if(session('success'))
+<!-- @if(session('success'))
 <div class="d-flex justify-content-center">
     <div class="alert alert-success alert-dismissible fade show text-center alert-custom" style="max-width: 30%;"
         role="alert">
@@ -24,26 +24,24 @@ label {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
 </div>
-@endif
-
-<!-- @if(session('cpf_error'))
-<div class="modal fade" id="cpfErrorModal" tabindex="-1" aria-labelledby="cpfErrorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cpfErrorModalLabel">Erro de Cadastro</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                {{ session('cpf_error') }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
 @endif -->
+
+@push('scripts')
+@if(session('success'))
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+      title: 'Sucesso!',
+      text: '{{ session('success') }}',
+      icon: 'success',
+      confirmButtonText: 'Fechar'
+    });
+  });
+</script>
+@endif
+@endpush
+
+
 
 <div class="p-30__no-bottom">
     <div class="mx-auto form_create-800">
