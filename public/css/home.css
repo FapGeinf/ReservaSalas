@@ -305,7 +305,7 @@ table.dataTable thead th {
 
     /* Ajusta o tamanho do texto e dos eventos no calendário */
     .fc-event-title {
-        font-size: 12px; /* Diminui o tamanho do texto dos eventos */
+        font-size: 10px; /* Diminui o tamanho do texto dos eventos */
     }
 
     .fc-toolbar-title {
