@@ -1,62 +1,113 @@
 @extends('layouts.app')
 @section('content')
-
 @section('title') {{ 'Início' }} @endsection
 
+<style>
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+</style>
 
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/responsive-table.css') }}">
 <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
-<style>
-.modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    /* Mais claro que o padrão (0.5) */
-}
-</style>
+<link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
-
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 <script src="js/custom.js"></script>
-
-<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- FullCalendar CSS -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
-
-<!-- FullCalendar JS -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
+<div class="pagina-container pt-5">
+
+  <!-- Cards de Salas -->
+  <div class="salas-grid">
+
+    @foreach($salas as $sala)
+    @php
+      $situacao = strtolower(trim($sala->situacao)); // Normaliza a situação
+    @endphp
+    
+    <div class="sala-card">
+      <div class="sala-card-conteudo" style="position: relative;">
+        
+        <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
+    
+        <div class="sala-info">
+
+          <div class="titulo-sala">
+            <span class="text-uppercase fw-semibold">
+              {{ $sala->nome }}
+            </span>
+            
+            @if($situacao === 'inativa')
+            <span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
+              Sala em manutenção
+            </span>
+              
+            @else
+            <span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
+              Sala disponível
+            </span>
+
+            @endif
+          </div>
+    
+          @if($situacao === 'ativa')
+            <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})">
+              Reservar
+            </button>
+          @else
+            <button class="botao-reservar" onclick="carregarReservas({{ $sala->id }})" data-bs-toggle="modal" data-bs-target="#verReservasModal" style="background-color: gray;">
+              Ver Reservas
+            </button>
+          @endif
+    
+        </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+
+  <!-- Calendário -->
+  <div class="caixa-calendario">
+    <div class="titulo-calendario">Calendário</div>
+      <div class="area-calendario">
+
+        <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
+        
+      </div>
+  </div>
+
+  <!-- Calendário Único -->
+  
+
+
+</div>
 
 <div class="">
     <div class="p-30 mx-auto mt-5 divCards">
 
-        <div class="row">
+        {{-- <div class="row">
             @foreach($salas as $index => $sala)
 
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
                 <div class="card border position-relative">
 
-                    <!-- Imagem da Sala com Sobreposição -->
                     <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0 position-relative">
                         <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
 
-                        <!-- Sobreposição para Sala Inativa -->
                         @php
-                        $situacao = strtolower(trim($sala->situacao)); // Normaliza o valor de 'situacao'
+                        $situacao = strtolower(trim($sala->situacao));
                         @endphp
 
                         @if($situacao === 'inativa')
@@ -67,7 +118,6 @@
                         @endif
                     </div>
 
-                    <!-- Corpo do Card -->
                     <div class="card-body card-fofinho">
                         <div class="title-teste text-center d-flex flex-column"
                             style="margin-bottom: 1rem; margin-top: .5rem;">
@@ -80,24 +130,9 @@
                         </div>
                     </div>
 
-                    <!-- Botões de Reserva e Ver Reservas -->
                     <div class="card-body card-fofinho" style="background-color: #f1f1f1; /* padding: 10px 30px; */">
                         <div class="title-teste text-center d-flex flex-column">
                             <div class="d-flex justify-content-center gap-3 py-2">
-
-                                <!-- <button type="button"
-                                    class="button-green-index {{ $situacao === 'inativa' ? 'disabled d-none' : '' }}"
-                                    onclick="{{ $situacao === 'ativa' ? 'abrirModalCalendario(' . $sala->id . ')' : 'return false;' }}"
-                                    {{ $situacao === 'inativa' ? 'disabled' : '' }}>
-                                    Reservar
-                                </button> -->
-
-
-                                <!-- <button type="button" class="button-blue" data-bs-toggle="modal"
-                                    data-bs-target="#verReservasModal" data-sala-id="{{ $sala->id }}"
-                                    onclick="carregarReservas({{ $sala->id }})" style="font-size: 15px;">
-                                    Ver Reservas
-                                </button> -->
 
                                 @if ($situacao === 'inativa')
                                 <button type="button" class="button-blue" data-bs-toggle="modal"
@@ -112,22 +147,15 @@
                 </div>
             </div>
             @endforeach
-        </div>
+        </div> --}}
 
-        <!-- Calendário Único -->
-        <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
+        
 
         @if (session('error'))
         <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
             {{ session('error') }}
         </div>
         @endif
-
-        <!-- @if (session('success'))
-        <div class="alert alert-success text-center mx-auto" style="max-width: 30%;">
-            {{ session('success') }}
-        </div>
-        @endif -->
 
     </div>
 </div>

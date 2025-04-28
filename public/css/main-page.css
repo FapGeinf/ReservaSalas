@@ -1,0 +1,162 @@
+/* Estilo da página principal */
+.pagina-container {
+    max-width: 1500px;
+    margin: 2rem auto 1rem auto;
+    padding: 1rem;
+  }
+  
+  /* Grid de Salas */
+  .salas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .s-disponivel {
+    color: #1ab394;
+  }
+
+  .s-manutencao {
+    color: #e74c3c;
+  }
+  
+  /* Cada Card de Sala */
+  .sala-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    /* border-radius: 8px; */
+    padding: 20px;
+    flex: 1 1 calc(25% - 20px);
+    min-width: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  /* Conteúdo interno do Card */
+  .sala-card-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* Imagem da Sala */
+  .imagem-sala {
+    width: 130px;
+    height: 95px;
+    object-fit: cover;
+    /* border-radius: 8px; */
+    background-color: #dee2e6; /* Cor de fundo se imagem não carregar */
+  }
+  
+  /* Informações da Sala (texto + botão) */
+  .sala-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .titulo-sala {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .botao-reservar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    /* border-radius: 5px; */
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .botao-reservar:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Caixa do Calendário */
+  .caixa-calendario {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    /* border-radius: 8px; */
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .titulo-calendario {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .area-calendario {
+    background-color: #e9ecef;
+    /* height: 300px; */
+    /* border-radius: 5px; */
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-style: italic;
+  }
+  
+  /* Caixa da Tabela */
+  .caixa-tabela {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    /* border-radius: 8px; */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-x: auto;
+  }
+  
+  .titulo-tabela {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .sala-card {
+      flex: 1 1 calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .sala-card {
+      flex: 1 1 100%;
+    }
+  
+    /* Empilhar imagem e texto no card (mobile) */
+    .sala-card-conteudo {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .sala-info {
+      align-items: center;
+    }
+  }
+  
