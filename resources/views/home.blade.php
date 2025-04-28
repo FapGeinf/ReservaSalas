@@ -28,13 +28,11 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
 <div class="pagina-container">
-
-  <!-- Cards de Salas -->
   <div class="salas-grid">
 
     @foreach($salas as $sala)
     @php
-      $situacao = strtolower(trim($sala->situacao)); // Normaliza a situação
+      $situacao = strtolower(trim($sala->situacao));
     @endphp
     
     <div class="sala-card">
@@ -67,7 +65,9 @@
               Reservar
             </button>
           @else
-            <button class="botao-reservar" onclick="carregarReservas({{ $sala->id }})" data-bs-toggle="modal" data-bs-target="#verReservasModal" style="background-color: gray;">
+            <button class="botao-reservar" onclick="carregarReservas({{ $sala->id }})"
+              data-bs-toggle="modal"
+              data-bs-target="#verReservasModal" style="background-color: gray;">
               Ver Reservas
             </button>
           @endif
@@ -138,13 +138,6 @@
           </td>
 
           <td data-label="Sala">
-            {{-- @if($reserva->sala && $reserva->sala->imagem)
-            <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square img-table" />
-
-            @else
-              <p>Imagem não disponível</p>
-            @endif --}}
-
             <div class="mt-1">
               <p class="mb-1 text-uppercase">
               {{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
@@ -205,89 +198,81 @@
   </div>
 </div>
 
-
 <!-- Modal de Reserva -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
-                    @csrf
-                    <input type="hidden" name="data_reserva" id="data_reserva">
-                    <input type="hidden" name="sala_fk" id="sala_fk">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
 
-                    <div class="mb-3">
-                        <label for="sala_fk" class="fw-bold">Sala:</label>
-                        <select name="sala_fk" id="sala_fk" class="form-control" required>
-                            <option value="">Selecione uma sala</option>
-                            @foreach($salas as $sala)
-                            <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+      <div class="modal-body">
+        <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
+          @csrf
+          <input type="hidden" name="data_reserva" id="data_reserva">
+          <input type="hidden" name="sala_fk" id="sala_fk">
 
-                    <div class="mb-3">
-                        <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
-                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
-                    </div>
+          <div class="mb-3">
+            <label for="sala_fk" class="fw-bold">Sala:</label>
+            <select name="sala_fk" id="sala_fk" class="form-control" required>
+              <option value="">Selecione uma sala</option>
+              @foreach($salas as $sala)
+                <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+              @endforeach
+            </select>
+          </div>
 
-                    <div class="mb-3">
-                        <label for="hora_termino" class="fw-bold">Hora de Término:</label>
-                        <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
+          <div class="mb-3">
+            <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
+            <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="hora_termino" class="fw-bold">Hora de Término:</label>
+            <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
+          </div>
+        </form>
+      </div>
+    
+      <div class="modal-footer">
+        <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>
-
-
 
 <!-- Modal de Detalhes da Reserva -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="toastReserva" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Detalhes da Reserva</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
-        </div>
-        <div class="toast-body" id="toastBodyReserva"></div>
+  <div id="toastReserva" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Detalhes da Reserva</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
     </div>
+
+    <div class="toast-body" id="toastBodyReserva"></div>
+  </div>
 </div>
-
-
 
 <script>
 function toggleDropdown(button) {
-    const dropdown = button.parentElement;
-    dropdown.classList.toggle("open");
+  const dropdown = button.parentElement;
+  dropdown.classList.toggle("open");
 
-    // Fecha o dropdown ao clicar fora dele
-    document.addEventListener("click", function closeDropdown(event) {
-        if (!dropdown.contains(event.target)) {
-            dropdown.classList.remove("open");
-            document.removeEventListener("click", closeDropdown);
-        }
-    });
+  // Fecha o dropdown ao clicar fora dele
+  document.addEventListener("click", function closeDropdown(event) {
+    if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove("open");
+      document.removeEventListener("click", closeDropdown);
+    }
+  });
 }
 </script>
 
-
-
 <!-- Adicione a biblioteca SweetAlert2 no <head> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-
-
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
