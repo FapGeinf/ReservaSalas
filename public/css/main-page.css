@@ -21,6 +21,14 @@
     color: #e74c3c;
   }
   
+  .tabela-main-page {
+    padding: 20px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
   /* Cada Card de Sala */
   .sala-card {
     background-color: #fff;
@@ -102,6 +110,10 @@
     justify-content: center;
     color: #777;
     font-style: italic;
+  }
+
+  .calendar-container {
+    height: 400px;
   }
   
   /* Caixa da Tabela */

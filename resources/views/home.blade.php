@@ -27,7 +27,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
-<div class="pagina-container pt-5">
+<div class="pagina-container pt-4">
 
   <!-- Cards de Salas -->
   <div class="salas-grid">
@@ -84,199 +84,125 @@
       <div class="area-calendario">
 
         <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
-        
+
       </div>
   </div>
-
-  <!-- Calendário Único -->
   
+  @if (session('error'))
+    <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
+      {{ session('error') }}
+    </div>
+  @endif
 
+  <div class="tabela-main-page">
+    <!-- Adicionar ID novamente se quiser ativar o DataTable -->
+    <!-- <table id="reservas"> -->
+    <table id="reservas">
+      <thead>
+        <tr>
+            <th>
+                <label class="text-light">Id</label>
+            </th>
 
-</div>
+            <th>
+                <label class="text-light">Sala</label>
+            </th>
 
-<div class="">
-    <div class="p-30 mx-auto mt-5 divCards">
+            <th>
+                <label class="text-light">Hora Início</label>
+            </th>
 
-        {{-- <div class="row">
-            @foreach($salas as $index => $sala)
+            <th>
+                <label class="text-light">Hora Término</label>
+            </th>
 
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                <div class="card border position-relative">
+            <th>
+                <label class="text-light">Reservado Por</label>
+            </th>
 
-                    <div class="bg__card_pattern bg__card_pattern_footer text-light text-center mb-0 position-relative">
-                        <img class="fit-image" src="{{ asset('img/salas/' . $sala->imagem) }}" alt="{{ $sala->nome }}">
+            <th>
+                <label class="text-light">Unidade</label>
+            </th>
 
-                        @php
-                        $situacao = strtolower(trim($sala->situacao));
-                        @endphp
+            <th>
+                <label class="text-light">Opções</label>
+            </th>
+        </tr>
+      </thead>
 
-                        @if($situacao === 'inativa')
-                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-                            style="background-color: rgba(0, 0, 0, 0.7);">
-                            <span class="text-white fw-bold fs-6">Sala em Manutenção</span>
-                        </div>
-                        @endif
-                    </div>
+      <tbody>
+        @foreach($reservas as $reserva)
+        <tr>
+          <td data-label="Id">
+            {{ $reserva->id }}
+          </td>
 
-                    <div class="card-body card-fofinho">
-                        <div class="title-teste text-center d-flex flex-column"
-                            style="margin-bottom: 1rem; margin-top: .5rem;">
-                            <span>Local</span>
-                            <h3 class="fw-bold text-uppercase" style="word-wrap:normal;">{{ $sala->nome }}</h3>
-                            <span class="mt-2">Descrição</span>
-                            <span class="" style="color:rgb(134, 132, 132); font-size: 14px;">
-                                <p class="card-text">{{ $sala->descricao }}</p>
-                            </span>
-                        </div>
-                    </div>
+          <td data-label="Sala">
+            {{-- @if($reserva->sala && $reserva->sala->imagem)
+            <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt="" style="width: 45px; height: 45px" class="square img-table" />
 
-                    <div class="card-body card-fofinho" style="background-color: #f1f1f1; /* padding: 10px 30px; */">
-                        <div class="title-teste text-center d-flex flex-column">
-                            <div class="d-flex justify-content-center gap-3 py-2">
+            @else
+              <p>Imagem não disponível</p>
+            @endif --}}
 
-                                @if ($situacao === 'inativa')
-                                <button type="button" class="button-blue" data-bs-toggle="modal"
-                                    data-bs-target="#verReservasModal" data-sala-id="{{ $sala->id }}"
-                                    onclick="carregarReservas({{ $sala->id }})" style="font-size: 15px;">
-                                    Ver Reservas
-                                </button>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mt-1">
+              <p class="mb-1 text-uppercase">
+              {{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
             </div>
-            @endforeach
-        </div> --}}
+          </td>
 
-        
+          <td data-label="Hora Início">
+            {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
+          </td>
 
-        @if (session('error'))
-        <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
-            {{ session('error') }}
-        </div>
-        @endif
+          <td data-label="Hora Término">
+            {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
+          </td>
 
-    </div>
-</div>
+          <td data-label="Reservado Por">
+            {{ $reserva->user ? $reserva->user->name : '' }}
+          </td>
 
-<div class="form-wrapper p-30 py-3 mx-auto divTable">
-    <div class="table-container">
-        <table id="reservas">
-            <thead>
-                <tr>
-                    <th>
-                        <label class="text-light">Id</label>
-                    </th>
+          <td data-label="Unidade">
+            {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
+          </td>
 
-                    <th>
-                        <label class="text-light">Sala</label>
-                    </th>
+          <td data-label="Opções">
+            <div class="dropdown-custom">
+              <button class="btn-dropdown" onclick="toggleDropdown(this)">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
 
-                    <th>
-                        <label class="text-light">Hora Início</label>
-                    </th>
+              <div class="dropdown-menu-custom">
+                <button class="btn-dropdown dropdown-item">
+                  <a href="{{ route('reservas.show', $reserva->id) }}" class="text-decoration-none text-pattern">
+                    Detalhes
+                  </a>
+                </button>
 
-                    <th>
-                        <label class="text-light">Hora Término</label>
-                    </th>
+                <button class="btn-dropdown dropdown-item">
+                  <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-decoration-none text-pattern">
+                    Editar
+                  </a>
+                </button>
 
-                    <th>
-                        <label class="text-light">Reservado Por</label>
-                    </th>
-
-                    <th>
-                        <label class="text-light">Unidade</label>
-                    </th>
-
-                    <th>
-                        <label class="text-light">Opções</label>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach($reservas as $reserva)
-                <tr>
-                    <td data-label="Id">
-                        {{ $reserva->id }}
-                    </td>
-
-                    <td data-label="Sala">
-                        @if($reserva->sala && $reserva->sala->imagem)
-                        <img src="{{ asset('img/salas/' . $reserva->sala->imagem) }}" alt=""
-                            style="width: 45px; height: 45px" class="square img-table" />
-
-                        @else
-                        <p>Imagem não disponível</p>
-                        @endif
-
-                        <div class="mt-1">
-                            <p class="mb-1 text-uppercase">
-                                {{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}</p>
-                        </div>
-                    </td>
-
-                    <td data-label="Hora Início">
-                        {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
-                    </td>
-
-                    <td data-label="Hora Término">
-                        {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
-                    </td>
-
-                    <td data-label="Reservado Por">
-                        {{ $reserva->user ? $reserva->user->name : '' }}
-                    </td>
-
-                    <td data-label="Unidade">
-                        {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
-                    </td>
-
-                    <td data-label="Opções">
-
-                        <div class="dropdown-custom">
-                            <button class="btn-dropdown" onclick="toggleDropdown(this)">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-
-                            <div class="dropdown-menu-custom">
-                                <button class="btn-dropdown dropdown-item">
-                                    <a href="{{ route('reservas.show', $reserva->id) }}"
-                                        class="text-decoration-none text-pattern">
-                                        {{-- <i class="fas fa-info-circle"></i> --}}
-                                        Detalhes
-                                    </a>
-                                </button>
-
-                                <button class="btn-dropdown dropdown-item">
-                                    <a href="{{ route('reservas.edit', $reserva->id) }}"
-                                        class="text-decoration-none text-pattern">
-                                        {{-- <i class="fa-regular fa-pen-to-square"></i> --}}
-                                        Editar
-                                    </a>
-                                </button>
-
-
-                                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn-dropdown dropdown-item text-danger"
-                                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                                        onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-                                        {{-- <i class="fa-solid fa-trash"></i> --}}
-                                        Excluir
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                <form action="{{ route('reservas.destroy', $reserva->id) }}" method="POST" class="m-0">
+                  @csrf
+                  @method('DELETE')
+                  <button type="button" class="btn-dropdown dropdown-item text-danger"
+                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                    onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
+                    Excluir
+                  </button>
+                </form>
+              </div>
+            </div>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -554,11 +480,13 @@ $(document).ready(function() {
                 previous: "Anterior"
             }
         },
-        // scrollY: '200px',
         scrollCollapse: true,
-        paging: true
+        paging: true,         // <<< Desativa a paginação
+        searching: false,      // <<< Remove a barra de pesquisa
+        lengthChange: false    // <<< Remove o select de quantidade de registros
     });
 });
+
 
 
 function setDeleteAction(action) {
