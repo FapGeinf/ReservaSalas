@@ -11,9 +11,9 @@
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/responsive-table.css') }}">
 <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
+<link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -97,7 +97,7 @@
   <div class="tabela-main-page">
     <!-- Adicionar ID novamente se quiser ativar o DataTable -->
     <!-- <table id="reservas"> -->
-    <table id="reservas">
+    <table class="table-reservas" id="reservas">
       <thead>
         <tr>
             <th>
@@ -275,84 +275,83 @@ function toggleDropdown(button) {
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        locale: 'pt-br', // Idioma
-        events: '/eventos', // URL para buscar os eventos
-        selectable: true,
-        editable: false,
-        eventDisplay: 'block',
-
-
-        // Campo que mostrar as reservas no calendar do evento
-        eventContent: function(arg) {
-            const horaInicio = arg.event.extendedProps.hora_inicio || '';
-            const horaFim = arg.event.extendedProps.hora_fim || '';
-            const responsavel = arg.event.extendedProps.responsavel || '';
-            const nomeSala = arg.event.title || '';
-
-            let innerHtml = `
-        <div style="font-size: 0.95em;">
-            <strong>${nomeSala}</strong><br>
-            ${horaInicio} - ${horaFim}<br>
-            ${responsavel}
-        </div>
-    `;
-            return {
-                html: innerHtml
-            };
-        },
-
-
-        // Configuração da barra de ferramentas
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,listWeek'
-        },
-
-        // Personaliza o formato do título
-        // titleFormat: {
-        //     month: 'long', // Nome completo do mês
-        //     year: 'numeric' // Ano
-        // },
-
-        // Evento ao clicar em uma data
-        dateClick: function(info) {
-            // Define a data no campo do modal
-            document.getElementById('data_reserva').value = info.dateStr;
-
-            // Abre o modal de reserva
-            var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-            modalReserva.show();
-
-            // Define o foco no campo de seleção de sala
-            setTimeout(function() {
-                document.getElementById('sala_fk').focus();
-            }, 500);
-        },
-
-        // Evento ao clicar em um evento existente
-        eventClick: function(info) {
-            Swal.fire({
-                title: 'Detalhes da Reserva',
-                html: `
-                    <strong>Sala:</strong> ${info.event.title}<br>
-                    <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
-                    <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
-                    <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
-                `,
-                confirmButtonText: 'Fechar'
-            });
-        }
-    });
-
-    calendar.render();
-});
-</script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+  
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'timeGridWeek',
+          locale: 'pt-br', // Idioma
+          events: '/eventos', // URL para buscar os eventos
+          selectable: true,
+          editable: false,
+          eventDisplay: 'block',
+  
+          // Campo que mostrar as reservas no calendar do evento
+          eventContent: function(arg) {
+              const horaInicio = arg.event.extendedProps.hora_inicio || '';
+              const horaFim = arg.event.extendedProps.hora_fim || '';
+              const responsavel = arg.event.extendedProps.responsavel || '';
+              const nomeSala = arg.event.title || '';
+  
+              let innerHtml = `
+          <div style="font-size: 0.95em;">
+              <strong>${nomeSala}</strong><br>
+              ${horaInicio} - ${horaFim}<br>
+              ${responsavel}
+          </div>
+      `;
+              return {
+                  html: innerHtml
+              };
+          },
+  
+          // Configuração da barra de ferramentas
+          headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,listWeek'
+          },
+  
+          // Personaliza o formato do título
+          // titleFormat: {
+          //     month: 'long', // Nome completo do mês
+          //     year: 'numeric' // Ano
+          // },
+  
+          // Evento ao clicar em uma data
+          dateClick: function(info) {
+              // Define a data no campo do modal
+              document.getElementById('data_reserva').value = info.dateStr;
+  
+              // Abre o modal de reserva
+              var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+              modalReserva.show();
+  
+              // Define o foco no campo de seleção de sala
+              setTimeout(function() {
+                  document.getElementById('sala_fk').focus();
+              }, 500);
+          },
+  
+          // Evento ao clicar em um evento existente
+          eventClick: function(info) {
+              Swal.fire({
+                  title: 'Detalhes da Reserva',
+                  html: `
+                      <strong>Sala:</strong> ${info.event.title}<br>
+                      <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
+                      <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
+                      <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
+                  `,
+                  confirmButtonText: 'Fechar'
+              });
+          }
+      });
+  
+      calendar.render();
+  });
+  </script>
+  
 
 
 <script>
@@ -630,4 +629,3 @@ $(document).ready(function() {
     });
 </script>
 @endif
-
