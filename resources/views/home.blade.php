@@ -27,7 +27,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
-<div class="pagina-container pt-4">
+<div class="pagina-container">
 
   <!-- Cards de Salas -->
   <div class="salas-grid">
