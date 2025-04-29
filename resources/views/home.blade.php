@@ -24,10 +24,27 @@
     border-right-color: #335757 !important;
   }
 
+  .fc-theme-standard .fc-list-day-cushion {
+    padding: 12px 8px !important;
+    background-color: #335757 !important;
+  }
+
+  .fc-list-day-text,
+  .fc-list-day-side-text {
+    font-size: 13px;
+    color: #fff;
+    text-decoration: none;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
   .fc-event-main {
-    /* text-transform: uppercase; */
     text-align: center;
-    text-transform: none;
+    font-style: normal;
+  }
+
+  .fc-list-event-title,
+  .fc-list-event-time {
     font-style: normal;
   }
 </style>
