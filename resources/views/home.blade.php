@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -210,7 +211,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalReservaLabel">Nova Reserva</h5>
+        <h5 class="modal-title fw-bold" id="modalReservaLabel">Nova Reserva</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
@@ -222,7 +223,7 @@
 
           <div class="mb-3">
             <label for="sala_fk" class="fw-bold">Sala:</label>
-            <select name="sala_fk" id="sala_fk" class="form-control" required>
+            <select name="sala_fk" id="sala_fk" class="input-custom" required>
               <option value="">Selecione uma sala</option>
               @foreach($salas as $sala)
                 <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
@@ -232,19 +233,19 @@
 
           <div class="mb-3">
             <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
-            <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
+            <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
           </div>
 
           <div class="mb-3">
             <label for="hora_termino" class="fw-bold">Hora de Término:</label>
-            <input type="time" name="hora_termino" id="hora_termino" class="form-control" required>
+            <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
           </div>
         </form>
       </div>
     
       <div class="modal-footer">
-        <button type="submit" form="reservaForm" class="btn btn-primary">Salvar Reserva</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
@@ -259,6 +260,7 @@
     </div>
 
     <div class="toast-body" id="toastBodyReserva"></div>
+
   </div>
 </div>
 
