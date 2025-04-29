@@ -11,6 +11,17 @@
     line-height: 39px;
     padding-bottom: 0 !important;
 }
+
+.fc .fc-col-header-cell-cushion {
+    color: #fff;
+    display: inline-block;
+    padding: 12px 4px !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    border-right-color: #335757 !important;
+}
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
@@ -281,12 +292,21 @@ function toggleDropdown(button) {
       var calendarEl = document.getElementById('calendar');
   
       var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'timeGridWeek',
+          initialView: 'dayGridMonth',
           locale: 'pt-br', // Idioma
           events: '/eventos', // URL para buscar os eventos
           selectable: true,
           editable: false,
           eventDisplay: 'block',
+
+          buttonText: {
+          today: 'Hoje',
+          month: 'Mês',
+          week: 'Semana',
+          day: 'Dia',
+          list: 'Lista'
+      },
+
   
           // Campo que mostrar as reservas no calendar do evento
           eventContent: function(arg) {
@@ -296,12 +316,13 @@ function toggleDropdown(button) {
               const nomeSala = arg.event.title || '';
   
               let innerHtml = `
-          <div style="font-size: 0.95em;">
-              <strong>${nomeSala}</strong><br>
-              ${horaInicio} - ${horaFim}<br>
-              ${responsavel}
-          </div>
-      `;
+                <div style="font-size: 0.95em;">
+                    <strong>${nomeSala}</strong><br>
+                    ${horaInicio} - ${horaFim}<br>
+                    ${responsavel}
+                </div>
+            `;
+
               return {
                   html: innerHtml
               };
@@ -311,7 +332,7 @@ function toggleDropdown(button) {
           headerToolbar: {
               left: 'prev,next today',
               center: 'title',
-              right: 'dayGridMonth,timeGridWeek,listWeek'
+              right: 'dayGridMonth,listWeek'
           },
   
           // Personaliza o formato do título
