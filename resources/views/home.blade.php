@@ -204,7 +204,7 @@
           <td data-label="Opções">
             <div class="dropdown-custom">
               <button class="btn-dropdown" onclick="toggleDropdown(this)">
-                <i class="fas fa-ellipsis-v"></i>
+                <i class="bi bi-three-dots-vertical"></i>
               </button>
 
               <div class="dropdown-menu-custom">
@@ -583,7 +583,7 @@ function carregarReservas(salaId) {
 
     error: function() {
       $('#reservasContainer').html(
-        '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
+        '<p class="text-center"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
       );
     }
   });
@@ -625,7 +625,7 @@ $(document).ready(function() {
 
         <div id="reservasContainer" class="reservas-container">
           <p class="text-center text-muted">
-            <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
+            <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
           </p>
         </div>
       </div>
