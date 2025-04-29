@@ -25,8 +25,10 @@
   }
 
   .fc-event-main {
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     text-align: center;
+    text-transform: none;
+    font-style: normal;
   }
 </style>
 
