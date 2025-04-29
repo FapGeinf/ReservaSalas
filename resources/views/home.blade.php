@@ -6,6 +6,11 @@
   .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.5) !important;
   }
+
+  .dataTables_wrapper .dataTables_info {
+    line-height: 39px;
+    padding-bottom: 0 !important;
+}
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
