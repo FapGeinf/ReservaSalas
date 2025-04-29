@@ -1,3 +1,7 @@
+.fc .fc-toolbar-title {
+  font-style: normal;
+}
+
 /* Estilo da página principal */
 .pagina-container {
     max-width: 1500px;
