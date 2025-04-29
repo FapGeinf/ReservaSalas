@@ -210,13 +210,13 @@
               <div class="dropdown-menu-custom">
                 <button class="btn-dropdown dropdown-item">
                   <a href="{{ route('reservas.show', $reserva->id) }}" class="text-decoration-none text-pattern">
-                    Detalhes
+                    <i class="bi bi-info-circle me-1"></i> Detalhes
                   </a>
                 </button>
 
                 <button class="btn-dropdown dropdown-item">
                   <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-decoration-none text-pattern">
-                    Editar
+                    <i class="bi bi-pencil-square me-1"></i> Editar
                   </a>
                 </button>
 
@@ -226,7 +226,7 @@
                   <button type="button" class="btn-dropdown dropdown-item text-danger"
                     data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
                     onclick="setDeleteAction('{{ route('reservas.destroy', $reserva->id) }}')">
-                    Excluir
+                    <i class="bi bi-trash"></i> Excluir
                   </button>
                 </form>
               </div>
