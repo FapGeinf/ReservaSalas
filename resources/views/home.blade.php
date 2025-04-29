@@ -12,16 +12,22 @@
     padding-bottom: 0 !important;
 }
 
-.fc .fc-col-header-cell-cushion {
+  .fc .fc-col-header-cell-cushion {
     color: #fff;
     display: inline-block;
     padding: 12px 4px !important;
     text-decoration: none;
+    font-style: normal;
     text-transform: uppercase;
     font-size: 13px !important;
     font-weight: bold !important;
     border-right-color: #335757 !important;
-}
+  }
+
+  .fc-event-main {
+    text-transform: uppercase;
+    text-align: center;
+  }
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
@@ -112,33 +118,33 @@
     <table class="table-reservas" id="reservas">
       <thead>
         <tr>
-            <th>
-                <label class="text-light">Id</label>
-            </th>
+          <th>
+            <label class="text-light">Id</label>
+          </th>
 
-            <th>
-                <label class="text-light">Sala</label>
-            </th>
+          <th>
+            <label class="text-light">Sala</label>
+          </th>
 
-            <th>
-                <label class="text-light">Hora Início</label>
-            </th>
+          <th>
+            <label class="text-light">Hora Início</label>
+          </th>
 
-            <th>
-                <label class="text-light">Hora Término</label>
-            </th>
+          <th>
+            <label class="text-light">Hora Término</label>
+          </th>
 
-            <th>
-                <label class="text-light">Reservado Por</label>
-            </th>
+          <th>
+            <label class="text-light">Reservado Por</label>
+          </th>
 
-            <th>
-                <label class="text-light">Unidade</label>
-            </th>
+          <th>
+            <label class="text-light">Unidade</label>
+          </th>
 
-            <th>
-                <label class="text-light">Opções</label>
-            </th>
+          <th>
+            <label class="text-light">Opções</label>
+          </th>
         </tr>
       </thead>
 
@@ -269,203 +275,197 @@
 </div>
 
 <script>
-function toggleDropdown(button) {
-  const dropdown = button.parentElement;
-  dropdown.classList.toggle("open");
+  function toggleDropdown(button) {
+    const dropdown = button.parentElement;
+    dropdown.classList.toggle("open");
 
-  // Fecha o dropdown ao clicar fora dele
-  document.addEventListener("click", function closeDropdown(event) {
-    if (!dropdown.contains(event.target)) {
-      dropdown.classList.remove("open");
-      document.removeEventListener("click", closeDropdown);
-    }
-  });
-}
+    // Fecha o dropdown ao clicar fora dele
+    document.addEventListener("click", function closeDropdown(event) {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove("open");
+        document.removeEventListener("click", closeDropdown);
+      }
+    });
+  }
 </script>
 
-<!-- Adicione a biblioteca SweetAlert2 no <head> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-  
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          locale: 'pt-br', // Idioma
-          events: '/eventos', // URL para buscar os eventos
-          selectable: true,
-          editable: false,
-          eventDisplay: 'block',
+    var calendarEl = document.getElementById('calendar');
 
-          buttonText: {
-          today: 'Hoje',
-          month: 'Mês',
-          week: 'Semana',
-          day: 'Dia',
-          list: 'Lista'
-      },
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br', // Idioma
+      events: '/eventos', // URL para buscar os eventos
+      selectable: true,
+      editable: false,
+      eventDisplay: 'block',
 
-  
-          // Campo que mostrar as reservas no calendar do evento
-          eventContent: function(arg) {
-              const horaInicio = arg.event.extendedProps.hora_inicio || '';
-              const horaFim = arg.event.extendedProps.hora_fim || '';
-              const responsavel = arg.event.extendedProps.responsavel || '';
-              const nomeSala = arg.event.title || '';
-  
-              let innerHtml = `
-                <div style="font-size: 0.95em;">
-                    <strong>${nomeSala}</strong><br>
-                    ${horaInicio} - ${horaFim}<br>
-                    ${responsavel}
-                </div>
-            `;
+      buttonText: {
+      today: 'Hoje',
+      month: 'Mês',
+      week: 'Semana',
+      day: 'Dia',
+      list: 'Lista'
+    },
 
-              return {
-                  html: innerHtml
-              };
-          },
+    // Campo que mostrar as reservas no calendar do evento
+    eventContent: function(arg) {
+      const horaInicio = arg.event.extendedProps.hora_inicio || '';
+      const horaFim = arg.event.extendedProps.hora_fim || '';
+      const responsavel = arg.event.extendedProps.responsavel || '';
+      const nomeSala = arg.event.title || '';
+
+      let innerHtml = `
+        <div style="font-size: 0.95em;">
+          <strong>${nomeSala}</strong><br>
+          ${horaInicio} - ${horaFim}<br>
+          ${responsavel}
+        </div>
+      `;
+
+      return {
+        html: innerHtml
+      };
+    },
+
+    // Configuração da barra de ferramentas
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,listWeek'
+    },
+
+    // Personaliza o formato do título
+    // titleFormat: {
+    //     month: 'long', // Nome completo do mês
+    //     year: 'numeric' // Ano
+    // },
   
-          // Configuração da barra de ferramentas
-          headerToolbar: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,listWeek'
-          },
+    // Evento ao clicar em uma data
+    dateClick: function(info) {
+      // Define a data no campo do modal
+      document.getElementById('data_reserva').value = info.dateStr;
+
+      // Abre o modal de reserva
+      var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+      modalReserva.show();
+
+      // Define o foco no campo de seleção de sala
+      setTimeout(function() {
+        document.getElementById('sala_fk').focus();
+      }, 500);
+    },
   
-          // Personaliza o formato do título
-          // titleFormat: {
-          //     month: 'long', // Nome completo do mês
-          //     year: 'numeric' // Ano
-          // },
-  
-          // Evento ao clicar em uma data
-          dateClick: function(info) {
-              // Define a data no campo do modal
-              document.getElementById('data_reserva').value = info.dateStr;
-  
-              // Abre o modal de reserva
-              var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-              modalReserva.show();
-  
-              // Define o foco no campo de seleção de sala
-              setTimeout(function() {
-                  document.getElementById('sala_fk').focus();
-              }, 500);
-          },
-  
-          // Evento ao clicar em um evento existente
-          eventClick: function(info) {
-              Swal.fire({
-                  title: 'Detalhes da Reserva',
-                  html: `
-                      <strong>Sala:</strong> ${info.event.title}<br>
-                      <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
-                      <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
-                      <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
-                  `,
-                  confirmButtonText: 'Fechar'
-              });
-          }
-      });
-  
-      calendar.render();
+      // Evento ao clicar em um evento existente
+      eventClick: function(info) {
+        Swal.fire({
+          title: 'Detalhes da Reserva',
+          html: `
+            <strong>Sala:</strong> ${info.event.title}<br>
+            <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
+            <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
+            <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
+          `,
+          confirmButtonText: 'Fechar'
+        });
+      }
+    });
+    calendar.render();
   });
-  </script>
-  
-
+</script>
 
 <script>
 // Função para abrir o modal do calendário e selecionar uma sala
 function abrirModalCalendario(salaId) {
-    console.log("Sala selecionada:", salaId);
-    $('#sala_fk').val(salaId); // Define a sala no formulário
-    $('#modalCalendario').modal('show');
+  console.log("Sala selecionada:", salaId);
+  $('#sala_fk').val(salaId); // Define a sala no formulário
+  $('#modalCalendario').modal('show');
 }
 
-
 $(document).ready(function() {
-    $('#reservaForm').submit(function(e) {
-        e.preventDefault();
+  $('#reservaForm').submit(function(e) {
+    e.preventDefault();
 
-        // Mostra o loader no botão
-        const submitBtn = $(this).find('button[type="submit"]');
-        submitBtn.prop('disabled', true).html(
-            '<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
+    // Mostra o loader no botão
+    const submitBtn = $(this).find('button[type="submit"]');
+    submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...');
 
-        $.ajax({
-            url: $(this).attr('action'),
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                if (response.success) {
-                    // Fecha o modal de reserva
-                    $('#modalReserva').modal('hide');
+    $.ajax({
+      url: $(this).attr('action'),
+      type: 'POST',
+      data: $(this).serialize(),
+      success: function(response) {
+        if (response.success) {
+            // Fecha o modal de reserva
 
-                    // Mostra mensagem de sucesso
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        text: 'Reserva realizada com sucesso!',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        // Redireciona para a home após clicar em OK
-                        window.location.href = "{{ route('home') }}";
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    title: 'Erro!',
-                    text: xhr.responseJSON?.message || 'Erro ao realizar reserva',
-                    icon: 'error'
-                });
-            },
-            complete: function() {
-                // Restaura o botão
-                submitBtn.prop('disabled', false).html('Salvar Reserva');
-            }
-        });
-    });
+            $('#modalReserva').modal('hide');
+            // Mostra mensagem de sucesso
+            Swal.fire({
+              title: 'Sucesso!',
+              text: 'Reserva realizada com sucesso!',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              // Redireciona para a home após clicar em OK
+              window.location.href = "{{ route('home') }}";
+            });
+          }
+        },
+
+        error: function(xhr) {
+          Swal.fire({
+            title: 'Erro!',
+            text: xhr.responseJSON?.message || 'Erro ao realizar reserva',
+            icon: 'error'
+          });
+        },
+        complete: function() {
+          // Restaura o botão
+          submitBtn.prop('disabled', false).html('Salvar Reserva');
+        }
+      });
+  });
 });
 
 // Verificação em tempo real
 $('#hora_inicio, #hora_termino').change(function() {
-    verificarDisponibilidade();
+  verificarDisponibilidade();
 });
 
-
 function verificarDisponibilidade() {
-    const salaId = $('#sala_fk').val();
-    const data = $('#data_reserva').val();
-    const horaInicio = $('#hora_inicio').val();
-    const horaTermino = $('#hora_termino').val();
+  const salaId = $('#sala_fk').val();
+  const data = $('#data_reserva').val();
+  const horaInicio = $('#hora_inicio').val();
+  const horaTermino = $('#hora_termino').val();
 
-    if (!salaId || !data || !horaInicio || !horaTermino) return;
+  if (!salaId || !data || !horaInicio || !horaTermino) return;
 
-    $.ajax({
-        url: '/verificar-disponibilidade',
-        type: 'POST',
-        data: {
-            sala_id: salaId,
-            data_reserva: data,
-            hora_inicio: horaInicio,
-            hora_termino: horaTermino,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-            if (response.disponivel) {
-                $('#disponibilidade-status').html('<span class="text-success">Horário disponível</span>');
-                $('.btn-submit').prop('disabled', false);
-            } else {
-                $('#disponibilidade-status').html('<span class="text-danger">' + response.mensagem +
-                    '</span>');
-                $('.btn-submit').prop('disabled', true);
-            }
+  $.ajax({
+      url: '/verificar-disponibilidade',
+      type: 'POST',
+      data: {
+        sala_id: salaId,
+        data_reserva: data,
+        hora_inicio: horaInicio,
+        hora_termino: horaTermino,
+        _token: $('meta[name="csrf-token"]').attr('content')
+      },
+
+      success: function(response) {
+        if (response.disponivel) {
+          $('#disponibilidade-status').html('<span class="text-success">Horário disponível</span>');
+          $('.btn-submit').prop('disabled', false);
+        } else {
+          $('#disponibilidade-status').html('<span class="text-danger">' + response.mensagem +
+            '</span>');
+          $('.btn-submit').prop('disabled', true);
         }
-    });
+      }
+  });
 }
 </script>
 
@@ -473,182 +473,180 @@ function verificarDisponibilidade() {
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#reservas').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-            search: "Procurar:",
-            lengthMenu: "Paginação: _MENU_",
-            info: 'Mostrando página _PAGE_ de _PAGES_',
-            infoEmpty: 'Sem relatórios de risco disponíveis no momento',
-            infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-            zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-            paginate: {
-                next: "Próximo",
-                previous: "Anterior"
-            }
-        },
-        scrollCollapse: true,
-        paging: true,         // <<< Desativa a paginação
-        searching: false,      // <<< Remove a barra de pesquisa
-        lengthChange: false    // <<< Remove o select de quantidade de registros
-    });
+  $('#reservas').DataTable({
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+      search: "Procurar:",
+      lengthMenu: "Paginação: _MENU_",
+      info: 'Mostrando página _PAGE_ de _PAGES_',
+      infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+      infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+      zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+      paginate: {
+        next: "Próximo",
+        previous: "Anterior"
+      }
+    },
+    
+    scrollCollapse: true,
+    paging: true,         // <<< Desativa a paginação
+    searching: false,      // <<< Remove a barra de pesquisa
+    lengthChange: false    // <<< Remove o select de quantidade de registros
+  });
 });
 
-
-
 function setDeleteAction(action) {
-    const deleteForm = document.getElementById('deleteForm');
-    deleteForm.action = action;
+  const deleteForm = document.getElementById('deleteForm');
+  deleteForm.action = action;
 }
 
 function selecionarSala(salaId) {
-    console.log('Sala selecionada:', salaId); // Depuração
-    document.getElementById('sala_fk').value = salaId;
+  console.log('Sala selecionada:', salaId); // Depuração
+  document.getElementById('sala_fk').value = salaId;
 }
 
 function carregarReservas(salaId) {
-    const dataSelecionada = document.getElementById('dataSelecionada').value;
+  const dataSelecionada = document.getElementById('dataSelecionada').value;
 
-    $('#reservasContainer').html(
-        '<p class="text-center"><i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...</p>'
-    );
+  $('#reservasContainer').html(
+    '<p class="text-center"><i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...</p>'
+  );
 
-    $.ajax({
-        url: '/reservas/sala/' + salaId, // Rota para buscar as reservas da sala
-        type: 'GET',
-        data: {
-            data: dataSelecionada
-        },
-        success: function(reservas) {
-            let html = '';
+  $.ajax({
+    url: '/reservas/sala/' + salaId, // Rota para buscar as reservas da sala
+    type: 'GET',
+    data: {
+      data: dataSelecionada
+    },
 
-            if (reservas.length === 0) {
-                html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
-            } else {
-                html += '<div class="reservas-grid">';
-                reservas.forEach(reserva => {
-                    const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
-                    const usuario = reserva.user ? reserva.user.name : 'N/A';
-                    const horaInicio = reserva.data_inicio.split(' ')[1];
-                    const horaFim = reserva.data_fim.split(' ')[1];
+    success: function(reservas) {
+      let html = '';
 
-                    html += `
-                        <div class="reserva-card">
-                            <span class="reserva-info">
-                                <i class="bi bi-building"></i>
-                                <strong>Unidade:</strong> ${unidade}
-                            </span>
-                            <span class="reserva-info">
-                                <i class="bi bi-clock"></i>
-                                <strong>Hora:</strong> ${horaInicio} - ${horaFim}
-                            </span>
-                            <span class="reserva-info">
-                                <i class="bi bi-person"></i>
-                                <strong>Reservado por:</strong> ${usuario}
-                            </span>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            }
+      if (reservas.length === 0) {
+        html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
+      } else {
 
-            $('#reservasContainer').html(html);
-        },
-        error: function() {
-            $('#reservasContainer').html(
-                '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
-            );
-        }
-    });
+        html += '<div class="reservas-grid">';
+        reservas.forEach(reserva => {
+          const unidade = reserva.user?.unidade?.nome ?? 'Unidade Desconhecida';
+          const usuario = reserva.user ? reserva.user.name : 'N/A';
+          const horaInicio = reserva.data_inicio.split(' ')[1];
+          const horaFim = reserva.data_fim.split(' ')[1];
+
+          html += `
+            <div class="reserva-card">
+              <span class="reserva-info">
+                <i class="bi bi-building"></i>
+                <strong>Unidade:</strong> ${unidade}
+              </span>
+
+              <span class="reserva-info">
+                <i class="bi bi-clock"></i>
+                <strong>Hora:</strong> ${horaInicio} - ${horaFim}
+              </span>
+
+              <span class="reserva-info">
+                <i class="bi bi-person"></i>
+                <strong>Reservado por:</strong> ${usuario}
+              </span>
+            </div>
+          `;
+        });
+      html += '</div>';
+    }
+
+      $('#reservasContainer').html(html);
+    },
+
+    error: function() {
+      $('#reservasContainer').html(
+        '<p class="text-center"><i class="fa-solid fa-x me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
+      );
+    }
+  });
 }
 
-
-
-
 $(document).ready(function() {
-    $('#dataSelecionada').on('change', function() {
-        const salaId = $('#verReservasModal').data('sala-id');
-        carregarReservas(salaId);
-    });
+  $('#dataSelecionada').on('change', function() {
+    const salaId = $('#verReservasModal').data('sala-id');
+    carregarReservas(salaId);
+  });
 
-    $('#verReservasModal').on('show.bs.modal', function(event) {
-        const button = $(event.relatedTarget);
-        const salaId = button.data('sala-id');
-        $('#verReservasModal').data('sala-id', salaId);
+  $('#verReservasModal').on('show.bs.modal', function(event) {
+    const button = $(event.relatedTarget);
+    const salaId = button.data('sala-id');
+    $('#verReservasModal').data('sala-id', salaId);
 
-        const hoje = new Date().toISOString().split('T')[0];
-        $('#dataSelecionada').val(hoje);
+    const hoje = new Date().toISOString().split('T')[0];
+    $('#dataSelecionada').val(hoje);
 
-        carregarReservas(salaId);
-    });
+    carregarReservas(salaId);
+  });
 });
 </script>
 
-
-
 <!-- Modal para Ver Reservas -->
 <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content custom-modal">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
-                    <input type="date" id="dataSelecionada" class="input-custom">
-                </div>
-                <div id="reservasContainer" class="reservas-container">
-                    <p class="text-center text-muted">
-                        <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
-                    </p>
-                </div>
-            </div>
+  <div class="modal-dialog modal-md">
+    <div class="modal-content custom-modal">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
+          <input type="date" id="dataSelecionada" class="input-custom">
         </div>
+
+        <div id="reservasContainer" class="reservas-container">
+          <p class="text-center text-muted">
+            <i class="fa-regular fa-spinner" style="color: #2a64e7;"></i> Carregando reservas...
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-
-@endsection
-
 <!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-top">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-    <div class="modal-dialog modal-dialog-top">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+      <div class="modal-body">
+        Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
+      </div>
 
-            <div class="modal-body">
-                Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
-            </div>
+      <div class="modal-footer">
+        <form id="deleteForm" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="button-red">Excluir</button>
+        </form>
 
-            <div class="modal-footer">
-                <form id="deleteForm" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="button-red">Excluir</button>
-                </form>
-
-                <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>
 
 @if (session('success'))
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            title: 'Sucesso!',
-            text: '{{ session('success') }}',
-            icon: 'success',
-            confirmButtonText: 'Fechar'
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+      title: 'Sucesso!',
+      text: '{{ session('success') }}',
+      icon: 'success',
+      confirmButtonText: 'Fechar'
     });
+  });
 </script>
 @endif
+
+@endsection
