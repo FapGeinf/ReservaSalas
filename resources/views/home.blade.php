@@ -88,11 +88,15 @@
               Reservar
             </button>
           @else
-            <button class="botao-reservar" onclick="carregarReservas({{ $sala->id }})"
-              data-bs-toggle="modal"
-              data-bs-target="#verReservasModal" style="background-color: gray;">
-              Ver Reservas
-            </button>
+          
+          <button class="botao-reservar"
+            data-bs-toggle="modal"
+            data-bs-target="#verReservasModal"
+            data-sala-id="{{ $sala->id }}"
+            style="background-color: gray;">
+            Ver Reservas
+          </button>
+  
           @endif
     
         </div>
