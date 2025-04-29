@@ -85,12 +85,13 @@
 
   <!-- Calendário -->
   <div class="caixa-calendario">
-    <div class="titulo-calendario">Calendário</div>
-      <div class="area-calendario">
+    <div class="titulo-calendario">
+      <span style="border-bottom: 2px solid #ccc; color: #333;">Calendário</span>
+    </div>
 
-        <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
-
-      </div>
+    <div class="area-calendario">
+      <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
+    </div>
   </div>
   
   @if (session('error'))
@@ -100,6 +101,7 @@
   @endif
 
   <div class="tabela-main-page">
+    <span>Reuniões Marcadas</span>
     <!-- Adicionar ID novamente se quiser ativar o DataTable -->
     <!-- <table id="reservas"> -->
     <table class="table-reservas" id="reservas">
