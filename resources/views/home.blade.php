@@ -128,7 +128,7 @@
     </div>
 
     <div class="mt-1">
-      <span class="text-muted" style="font-size: 14px;">
+      <span style="font-size: 14px;">
         <i class="bi bi-lightbulb-fill text-warning"></i>
         Clique em uma data para reservar uma sala ou visualizar agendamentos
       </span>
