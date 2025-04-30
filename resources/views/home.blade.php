@@ -135,6 +135,10 @@
   @endif
 
   <div class="tabela-main-page">
+    <div class="text-center fw-bold mb-4">
+      <span class="title-meetings text-uppercase">Lista de Reuniões</span>
+    </div>
+
     <table class="table-reservas" id="reservas">
       <thead>
         <tr>
