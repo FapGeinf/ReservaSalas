@@ -10,7 +10,7 @@
   .dataTables_wrapper .dataTables_info {
     line-height: 39px;
     padding-bottom: 0 !important;
-}
+  }
 
   .fc .fc-col-header-cell-cushion {
     color: #fff;
@@ -103,16 +103,13 @@
           </div>
     
           @if($situacao === 'ativa')
-            <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})">
-              Reservar
-            </button>
+            {{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}}
           @else
           
-          <button class="botao-reservar"
+          <button class="button-grey"
             data-bs-toggle="modal"
             data-bs-target="#verReservasModal"
-            data-sala-id="{{ $sala->id }}"
-            style="background-color: gray;">
+            data-sala-id="{{ $sala->id }}">
             Ver Reservas
           </button>
   
