@@ -38,7 +38,7 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="box__no-border">
-                    <div class=" border-table" style="padding: 0 !important;">
+                    <div class="border-table" style="padding: 0 !important;">
 
                         @if($salas->isEmpty())
                             <p>Não há salas cadastradas no momento.</p>
