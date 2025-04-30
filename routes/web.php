@@ -89,7 +89,10 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
  
     
 
-    Route::get('/eventos', [ReservaController::class, 'eventos']);
+    // Route::get('/eventos', [ReservaController::class, 'eventos']);
+
+    Route::get('/eventos', [ReservaController::class, 'getEventos']);
+    
     
 
 
