@@ -101,58 +101,78 @@ table.table-reservas.no-footer {
 	background-color: #fff !important;
 }
 
-@media screen and (max-width: 1000px) {
-	.table-reservas caption {
-		font-size: 1.3em;
-	}
+/* Envolva a tabela com uma div que controle o overflow */
+.tabela-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
 
-	.table-reservas thead {
-		border: none;
-		clip: rect(0 0 0 0);
-		height: 1px;
-		margin: -1px;
-		overflow: hidden;
-		position: absolute;
-		width: 1px;
-		padding: 0;
-	}
+.dataTables_wrapper {
+	overflow-x: auto;
+}
 
-	.table-reservas tr {
-		border-bottom: 3px solid #e1e5e9;
-		display: block;
-		margin-bottom: .625em;
-	}
+/* Tabela responsiva vertical */
+.tabela-detalhes {
+  width: 100%;
+  min-width: 300px; /* evita colapsar demais */
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-radius: 6px;
+  overflow: hidden;
+}
 
-	.table-reservas th,
-	.table-reservas td {
-		padding: 0.625em;
-	}
+.tabela-detalhes tr {
+  display: flex;
+  flex-wrap: wrap; /* permite quebrar em telas menores */
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid #eee;
+}
 
-	.table-reservas td {
-		border-bottom: 1px solid #e1e5e9;
-		display: block;
-		font-size: 14px;
-		text-align: right;
-		color: #9da9b9;
-	}
+.tabela-detalhes tr:last-child {
+  border-bottom: none;
+}
 
-	.table-reservas td::before {
-		content: attr(data-label);
-		float: left;
-		font-weight: bold;
-		text-transform: uppercase;
-		color: #656971;
-	}
+.tabela-detalhes td {
+  padding: 8px 0;
+  color: #333;
+  flex: 1;
+  min-width: 120px; /* controla quebra */
+}
 
-	.table-reservas td:last-child {
-		border-bottom: 0;
-	}
+.tabela-detalhes td:first-child {
+  font-weight: bold;
+  color: #555;
+  flex: 1.2;
+}
 
-	.img-table {
-		display: none;
-	}
+.tabela-detalhes td:last-child {
+  text-align: right;
+  flex: 2;
+  color: #222;
+  font-weight: 500;
+}
 
-	.table-reservas {
-		border: none !important;
-	}
+.tabela-detalhes .acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.tabela-detalhes .acoes button {
+  background: #f1f1f1;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #444;
+}
+
+.tabela-detalhes .acoes button:hover {
+  background: #ddd;
 }
