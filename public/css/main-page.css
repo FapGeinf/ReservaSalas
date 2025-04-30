@@ -1,7 +1,8 @@
 .fc .fc-toolbar-title {
   font-style: normal;
-  font-size: 22px !important;
+  font-size: 20px !important;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .fc .fc-daygrid-day-frame {
@@ -10,6 +11,11 @@
 
 .fc .fc-daygrid-day-frame:hover {
   background-color: #eeeeee;
+}
+
+.title-meetings {
+  color: #394151;
+  font-size: 20px;
 }
 
 /* Estilo da página principal */
@@ -65,7 +71,7 @@
 .titulo-sala {
   font-size: 16px;
   margin-bottom: 10px;
-  color: #333;
+  color: #394151;
 }
 
 .botao-reservar {
