@@ -26,7 +26,7 @@ table thead tr:first-child {
 
 table th,
 table td {
-	padding: 1.625em;
+	/* padding: 1.625em; */
 	text-align: center;
 	color: #9da9b9;
 	font-size: 14px;
@@ -38,7 +38,7 @@ table td {
 
 table th {
 	font-size: .85em;
-	letter-spacing: .1em;
+	/* letter-spacing: .1em; */
 	text-transform: uppercase;
 	background: #255957;
 	color: #FFF;
