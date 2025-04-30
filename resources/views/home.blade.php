@@ -126,6 +126,13 @@
     <div class="area-calendario">
       <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
     </div>
+
+    <div class="mt-1">
+      <span class="text-muted" style="font-size: 14px;">
+        <i class="bi bi-lightbulb-fill text-warning"></i>
+        Clique em uma data para reservar uma sala ou visualizar agendamentos
+      </span>
+    </div>
   </div>
   
   @if (session('error'))
