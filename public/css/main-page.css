@@ -2,6 +2,14 @@
   font-style: normal;
 }
 
+.fc .fc-daygrid-day-frame {
+  cursor: pointer;
+}
+
+.fc .fc-daygrid-day-frame:hover {
+  background-color: #eeeeee;
+}
+
 /* Estilo da página principal */
 .pagina-container {
   max-width: 1600px;
