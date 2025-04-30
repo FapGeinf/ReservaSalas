@@ -1,0 +1,805 @@
+[33mcommit 23128abfbec992173a2b443cb1a0fd073dfdfbfe[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32medicao-salas[m[33m, [m[1;31morigin/edicao-salas[m[33m)[m
+Author: FapGeinf <desenvolvimento.geinf@fapeam.am.gov.br>
+Date:   Fri Apr 4 05:29:19 2025 -0400
+
+    Resolvendo conflitos e integrando mudanças
+
+[33mcommit 132faa5d4047ca1658f2252e60bcdc4777b67663[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Mar 11 09:33:36 2025 -0400
+
+    Update navbar.blade.php
+
+[33mcommit 3eba5513298b873b51cdfd65b063ee55c37d0e44[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Mar 11 09:31:12 2025 -0400
+
+    clareamento do fundo do backdrop
+
+[33mcommit 33bbf3ec622112f10b7bc201e23b5b60c3d8bed7[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Fri Feb 28 15:50:01 2025 -0400
+
+    Update edit.blade.php
+
+[33mcommit daab6d1bac7b94ea94db09b01903a1ca9918b46f[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Fri Feb 28 15:30:39 2025 -0400
+
+    Update index.blade.php
+
+[33mcommit a5f24ee711a1c972c3fffecdd06a059a879cc98c[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Fri Feb 28 15:16:52 2025 -0400
+
+    inserida padronização da página de "Usuários Cadastrados"
+
+[33mcommit b21a2231179a07fccd15f08cf8692cea0ef1a694[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Fri Feb 28 14:47:58 2025 -0400
+
+    Update index.blade.php
+
+[33mcommit 1b213639375b6848a1fb8b6591ee75b17113f0fd[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 15:57:11 2025 -0400
+
+    trabalhando o modal de confirmação de excluir e cadastrar salas
+
+[33mcommit 2bc319463e7840a1f0489fd04d2e60d74a26812c[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 14:33:05 2025 -0400
+
+    criação da pagina  de usuarios cadastrados
+
+[33mcommit ea28a684a9686e0c3f81aed1a2b18a3611024566[m
+Merge: d347296 3eb82dc
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 12:29:56 2025 -0400
+
+    Merge branch 'edicao-salas' of https://github.com/joaliny/ReservaSalas into edicao-salas
+
+[33mcommit d3472961801be1e8a1b3c6757161d2b0acbe3c8a[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 12:29:52 2025 -0400
+
+    criação da tabela com informaçoes dos usuarios cadastrados
+
+[33mcommit 3eb82dc88b64129d988fc130dc63ac81c6ffdc46[m
+Merge: 05a531d 562be3b
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 26 11:07:33 2025 -0400
+
+    Merge branch 'edicao-salas' of https://github.com/joaliny/ReservaSalas into edicao-salas
+
+[33mcommit 05a531d19f9be7fd2eeb31f437d2b3036923ae0d[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 26 11:07:24 2025 -0400
+
+    Update home.blade.php
+
+[33mcommit 562be3b26bac26f578f629d6e2f8ae2f8607ba9f[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 11:02:48 2025 -0400
+
+    desfazendo as mudanças feita na pagina de cadastramento de usuarios
+
+[33mcommit 7611c136257c1bd4dac7abac4535bd485d54cc43[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 26 10:00:38 2025 -0400
+
+    Inserido nome da sala na guia
+
+[33mcommit 15ce63d589d9eea0384691e63e7caa15117e9c72[m
+Merge: 537c3f8 acc2ca8
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 09:56:08 2025 -0400
+
+    Merge branch 'edicao-salas' of https://github.com/joaliny/ReservaSalas into edicao-salas
+
+[33mcommit 537c3f864f134423d8ff11fe428d455d1bb2055d[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Feb 26 09:56:04 2025 -0400
+
+    adicionando uma tabela para ver os usuarios cadastrados no sistema
+
+[33mcommit acc2ca8f998e43896e2438d3fd70bf5255a86435[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 16:33:25 2025 -0400
+
+    correção do espaçamento
+
+[33mcommit 9de6bd62fea8e498cbe0d791aaadc98c59007e7b[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 16:20:37 2025 -0400
+
+    Update navbar.blade.php
+
+[33mcommit e98c078cc01741c64aba80342be356c2fe708d95[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 16:01:36 2025 -0400
+
+    estava dando erro no banco mas ja foi resolvido
+
+[33mcommit 391d7cae09538501812dce69630b6bfbf666b4db[m
+Merge: a306a89 66dee05
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:35:57 2025 -0400
+
+    Merge branch 'edicao-salas' of https://github.com/joaliny/ReservaSalas into edicao-salas
+
+[33mcommit a306a89353f725f75aecce702bdaa98a382c517f[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:35:49 2025 -0400
+
+    bugfix
+
+[33mcommit 66dee058532006bba9c8661555e6004425e3f45d[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:29:38 2025 -0400
+
+    Update nav-buttons.css
+
+[33mcommit b92a8142331753b7038fd612cc648356885631f3[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:28:47 2025 -0400
+
+    Update nav-buttons.css
+
+[33mcommit 0b9bf7151ab9331ff285addc9f71e9966fd86ecc[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:27:49 2025 -0400
+
+    Update nav-buttons.css
+
+[33mcommit 30becf4f9b0e5d510f121b7e1294bd28a2265d4e[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:25:47 2025 -0400
+
+    Update nav-buttons.css
+
+[33mcommit 72c65a35f98e7c9328095640978b19b4cfcbfaf6[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:19:41 2025 -0400
+
+    teste
+
+[33mcommit 128012ad7ea33e14076d6fd69e6313d61dcfbec4[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 15:10:36 2025 -0400
+
+    responsividade da topnav
+
+[33mcommit 4de5b7840b222942a38d23f90e28170558ccd9ea[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 14:56:27 2025 -0400
+
+    correção da responsividade dos botões
+
+[33mcommit eae614a2ba263ea1a59fe200f51b5113672dfbd4[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 14:43:28 2025 -0400
+
+    organização do código
+
+[33mcommit 2a68b8c00a628c28573481f113e76f601e620364[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 14:10:35 2025 -0400
+
+    update
+
+[33mcommit 732bcc279025791c54864f2c9e79baf838e24219[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 14:04:04 2025 -0400
+
+    Update salas.css
+
+[33mcommit 27a917cbd1e725481d0798c7ba31ca243d8b461f[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 13:52:43 2025 -0400
+
+    remoção de comentário desnecessário
+
+[33mcommit 0f2a2d475a8cc64761073db2ace9041b22e0a722[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 13:51:05 2025 -0400
+
+    Update user.css
+
+[33mcommit 155b705fd1865b4fb1c3df3a67bb7d2038ef0414[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 13:47:53 2025 -0400
+
+    Update user.css
+
+[33mcommit 4e3510ce67c9c30937484975582ba8d7cd207674[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 13:38:59 2025 -0400
+
+    Update home.blade.php
+
+[33mcommit 41aea7b2af4eb4008c91ab2b41e1adc8bb58f707[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 13:20:05 2025 -0400
+
+    Update user.css
+
+[33mcommit e6f29a6751dbd5d0c596fcbada0d3e22f6f5b861[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 13:20:00 2025 -0400
+
+    Update home.blade.php
+
+[33mcommit cb965d6257977c50bf0a7601050473f5c4a0f465[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 11:01:14 2025 -0400
+
+    Update login.css
+
+[33mcommit c45ef2506eba8a9b845836322f2961d8d5966542[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 10:22:40 2025 -0400
+
+    teste
+
+[33mcommit 9a0029662767e7657831f8967d9450b8cd76da1c[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 10:07:49 2025 -0400
+
+    Revert "teste"
+    
+    This reverts commit 23435623cc38c956a8fb3de79de2baa34efecefe.
+
+[33mcommit 23435623cc38c956a8fb3de79de2baa34efecefe[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 10:07:03 2025 -0400
+
+    teste
+
+[33mcommit aad82e8c17ed0db74dd1e4a10d51ee243e0c7935[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 10:06:41 2025 -0400
+
+    Update login.blade.php
+
+[33mcommit 2293f0301b247239d5dcf43ee3c6192d35db410d[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 09:50:00 2025 -0400
+
+    imagem de fundo agora está fixa
+    
+    evitando assim a rolagem da imagem
+
+[33mcommit 0742437afe7bf2cf1fe91f1670ef90c2b12458e5[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 09:46:13 2025 -0400
+
+    testando media query
+
+[33mcommit fb6f267270d62f314bcbe3a9ce3fd8f4210d53c6[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 25 09:36:04 2025 -0400
+
+    update
+
+[33mcommit a8d17def49646c73f6c05edd4cad569b9c685dff[m
+Merge: 1619bcf ddd11b2
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Mon Feb 24 16:32:27 2025 -0400
+
+    Merge branch 'edicao-salas' of https://github.com/joaliny/ReservaSalas into edicao-salas
+
+[33mcommit 1619bcf5b9f702a1ed1fa8fccdc66d46a6c231a7[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Mon Feb 24 16:32:24 2025 -0400
+
+    colocando mascara no cpf de login
+
+[33mcommit ddd11b2ba339aa6ba00178fb3a2c49365775f87a[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Mon Feb 24 16:22:28 2025 -0400
+
+    bugfix
+
+[33mcommit 7cdd6fd94f5113168e06ba064a2f2583fe5f7883[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Mon Feb 24 11:24:10 2025 -0400
+
+    adicionando funcionalidade para o visualizar reservas  em outros dias da semana
+
+[33mcommit 63d9e533cbd65e99a7f2a2fe328b3545b80a07e4[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Mon Feb 24 10:12:21 2025 -0400
+
+    concluindo a funcionalidade de sala ativa e inativa
+    
+    trabalhando no layout da sala em manutenção
+
+[33mcommit 66a9d431f0c2237d0c244e502f5596a06b8e421f[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Mon Feb 24 09:04:18 2025 -0400
+
+    colocando a cdn do bootstrap, para a funcionalidade do botão conta
+
+[33mcommit c624d18ea86e36952a0f3fb5c203eb0db232b6d1[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 21 17:01:52 2025 -0400
+
+    atual
+
+[33mcommit d2da9c5280fe4f3c3600cda7dd737011ac7b3e5f[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 21 16:57:23 2025 -0400
+
+    trabalhando na funcionalidade de sala ativa e inativa
+
+[33mcommit fe55ea3eae8b314cdb88f6d83aa4a7bae2f046fd[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Feb 20 16:13:05 2025 -0400
+
+    resolvendo o problema de situação das salas
+
+[33mcommit e6407b3f26b7bc7a14365a4ff6ad8a6a7bbf4dbd[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Tue Feb 18 11:41:22 2025 -0400
+
+    adicionando o campo cpf  para o user admin
+
+[33mcommit 48aafc82f54af80efff9f95b0084abad62255a68[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Tue Feb 18 10:09:08 2025 -0400
+
+    mudando o modelo de login de usuario
+    
+    antes era atraves de email e senha para logar , agora é atraves do CPF
+
+[33mcommit 9ca38383b0e21d628d55227635c315bf4f1e61a6[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Tue Feb 18 09:43:06 2025 -0400
+
+    corrigindo erro ao cadastrar o usuario no campo CPF
+
+[33mcommit 5fa73de510aa63470fb115f74e4531f452e25f8a[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 14 16:54:49 2025 -0400
+
+    adicionando uma unidade para o user admin
+
+[33mcommit 40d2958323affba82b96da976ecd1885810ab952[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 14 16:54:04 2025 -0400
+
+    não estava deixando o user admin reservar
+
+[33mcommit ef33a6b1fabb7cb3b4c5394fc6899674861c11aa[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 14 16:30:50 2025 -0400
+
+    corrigindo erro no metodo
+
+[33mcommit 50000ce4226aa3d5a32c21c15e3aaff3c4525d92[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 14 16:05:55 2025 -0400
+
+    resolvendo o problema de acesso dos usuarios
+
+[33mcommit f870ba0aa7c1e8b7089e9e6af7284dc5f2344fd9[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Feb 14 10:11:46 2025 -0400
+
+    corrigindo erro no campo unidade do banco de dados
+
+[33mcommit 9ea429cfcee8b3639cf3cead19c15a4e92502142[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Feb 13 16:57:49 2025 -0400
+
+    trabando as permissoes para cada tipo de usuario
+
+[33mcommit b114b32e945232666609fcf17ce5f30bb8354883[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Feb 13 14:55:21 2025 -0400
+
+    correção do campo unidade na modal ver reservas
+
+[33mcommit f2d0532ce5f491f130fadb6105fb8705424e299b[m
+Merge: e680375 43b94aa
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Feb 13 10:14:58 2025 -0400
+
+    atualizado 13-02
+
+[33mcommit e6803751766cb57e0f554f333c0a662904860d02[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Feb 13 10:10:45 2025 -0400
+
+    adicionando  o campo unidade , no modal de ver reservas
+
+[33mcommit 43b94aae6d58ccf4b35e94db07bbbe6a7aa9f5d0[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Fri Feb 7 10:29:57 2025 -0400
+
+    acabei (será?)
+
+[33mcommit 6f4305629f86a353ad51a55a12b906b3ed2cd46b[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 16:54:44 2025 -0400
+
+    início da padronização do login
+
+[33mcommit faf4670a258dede958609b411d20bbfbf4392cb5[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 15:13:35 2025 -0400
+
+    melhora nas cores
+
+[33mcommit c060c7900c54381d4ced497a54c64b20ab899d89[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 15:09:49 2025 -0400
+
+    melhora
+
+[33mcommit e1755bbc240d97e250279f414f66d3648a4663af[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 14:58:04 2025 -0400
+
+    Update edit.blade.php
+
+[33mcommit 749db4853e5ee1fac3ae197bb1fd73c68408e4c0[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 14:47:37 2025 -0400
+
+    padronização das páginas iguais CONCLUÍDA
+
+[33mcommit cee7244f94ca8c7ea2baea5b9b713dc2327183fb[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 14:36:37 2025 -0400
+
+    correção de bugs
+
+[33mcommit ebda8e09993e2878eb599c4499dadadf16431fe2[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 13:14:07 2025 -0400
+
+    alterada a navbar
+
+[33mcommit b4f66a5851d6e1e57fdfb8bcfd9f501969c8d730[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 09:25:16 2025 -0400
+
+    Melhora na página de edição do perfil
+
+[33mcommit d6b61975369ee034b2fad5015b610940d0ac6859[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Feb 6 09:14:23 2025 -0400
+
+    PADRONIZAÇÃO CONCLUÍDA
+
+[33mcommit 1bd854e10bc789aaaac5fc2ef4050719b90ba951[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 16:29:23 2025 -0400
+
+    Update user.blade.php
+
+[33mcommit b06cc4c17e886592a11feb08072000d16865bd13[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 15:47:33 2025 -0400
+
+    padronização na página de editar perfil
+
+[33mcommit 2deb5db9d8bd6ba997982f42180166123b845521[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 13:48:58 2025 -0400
+
+    melhora
+
+[33mcommit 264760353125e01e28259bc827c6259f23262af8[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 11:51:30 2025 -0400
+
+    Update user.blade.php
+
+[33mcommit f70cc0b84841ba91c5b2a9a7511d46b2a5ea8343[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 11:48:14 2025 -0400
+
+    Update user.blade.php
+
+[33mcommit 740df0c2b8ff5b505f3f1b25b3207f9d81f65cc5[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 11:46:12 2025 -0400
+
+    remoção de código desnecessário
+
+[33mcommit cca1db4cc9dd94ea8360beb608e4c275ee26ec2d[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 11:40:07 2025 -0400
+
+    melhora na tabela
+
+[33mcommit bdd4742385b694c2b2502ed009b4242f149cf885[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 11:28:01 2025 -0400
+
+    remoça de código desnecessário
+
+[33mcommit 9ef2bfd976d6d58297b321907282030e538e10ce[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 10:32:52 2025 -0400
+
+    Update user.blade.php
+
+[33mcommit 7f761ed63baae256bb99b6ccb95efca9bf044e91[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 10:29:13 2025 -0400
+
+    padronização - modal
+
+[33mcommit 2068f400746c719b819c4e8c085d4231a6f6535b[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Wed Feb 5 10:14:49 2025 -0400
+
+    mais melhoras
+
+[33mcommit a4ba4a2288d4f2cb1f5b42d729fd34e86bb332f6[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 16:17:05 2025 -0400
+
+    melhora
+
+[33mcommit 4d21efa4dcf3a4cec215cf9c5bb7961e93f0d659[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 15:45:53 2025 -0400
+
+    update
+
+[33mcommit 733122c1ed30927723c61d9a5d402afe72e87b5d[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 15:41:04 2025 -0400
+
+    melhora na página principal
+
+[33mcommit abf25fb76a2d3cdb5ca5af447880103f6797e769[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 15:40:49 2025 -0400
+
+    removi o dd e funcionou
+
+[33mcommit 20d8cf9feb35c644f970fc06c3cc122d88731f39[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 15:09:25 2025 -0400
+
+    update
+
+[33mcommit 18ff97b012e028fc0a13850a55fc1e3c0ef898ac[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 14:43:52 2025 -0400
+
+    update
+
+[33mcommit 18a3c99b87091f891126439af246764c9e4d47e6[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 14:15:16 2025 -0400
+
+    update
+
+[33mcommit 3a1bda66041b3285c305e26199baeb5f8344e35b[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 11:20:57 2025 -0400
+
+    bug fix
+
+[33mcommit dba03fa674e9f7fbb66090dacbe333456c7617af[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 11:14:23 2025 -0400
+
+    bug fix
+
+[33mcommit 4b7226015786533c0217dfd8b7b04225decc467b[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 10:26:38 2025 -0400
+
+    bug fix
+
+[33mcommit 724bc968532c7cdaea5c37a50417c0139b180747[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Tue Feb 4 10:14:41 2025 -0400
+
+    bug fix
+
+[33mcommit 59b60cc02b76e224c89a60a4d0448583d1323617[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 31 16:57:49 2025 -0400
+
+    estilizando o botão de ver reservass na pagina de uaers
+
+[33mcommit 967af3d2378871449622349e31ee68773befec7f[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 31 16:22:46 2025 -0400
+
+    criando um modal para ver reservas e estilizando
+
+[33mcommit 95eb5165eeb9dd93247afdbd7686bb4d9a9ae193[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 31 13:30:55 2025 -0400
+
+    criação do campo ver reservas e suas funcionalidades
+
+[33mcommit 555124e978756abcb30c5bbcaa67eb88a46f7a6c[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 30 16:43:36 2025 -0400
+
+    estilizando  a pagina de editar perfil
+
+[33mcommit 540091e28fb96c11f26a7ff7e5cb22a4e8511b43[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 30 14:30:56 2025 -0400
+
+    criação das permissoes de users
+
+[33mcommit 7a12dcdcf4ca04f8cd2cb0d682171841b7d25abb[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 30 11:47:00 2025 -0400
+
+    criação
+
+[33mcommit 32e8aed742f5edf3f8e2d4bb521ca6f28b9fd5ca[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Jan 29 17:02:21 2025 -0400
+
+    atualização
+
+[33mcommit 0eb928ba5cea565eb13f4e0f6e853d10841b869d[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Jan 29 16:56:01 2025 -0400
+
+    alteração na fonte no nome sala
+
+[33mcommit f73519a525256588c502b1e280f8d126691304d8[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Jan 29 11:46:46 2025 -0400
+
+    modificando a tabela de lista de salas e os botoes de açoes
+
+[33mcommit 8e875464487a51db0def6bac5bda07a5bd0d7e8e[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Jan 29 11:32:24 2025 -0400
+
+    fixando a imagem de fundo das pagina
+
+[33mcommit 2e9083526c5dcceab31607ccbb1a9d5f13215c07[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Wed Jan 29 09:40:04 2025 -0400
+
+    correção  do botão de alert
+
+[33mcommit b09e818e03b397c0284b59e6dd01691a2485d305[m
+Merge: f686911 23b48ed
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Fri Jan 24 13:55:04 2025 -0400
+
+    Merge branch 'joaliny-modificacao' into edicao-salas
+
+[33mcommit 23b48edfb40b6103a46233d70943ba470e4ed485[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 24 13:28:56 2025 -0400
+
+    update
+
+[33mcommit 163c55638ec791a19468464ec6eb7a1bce92c4fb[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 24 12:21:48 2025 -0400
+
+    reformulando a pagina edit.blade
+
+[33mcommit 80694d6d69fdbdf7a3fc0af0a3ea8032f06bcc3f[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 24 10:48:43 2025 -0400
+
+    mudando  a posição da mensagem de alert
+
+[33mcommit 7ac23630048bff952d2a759ad8fed8b8934d40eb[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 24 10:47:57 2025 -0400
+
+    estilizando a mensagem alerta para os usuarios
+
+[33mcommit 639a723777da2b9f448d25f97ea57f70da48d257[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 24 10:46:44 2025 -0400
+
+    resolvendo o problema da id de reserva
+
+[33mcommit ae290454e351a5c3f5b7b039479bd031598b91df[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Fri Jan 24 10:42:15 2025 -0400
+
+    resolvendo a  estrutura da seede unidade
+
+[33mcommit f686911bc3b026ff30385fcd8d8c46ddea23cb66[m
+Merge: f19e3ec 41e448f
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 16:49:38 2025 -0400
+
+    Merge branch 'joaliny-modificacao' into edicao-salas
+
+[33mcommit a6dfbeb2ffd8cf4d44f8692015dc06accf60a24c[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 23 16:45:42 2025 -0400
+
+    sasa
+
+[33mcommit a565d77b00faa644c1143e98b10d7bc867c2570d[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 23 16:45:24 2025 -0400
+
+    arrumando  a variavel reserva
+
+[33mcommit 9036d9356479b1a1d8199d1a14a6317e7315a024[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 23 16:44:49 2025 -0400
+
+    atualização das routes
+
+[33mcommit f19e3ecd7b54c0cf871eea197b263119c4c90302[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 16:35:51 2025 -0400
+
+    update
+
+[33mcommit 414282def50cd3ef5e9499b5425cf8aeeb1bf05e[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 16:13:46 2025 -0400
+
+    update
+
+[33mcommit 41e448ff385cbfbbdc981965ab0e14a49a92ae0d[m
+Author: Joaliny Furtado <Joalinyfurtado87@gmail.com>
+Date:   Thu Jan 23 15:49:34 2025 -0400
+
+    criação da seeder salas
+
+[33mcommit 6108e54bfe38e07dfb8196d8ee12dcbfd87a6d39[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 15:20:05 2025 -0400
+
+    Update index.blade.php
+
+[33mcommit 4f4392914b0524aeba620be38b1c19f760b14287[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 15:18:55 2025 -0400
+
+    componentes
+
+[33mcommit b65ef8d8bc4e121205bca1f91ee8368bfe1c7b20[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 14:27:58 2025 -0400
+
+    corrigido erro de tamanho diferente dos modais
+
+[33mcommit 18ef49d021d98464cc6af23f5c414e5d38c655d6[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 14:08:36 2025 -0400
+
+    update
+
+[33mcommit cadefa501f2404c81b8d5f2045be27a85e2c94d2[m
+Merge: 008981a 2182567
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 13:32:35 2025 -0400
+
+    Merge branch 'joaliny-modificacao' into edicao-salas
+
+[33mcommit 008981acbe53cd5821b559dbca95e805a434c1c9[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 11:50:07 2025 -0400
+
+    update
+
+[33mcommit 6752f2c7e75b4c4026f2cd99c8962c934213eb4b[m
+Author: Leo S. <contato.prof.leonardo@gmail.com>
+Date:   Thu Jan 23 09:49:11 2025 -0400
+
+    update
+
+[33mcommit bcadd5ebd40d0d8172a56d2139bfa9ba54ac69c6[m
+Author: Leo S. <contato.prof.leonardo@
