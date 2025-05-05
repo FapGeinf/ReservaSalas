@@ -34,14 +34,15 @@
         USUÁRIOS CADASTRADOS
       </h3>
       
+      <div class="">
+        <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none">
+          <i class="fas fa-plus me-1"></i>Cadastrar novo usuário
+        </a>
+      </div>
     </div>
 
     <div class="table-container-no-top">
-      <div class="d-flex bg-light justify-content-end mb-3">
-        <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none">
-          <i class="fas fa-plus"></i> Cadastrar Novo Usuário
-        </a>
-      </div>
+      
 
       <table id="tableUsers">
         <thead>

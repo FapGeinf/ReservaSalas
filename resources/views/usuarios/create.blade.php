@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
@@ -29,7 +30,7 @@
 @endpush
 
 <div class="p-30__no-bottom">
-    <div class="mx-auto form_create-800">
+    <div class="mx-auto box-profile">
         <div class="row justify-content-center">
             <div class="col">
                 <div class="box__no-border no-margin-bottom title-bg">
@@ -39,7 +40,7 @@
         </div>
     </div>
 
-    <div class="mx-auto form_create__no-border-800">
+    <div class="mx-auto box-profile">
         <div class="row justify-content-center">
             <div class="col">
                 <div class="box__no-border">
