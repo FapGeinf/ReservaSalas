@@ -15,7 +15,7 @@
   .fc .fc-col-header-cell-cushion {
     color: #fff;
     display: inline-block;
-    padding: 12px 4px !important;
+    padding: 6px 4px !important;
     text-decoration: none;
     font-style: normal;
     text-transform: uppercase;
@@ -265,7 +265,7 @@
           <div class="mb-3">
             <label for="sala_fk" class="fw-bold">Sala:</label>
             <select name="sala_fk" id="sala_fk" class="input-custom" required>
-              <option value="" disabled selected>Selecione uma sala</option>
+              <option value="" disabled select>Selecione uma sala</option>
               @foreach($salas as $sala)
                 <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
               @endforeach
@@ -353,7 +353,7 @@
       let innerHtml = `
         <div style="font-size: 0.95em;">
           <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-          ${horaInicio} - ${horaFim}<br>
+            <i class="bi bi-clock" style="font-size: 11px;"></i> ${horaInicio} - ${horaFim}<br>
           ${responsavel}
         </div>
       `;
