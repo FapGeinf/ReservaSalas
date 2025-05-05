@@ -352,7 +352,7 @@
 
       let innerHtml = `
         <div style="font-size: 0.95em;">
-          <strong>${nomeSala}</strong><br>
+          <span class="fw-bold text-uppercase">${nomeSala}</span><br>
           ${horaInicio} - ${horaFim}<br>
           ${responsavel}
         </div>
@@ -401,7 +401,10 @@
             <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
             <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
           `,
-          confirmButtonText: 'Fechar'
+          confirmButtonText: 'Fechar',
+          customClass: {
+            confirmButton: 'button-grey'
+          }
         });
       }
     });
@@ -439,7 +442,10 @@ $(document).ready(function() {
               title: 'Sucesso!',
               text: 'Reserva realizada com sucesso!',
               icon: 'success',
-              confirmButtonText: 'OK'
+              confirmButtonText: 'OK',
+              customClass: {
+                confirmButton: 'button-green'
+              }
             }).then((result) => {
               // Redireciona para a home após clicar em OK
               window.location.href = "{{ route('home') }}";
@@ -674,7 +680,10 @@ $(document).ready(function() {
       title: 'Sucesso!',
       text: '{{ session('success') }}',
       icon: 'success',
-      confirmButtonText: 'Fechar'
+      confirmButtonText: 'Fechar',
+      customClass: {
+        confirmButton: 'button-red'
+      }
     });
   });
 </script>

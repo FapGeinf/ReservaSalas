@@ -1,8 +1,5 @@
-<!-- filepath: c:\Users\jfurtado\Documents\GitHub\ReservaSalas\resources\views\usuarios\create.blade.php -->
 @extends('layouts.app')
-
 @section('title') {{ 'Cadastrar Novo Usuário' }} @endsection
-
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
@@ -11,20 +8,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
-label {
-    font-size: 16px;
-}
+    label {
+        font-size: 16px;
+    }
 </style>
-
-<!-- @if(session('success'))
-<div class="d-flex justify-content-center">
-    <div class="alert alert-success alert-dismissible fade show text-center alert-custom" style="max-width: 30%;"
-        role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-    </div>
-</div>
-@endif -->
 
 @push('scripts')
 @if(session('success'))
@@ -40,8 +27,6 @@ label {
 </script>
 @endif
 @endpush
-
-
 
 <div class="p-30__no-bottom">
     <div class="mx-auto form_create-800">

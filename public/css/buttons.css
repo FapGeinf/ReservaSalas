@@ -1,5 +1,4 @@
 .button-green,
-.button-green,
 .button-yellow,
 .button-grey,
 .button-blue,
@@ -14,6 +13,8 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
+  outline: none !important;
+  box-shadow: none !important; 
 }
 
 .button-blue {
