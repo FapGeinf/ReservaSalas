@@ -64,8 +64,8 @@
             </div>
           </form>
 
-          <p class="mt-1">
-           <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="" target="_blank">Esqueceu a senha?</a>
+          <p class="mt-3">
+           <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a senha?</a>
           </p>
        </div>
 
