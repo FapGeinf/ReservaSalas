@@ -395,7 +395,7 @@
       eventClick: function(info) {
         Swal.fire({
           html: `
-          <h5 class="fw-bold mb-4 text-center" style="color: #394151; border: 3px solid #">Detalhes da Reserva</h5>
+          <h5 class="fw-bold mb-4 text-center" style="color: #394151;">Detalhes da Reserva</h5>
 
           <div class="">  
             <div class="mb-2">
