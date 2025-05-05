@@ -394,12 +394,27 @@
       // Evento ao clicar em um evento existente
       eventClick: function(info) {
         Swal.fire({
-          title: 'Detalhes da Reserva',
           html: `
-            <strong>Sala:</strong> ${info.event.title}<br>
-            <strong>Unidade:</strong> ${info.event.extendedProps.unidade}<br>
-            <strong>Horário:</strong> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
-            <strong>Responsável:</strong> ${info.event.extendedProps.responsavel}
+          <h5 class="fw-bold mb-4 text-center" style="color: #394151; border: 3px solid #">Detalhes da Reserva</h5>
+
+          <div class="">  
+            <div class="mb-2">
+              <span class="fw-bold" style="color: #394151;">Sala:</span> ${info.event.title}<br>
+            </div>
+            
+            <div class="mb-2">
+              <span class="fw-bold" style="color: #394151;">Unidade:</span> ${info.event.extendedProps.unidade}<br>
+            </div>
+            
+            <div class="mb-2">
+              <span class="fw-bold" style="color: #394151;">Horário:</span> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
+            </div>
+            
+            <div class="mb-2">
+              <span class="fw-bold" style="color: #394151;">Responsável:</span> ${info.event.extendedProps.responsavel}
+            </div>
+          </div>
+
           `,
           confirmButtonText: 'Fechar',
           customClass: {
@@ -527,8 +542,8 @@ $(document).ready(function() {
     
     scrollCollapse: true,
     paging: true,         // <<< Desativa a paginação
-    searching: false,      // <<< Remove a barra de pesquisa
-    lengthChange: false    // <<< Remove o select de quantidade de registros
+    searching: true,      // <<< Remove a barra de pesquisa
+    lengthChange: true    // <<< Remove o select de quantidade de registros
   });
 });
 
