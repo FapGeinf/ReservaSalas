@@ -6,20 +6,28 @@
   body {
     padding-top: 40px;
   }
+
+  .navbar {
+    overflow: visible !important;
+  }
+
+  .container-fluid {
+    overflow: visible !important;
+  }
+
+  .navbar .dropdown-menu {
+    z-index: 1055;
+  }
 </style>
 
-<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1); overflow: visible;">
+  <div class="container-fluid" style="overflow: visible;">
     <a class="navbar-brand" href="{{ route('home') }}">
       <img src="{{ asset('/img/logo-letras-white-light.png') }}" alt="Logo" height="30">
     </a>
 
-    <button class="navbar-toggler nav-buttons" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav gap-1 me-auto">
+    <div class="d-flex justify-content-between w-100">
+      <ul class="navbar-nav gap-1 me-auto flex-row flex-wrap">
         <li class="nav-item">
           <a class="nav-link nav-buttons" href="{{ route('home') }}">
             <i class="bi bi-house me-1"></i>Início
@@ -38,7 +46,7 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle nav-buttons mt-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Conta
+            Conta
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end">
@@ -47,10 +55,13 @@
               <div class="text-uppercase">
                 <strong style="color: #394151;">{{ Auth::user()->name }}</strong>
                 <br>
-                <small class="text-muted"><i class="bi bi-building me-1"></i>{{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }}</small>
+                <small class="text-muted">
+                  <i class="bi bi-building me-1"></i>
+                  {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }}
+                </small>
               </div>
             </li>
-      
+
             <li><hr class="dropdown-divider"></li>
 
             <li class="nav-item">
@@ -73,8 +84,8 @@
         </li>
       </ul>
     </div>
-
   </div>
 </nav>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -78,8 +78,17 @@ a.nav-buttons:hover {
 }
 
 @media (max-width: 768px) {
-  .dropdown-menu-custom {
-    left: -80px; /* Ajusta o menu para a esquerda */
-    right: auto;
+  .navbar,
+  .container-fluid {
+    overflow: visible !important;
+  }
+
+  .dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    margin-top: 5px;
+    z-index: 1050;
   }
 }
