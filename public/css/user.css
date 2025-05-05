@@ -180,7 +180,8 @@ body {
   }
   
   table.dataTable thead th,table.dataTable thead td {
-    padding: 15px 18px !important;
+    padding: 9px 18px !important;
+    font-size: 13px !important;
   }
 
   table.dataTable tbody th,table.dataTable tbody td {
