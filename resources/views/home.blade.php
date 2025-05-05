@@ -265,7 +265,7 @@
           <div class="mb-3">
             <label for="sala_fk" class="fw-bold">Sala:</label>
             <select name="sala_fk" id="sala_fk" class="input-custom" required>
-              <option value="">Selecione uma sala</option>
+              <option value="" disabled selected>Selecione uma sala</option>
               @foreach($salas as $sala)
                 <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
               @endforeach
