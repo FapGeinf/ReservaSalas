@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\jfurtado\Documents\GitHub\ReservaSalas\resources\views\auth\login.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,40 +33,40 @@
           <form method="POST" action="{{ route('login') }}">
             @csrf
 
-          <div class="mb-3 form-box">
-            <label for="login">Login:</label>
-            
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-person"></i></span>
-              <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
+            <div class="mb-3 form-box">
+              <label for="login">Login:</label>
+              
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
+              </div>
             </div>
+
+              <label for="password">Senha:</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+
+                <x-input-error :messages="$errors->get('password')" class="mt-2"/>
+              </div>
+
+              <!-- Lembrar de Mim -->
+              <div class="block mt-0">
+                <label for="remember_me" class="inline-flex items-center">
+                  <input id="remember_me" type="checkbox" class="rounded" name="remember">
+                  <span class="ml-1 text-sm">Lembrar de mim</span>
+                </label>
+              </div>
+
+              <div class="d-flex justify-content-center mt-3">
+                <button type="submit" class="button-blue">Entrar</button>
+              </div>
+            </form>
+
+            <p class="mt-3">
+              <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a senha?</a>
+            </p>
           </div>
-
-            <label for="password">Senha:</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
-
-              <x-input-error :messages="$errors->get('password')" class="mt-2"/>
-            </div>
-
-            <!-- Lembrar de Mim -->
-            <div class="block mt-0">
-              <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded" name="remember">
-                <span class="ml-1 text-sm">Lembrar de mim</span>
-              </label>
-            </div>
-
-            <div class="d-flex justify-content-center mt-3">
-              <button type="submit" class="button-blue">Entrar</button>
-            </div>
-          </form>
-
-          <p class="mt-3">
-           <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a senha?</a>
-          </p>
-       </div>
 
 
           <!-- <div class="text-start register-link mt-4">
