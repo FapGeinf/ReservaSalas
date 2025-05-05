@@ -47,6 +47,10 @@
   .fc-list-event-time {
     font-style: normal;
   }
+
+  .fc .fc-daygrid-event {
+    white-space: normal;
+  }
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
