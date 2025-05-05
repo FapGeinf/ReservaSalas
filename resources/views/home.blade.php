@@ -395,23 +395,30 @@
       eventClick: function(info) {
         Swal.fire({
           html: `
-          <h5 class="fw-bold mb-4 text-center" style="color: #394151;">Detalhes da Reserva</h5>
+          <div class="p-4 rounded shadow-sm" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
+            <hr>
 
-          <div class="">  
-            <div class="mb-2">
-              <span class="fw-bold" style="color: #394151;">Sala:</span> ${info.event.title}<br>
-            </div>
-            
-            <div class="mb-2">
-              <span class="fw-bold" style="color: #394151;">Unidade:</span> ${info.event.extendedProps.unidade}<br>
-            </div>
-            
-            <div class="mb-2">
-              <span class="fw-bold" style="color: #394151;">Horário:</span> ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}<br>
-            </div>
-            
-            <div class="mb-2">
-              <span class="fw-bold" style="color: #394151;">Responsável:</span> ${info.event.extendedProps.responsavel}
+            <div class="mb-3 mt-4">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-semibold" style="color: #394151;">Sala:</span>
+                <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-semibold" style="color: #394151;">Unidade:</span>
+                <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="fw-semibold" style="color: #394151;">Horário:</span>
+                <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-start">
+                <span class="fw-semibold" style="color: #394151;">Responsável:</span>
+                <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+              </div>
             </div>
           </div>
 
