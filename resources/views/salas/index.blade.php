@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 @push('scripts')
@@ -16,7 +17,10 @@
                     text: '{{ session('
                     success ') }}',
                     icon: 'success',
-                    confirmButtonText: 'Fechar'
+                    confirmButtonText: 'Fechar',
+                    customClass: {
+                        confirmButton: 'button-green'
+                    }
                 });
             });
         </script>
@@ -90,7 +94,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="confirmarExclusaoModalLabel{{ $sala->id }}">Confirmar Exclusão</h5>
+                                                        <h5 class="modal-title fw-bold" id="confirmarExclusaoModalLabel{{ $sala->id }}">Confirmar Exclusão</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                                                     </div>
 
@@ -99,13 +103,13 @@
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
                                                         <!-- Botão de Confirmação (Submete o Formulário) -->
                                                         <form action="{{ route('salas.destroy', $sala) }}" method="POST"
                                                             style="display:inline-block;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                            <button type="submit" class="button-red">Confirmar</button>
                                                         </form>
                                                     </div>
                                                 </div>
