@@ -40,71 +40,72 @@
     </div>
 
     <div class="table-container-no-top">
-      
+  
+      <div class="table-responsive-scroll">
+        <table id="tableUsers">
+          <thead>
+            <th>
+              <label class="text-light">Id</label>
+            </th>
+          
+            <th>
+              <label class="text-light">Nome</label>
+            </th>
 
-      <table id="tableUsers">
-        <thead>
-          <th>
-            <label class="text-light">Id</label>
-          </th>
-        
-          <th>
-            <label class="text-light">Nome</label>
-          </th>
+            <th><label class="text-light">Login</label></th> 
+          
+            <th>
+              <label class="text-light">Email</label>
+            </th>
 
-          <th><label class="text-light">Login</label></th> 
-        
-          <th>
-            <label class="text-light">Email</label>
-          </th>
+            <th>
+              <label class="text-light">Cpf</label>
+            </th>
 
-          <th>
-            <label class="text-light">Cpf</label>
-          </th>
+            <th>
+              <label class="text-light">Unidade</label>
+            </th>
 
-          <th>
-            <label class="text-light">Unidade</label>
-          </th>
+            <th>
+              <label class="text-light">Opções</label>
+            </th>
+          </thead>
 
-          <th>
-            <label class="text-light">Opções</label>
-          </th>
-        </thead>
+          <tbody>
+            @foreach($usuarios as $usuario)
+            <tr>
+              <td data-label="Id">
+                {{ $usuario->id }}
+              </td>
 
-        <tbody>
-          @foreach($usuarios as $usuario)
-          <tr>
-            <td data-label="Id">
-              {{ $usuario->id }}
-            </td>
+              <td data-label="Nome">
+                {{ $usuario->name }}
+              </td>
 
-            <td data-label="Nome">
-              {{ $usuario->name }}
-            </td>
+              <td data-label="Login">{{ $usuario->login }}</td>
 
-            <td data-label="Login">{{ $usuario->login }}</td>
+              <td data-label="Email">
+                {{ $usuario->email }}
+              </td>
 
-            <td data-label="Email">
-              {{ $usuario->email }}
-            </td>
+              <td data-label="Cpf">
+                {{ $usuario->cpf }}
+              </td>
 
-            <td data-label="Cpf">
-              {{ $usuario->cpf }}
-            </td>
+              <td data-label="Unidade">
+                {{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}
+              </td>
 
-            <td data-label="Unidade">
-              {{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}
-            </td>
-
-            <td data-label="Opções">
-              <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
-                <i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+              <td data-label="Opções">
+                <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
