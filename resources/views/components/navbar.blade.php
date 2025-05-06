@@ -29,6 +29,7 @@
         <a class="navbar-brand" href="{{ route('home') }}">
           <img src="{{ asset('/img/logo-letras-white-light.png') }}" alt="Logo" height="30">
         </a>
+
         <li class="nav-item my-auto">
           <a class="nav-link nav-buttons" href="{{ route('home') }}">
             <i class="bi bi-house me-1"></i>Início
