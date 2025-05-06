@@ -1,4 +1,3 @@
-<!-- filepath: /resources/views/usuarios/index.blade.php -->
 @extends('layouts.app')
 @section('title') {{ 'Usuários Cadastrados' }} @endsection
 @section('content')
@@ -25,11 +24,10 @@
 @endif
 @endpush
 
-
 <div class="p-30__no-bottom">
   
   <div class="form-wrapper p-30 py-3 mx-auto divTable">
-    <div class="table-container-no-bottom text-center p-30 mt-5">
+    <div class="table-container-no-bottom text-center p-30 pb-0 mt-5">
       <h3 class="fw-bold">
         USUÁRIOS CADASTRADOS
       </h3>
