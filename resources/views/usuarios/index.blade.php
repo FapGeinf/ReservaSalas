@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/responsive-table.css') }}">
+<link rel="stylesheet" href="{{ asset('css/responsive-table-users.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
@@ -34,7 +34,7 @@
       
       <div class="">
         <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none">
-          <i class="fas fa-plus me-1"></i>Cadastrar novo usuário
+          <i class="fas fa-plus me-1"></i>Novo usuário
         </a>
       </div>
     </div>
