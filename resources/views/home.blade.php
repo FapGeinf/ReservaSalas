@@ -2,57 +2,6 @@
 @section('content')
 @section('title') {{ 'Início' }} @endsection
 
-<style>
-  .modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.5) !important;
-  }
-
-  .dataTables_wrapper .dataTables_info {
-    line-height: 39px;
-    padding-bottom: 0 !important;
-  }
-
-  .fc .fc-col-header-cell-cushion {
-    color: #fff;
-    display: inline-block;
-    padding: 6px 4px !important;
-    text-decoration: none;
-    font-style: normal;
-    text-transform: uppercase;
-    font-size: 13px !important;
-    font-weight: bold !important;
-    border-right-color: #335757 !important;
-  }
-
-  .fc-theme-standard .fc-list-day-cushion {
-    padding: 12px 8px !important;
-    background-color: #335757 !important;
-  }
-
-  .fc-list-day-text,
-  .fc-list-day-side-text {
-    font-size: 13px;
-    color: #fff;
-    text-decoration: none;
-    font-style: normal;
-    text-transform: uppercase;
-  }
-
-  .fc-event-main {
-    text-align: center;
-    font-style: normal;
-  }
-
-  .fc-list-event-title,
-  .fc-list-event-time {
-    font-style: normal;
-  }
-
-  .fc .fc-daygrid-event {
-    white-space: normal;
-  }
-</style>
-
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
@@ -60,6 +9,7 @@
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -77,54 +27,63 @@
   <div class="salas-grid">
 
     @foreach($salas as $sala)
-    @php
-      $situacao = strtolower(trim($sala->situacao));
-    @endphp
-    
-    <div class="sala-card">
-      <div class="sala-card-conteudo" style="position: relative;">
-        
-        <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
-    
-        <div class="sala-info">
-
-          <div class="titulo-sala">
-            <span class="text-uppercase fw-semibold">
-              {{ $sala->nome }}
-            </span>
-            
-            @if($situacao === 'inativa')
-            <span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
-              Sala em manutenção
-            </span>
-              
-            @else
-            <span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
-              Sala disponível
-            </span>
-
-            @endif
-          </div>
-    
-          @if($situacao === 'ativa')
-            {{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}}
-          @else
-          
-          <button class="button-grey"
-            data-bs-toggle="modal"
-            data-bs-target="#verReservasModal"
-            data-sala-id="{{ $sala->id }}">
-            Ver Reservas
-          </button>
+      @php
+        $situacao = strtolower(trim($sala->situacao));
+        $nomeSala = strtolower(trim($sala->nome));
   
-          @endif
-    
+        // Define a classe de borda com base no nome da sala
+        $classeBorda = '';
+        if (str_contains($nomeSala, 'aquário')) {
+            $classeBorda = 'border-aquário';
+        } elseif (str_contains($nomeSala, 'daf')) {
+            $classeBorda = 'border-daf';
+        } elseif (str_contains($nomeSala, 'pres')) {
+            $classeBorda = 'border-pres';
+        } elseif (str_contains($nomeSala, 'audit')) {
+            $classeBorda = 'border-audit';
+        }
+      @endphp
+  
+      <div class="sala-card {{ $classeBorda }}">
+        <div class="sala-card-conteudo" style="position: relative;">
+          
+          <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
+      
+          <div class="sala-info">
+  
+            <div class="titulo-sala">
+              <span class="text-uppercase fw-semibold">
+                {{ $sala->nome }}
+              </span>
+              
+              @if($situacao === 'inativa')
+                <span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
+                  Sala em manutenção
+                </span>
+              @else
+                <span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
+                  Sala disponível
+                </span>
+              @endif
+            </div>
+      
+            @if($situacao === 'ativa')
+              {{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}}
+            @else
+              <button class="button-grey"
+                data-bs-toggle="modal"
+                data-bs-target="#verReservasModal"
+                data-sala-id="{{ $sala->id }}">
+                Ver Reservas
+              </button>
+            @endif
+  
+          </div>
         </div>
       </div>
-    </div>
     @endforeach
   </div>
-
+  
   <!-- Calendário -->
   <div class="caixa-calendario">
     <div class="area-calendario">
@@ -552,9 +511,9 @@ $(document).ready(function() {
     },
     
     scrollCollapse: true,
-    paging: true,         // <<< Desativa a paginação
-    searching: true,      // <<< Remove a barra de pesquisa
-    lengthChange: true    // <<< Remove o select de quantidade de registros
+    paging: true,         // Desativa a paginação
+    searching: true,      // barra de pesquisa
+    lengthChange: true    // select de quantidade de registros
   });
 });
 
