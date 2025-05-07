@@ -1,0 +1,70 @@
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+  line-height: 39px;
+  padding-bottom: 0 !important;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: #fff;
+  display: inline-block;
+  padding: 6px 4px !important;
+  text-decoration: none;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  border-right-color: #335757 !important;
+}
+
+.fc-theme-standard .fc-list-day-cushion {
+  padding: 12px 8px !important;
+  background-color: #335757 !important;
+}
+
+.fc-list-day-text,
+.fc-list-day-side-text {
+  font-size: 13px;
+  color: #fff;
+  text-decoration: none;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.fc-event-main {
+  text-align: center;
+  font-style: normal;
+}
+
+.fc-list-event-title,
+.fc-list-event-time {
+  font-style: normal;
+}
+
+.fc .fc-daygrid-event {
+  white-space: normal;
+}
+
+/* BORDAS COLORIDAS */
+
+.border-aquário {
+  border-left: 5px solid #007bff !important;
+  border-radius: 6px 0 0 6px !important;
+}
+
+.border-daf {
+  border-left: 5px solid #28a745 !important;
+  border-radius: 6px 0 0 6px !important;
+}
+
+.border-pres {
+  border-left: 5px solid #ffc107 !important;
+  border-radius: 6px 0 0 6px !important;
+}
+
+.border-audit {
+  border-left: 5px solid #dc3545 !important;
+  border-radius: 6px 0 0 6px !important;
+}
