@@ -37,6 +37,20 @@ class ReservaController extends Controller
             'hora_inicio' => 'required|date_format:H:i',
             'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
         ]);
+
+
+        // Verificar se a sala está ativa
+        $sala = Sala::findOrFail($request->input('sala_fk'));
+        if (strtolower(trim($sala->situacao)) !== 'ativa') {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A sala está em manutenção e não pode ser reservada.'
+                ], 400);
+            }
+            return back()->with('error', 'A sala está em manutenção e não pode ser reservada.');
+        }
+
     
         $salaId = $request->input('sala_fk');
         $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
@@ -54,15 +68,19 @@ class ReservaController extends Controller
             })
             ->exists();
     
+        // if ($conflito) {
+        //     if ($request->ajax()) {
+        //         return response()->json([
+        //             'success' => false, 
+        //             'message' => 'A sala já está reservada neste horário.'
+        //         ], 400);
+        //     }
+        //     return back()->with('error', 'A sala já está reservada neste horário.');
+        // }
         if ($conflito) {
-            if ($request->ajax()) {
-                return response()->json([
-                    'success' => false, 
-                    'message' => 'A sala já está reservada neste horário.'
-                ], 400);
-            }
             return back()->with('error', 'A sala já está reservada neste horário.');
         }
+
     
         // Criar a reserva
         $reserva = Reserva::create([
