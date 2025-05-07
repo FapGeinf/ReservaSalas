@@ -248,8 +248,8 @@ public function getEventos()
             'textColor' => '#ffffff', // Cor do texto para contraste
             'extendedProps' => [
                 'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-                'hora_inicio' => \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i'),
-                'hora_fim' => \Carbon\Carbon::parse($reserva->data_fim)->format('H:i'),
+                'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+                'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
                 'responsavel' => $reserva->user->name
             ]
         ];
