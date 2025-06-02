@@ -12,7 +12,45 @@
     label {
         font-size: 16px;
     }
+
+    .input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-custom {
+        width: 100%;
+        padding-right: 40px; /* Espaço para o ícone */
+    }
+
+    i {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        color: #666;
+    }
+
 </style>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        let passwordField = document.getElementById(inputId);
+        let eyeIcon = document.getElementById(iconId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+</script>
+
+
 
 @push('scripts')
 @if(session('success'))
@@ -76,6 +114,8 @@
                             @enderror
                         </div>
 
+                       
+
 
                         <!-- Unidade -->
                         <div class="mb-3">
@@ -89,17 +129,26 @@
                         </div>
 
                         <!-- Senha -->
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="password" class="fw-bold">Senha:</label>
                             <input type="password" class="input-custom" id="password" name="password" required>
-                        </div>
-
-                        <!-- Confirmação de Senha -->
+                        </div> -->
                         <div class="mb-3">
-                            <label for="password_confirmation" class="fw-bold">Confirme a Senha:</label>
-                            <input type="password" class="input-custom" id="password_confirmation"
-                                name="password_confirmation" required>
-                        </div>
+                           <label for="password" class="fw-bold">Senha:</label>
+                            <div class="input-container">
+                            <input type="password" class="input-custom" id="password" name="password" required>
+                         <i id="eyeIconPassword" class="fas fa-eye" onclick="togglePassword('password', 'eyeIconPassword')"></i>
+                      </div>
+                    </div>
+
+                    <!-- Confirmação de Senha -->
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="fw-bold">Confirme a Senha:</label>
+                        <div class="input-container">
+                        <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>
+                         <i id="eyeIconConfirm" class="fas fa-eye" onclick="togglePassword('password_confirmation', 'eyeIconConfirm')"></i>
+                     </div>
+                </div>
 
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="button-green">
