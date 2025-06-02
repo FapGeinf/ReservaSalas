@@ -25,19 +25,29 @@ class UserController extends Controller
     ];
     // Validação dos dados
     $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'cpf' => 'required|string|max:14|unique:users',
-        'unidade_fk' => 'required|exists:unidades,id',
-        'login' => 'required|string|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-    ], $messages);
+     'name' => 'required|string|max:255',
+     'email' => 'required|string|email|max:255|unique:users',
+     'cpf' => 'nullable|string|max:14|unique:users', // Alterado para nullable
+     'unidade_fk' => 'required|exists:unidades,id',
+     'login' => 'required|string|max:255|unique:users',
+     'password' => 'required|string|min:8|confirmed',
+  ], $messages);
+ 
 
-       // Verificar se o CPF já está cadastrado
+       
+    // $existingUser = User::where('cpf', $request->cpf)->first();
+    // if ($existingUser) {
+    //     return redirect()->back()->with('cpf_error', 'O CPF informado já está cadastrado para o usuário: ' . $existingUser->name);
+    // }
+
+    // Verificar se o CPF já está cadastrado
+    if (!empty($request->cpf)) { // Verifica se o CPF foi preenchido
     $existingUser = User::where('cpf', $request->cpf)->first();
     if ($existingUser) {
         return redirect()->back()->with('cpf_error', 'O CPF informado já está cadastrado para o usuário: ' . $existingUser->name);
     }
+}
+
         
 
     // Cria o usuário

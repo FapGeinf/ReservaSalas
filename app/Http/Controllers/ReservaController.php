@@ -68,15 +68,7 @@ class ReservaController extends Controller
             })
             ->exists();
     
-        // if ($conflito) {
-        //     if ($request->ajax()) {
-        //         return response()->json([
-        //             'success' => false, 
-        //             'message' => 'A sala já está reservada neste horário.'
-        //         ], 400);
-        //     }
-        //     return back()->with('error', 'A sala já está reservada neste horário.');
-        // }
+    
         if ($conflito) {
             return back()->with('error', 'A sala já está reservada neste horário.');
         }
@@ -179,20 +171,6 @@ class ReservaController extends Controller
     } 
 
 
-// public function getReservasPorSalaEData($salaId, Request $request)
-// {
-//     $data = $request->query('data'); // Obtém a data da requisição
-
-//     // Busca as reservas da sala para a data especificada
-//     $reservas = Reserva::where('sala_fk', $salaId)
-//         ->whereDate('data_inicio', $data)
-//         ->with(['user', 'user.unidade'])
-//         ->get();
-
-//     return response()->json($reservas);
-// }
-
-
 public function getReservasPorSalaEData($salaId, Request $request)
 {
     $data = $request->query('data'); // Obtém a data da requisição
@@ -205,32 +183,6 @@ public function getReservasPorSalaEData($salaId, Request $request)
 
     return response()->json($reservas);
 }
-
-
-// public function getEventos()
-// {
-//     $reservas = Reserva::with(['sala', 'user.unidade'])->get();
-
-//     $events = [];
-//     foreach ($reservas as $reserva) {
-//         $events[] = [
-//             'title' => $reserva->sala->nome,
-//             'start' => $reserva->data_inicio,
-//             'end' => $reserva->data_fim,
-//             'backgroundColor' => $reserva->sala->cor ?? '#3788d8', // Cor da sala correta
-//             'borderColor' => $reserva->sala->cor ?? '#3788d8',
-//             'textColor' => '#ffffff', // Opcional: para contraste
-//             'extendedProps' => [
-//                 'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-//                 'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-//                 'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-//                 'responsavel' => $reserva->user->name
-//             ]
-//         ];
-//     }
-
-//     return response()->json($events);
-// }
 
 
 public function getEventos()
