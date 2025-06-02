@@ -32,9 +32,11 @@
 <div class="p-30__no-bottom">
     <div class="mx-auto box-profile">
         <div class="row justify-content-center">
-            <div class="col">
+            <div class="col position-relative">
                 <div class="box__no-border no-margin-bottom title-bg">
                     <h3 class="text-center fw-bold">Cadastrar Novo Usuário</h3>
+                    <!-- Botão Fechar -->
+                    <a href="{{ route('usuarios.index') }}" class="btn-close position-absolute end-0 top-0 m-3" aria-label="Fechar"></a>
                 </div>
             </div>
         </div>
@@ -68,7 +70,7 @@
                         <!-- CPF -->
                         <div class="mb-3">
                             <label for="cpf" class="fw-bold">CPF:</label>
-                            <input type="text" class="input-custom" id="cpf" name="cpf" required>
+                            <input type="text" class="input-custom" id="cpf" name="cpf">
                             @error('cpf')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
