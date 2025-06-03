@@ -491,37 +491,87 @@ function verificarDisponibilidade() {
 }
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
+
+
+
+
+
+
+// Definir o plugin de ordenação personalizada ANTES de usar
+jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+  "date-euro-pre": function(a) {
+    if ($.trim(a) !== '') {
+      var parts = a.split(' | ');
+      var dateParts = parts[0].split('/');
+      var timeParts = parts[1].split(':');
+      
+      return new Date(
+        dateParts[2], // ano
+        dateParts[1] - 1, // mês (0-11)
+        dateParts[0], // dia
+        timeParts[0], // horas
+        timeParts[1]  // minutos
+      ).getTime();
+    }
+    return 0;
+  },
+  "date-euro-asc": function(a, b) {
+    return a - b;
+  },
+  "date-euro-desc": function(a, b) {
+    return b - a;
+  }
+});
+
 $(document).ready(function() {
-  $('#reservas').DataTable({
-     order: [[2, 'desc']], // ✅ CORRETO - Agora está no nível raiz
+  // Inicialização única da DataTable
+  var table = $('#reservas').DataTable({
+    order: [[2, 'desc']], // Ordena pela coluna de Hora Início (índice 2)
+    columnDefs: [
+      { 
+        targets: [2, 3], // Colunas de data/hora
+        type: 'date-euro' // Usa nosso tipo de ordenação personalizado
+      }
+    ],
     language: {
       url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
       search: "Procurar:",
-      lengthMenu: "Paginação: _MENU_",
-      info: 'Mostrando página _PAGE_ de _PAGES_',
-      infoEmpty: 'Sem relatórios de risco disponíveis no momento',
-      infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-      zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+      lengthMenu: "Mostrar _MENU_ registros por página",
+      info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      infoEmpty: "Nenhum registro disponível",
+      infoFiltered: "(filtrado de _MAX_ registros totais)",
+      zeroRecords: "Nenhum registro encontrado",
       paginate: {
+        first: "Primeira",
+        last: "Última",
         next: "Próximo",
         previous: "Anterior"
       }
     },
-    
     scrollCollapse: true,
-    paging: true,         // Desativa a paginação
-    searching: true,      // barra de pesquisa
-    lengthChange: true    // select de quantidade de registros
+    responsive: true,
+    paging: true,
+    searching: true,
+    lengthChange: true
+  });
+
+  // Função para o modal de confirmação de exclusão
+  function setDeleteAction(action) {
+    $('#deleteForm').attr('action', action);
+  }
+
+  // Exemplo de como você poderia usar (adaptar conforme necessário)
+  $('.btn-delete').on('click', function() {
+    var deleteUrl = $(this).data('url');
+    setDeleteAction(deleteUrl);
   });
 });
 
-function setDeleteAction(action) {
-  const deleteForm = document.getElementById('deleteForm');
-  deleteForm.action = action;
-}
+
+
 
 function selecionarSala(salaId) {
   console.log('Sala selecionada:', salaId); // Depuração
