@@ -491,11 +491,12 @@ function verificarDisponibilidade() {
 }
 </script>
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready(function() {
   $('#reservas').DataTable({
+     order: [[2, 'desc']], // ✅ CORRETO - Agora está no nível raiz
     language: {
       url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
       search: "Procurar:",

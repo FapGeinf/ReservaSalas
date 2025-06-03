@@ -13,12 +13,16 @@ use Carbon\Carbon;
 class ReservaController extends Controller
 {
     public function index()
-    {
-        $users = User::all(); // Uso do modelo User
-        $reservas = Reserva::with('sala', 'user.unidade')->get(); // Carrega as reservas com suas salas
-        $salas = Sala::all(); // Carrega as salas para o formulário
-        return view('home', compact('reservas', 'salas', 'users'));
-    }
+{
+    $users = User::all();
+    $salas = Sala::all();
+    // Garante que a query ordena por data_inicio DESC e carrega os relacionamentos
+    $reservas = Reserva::with(['sala', 'user.unidade'])
+                  ->orderBy('data_inicio', 'desc')
+                  ->get();
+
+    return view('home', compact('reservas', 'salas', 'users'));
+}
 
     public function create()
     {
@@ -78,8 +82,14 @@ class ReservaController extends Controller
         //     return back()->with('error', 'A sala já está reservada neste horário.');
         // }
         if ($conflito) {
-            return back()->with('error', 'A sala já está reservada neste horário.');
-        }
+    if ($request->ajax()) {
+        return response()->json([
+            'success' => false, 
+            'message' => 'A sala já está reservada neste horário.'
+        ], 400);
+    }
+    return back()->with('error', 'A sala já está reservada neste horário.');
+}
 
     
         // Criar a reserva
