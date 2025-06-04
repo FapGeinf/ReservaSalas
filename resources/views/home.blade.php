@@ -218,18 +218,31 @@
       <div class="modal-body">
       <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
         @csrf
+        <!-- <input type="hidden" name="data_reserva" id="data_reserva">
+      <input type="hidden" name="sala_fk" id="sala_fk">
+
+      <div class="mb-3">
+      <label for="sala_fk" class="fw-bold">Sala:</label>
+      <select name="sala_fk" id="sala_fk" class="input-custom" required>
+      <option value="" disabled select>Selecione uma sala</option>
+      @foreach($salas as $sala)
+      <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+      @endforeach
+      </select>
+      </div> -->
         <input type="hidden" name="data_reserva" id="data_reserva">
-        <input type="hidden" name="sala_fk" id="sala_fk">
+        <input type="hidden" id="sala_fk_hidden">
 
         <div class="mb-3">
         <label for="sala_fk" class="fw-bold">Sala:</label>
         <select name="sala_fk" id="sala_fk" class="input-custom" required>
-          <option value="" disabled select>Selecione uma sala</option>
+          <option value="" disabled selected>Selecione uma sala</option>
           @foreach($salas as $sala)
         <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
       @endforeach
         </select>
         </div>
+
 
         <div class="mb-3">
         <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
@@ -264,7 +277,7 @@
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     function toggleDropdown(button) {
     const dropdown = button.parentElement;
     dropdown.classList.toggle("open");
@@ -277,12 +290,12 @@
       }
     });
     }
-  </script>
+    </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
-  <script>
+    <script>
     document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
 
@@ -302,6 +315,7 @@
       list: 'Lista'
       },
 
+
       // Campo que mostrar as reservas no calendar do evento
       eventContent: function (arg) {
       const horaInicio = arg.event.extendedProps.hora_inicio || '';
@@ -311,14 +325,14 @@
 
       let innerHtml = `
       <div style="font-size: 0.95em;">
-        <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-        <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
-        ${responsavel}
+      <span class="fw-bold text-uppercase">${nomeSala}</span><br>
+      <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
+      ${responsavel}
       </div>
       `;
 
       return {
-        html: innerHtml
+      html: innerHtml
       };
       },
 
@@ -346,41 +360,177 @@
 
       // Define o foco no campo de seleção de sala
       setTimeout(function () {
-        document.getElementById('sala_fk').focus();
+      document.getElementById('sala_fk').focus();
       }, 500);
       },
 
       // Evento ao clicar em um evento existente
       eventClick: function (info) {
       Swal.fire({
+      html: `
+      <div class="p-4 rounded border" style="background-color: #f8f9fa;">
+      <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
+      <hr>
+
+      <div class="mb-3 mt-4">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+      <span class="fw-semibold" style="color: #394151;">Sala:</span>
+      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-start mb-2">
+      <span class="fw-semibold" style="color: #394151;">Unidade:</span>
+      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-start mb-2">
+      <span class="fw-semibold" style="color: #394151;">Horário:</span>
+      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-start">
+      <span class="fw-semibold" style="color: #394151;">Responsável:</span>
+      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+      </div>
+      </div>
+      </div>
+
+      `,
+      confirmButtonText: 'Fechar',
+      customClass: {
+      confirmButton: 'button-grey'
+      }
+      });
+      }
+    });
+    calendar.render();
+    });
+    </script> -->
+
+
+
+
+
+
+
+  <script>
+    function toggleDropdown(button) {
+    const dropdown = button.parentElement;
+    dropdown.classList.toggle("open");
+
+    // Fecha o dropdown ao clicar fora dele
+    document.addEventListener("click", function closeDropdown(event) {
+      if (!dropdown.contains(event.target)) {
+      dropdown.classList.remove("open");
+      document.removeEventListener("click", closeDropdown);
+      }
+    });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br',
+      events: '/eventos',
+      selectable: true,
+      editable: false,
+      eventDisplay: 'block',
+
+      buttonText: {
+      today: 'Hoje',
+      month: 'Mês',
+      week: 'Semana',
+      day: 'Dia',
+      list: 'Lista'
+      },
+
+      eventContent: function (arg) {
+      const horaInicio = arg.event.extendedProps.hora_inicio || '';
+      const horaFim = arg.event.extendedProps.hora_fim || '';
+      const responsavel = arg.event.extendedProps.responsavel || '';
+      const nomeSala = arg.event.title || '';
+
+      // let innerHtml = `
+      //   <div style="font-size: 0.95em;">
+      //     <span class="fw-bold text-uppercase">${nomeSala}</span><br>
+      //     <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
+      //     ${responsavel}
+      //   </div>
+      // `;
+      let innerHtml = `
+    <div style="font-size: 0.95em; color: #555555;">
+    <span class="fw-bold text-uppercase">${nomeSala}</span><br>
+    <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
+    ${responsavel}
+    </div>
+  `;
+      return {
+        html: innerHtml
+      };
+      },
+
+      // Aqui adicionamos a opacidade para eventos passados
+      eventDidMount: function (info) {
+      const today = new Date();
+      const eventEnd = new Date(info.event.end || info.event.start);
+
+      // Zera as horas para comparar apenas a data
+      today.setHours(0, 0, 0, 0);
+      eventEnd.setHours(0, 0, 0, 0);
+
+      if (eventEnd < today) {
+        info.el.style.opacity = '0.4';
+        info.el.style.filter = 'grayscale(10%)';
+      }
+      },
+
+      headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,listWeek'
+      },
+
+      dateClick: function (info) {
+      document.getElementById('data_reserva').value = info.dateStr;
+      var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+      modalReserva.show();
+      setTimeout(function () {
+        document.getElementById('sala_fk').focus();
+      }, 500);
+      },
+
+      eventClick: function (info) {
+      Swal.fire({
         html: `
         <div class="p-4 rounded border" style="background-color: #f8f9fa;">
-        <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
-        <hr>
-
-        <div class="mb-3 mt-4">
+          <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
+          <hr>
+          <div class="mb-3 mt-4">
           <div class="d-flex justify-content-between align-items-start mb-2">
-          <span class="fw-semibold" style="color: #394151;">Sala:</span>
-          <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
+            <span class="fw-semibold" style="color: #394151;">Sala:</span>
+            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
           </div>
-
           <div class="d-flex justify-content-between align-items-start mb-2">
-          <span class="fw-semibold" style="color: #394151;">Unidade:</span>
-          <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
+            <span class="fw-semibold" style="color: #394151;">Unidade:</span>
+            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
           </div>
-
           <div class="d-flex justify-content-between align-items-start mb-2">
-          <span class="fw-semibold" style="color: #394151;">Horário:</span>
-          <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
+            <span class="fw-semibold" style="color: #394151;">Horário:</span>
+            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
           </div>
-
           <div class="d-flex justify-content-between align-items-start">
-          <span class="fw-semibold" style="color: #394151;">Responsável:</span>
-          <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+            <span class="fw-semibold" style="color: #394151;">Responsável:</span>
+            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+          </div>
           </div>
         </div>
-        </div>
-
         `,
         confirmButtonText: 'Fechar',
         customClass: {
@@ -389,9 +539,17 @@
       });
       }
     });
+
     calendar.render();
     });
   </script>
+
+
+
+
+
+
+
 
   <script>
     // Função para abrir o modal do calendário e selecionar uma sala
@@ -520,7 +678,7 @@
     $(document).ready(function () {
     // Inicialização única da DataTable
     var table = $('#reservas').DataTable({
-      order: [[2, 'desc']], // Ordena pela coluna de Hora Início (índice 2)
+      order: [[0, 'desc']], // Ordena pela coluna de Hora Início (índice 2)
       columnDefs: [
       {
         targets: [2, 3], // Colunas de data/hora
@@ -598,23 +756,23 @@
         const horaFim = reserva.data_fim.split(' ')[1];
 
         html += `
-        <div class="reserva-card">
-          <span class="reserva-info">
-          <i class="bi bi-building"></i>
-          <strong>Unidade:</strong> ${unidade}
-          </span>
+      <div class="reserva-card">
+      <span class="reserva-info">
+      <i class="bi bi-building"></i>
+      <strong>Unidade:</strong> ${unidade}
+      </span>
 
-          <span class="reserva-info">
-          <i class="bi bi-clock"></i>
-          <strong>Hora:</strong> ${horaInicio} - ${horaFim}
-          </span>
+      <span class="reserva-info">
+      <i class="bi bi-clock"></i>
+      <strong>Hora:</strong> ${horaInicio} - ${horaFim}
+      </span>
 
-          <span class="reserva-info">
-          <i class="bi bi-person"></i>
-          <strong>Reservado por:</strong> ${usuario}
-          </span>
-        </div>
-        `;
+      <span class="reserva-info">
+      <i class="bi bi-person"></i>
+      <strong>Reservado por:</strong> ${usuario}
+      </span>
+      </div>
+      `;
         });
         html += '</div>';
       }
@@ -721,6 +879,7 @@
         title: 'Erro!',
         text: xhr.responseJSON?.message || 'Erro ao excluir reserva',
         icon: 'error'
+
       });
       },
       complete: function () {
