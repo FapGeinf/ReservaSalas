@@ -32,36 +32,81 @@ class SalaController extends Controller
     }
 
     // Método para armazenar uma nova sala
-    public function store(Request $request)
+//     public function store(Request $request)
+// {
+//     // Validação dos dados da requisição
+//     $request->validate([ 
+//         'nome' => 'required|string|max:255', 
+//         'descricao' => 'required|string|max:255', 
+//         'situacao' => 'required|in:ativa,inativa',
+//         'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validação da imagem
+//         'cor' => 'nullable|string', // <- cor opcional
+//     ]);
+
+
+//     dd($request->all());
+
+//      Sala::create([
+//         'nome' => $request->nome,
+//         'descricao' => $request->descricao,
+//         'situacao' => $request->situacao,
+//         // 'imagem' => $caminhoImagem, // defina isso na lógica de upload
+//         'cor' => $request->cor, // ← ESSENCIAL!
+        
+//     ]);
+
+//     // Tratamento da imagem
+//     if ($request->hasFile('imagem')) { 
+//         $imagem = $request->file('imagem'); 
+//         $imageName = time().'.'.$imagem->getClientOriginalExtension(); 
+//         $imagem->move(public_path('img/salas'), $imageName); 
+//     } else { 
+//         $imageName = null; // Caso contrário, o valor será null
+//     }
+
+//     // Criação da nova sala 
+//     $sala = new Sala; 
+//     $sala->nome = $request->input('nome'); 
+//     $sala->descricao = $request->input('descricao'); 
+//     $sala->situacao = $request->input('situacao'); 
+//     $sala->imagem = $imageName; 
+//     $sala->save();
+
+//     // Redirecionamento após criação da sala 
+//     return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
+// }
+
+public function store(Request $request)
 {
-    // Validação dos dados da requisição
-    $request->validate([ 
-        'nome' => 'required|string|max:255', 
-        'descricao' => 'required|string|max:255', 
+    // Validação dos dados
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'descricao' => 'required|string|max:255',
         'situacao' => 'required|in:ativa,inativa',
-        'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validação da imagem
+        'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'cor' => 'nullable|string',
     ]);
 
-    // Tratamento da imagem
-    if ($request->hasFile('imagem')) { 
-        $imagem = $request->file('imagem'); 
-        $imageName = time().'.'.$imagem->getClientOriginalExtension(); 
-        $imagem->move(public_path('img/salas'), $imageName); 
-    } else { 
-        $imageName = null; // Caso contrário, o valor será null
+    // Upload da imagem (se houver)
+    $imageName = null;
+    if ($request->hasFile('imagem')) {
+        $imagem = $request->file('imagem');
+        $imageName = time() . '.' . $imagem->getClientOriginalExtension();
+        $imagem->move(public_path('img/salas'), $imageName);
     }
 
-    // Criação da nova sala 
-    $sala = new Sala; 
-    $sala->nome = $request->input('nome'); 
-    $sala->descricao = $request->input('descricao'); 
-    $sala->situacao = $request->input('situacao'); 
-    $sala->imagem = $imageName; 
-    $sala->save();
+    // Criação da sala com todos os campos
+    Sala::create([
+        'nome' => $request->nome,
+        'descricao' => $request->descricao,
+        'situacao' => $request->situacao,
+        'imagem' => $imageName,
+        'cor' => $request->cor, // Agora vai salvar corretamente!
+    ]);
 
-    // Redirecionamento após criação da sala 
     return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
 }
+
 
 
    
@@ -86,6 +131,7 @@ class SalaController extends Controller
             'nome' => 'required|string|max:255', 
             'descricao' => 'required|string|max:255', 
             'situacao' => 'required|in:ativa,inativa',
+            'cor' => 'nullable|string', // ← Aqui
          ]);
 
 

@@ -43,7 +43,8 @@ class Sala extends Model
         'nome',
         'descricao',
         'situacao', // Certifique-se de que este campo existe no banco de dados
-        'imagem'
+        'imagem', 
+        'cor', // Adicione o campo cor se necessário
     ];
 
     protected $table = 'salas'; // Nome correto da tabela
