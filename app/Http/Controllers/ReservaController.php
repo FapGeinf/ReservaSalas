@@ -43,8 +43,8 @@ class ReservaController extends Controller
 
         $request->validate([
             'sala_fk' => 'required|exists:salas,id',
-            // 'data_reserva' => 'required|date|after_or_equal:today',
-            'data_reserva' => 'required|date',
+            'data_reserva' => 'required|date|after_or_equal:today',
+            // 'data_reserva' => 'required|date',
 
             'hora_inicio' => 'required|date_format:H:i',
             'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
