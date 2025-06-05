@@ -48,10 +48,10 @@
               <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-            <div class="mb-3 col-12">
+            <!-- <div class="mb-3 col-12">
               <label for="cpf" class="fw-bold fs-16">CPF:</label>
               <input type="text" id="cpf" name="cpf" class="input-custom" value="{{ old('cpf', auth()->user()->cpf) }}" required placeholder="ex: 000.000.000-00">
-            </div>
+            </div> -->
 
             <div class="mb-3 col-12">
               <label for="unidade_fk" class="fw-bold fs-16">Unidade:</label>
