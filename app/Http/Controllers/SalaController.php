@@ -125,34 +125,16 @@ public function store(Request $request)
 
     // Método para atualizar uma sala existente
     public function update(Request $request, Sala $sala)
-    {
-        // Validação dos dados da requisição 
-        $request->validate([ 
-            'nome' => 'required|string|max:255', 
-            'descricao' => 'required|string|max:255', 
-            'situacao' => 'required|in:ativa,inativa',
-            'cor' => 'nullable|string', // ← Aqui
-         ]);
+{
+    $sala->nome = $request->nome;
+    $sala->descricao = $request->descricao;
+    $sala->situacao = $request->situacao;
+    $sala->cor = $request->cor; // Atualizando a cor
+    $sala->save();
 
-
-         // Atualiza a sala
-    $sala->update([
-        'nome' => $request->nome,
-        'descricao' => $request->descricao,
-        'situacao' => $request->situacao,
-    ]);
-
-    // Redireciona com mensagem de sucesso
     return redirect()->route('salas')->with('success', 'Sala atualizada com sucesso!');
+}
 
-
-        //  // Atualização da sala 
-        //  $sala->update($request->all()); 
-
-        //  // Redirecionamento após atualização da sala 
-        //  return redirect()->route('salas');
-        
-    }
 
       // Método para excluir uma sala
     public function destroy(Sala $sala)

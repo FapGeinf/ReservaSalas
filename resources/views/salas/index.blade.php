@@ -15,7 +15,7 @@
                     Swal.fire({
                         title: 'Sucesso!',
                         text: '{{ session('
-                                success ') }}',
+                                                        success ') }}',
                         icon: 'success',
                         confirmButtonText: 'Fechar',
                         customClass: {
@@ -167,16 +167,38 @@
                                                                         value="{{ $sala->descricao }}" required>
                                                                 </div>
 
-                                                                <div class="mt-4 col-5">
-                                                                    <label for="situacao{{ $sala->id }}"
-                                                                        class="fw-bold fs-16">Situação:</label>
-                                                                    <select name="situacao" id="situacao{{ $sala->id }}"
-                                                                        class="form-select" required>
-                                                                        <option disabled selected>Selecione uma opção</option>
-                                                                        <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
-                                                                        <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
-                                                                    </select>
+                                                                <!-- <div class="mt-4 col-5">
+                                                                                            <label for="situacao{{ $sala->id }}"
+                                                                                                class="fw-bold fs-16">Situação:</label>
+                                                                                            <select name="situacao" id="situacao{{ $sala->id }}"
+                                                                                                class="form-select" required>
+                                                                                                <option disabled selected>Selecione uma opção</option>
+                                                                                                <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
+                                                                                                <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
+                                                                                            </select>
+                                                                                        </div> -->
+                                                                <div class="row mt-4">
+                                                                    <div class="col-md-6">
+                                                                        <label for="situacao{{ $sala->id }}"
+                                                                            class="fw-bold fs-16">Situação:</label>
+                                                                        <select name="situacao" id="situacao{{ $sala->id }}"
+                                                                            class="form-select input-custom" required>
+                                                                            <option disabled selected>Selecione uma opção</option>
+                                                                            <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
+                                                                            <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <label for="cor{{ $sala->id }}" class="fw-bold fs-16">Cor da
+                                                                            Sala:</label>
+                                                                        <input type="color" name="cor" id="cor{{ $sala->id }}"
+                                                                            class="form-control input-custom"
+                                                                            value="{{ $sala->cor ?? '#ffffff' }}">
+                                                                    </div>
                                                                 </div>
+
+
 
                                                                 <div class="d-flex justify-content-end mt-4">
                                                                     <button type="submit" class="button-green fs-16">Salvar</button>

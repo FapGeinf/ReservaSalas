@@ -39,13 +39,14 @@ class Sala extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nome',
-        'descricao',
-        'situacao', // Certifique-se de que este campo existe no banco de dados
-        'imagem', 
-        'cor', // Adicione o campo cor se necessário
-    ];
+    // protected $fillable = [
+    //     'nome',
+    //     'descricao',
+    //     'situacao', // Certifique-se de que este campo existe no banco de dados
+    //     'imagem', 
+    //     'cor', // Adicione o campo cor se necessário
+    // ];
+    protected $fillable = ['nome', 'descricao', 'situacao', 'imagem', 'cor'];
 
     protected $table = 'salas'; // Nome correto da tabela
     protected $primaryKey = 'id'; // Chave primária correta
