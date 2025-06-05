@@ -58,9 +58,9 @@
               <label class="text-light">Email</label>
             </th>
 
-            <th>
+            <!-- <th>
               <label class="text-light">Cpf</label>
-            </th>
+            </th> -->
 
             <th>
               <label class="text-light">Unidade</label>
@@ -88,9 +88,9 @@
                 {{ $usuario->email }}
               </td>
 
-              <td data-label="Cpf">
+              <!-- <td data-label="Cpf">
                 {{ $usuario->cpf }}
-              </td>
+              </td> -->
 
               <td data-label="Unidade">
                 {{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}

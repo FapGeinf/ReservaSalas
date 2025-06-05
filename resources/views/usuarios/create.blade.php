@@ -105,14 +105,14 @@
                             <input type="email" class="input-custom" id="email" name="email" required>
                         </div>
 
-                        <!-- CPF -->
+                        <!-- CPF
                         <div class="mb-3">
                             <label for="cpf" class="fw-bold">CPF:</label>
                             <input type="text" class="input-custom" id="cpf" name="cpf">
                             @error('cpf')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
 
 
                         <!-- Unidade -->
