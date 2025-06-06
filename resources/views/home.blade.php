@@ -156,11 +156,11 @@
       </td>
 
       <td data-label="Hora Início">
-      {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i') }}
+      {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i:s') }}
       </td>
 
       <td data-label="Hora Término">
-      {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i') }}
+      {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i:s') }}
       </td>
 
       <td data-label="Reservado Por">
@@ -491,11 +491,28 @@
       }
       },
 
+      // headerToolbar: {
+      // left: 'prev,next today',
+      // center: 'title',
+      // right: 'dayGridMonth,listWeek'
+      // },
+
+
       headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,listWeek'
-      },
+  left: 'prev,next today',
+  center: 'title',
+  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+},
+
+
+
+
+
+
+
+
+
+
 
       dateClick: function (info) {
       document.getElementById('data_reserva').value = info.dateStr;
