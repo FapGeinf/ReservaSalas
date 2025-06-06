@@ -31,6 +31,7 @@ class UserController extends Controller
      'unidade_fk' => 'required|exists:unidades,id',
      'login' => 'required|string|max:255|unique:users',
      'password' => 'required|string|min:8|confirmed',
+     'role' => 'required|in:user,admin', // Adicionando validação para o tipo de usuário
   ], $messages);
  
 
@@ -48,8 +49,6 @@ class UserController extends Controller
     }
 }
 
-        
-
     // Cria o usuário
     User::create([
         'name' => $request->name,
@@ -58,6 +57,7 @@ class UserController extends Controller
         'unidade_fk' => $request->unidade_fk,
         'login' => $request->login,
         'password' => bcrypt($request->password),
+        'role' => $request->role, // Salva o tipo de usuário
     ]);
 
     return redirect()->route('usuarios.create')->with('success', 'Usuário cadastrado com sucesso!');

@@ -2,179 +2,199 @@
 @section('title') {{ 'Usuários Cadastrados' }} @endsection
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/user.css') }}">
-<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
-<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/responsive-table-users.css') }}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="{{ asset('css/user.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/responsive-table-users.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
-@push('scripts')
-@if(session('success'))
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+  @push('scripts')
+    @if(session('success'))
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
     Swal.fire({
       title: 'Sucesso!',
       text: '{{ session('success') }}',
       icon: 'success',
       confirmButtonText: 'Fechar'
     });
-  });
-</script>
-@endif
-@endpush
+    });
+    </script>
+    @endif
+  @endpush
 
-<div class="p-30__no-bottom">
-  
-  <div class="form-wrapper p-30 py-3 mx-auto divTable">
+  <div class="p-30__no-bottom">
+
+    <div class="form-wrapper p-30 py-3 mx-auto divTable">
     <div class="table-container-no-bottom text-center p-30 pb-0 mt-5">
       <h3 class="fw-bold">
-        USUÁRIOS CADASTRADOS
+      USUÁRIOS CADASTRADOS
       </h3>
-      
+
       <div class="">
-        <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none">
-          <i class="fas fa-plus me-1"></i>Novo usuário
-        </a>
+      <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none">
+        <i class="fas fa-plus me-1"></i>Novo usuário
+      </a>
       </div>
     </div>
 
     <div class="table-container-no-top">
-  
+
       <div class="table-responsive-scroll">
-        <table id="tableUsers">
-          <thead>
-            <th>
-              <label class="text-light">Id</label>
-            </th>
-          
-            <th>
-              <label class="text-light">Nome</label>
-            </th>
+      <table id="tableUsers">
+        <thead>
+        <th>
+          <label class="text-light">Id</label>
+        </th>
 
-            <th><label class="text-light">Login</label></th> 
-          
-            <th>
-              <label class="text-light">Email</label>
-            </th>
+        <th>
+          <label class="text-light">Nome</label>
+        </th>
 
-            <!-- <th>
-              <label class="text-light">Cpf</label>
-            </th> -->
+        <th><label class="text-light">Login</label></th>
 
-            <th>
-              <label class="text-light">Unidade</label>
-            </th>
+        <th>
+          <label class="text-light">Email</label>
+        </th>
 
-            <th>
-              <label class="text-light">Opções</label>
-            </th>
-          </thead>
+        <!-- <th>
+          <label class="text-light">Cpf</label>
+        </th> -->
 
-          <tbody>
-            @foreach($usuarios as $usuario)
-            <tr>
-              <td data-label="Id">
-                {{ $usuario->id }}
-              </td>
+        <th>
+          <label class="text-light">Unidade</label>
+        </th>
 
-              <td data-label="Nome">
-                {{ $usuario->name }}
-              </td>
+        <th>
+          <label class="text-light">Tipo de Usuário</label>
+        </th>
 
-              <td data-label="Login">{{ $usuario->login }}</td>
+        <th>
+          <label class="text-light">Opções</label>
+        </th>
+        </thead>
 
-              <td data-label="Email">
-                {{ $usuario->email }}
-              </td>
+        <tbody>
+        @foreach($usuarios as $usuario)
+        <tr>
+        <td data-label="Id">
+        {{ $usuario->id }}
+        </td>
 
-              <!-- <td data-label="Cpf">
-                {{ $usuario->cpf }}
-              </td> -->
+        <td data-label="Nome">
+        {{ $usuario->name }}
+        </td>
 
-              <td data-label="Unidade">
-                {{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}
-              </td>
+        <td data-label="Login">{{ $usuario->login }}</td>
 
-              <td data-label="Opções">
-                <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
+        <td data-label="Email">
+        {{ $usuario->email }}
+        </td>
+
+        <!-- <td data-label="Cpf">
+        {{ $usuario->cpf }}
+        </td> -->
+
+        <td data-label="Unidade">
+        {{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}
+        </td>
+
+        <!-- <td data-label="Tipo de Usuário">
+         {{ $usuario->role == 'admin' ? 'Administrador' : 'Usuário Comum' }}
+         </td> -->
+
+        <td data-label="Tipo">
+        @if($usuario->role == 'admin')
+        <i class="fas fa-user-shield" style="color: blue;" title="Administrador"></i>
+        <!-- Ícone azul para admins -->
+      @else
+        <i class="fas fa-user" style="color:rgb(19, 12, 240);" title="Usuário Comum"></i>
+        <!-- Ícone verde para usuários comuns -->
+      @endif
+        </td>
+
+        <td data-label="Opções">
+        <button type="button" class="button-red" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+          data-user-id="{{ $usuario->id }}">
+          <i class="fas fa-trash"></i>
+        </button>
+        </td>
+        </tr>
+      @endforeach
+        </tbody>
+      </table>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
-<!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <!-- Modal de Confirmação -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmação de Exclusão</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmação de Exclusão</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
       <div class="modal-body">
-        Tem certeza que deseja excluir este usuário?
+      Tem certeza que deseja excluir este usuário?
       </div>
 
       <div class="modal-footer">
-        <form id="deleteForm" action="" method="POST">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="button-red">Excluir</button>
-        </form>
+      <form id="deleteForm" action="" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="button-red">Excluir</button>
+      </form>
 
-        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+      <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
+    </div>
   </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script>
-  $(document).ready(function() {
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
     $('#tableUsers').DataTable({
       language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-        search: "Procurar:",
-        lengthMenu: "Paginação: _MENU_",
-        info: 'Mostrando página _PAGE_ de _PAGES_',
-        infoEmpty: 'Sem relatórios de risco disponíveis no momento',
-        infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-        zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-        paginate: {
-          next: "Próximo",
-          previous: "Anterior"
-        }
+      url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+      search: "Procurar:",
+      lengthMenu: "Paginação: _MENU_",
+      info: 'Mostrando página _PAGE_ de _PAGES_',
+      infoEmpty: 'Sem relatórios de risco disponíveis no momento',
+      infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
+      zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
+      paginate: {
+        next: "Próximo",
+        previous: "Anterior"
+      }
       },
       // scrollY: '200px',
       scrollCollapse: true,
       paging: true
     });
-  });
-</script>
+    });
+  </script>
 
-<!-- Script para passar o ID do usuário ao modal -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-  var confirmDeleteModal = document.getElementById('confirmDeleteModal');
-  confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
-    var button = event.relatedTarget; // Botão que acionou o modal
-    var userId = button.getAttribute('data-user-id'); // Obtém o ID do usuário
-    var form = document.getElementById('deleteForm');
-    form.action = '/usuarios/' + userId; // Atualiza a ação do formulário
-  });
-  });
-</script>
+  <!-- Script para passar o ID do usuário ao modal -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var confirmDeleteModal = document.getElementById('confirmDeleteModal');
+    confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget; // Botão que acionou o modal
+      var userId = button.getAttribute('data-user-id'); // Obtém o ID do usuário
+      var form = document.getElementById('deleteForm');
+      form.action = '/usuarios/' + userId; // Atualiza a ação do formulário
+    });
+    });
+  </script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection
