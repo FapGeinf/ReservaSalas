@@ -52,11 +52,10 @@ class ReservaController extends Controller
             'sala_fk.required' => 'Selecione uma sala.',
             'sala_fk.exists' => 'Sala não encontrada.',
             'data_reserva.required' => 'Informe a data da reserva.',
-            'data_reserva.after_or_equal' => 'A data deve ser hoje ou uma futura.',
+            'data_reserva.after_or_equal' => 'A data escolhida deve ser hoje ou uma futura.',
             'hora_inicio.required' => 'Informe a hora de início.',
             'hora_termino.after' => 'A hora de término deve ser após a hora de início.',
         ]);
-
 
 
         // Verificar se a sala está ativa

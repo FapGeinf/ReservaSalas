@@ -82,7 +82,7 @@
     @endforeach
     </div>
 
-    <!-- Calendário -->
+    Calendário
     <div class="caixa-calendario">
     <div class="area-calendario">
       <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
@@ -409,9 +409,6 @@
 
 
 
-
-
-
   <script>
     function toggleDropdown(button) {
     const dropdown = button.parentElement;
@@ -504,15 +501,6 @@
 // },
 
 
-
-
-
-
-
-
-
-
-
       dateClick: function (info) {
       document.getElementById('data_reserva').value = info.dateStr;
       var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
@@ -562,11 +550,6 @@
 
 
 
-
-
-
-
-
   <script>
     // Função para abrir o modal do calendário e selecionar uma sala
     function abrirModalCalendario(salaId) {
@@ -610,7 +593,7 @@
 
       error: function (xhr) {
         Swal.fire({
-        title: 'Erro!',
+        title: 'Desculpe!',
         text: xhr.responseJSON?.message || 'Erro ao realizar reserva',
         icon: 'error'
         });
