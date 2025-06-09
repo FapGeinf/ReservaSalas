@@ -13,14 +13,15 @@ use Carbon\Carbon;
 class ReservaController extends Controller
 {
     public function index()
-    {
-        $users = User::all();
-        $reservas = Reserva::with('sala', 'user.unidade')
-            ->orderBy('hora_inicio', 'desc') // Ordenar pela data de início mais recente
-            ->get();
-        $salas = Sala::all();
-        return view('home', compact('reservas', 'salas', 'users'));
-    }
+{
+    $users = User::all();
+   $reservas = Reserva::with('sala', 'user.unidade')
+    ->orderBy('data_inicio', 'desc') // Ordena corretamente
+    ->get();
+    $salas = Sala::all();
+    return view('home', compact('reservas', 'salas', 'users'));
+}
+
 
 
     public function create()
@@ -34,16 +35,24 @@ class ReservaController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'sala_fk' => 'required|exists:salas,id',
-        //     'data_reserva' => 'required|date',
-        //     'hora_inicio' => 'required|date_format:H:i',
-        //     'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-        // ]);
+        $dataSelecionada = Carbon::parse($request->input('data_reserva'));
 
-        $request->validate([
-            'sala_fk' => 'required|exists:salas,id',
-            'data_reserva' => 'required|date|after_or_equal:today',
+if ($dataSelecionada->lt(Carbon::today())) {
+    return back()->with('error', 'A data escolhida deve ser hoje ou uma futura.');
+}
+
+
+       $request->validate([
+    'sala_fk' => 'required|exists:salas,id',
+    'data_reserva' => [
+        'required',
+        'date',
+        function ($attribute, $value, $fail) {
+            if (Carbon::parse($value)->lt(Carbon::today())) {
+                $fail('A data escolhida deve ser hoje ou uma futura.');
+            }
+        },
+    ],
             // 'data_reserva' => 'required|date',
 
             'hora_inicio' => 'required|date_format:H:i',
@@ -196,20 +205,6 @@ class ReservaController extends Controller
     }
 
 
-    // public function getReservasPorSalaEData($salaId, Request $request)
-// {
-//     $data = $request->query('data'); // Obtém a data da requisição
-
-    //     // Busca as reservas da sala para a data especificada
-//     $reservas = Reserva::where('sala_fk', $salaId)
-//         ->whereDate('data_inicio', $data)
-//         ->with(['user', 'user.unidade'])
-//         ->get();
-
-    //     return response()->json($reservas);
-// }
-
-
     public function getReservasPorSalaEData($salaId, Request $request)
     {
         $data = $request->query('data'); // Obtém a data da requisição
@@ -223,110 +218,65 @@ class ReservaController extends Controller
         return response()->json($reservas);
     }
 
+    public function getEventos()
+    {
+        $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+        $now = Carbon::now();
 
-    // public function getEventos()
-// {
-//     $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+        $events = [];
+        foreach ($reservas as $reserva) {
+            $isPast = Carbon::parse($reserva->data_fim)->lt($now);
 
-    //     $events = [];
-//     foreach ($reservas as $reserva) {
-//         $events[] = [
-//             'title' => $reserva->sala->nome,
-//             'start' => $reserva->data_inicio,
-//             'end' => $reserva->data_fim,
-//             'backgroundColor' => $reserva->sala->cor ?? '#3788d8', // Cor da sala correta
-//             'borderColor' => $reserva->sala->cor ?? '#3788d8',
-//             'textColor' => '#ffffff', // Opcional: para contraste
-//             'extendedProps' => [
-//                 'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-//                 'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-//                 'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-//                 'responsavel' => $reserva->user->name
-//             ]
-//         ];
-//     }
+            $color = $reserva->sala->cor ?? '#3788d8';
+            $backgroundColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
+            $borderColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
+            $textColor = $isPast ? '#333333' : '#ffffff';
 
-    //     return response()->json($events);
-// }
+            $events[] = [
+                'title' => $reserva->sala->nome,
+                'start' => $reserva->data_inicio,
+                'end' => $reserva->data_fim,
+                'backgroundColor' => $backgroundColor,
+                'borderColor' => $borderColor,
+                'textColor' => $textColor,
+                'extendedProps' => [
+                    'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
+                    'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+                    'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+                    'responsavel' => $reserva->user->name
+                ]
+            ];
+        }
 
-
-  public function getEventos()
-{
-    $reservas = Reserva::with(['sala', 'user.unidade'])->get();
-    $now = Carbon::now();
-
-    $events = [];
-    foreach ($reservas as $reserva) {
-        $isPast = Carbon::parse($reserva->data_fim)->lt($now);
-
-        $color = $reserva->sala->cor ?? '#3788d8';
-        $backgroundColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-        $borderColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-        $textColor = $isPast ? '#333333' : '#ffffff';
-
-        $events[] = [
-            'title' => $reserva->sala->nome,
-            'start' => $reserva->data_inicio,
-            'end' => $reserva->data_fim,
-            'backgroundColor' => $backgroundColor,
-            'borderColor' => $borderColor,
-            'textColor' => $textColor,
-            'extendedProps' => [
-                'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-                'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-                'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-                'responsavel' => $reserva->user->name
-            ]
-        ];
+        return response()->json($events);
     }
 
-    return response()->json($events);
+
+
+    private function hexToRgba($hex, $opacity = 1.0)
+    {
+        $hex = str_replace('#', '', $hex);
+
+        if (strlen($hex) === 3) {
+            $r = hexdec(str_repeat(substr($hex, 0, 1), 4));
+            $g = hexdec(str_repeat(substr($hex, 1, 1), 4));
+            $b = hexdec(str_repeat(substr($hex, 2, 1), 4));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+
+        return "rgba($r, $g, $b, $opacity)";
+    }
+
+   public function listarReunioes()
+{
+    $reservas = Reserva::with('sala', 'user.unidade')->get();
+    return view('reservas.reservas', compact('reservas'));
+
 }
 
-
-
-     private function hexToRgba($hex, $opacity = 1.0)
- {
-    $hex = str_replace('#', '', $hex);
-
-    if (strlen($hex) === 3) {
-        $r = hexdec(str_repeat(substr($hex, 0, 1), 4));
-        $g = hexdec(str_repeat(substr($hex, 1, 1), 4));
-        $b = hexdec(str_repeat(substr($hex, 2, 1), 4));
-    } else {
-        $r = hexdec(substr($hex, 0, 2));
-        $g = hexdec(substr($hex, 2, 2));
-        $b = hexdec(substr($hex, 4, 2));
-    }
-
-    return "rgba($r, $g, $b, $opacity)";
-  }
-
-
-
-    // public function getEventos()
-    // {
-    //     $reservas = Reserva::with(['sala', 'user.unidade'])->get();
-
-    //     $events = [];
-    //     foreach ($reservas as $reserva) {
-    //         $events[] = [
-    //             'title' => $reserva->sala->nome,
-    //             'start' => $reserva->data_inicio,
-    //             'end' => $reserva->data_fim,
-    //             'backgroundColor' => $reserva->sala->cor ?? '#3788d8', // Cor da sala
-    //             'borderColor' => $reserva->sala->cor ?? '#3788d8',
-    //             'textColor' => '#ffffff', // Cor do texto para contraste
-    //             'extendedProps' => [
-    //                 'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-    //                 'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-    //                 'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-    //                 'responsavel' => $reserva->user->name
-    //             ]
-    //         ];
-    //     }
-
-    //     return response()->json($events);
-    // }
+    
 
 }

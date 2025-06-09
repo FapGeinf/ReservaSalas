@@ -87,13 +87,14 @@ Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPor
     Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
   
  
-    
-
-    // Route::get('/eventos', [ReservaController::class, 'eventos']);
-
+// Rota para exibir o formulário de edição de usuários
     Route::get('/eventos', [ReservaController::class, 'getEventos']);
-    
-    
+    Route::get('/reservas', [ReservaController::class, 'listarReunioes'])->name('reservas.index');
+    Route::get('/reservas', [ReservaController::class, 'listarReunioes'])->name('reservas.index');
+    Route::delete('/reservas/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
+
+
+
 
 
 // Inclusão das rotas de autenticação
