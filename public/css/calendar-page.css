@@ -50,21 +50,21 @@
 /* BORDAS COLORIDAS */
 
 .border-aquário {
-  border-left: 5px solid #007bff !important;
+  border-left: 5px solid #C7FBFF !important;
   border-radius: 6px 0 0 6px !important;
 }
 
 .border-daf {
-  border-left: 5px solid #28a745 !important;
+  border-left: 5px solid #c5f7ce !important;
   border-radius: 6px 0 0 6px !important;
 }
 
 .border-pres {
-  border-left: 5px solid #ffc107 !important;
+  border-left: 5px solid #97A8F7 !important;
   border-radius: 6px 0 0 6px !important;
 }
 
 .border-audit {
-  border-left: 5px solid #dc3545 !important;
+  border-left: 5px solid #F7B1D6 !important;
   border-radius: 6px 0 0 6px !important;
 }
