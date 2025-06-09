@@ -82,7 +82,7 @@
     @endforeach
     </div>
 
-    Calendário
+    <!-- Calendário -->
     <div class="caixa-calendario">
     <div class="area-calendario">
       <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
@@ -102,7 +102,7 @@
     </div>
     @endif
 
-    <div class="tabela-main-page">
+    <!-- <div class="tabela-main-page">
     <div class="text-center fw-bold mb-4">
       <span class="title-meetings text-uppercase">Lista de Reuniões</span>
     </div>
@@ -204,7 +204,7 @@
       </tbody>
     </table>
     </div>
-  </div>
+  </div> -->
 
   <!-- Modal de Reserva -->
   <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
@@ -218,6 +218,7 @@
       <div class="modal-body">
       <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
         @csrf
+
         <!-- <input type="hidden" name="data_reserva" id="data_reserva">
       <input type="hidden" name="sala_fk" id="sala_fk">
 
@@ -228,8 +229,8 @@
       @foreach($salas as $sala)
       <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
       @endforeach
-      </select>
-      </div> -->
+      </select> -->
+
         <input type="hidden" name="data_reserva" id="data_reserva">
         <input type="hidden" id="sala_fk_hidden">
 
@@ -407,7 +408,25 @@
     });
     </script> -->
 
+ <script>
+  document.getElementById('dataSelecionada').addEventListener('change', function () {
+    const dataSelecionada = new Date(this.value);
+    const hoje = new Date();
+    
+    // Remover a hora para comparar apenas a data
+    hoje.setHours(0, 0, 0, 0);
+    dataSelecionada.setHours(0, 0, 0, 0);
 
+    if (dataSelecionada < hoje) {
+        Swal.fire({
+            title: 'Erro!',
+            text: 'A data selecionada já passou. Escolha uma data futura.',
+            icon: 'error'
+        });
+    }
+});
+
+ </script>
 
   <script>
     function toggleDropdown(button) {
@@ -487,18 +506,19 @@
       }
       },
 
+      // headerToolbar: {
+      // left: 'prev,next today',
+      // center: 'title',
+      // right: 'dayGridMonth,listWeek'
+      // },
+
+
       headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,listWeek'
-      },
+  left: 'prev,next today',
+  center: 'title',
+  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+},
 
-
-//       headerToolbar: {
-//   left: 'prev,next today',
-//   center: 'title',
-//   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-// },
 
 
       dateClick: function (info) {
@@ -548,8 +568,6 @@
     });
   </script>
 
-
-
   <script>
     // Função para abrir o modal do calendário e selecionar uma sala
     function abrirModalCalendario(salaId) {
@@ -593,7 +611,7 @@
 
       error: function (xhr) {
         Swal.fire({
-        title: 'Desculpe!',
+        title: 'Erro!',
         text: xhr.responseJSON?.message || 'Erro ao realizar reserva',
         icon: 'error'
         });
