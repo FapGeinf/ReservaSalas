@@ -506,20 +506,17 @@
       }
       },
 
-      // headerToolbar: {
-      // left: 'prev,next today',
-      // center: 'title',
-      // right: 'dayGridMonth,listWeek'
-      // },
-
-
       headerToolbar: {
-  left: 'prev,next today',
-  center: 'title',
-  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-},
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,listWeek'
+      },
 
-
+//       headerToolbar: {
+//   left: 'prev,next today',
+//   center: 'title',
+//   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+// },
 
       dateClick: function (info) {
       document.getElementById('data_reserva').value = info.dateStr;
