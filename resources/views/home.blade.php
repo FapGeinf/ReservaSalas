@@ -412,7 +412,6 @@
 
 
 
-
   <script>
     function toggleDropdown(button) {
     const dropdown = button.parentElement;
@@ -491,18 +490,18 @@
       }
       },
 
-      // headerToolbar: {
-      // left: 'prev,next today',
-      // center: 'title',
-      // right: 'dayGridMonth,listWeek'
-      // },
-
-
       headerToolbar: {
-  left: 'prev,next today',
-  center: 'title',
-  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-},
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,listWeek'
+      },
+
+
+//       headerToolbar: {
+//   left: 'prev,next today',
+//   center: 'title',
+//   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+// },
 
 
 
