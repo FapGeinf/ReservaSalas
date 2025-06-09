@@ -84,6 +84,8 @@
             <div class="d-flex justify-content-center mt-3">
               <button type="submit" class="button-blue">Entrar</button>
             </div>
+            <form method="POST" action="{{ route('login') }}" id="loginForm">
+
           </form>
 
           <p class="mt-3">
@@ -130,7 +132,20 @@
             icon.classList.add("bi-eye-slash"); // Ícone de olho fechado
         }
     });
+
+    // Enviar o formulário ao pressionar Enter
+    document.addEventListener("DOMContentLoaded", function () {
+        let form = document.getElementById("loginForm");
+
+        form.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Evita comportamento padrão
+                form.submit(); // Envia o formulário
+            }
+        });
+    });
 </script>
+
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
