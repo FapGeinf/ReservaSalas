@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 
@@ -12,7 +14,7 @@
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
   <title>Agendaí! | Seja bem-vindo</title>
-   
+
 </head>
 
 <body>
@@ -33,57 +35,109 @@
           <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            @if ($errors->has('login'))
+        <div class="alert alert-danger d-flex align-items-center shadow-sm rounded p-1" role="alert">
+          <i class="bi bi-exclamation-circle-fill me-1"></i>
+          <span>{{ $errors->first('login') }}</span>
+        </div>
+      @endif
+
             <div class="mb-3 form-box">
               <label for="login">Login:</label>
-              
+
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                 <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
               </div>
             </div>
 
-              <label for="password">Senha:</label>
-              <div class="input-group mb-3">
-                <span class="input-group-text">@</span>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+            <label for="password">Senha:</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input type="password" id="password" name="password" class="form-control"
+                placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2"/>
-              </div>
-
-              <!-- Lembrar de Mim -->
-              <div class="block mt-0">
-                <label for="remember_me" class="inline-flex items-center">
-                  <input id="remember_me" type="checkbox" class="rounded" name="remember">
-                  <span class="ml-1 text-sm">Lembrar de mim</span>
-                </label>
-              </div>
-
-              <div class="d-flex justify-content-center mt-3">
-                <button type="submit" class="button-blue">Entrar</button>
-              </div>
-            </form>
-
-            <p class="mt-3">
-              <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a senha?</a>
-            </p>
-          </div>
+              <span class="input-group-text">
+                <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+              </span>
+            </div>
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
 
-          <!-- <div class="text-start register-link mt-4">
+            <!-- <label for="password">Senha:</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input type="password" id="password" name="password" class="form-control"
+                placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+
+              <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div> -->
+
+            <!-- Lembrar de Mim -->
+            <div class="block mt-0">
+              <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded" name="remember">
+                <span class="ml-1 text-sm">Lembrar de mim</span>
+              </label>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+              <button type="submit" class="button-blue">Entrar</button>
+            </div>
+          </form>
+
+          <p class="mt-3">
+            <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a
+              senha?</a>
+          </p>
+        </div>
+
+
+        <!-- <div class="text-start register-link mt-4">
             <a href="{{ route('password.request') }}" class="">Esqueceu a senha?</a>
             <p class="mt-1">Primeira vez usando o Agendaí? <a href="{{ route('register') }}" class="">Cadastre-se</a></p>
           </div> -->
-          
-        </div>
+
       </div>
     </div>
+  </div>
 
-     <!-- jQuery -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Função para alternar o tempo do alerta de erro
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        let alertElement = document.querySelector(".alert-danger");
+        if (alertElement) {
+          alertElement.style.transition = "opacity 0.5s ease-out";
+          alertElement.style.opacity = "0";
+          setTimeout(() => alertElement.remove(), 500);
+        }
+      }, 4000); // 5 segundos
+    });
 
-     <!-- jQuery Mask Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    
+    // Função para alternar a visibilidade da senha
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        let passwordField = document.getElementById("password");
+        let icon = this;
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text"; // Mostra a senha
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye"); // Ícone de olho aberto
+        } else {
+            passwordField.type = "password"; // Oculta a senha
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash"); // Ícone de olho fechado
+        }
+    });
+</script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- jQuery Mask Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
   </div>
 </body>
 

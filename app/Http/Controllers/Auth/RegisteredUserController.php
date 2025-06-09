@@ -41,6 +41,12 @@ class RegisteredUserController extends Controller
             'unidade_fk' => 'required|exists:unidades,id'
         ]);
 
+        // Tentativa de autenticação
+    if (!Auth::attempt(['login' => $request->login, 'password' => $request->password])) {
+        return back()->withErrors([
+            'login' => 'Usuário ou senha incorretos.',
+        ]);
+    }
         $user = User::create([
             'name' => $request->name,
             'login' => $request->login,
