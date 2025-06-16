@@ -26,80 +26,88 @@
   <div class="pagina-container">
     <div class="salas-grid">
 
-    @foreach($salas as $sala)
-    @php
-      $situacao = strtolower(trim($sala->situacao));
-      $nomeSala = strtolower(trim($sala->nome));
+      @foreach($salas as $sala)
+      @php
+        $situacao = strtolower(trim($sala->situacao));
+        $nomeSala = strtolower(trim($sala->nome));
 
-      // Define a classe de borda com base no nome da sala
-      $classeBorda = '';
-      if (str_contains($nomeSala, 'aquário')) {
-      $classeBorda = 'border-aquário';
-      } elseif (str_contains($nomeSala, 'daf')) {
-      $classeBorda = 'border-daf';
-      } elseif (str_contains($nomeSala, 'pres')) {
-      $classeBorda = 'border-pres';
-      } elseif (str_contains($nomeSala, 'audit')) {
-      $classeBorda = 'border-audit';
-      }
-    @endphp
+        // Define a classe de borda com base no nome da sala
+        $classeBorda = '';
+        if (str_contains($nomeSala, 'aquário')) {
+          $classeBorda = 'border-aquário';
+        }
 
-    <div class="sala-card {{ $classeBorda }}">
-      <div class="sala-card-conteudo" style="position: relative;">
+        elseif (str_contains($nomeSala, 'daf')) {
+          $classeBorda = 'border-daf';
+        }
+        
+        elseif (str_contains($nomeSala, 'pres')) {
+          $classeBorda = 'border-pres';
+        }
 
-      <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
+        elseif (str_contains($nomeSala, 'audit')) {
+          $classeBorda = 'border-audit';
+        }
+      @endphp
 
-      <div class="sala-info">
+      <div class="sala-card {{ $classeBorda }}">
+        <div class="sala-card-conteudo" style="position: relative;">
 
-      <div class="titulo-sala">
-      <span class="text-uppercase fw-semibold">
-        {{ $sala->nome }}
-      </span>
+          <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
 
-      @if($situacao === 'inativa')
-      <span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
-      Sala em manutenção
-      </span>
-      @else
-      <span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
-      Sala disponível
-      </span>
-      @endif
+          <div class="sala-info">
+
+          <div class="titulo-sala">
+            <span class="text-uppercase fw-semibold">
+              {{ $sala->nome }}
+            </span>
+
+            @if($situacao === 'inativa')
+              <span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
+                Sala em manutenção
+              </span>
+
+            @else
+              <span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
+                Sala disponível
+              </span>
+            @endif
+          </div>
+
+          @if($situacao === 'ativa')
+            {{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}}
+          @else
+
+          <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
+          data-sala-id="{{ $sala->id }}">
+            Ver Reservas
+          </button>
+          @endif
+
+          </div>
+        </div>
       </div>
-
-      @if($situacao === 'ativa')
-      {{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}}
-      @else
-      <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
-      data-sala-id="{{ $sala->id }}">
-      Ver Reservas
-      </button>
-      @endif
-
-      </div>
-      </div>
-    </div>
-    @endforeach
+      @endforeach
     </div>
 
     <!-- Calendário -->
     <div class="caixa-calendario">
-    <div class="area-calendario">
-      <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
-    </div>
+      <div class="area-calendario">
+        <div id="calendar" class="calendar-container" style="margin-top: 20px;"></div>
+      </div>
 
-    <div class="mt-1">
-      <span style="font-size: 14px; color: #374151;">
-      <i class="bi bi-lightbulb-fill text-warning"></i>
-      Clique em uma data para reservar uma sala ou visualizar agendamentos.
-      </span>
-    </div>
+      <div class="mt-1">
+        <span style="font-size: 14px; color: #374151;">
+          <i class="bi bi-lightbulb-fill text-warning"></i>
+          Clique em uma data para reservar uma sala ou visualizar agendamentos.
+        </span>
+      </div>
     </div>
 
     @if (session('error'))
-    <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
-    {{ session('error') }}
-    </div>
+      <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
+        {{ session('error') }}
+      </div>
     @endif
 
     <!-- <div class="tabela-main-page">
@@ -209,71 +217,76 @@
   <!-- Modal de Reserva -->
   <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title fw-bold" id="modalReservaLabel">Nova Reserva</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-      <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
-        @csrf
-
-        <!-- <input type="hidden" name="data_reserva" id="data_reserva">
-      <input type="hidden" name="sala_fk" id="sala_fk">
-
-      <div class="mb-3">
-      <label for="sala_fk" class="fw-bold">Sala:</label>
-      <select name="sala_fk" id="sala_fk" class="input-custom" required>
-      <option value="" disabled select>Selecione uma sala</option>
-      @foreach($salas as $sala)
-      <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-      @endforeach
-      </select> -->
-
-        <input type="hidden" name="data_reserva" id="data_reserva">
-        <input type="hidden" id="sala_fk_hidden">
-
-        <div class="mb-3">
-        <label for="sala_fk" class="fw-bold">Sala:</label>
-        <select name="sala_fk" id="sala_fk" class="input-custom" required>
-          <option value="" disabled selected>Selecione uma sala</option>
-          @foreach($salas as $sala)
-        <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-      @endforeach
-        </select>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalReservaLabel">Nova Reserva</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
 
+        <div class="modal-body">
+          <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
+            @csrf
 
-        <div class="mb-3">
-        <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
-        <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
+            <!--
+              <input type="hidden" name="data_reserva" id="data_reserva">
+              <input type="hidden" name="sala_fk" id="sala_fk">
+
+              <div class="mb-3">
+              <label for="sala_fk" class="fw-bold">Sala:</label>
+              <select name="sala_fk" id="sala_fk" class="input-custom" required>
+              <option value="" disabled select>Selecione uma sala</option>
+              @foreach($salas as $sala)
+              <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+              @endforeach
+              </select>
+            -->
+
+            <input type="hidden" name="data_reserva" id="data_reserva">
+            <input type="hidden" id="sala_fk_hidden">
+
+            <div class="mb-3">
+              <label for="sala_fk" class="fw-bold">Sala:</label>
+              <select name="sala_fk" id="sala_fk" class="input-custom" required>
+
+                <option value="" disabled selected>Selecione uma sala</option>
+                @foreach($salas as $sala)
+                  <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+                @endforeach
+
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
+              <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="hora_termino" class="fw-bold">Hora de Término:</label>
+              <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
+            </div>
+          </form>
         </div>
 
-        <div class="mb-3">
-        <label for="hora_termino" class="fw-bold">Hora de Término:</label>
-        <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
+        <div class="modal-footer">
+          <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
+          <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
         </div>
-      </form>
       </div>
-
-      <div class="modal-footer">
-      <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
-      <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
     </div>
   </div>
 
   <!-- Modal de Detalhes da Reserva -->
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="toastReserva" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">Detalhes da Reserva</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
-    </div>
+      <div class="toast-header">
+        <strong class="me-auto">Detalhes da Reserva</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
 
-    <div class="toast-body" id="toastBodyReserva"></div>
+      <div class="toast-body" id="toastBodyReserva">
+        <!-- Dados inseridos aqui dinamicamente -->
+      </div>
 
     </div>
   </div>
@@ -408,25 +421,24 @@
     });
     </script> -->
 
- <script>
-  document.getElementById('dataSelecionada').addEventListener('change', function () {
-    const dataSelecionada = new Date(this.value);
-    const hoje = new Date();
-    
-    // Remover a hora para comparar apenas a data
-    hoje.setHours(0, 0, 0, 0);
-    dataSelecionada.setHours(0, 0, 0, 0);
+  <script>
+    document.getElementById('dataSelecionada').addEventListener('change', function () {
+      const dataSelecionada = new Date(this.value);
+      const hoje = new Date();
+      
+      // Remover a hora para comparar apenas a data
+      hoje.setHours(0, 0, 0, 0);
+      dataSelecionada.setHours(0, 0, 0, 0);
 
-    if (dataSelecionada < hoje) {
-        Swal.fire({
+      if (dataSelecionada < hoje) {
+          Swal.fire({
             title: 'Erro!',
             text: 'A data selecionada já passou. Escolha uma data futura.',
             icon: 'error'
-        });
-    }
-});
-
- </script>
+          });
+        }
+      });
+  </script>
 
   <script>
     function toggleDropdown(button) {
@@ -436,10 +448,10 @@
     // Fecha o dropdown ao clicar fora dele
     document.addEventListener("click", function closeDropdown(event) {
       if (!dropdown.contains(event.target)) {
-      dropdown.classList.remove("open");
-      document.removeEventListener("click", closeDropdown);
-      }
-    });
+        dropdown.classList.remove("open");
+        document.removeEventListener("click", closeDropdown);
+        }
+      });
     }
   </script>
 
@@ -480,15 +492,18 @@
       //   </div>
       // `;
       let innerHtml = `
-    <div style="font-size: 0.95em; color: #555555;">
-    <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-    <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
-    ${responsavel}
-    </div>
-  `;
-      return {
-        html: innerHtml
-      };
+        <div style="font-size: 0.95em; color: #555555;">
+          <span class="fw-bold text-uppercase">${nomeSala}</span>
+          <br>
+          
+          <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
+          ${responsavel}
+        </div>
+
+        `;
+        return {
+          html: innerHtml
+        };
       },
 
       // Aqui adicionamos a opacidade para eventos passados
@@ -512,11 +527,11 @@
       right: 'dayGridMonth,listWeek'
       },
 
-//       headerToolbar: {
-//   left: 'prev,next today',
-//   center: 'title',
-//   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-// },
+      // headerToolbar: {
+      // left: 'prev,next today',
+      // center: 'title',
+      // right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      // },
 
       dateClick: function (info) {
       document.getElementById('data_reserva').value = info.dateStr;
@@ -532,27 +547,33 @@
         html: `
         <div class="p-4 rounded border" style="background-color: #f8f9fa;">
           <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
+
           <hr>
+
           <div class="mb-3 mt-4">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <span class="fw-semibold" style="color: #394151;">Sala:</span>
-            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <span class="fw-semibold" style="color: #394151;">Unidade:</span>
-            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <span class="fw-semibold" style="color: #394151;">Horário:</span>
-            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-start">
-            <span class="fw-semibold" style="color: #394151;">Responsável:</span>
-            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
-          </div>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="fw-semibold" style="color: #394151;">Sala:</span>
+              <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="fw-semibold" style="color: #394151;">Unidade:</span>
+              <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="fw-semibold" style="color: #394151;">Horário:</span>
+              <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start">
+              <span class="fw-semibold" style="color: #394151;">Responsável:</span>
+              <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+            </div>
           </div>
         </div>
         `,
+
         confirmButtonText: 'Fechar',
         customClass: {
         confirmButton: 'button-grey'
@@ -569,8 +590,8 @@
     // Função para abrir o modal do calendário e selecionar uma sala
     function abrirModalCalendario(salaId) {
     console.log("Sala selecionada:", salaId);
-    $('#sala_fk').val(salaId); // Define a sala no formulário
-    $('#modalCalendario').modal('show');
+      $('#sala_fk').val(salaId); // Define a sala no formulário
+      $('#modalCalendario').modal('show');
     }
 
     $(document).ready(function () {
@@ -613,6 +634,7 @@
         icon: 'error'
         });
       },
+
       complete: function () {
         // Restaura o botão
         submitBtn.prop('disabled', false).html('Salvar Reserva');
@@ -623,7 +645,7 @@
 
     // Verificação em tempo real
     $('#hora_inicio, #hora_termino').change(function () {
-    verificarDisponibilidade();
+      verificarDisponibilidade();
     });
 
     function verificarDisponibilidade() {
@@ -661,8 +683,8 @@
 
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script>
 
+  <script>
     // Definir o plugin de ordenação personalizada ANTES de usar
     jQuery.extend(jQuery.fn.dataTableExt.oSort, {
     "date-euro-pre": function (a) {
@@ -681,12 +703,15 @@
       }
       return 0;
     },
+
     "date-euro-asc": function (a, b) {
       return a - b;
     },
+
     "date-euro-desc": function (a, b) {
       return b - a;
     }
+
     });
 
     $(document).ready(function () {
@@ -733,9 +758,6 @@
     });
     });
 
-
-
-
     function selecionarSala(salaId) {
     console.log('Sala selecionada:', salaId); // Depuração
     document.getElementById('sala_fk').value = salaId;
@@ -770,23 +792,23 @@
         const horaFim = reserva.data_fim.split(' ')[1];
 
         html += `
-      <div class="reserva-card">
-      <span class="reserva-info">
-      <i class="bi bi-building"></i>
-      <strong>Unidade:</strong> ${unidade}
-      </span>
+          <div class="reserva-card">
+            <span class="reserva-info">
+              <i class="bi bi-building"></i>
+              <strong>Unidade:</strong> ${unidade}
+            </span>
 
-      <span class="reserva-info">
-      <i class="bi bi-clock"></i>
-      <strong>Hora:</strong> ${horaInicio} - ${horaFim}
-      </span>
+            <span class="reserva-info">
+              <i class="bi bi-clock"></i>
+              <strong>Hora:</strong> ${horaInicio} - ${horaFim}
+            </span>
 
-      <span class="reserva-info">
-      <i class="bi bi-person"></i>
-      <strong>Reservado por:</strong> ${usuario}
-      </span>
-      </div>
-      `;
+            <span class="reserva-info">
+              <i class="bi bi-person"></i>
+              <strong>Reservado por:</strong> ${usuario}
+            </span>
+          </div>
+          `;
         });
         html += '</div>';
       }
@@ -795,54 +817,54 @@
       },
 
       error: function () {
-      $('#reservasContainer').html(
-        '<p class="text-center"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
-      );
+        $('#reservasContainer').html(
+          '<p class="text-center"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
+        );
       }
     });
     }
 
     $(document).ready(function () {
-    $('#dataSelecionada').on('change', function () {
-      const salaId = $('#verReservasModal').data('sala-id');
-      carregarReservas(salaId);
-    });
+      $('#dataSelecionada').on('change', function () {
+        const salaId = $('#verReservasModal').data('sala-id');
+        carregarReservas(salaId);
+      });
 
-    $('#verReservasModal').on('show.bs.modal', function (event) {
-      const button = $(event.relatedTarget);
-      const salaId = button.data('sala-id');
-      $('#verReservasModal').data('sala-id', salaId);
+      $('#verReservasModal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget);
+        const salaId = button.data('sala-id');
+        $('#verReservasModal').data('sala-id', salaId);
 
-      const hoje = new Date().toISOString().split('T')[0];
-      $('#dataSelecionada').val(hoje);
+        const hoje = new Date().toISOString().split('T')[0];
+        $('#dataSelecionada').val(hoje);
 
-      carregarReservas(salaId);
-    });
+        carregarReservas(salaId);
+      });
     });
   </script>
 
   <!-- Modal para Ver Reservas -->
   <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
-    <div class="modal-content custom-modal">
-      <div class="modal-header">
-      <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <div class="modal-content custom-modal">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-      <div class="modal-body">
-      <div class="mb-3">
-        <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
-        <input type="date" id="dataSelecionada" class="input-custom">
-      </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
+            <input type="date" id="dataSelecionada" class="input-custom">
+          </div>
 
-      <div id="reservasContainer" class="reservas-container">
-        <p class="text-center text-muted">
-        <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
-        </p>
+          <div id="reservasContainer" class="reservas-container">
+            <p class="text-center text-muted">
+              <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
+            </p>
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
     </div>
   </div>
 
@@ -905,31 +927,31 @@
   </script>
 
   <!-- Modal de Confirmação -->
-  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-      <div class="modal-body">
-      Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
-      </div>
+        <div class="modal-body">
+          Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
+        </div>
 
-      <div class="modal-footer">
-      <form id="deleteForm" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="button-red">Excluir</button>
-      </form>
+        <div class="modal-footer">
+          <form id="deleteForm" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="button-red">Excluir</button>
+          </form>
 
-      <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+        </div>
       </div>
-    </div>
     </div>
   </div>
+
   @if (session('success'))
     <script>
     document.addEventListener('DOMContentLoaded', function () {
