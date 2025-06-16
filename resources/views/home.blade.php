@@ -608,7 +608,7 @@
 
       error: function (xhr) {
         Swal.fire({
-        title: 'Erro!',
+        title: 'Desculpe!',
         text: xhr.responseJSON?.message || 'Erro ao realizar reserva',
         icon: 'error'
         });

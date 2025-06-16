@@ -37,9 +37,9 @@ class ReservaController extends Controller
     {
         $dataSelecionada = Carbon::parse($request->input('data_reserva'));
 
-if ($dataSelecionada->lt(Carbon::today())) {
-    return back()->with('error', 'A data escolhida deve ser hoje ou uma futura.');
-}
+// if ($dataSelecionada->lt(Carbon::today())) {
+//     return back()->with('error', 'A data escolhida deve ser hoje ou uma futura.');
+// }
 
 
        $request->validate([
@@ -76,7 +76,7 @@ if ($dataSelecionada->lt(Carbon::today())) {
                     'message' => 'A sala está em manutenção e não pode ser reservada.'
                 ], 400);
             }
-            return back()->with('error', 'A sala está em manutenção e não pode ser reservada.');
+            return back()->with('Desculpe!', 'A sala está em manutenção e não pode ser reservada.');
         }
 
 
@@ -104,7 +104,7 @@ if ($dataSelecionada->lt(Carbon::today())) {
                     'message' => 'A sala já está reservada neste horário.'
                 ], 400);
             }
-            return back()->with('error', 'A sala já está reservada neste horário.');
+            return back()->with('Desculpe!', 'A sala já está reservada neste horário.');
         }
 
 
@@ -178,7 +178,7 @@ if ($dataSelecionada->lt(Carbon::today())) {
     {
         // Permite que apenas administradores ou o próprio usuário excluam a reserva
         if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta reserva.');
+            return redirect()->route('home')->with('Desculpe!', 'Você não tem permissão para excluir esta reserva.');
         }
 
         try {
