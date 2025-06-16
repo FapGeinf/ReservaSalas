@@ -102,109 +102,6 @@
     </div>
     @endif
 
-    <!-- <div class="tabela-main-page">
-    <div class="text-center fw-bold mb-4">
-      <span class="title-meetings text-uppercase">Lista de Reuniões</span>
-    </div>
-
-    <table class="table-reservas" id="reservas">
-      <thead>
-      <tr>
-        <th>
-        <label class="text-light">Id</label>
-        </th>
-
-        <th>
-        <label class="text-light">Sala</label>
-        </th>
-
-        <th>
-        <label class="text-light">Hora Início</label>
-        </th>
-
-        <th>
-        <label class="text-light">Hora Término</label>
-        </th>
-
-        <th>
-        <label class="text-light">Reservado Por</label>
-        </th>
-
-        <th>
-        <label class="text-light">Unidade</label>
-        </th>
-
-        <th>
-        <label class="text-light">Opções</label>
-        </th>
-      </tr>
-      </thead>
-
-      <tbody>
-      @foreach($reservas as $reserva)
-      <tr>
-      <td data-label="Id">
-      {{ $reserva->id }}
-      </td>
-
-      <td data-label="Sala">
-      <div class="mt-1">
-        <p class="mb-1 text-uppercase">
-        {{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}
-        </p>
-      </div>
-      </td>
-
-      <td data-label="Hora Início">
-      {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y | H:i:s') }}
-      </td>
-
-      <td data-label="Hora Término">
-      {{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y | H:i:s') }}
-      </td>
-
-      <td data-label="Reservado Por">
-      {{ $reserva->user ? $reserva->user->name : '' }}
-      </td>
-
-      <td data-label="Unidade">
-      {{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}
-      </td>
-
-      <td data-label="Opções">
-      <div class="dropdown-custom">
-        <button class="btn-dropdown" onclick="toggleDropdown(this)">
-        <i class="bi bi-three-dots-vertical"></i>
-        </button>
-
-        <div class="dropdown-menu-custom">
-        <button class="btn-dropdown dropdown-item">
-        <a href="{{ route('reservas.show', $reserva->id) }}" class="text-decoration-none text-pattern">
-        <i class="bi bi-info-circle me-1"></i> Detalhes
-        </a>
-        </button>
-
-        <button class="btn-dropdown dropdown-item">
-        <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-decoration-none text-pattern">
-        <i class="bi bi-pencil-square me-1"></i> Editar
-        </a>
-        </button>
-
-        <button class="btn-dropdown dropdown-item text-danger" data-bs-toggle="modal"
-        data-bs-target="#confirmDeleteModal" onclick="setDeleteId({{ $reserva->id }})">
-        <i class="bi bi-trash"></i> Excluir
-        </button>
-
-        </form>
-        </div>
-      </div>
-      </td>
-      </tr>
-    @endforeach
-      </tbody>
-    </table>
-    </div>
-  </div> -->
 
   <!-- Modal de Reserva -->
   <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
@@ -218,18 +115,6 @@
       <div class="modal-body">
       <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
         @csrf
-
-        <!-- <input type="hidden" name="data_reserva" id="data_reserva">
-      <input type="hidden" name="sala_fk" id="sala_fk">
-
-      <div class="mb-3">
-      <label for="sala_fk" class="fw-bold">Sala:</label>
-      <select name="sala_fk" id="sala_fk" class="input-custom" required>
-      <option value="" disabled select>Selecione uma sala</option>
-      @foreach($salas as $sala)
-      <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-      @endforeach
-      </select> -->
 
         <input type="hidden" name="data_reserva" id="data_reserva">
         <input type="hidden" id="sala_fk_hidden">
@@ -278,135 +163,6 @@
     </div>
   </div>
 
-  <!-- <script>
-    function toggleDropdown(button) {
-    const dropdown = button.parentElement;
-    dropdown.classList.toggle("open");
-
-    // Fecha o dropdown ao clicar fora dele
-    document.addEventListener("click", function closeDropdown(event) {
-      if (!dropdown.contains(event.target)) {
-      dropdown.classList.remove("open");
-      document.removeEventListener("click", closeDropdown);
-      }
-    });
-    }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      locale: 'pt-br', // Idioma
-      events: '/eventos', // URL para buscar os eventos
-      selectable: true,
-      editable: false,
-      eventDisplay: 'block',
-
-      buttonText: {
-      today: 'Hoje',
-      month: 'Mês',
-      week: 'Semana',
-      day: 'Dia',
-      list: 'Lista'
-      },
-
-
-      // Campo que mostrar as reservas no calendar do evento
-      eventContent: function (arg) {
-      const horaInicio = arg.event.extendedProps.hora_inicio || '';
-      const horaFim = arg.event.extendedProps.hora_fim || '';
-      const responsavel = arg.event.extendedProps.responsavel || '';
-      const nomeSala = arg.event.title || '';
-
-      let innerHtml = `
-      <div style="font-size: 0.95em;">
-      <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-      <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
-      ${responsavel}
-      </div>
-      `;
-
-      return {
-      html: innerHtml
-      };
-      },
-
-      // Configuração da barra de ferramentas
-      headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,listWeek'
-      },
-
-      // Personaliza o formato do título
-      // titleFormat: {
-      //     month: 'long', // Nome completo do mês
-      //     year: 'numeric' // Ano
-      // },
-
-      // Evento ao clicar em uma data
-      dateClick: function (info) {
-      // Define a data no campo do modal
-      document.getElementById('data_reserva').value = info.dateStr;
-
-      // Abre o modal de reserva
-      var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-      modalReserva.show();
-
-      // Define o foco no campo de seleção de sala
-      setTimeout(function () {
-      document.getElementById('sala_fk').focus();
-      }, 500);
-      },
-
-      // Evento ao clicar em um evento existente
-      eventClick: function (info) {
-      Swal.fire({
-      html: `
-      <div class="p-4 rounded border" style="background-color: #f8f9fa;">
-      <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
-      <hr>
-
-      <div class="mb-3 mt-4">
-      <div class="d-flex justify-content-between align-items-start mb-2">
-      <span class="fw-semibold" style="color: #394151;">Sala:</span>
-      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
-      </div>
-
-      <div class="d-flex justify-content-between align-items-start mb-2">
-      <span class="fw-semibold" style="color: #394151;">Unidade:</span>
-      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
-      </div>
-
-      <div class="d-flex justify-content-between align-items-start mb-2">
-      <span class="fw-semibold" style="color: #394151;">Horário:</span>
-      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}</span>
-      </div>
-
-      <div class="d-flex justify-content-between align-items-start">
-      <span class="fw-semibold" style="color: #394151;">Responsável:</span>
-      <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
-      </div>
-      </div>
-      </div>
-
-      `,
-      confirmButtonText: 'Fechar',
-      customClass: {
-      confirmButton: 'button-grey'
-      }
-      });
-      }
-    });
-    calendar.render();
-    });
-    </script> -->
 
  <script>
   document.getElementById('dataSelecionada').addEventListener('change', function () {
@@ -451,7 +207,13 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
+      initialView: 'timeGridWeek',
+slotDuration: '00:15:00',
+snapDuration: '00:15:00',
+slotLabelInterval: '00:30:00',
+eventOverlap: false,
+timeZone: 'local',
+
       locale: 'pt-br',
       events: '/eventos',
       selectable: true,
@@ -472,13 +234,7 @@
       const responsavel = arg.event.extendedProps.responsavel || '';
       const nomeSala = arg.event.title || '';
 
-      // let innerHtml = `
-      //   <div style="font-size: 0.95em;">
-      //     <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-      //     <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
-      //     ${responsavel}
-      //   </div>
-      // `;
+      // Verifica se a sala é uma unidade específica
       let innerHtml = `
     <div style="font-size: 0.95em; color: #555555;">
     <span class="fw-bold text-uppercase">${nomeSala}</span><br>
@@ -506,22 +262,23 @@
       }
       },
 
+      // headerToolbar: {
+      // left: 'prev,next today',
+      // center: 'title',
+      // right: 'dayGridMonth,listWeek'
+      // },
+
       headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,listWeek'
-      },
+  left: 'prev,next today',
+  center: 'title',
+  right: 'dayGridMonth,timeGridWeek,listWeek'
+},
 
-//       headerToolbar: {
-//   left: 'prev,next today',
-//   center: 'title',
-//   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-// },
-
-      dateClick: function (info) {
-      document.getElementById('data_reserva').value = info.dateStr;
-      var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-      modalReserva.show();
+      dateClick: function(info) {
+    document.getElementById('data_reserva').value = info.dateStr.split('T')[0];
+    document.getElementById('hora_inicio').value = info.dateStr.substring(11,16);
+    var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+    modalReserva.show();
       setTimeout(function () {
         document.getElementById('sala_fk').focus();
       }, 500);

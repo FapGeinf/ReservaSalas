@@ -37,10 +37,6 @@ class ReservaController extends Controller
     {
         $dataSelecionada = Carbon::parse($request->input('data_reserva'));
 
-// if ($dataSelecionada->lt(Carbon::today())) {
-//     return back()->with('error', 'A data escolhida deve ser hoje ou uma futura.');
-// }
-
 
        $request->validate([
     'sala_fk' => 'required|exists:salas,id',
@@ -56,7 +52,7 @@ class ReservaController extends Controller
             // 'data_reserva' => 'required|date',
 
             'hora_inicio' => 'required|date_format:H:i',
-            'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
+            'hora_termino' => 'required|date_format:H:i|after:hora_inici',
         ], [
             'sala_fk.required' => 'Selecione uma sala.',
             'sala_fk.exists' => 'Sala não encontrada.',
@@ -81,8 +77,12 @@ class ReservaController extends Controller
 
 
         $salaId = $request->input('sala_fk');
-        $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
-        $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
+        // $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
+        // $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
+
+       $dataInicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio)->format('Y-m-d H:i:s');
+       $dataFim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino)->format('Y-m-d H:i:s');
+
 
         // Verificar conflitos de horário
         $conflito = Reserva::where('sala_fk', $salaId)
@@ -160,7 +160,7 @@ class ReservaController extends Controller
 
         $request->validate([
             'sala_id' => 'required|exists:salas,id',
-            'data_inicio' => 'required|date',
+            // 'data_inicio' => 'required|date',
             'hora_inicio' => 'required|date_format:H:i',
             'data_fim' => 'required|date_format:H:i|after:hora_inicio',
         ]);
@@ -234,8 +234,8 @@ class ReservaController extends Controller
 
             $events[] = [
                 'title' => $reserva->sala->nome,
-                'start' => $reserva->data_inicio,
-                'end' => $reserva->data_fim,
+                'start' => Carbon::parse($reserva->data_inicio)->format('Y-m-d\TH:i:s'),
+'end'   => Carbon::parse($reserva->data_fim)->format('Y-m-d\TH:i:s'),
                 'backgroundColor' => $backgroundColor,
                 'borderColor' => $borderColor,
                 'textColor' => $textColor,
@@ -276,7 +276,5 @@ class ReservaController extends Controller
     return view('reservas.reservas', compact('reservas'));
 
 }
-
-    
 
 }
