@@ -1,7 +1,11 @@
+.pointer {
+  cursor: pointer;
+}
+
 .input-custom {
   display: block;
   border-radius: 2px;
-  background: #fff;
+  /* background: #fff; */
   border: 1px solid #aaa;
   color: #555;
   padding: 8px;
@@ -22,6 +26,7 @@
   width: 100%;
 }
 
+/*
 .form-select {
   display: block !important;
   border-radius: 2px !important;
@@ -32,6 +37,7 @@
   transition: all .2s !important;
   width: 100% !important;
 }
+*/
 
 .input-custom:hover, .form-select:hover {
   border: 1px solid #7c7c7c;
@@ -39,20 +45,14 @@
 }
 
 .input-custom:focus {
-  color: #444;
+  /* color: #444; */
   border: 1px solid #7c7c7c;
-  background: #fff;
+  /* background: #fff; */
   outline: 0;
 }
 
 .form-select:focus {
-  color: #444;
-  border: 1px solid #7c7c7c;
-  outline: 0;
-}
-
-.form-select:focus {
-  color: #444;
+  /* color: #444; */
   border: 1px solid #7c7c7c;
   outline: 0;
 }

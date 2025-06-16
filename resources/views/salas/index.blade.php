@@ -14,8 +14,7 @@
                 document.addEventListener('DOMContentLoaded', function () {
                     Swal.fire({
                         title: 'Sucesso!',
-                        text: '{{ session('
-                                                        success ') }}',
+                        text: '{{ session(' success ') }}',
                         icon: 'success',
                         confirmButtonText: 'Fechar',
                         customClass: {
@@ -168,21 +167,22 @@
                                                                 </div>
 
                                                                 <!-- <div class="mt-4 col-5">
-                                                                                            <label for="situacao{{ $sala->id }}"
-                                                                                                class="fw-bold fs-16">Situação:</label>
-                                                                                            <select name="situacao" id="situacao{{ $sala->id }}"
-                                                                                                class="form-select" required>
-                                                                                                <option disabled selected>Selecione uma opção</option>
-                                                                                                <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
-                                                                                                <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
-                                                                                            </select>
-                                                                                        </div> -->
+                                                                    <label for="situacao{{ $sala->id }}"
+                                                                        class="fw-bold fs-16">Situação:</label>
+                                                                    <select name="situacao" id="situacao{{ $sala->id }}"
+                                                                        class="form-select" required>
+                                                                        <option disabled selected>Selecione uma opção</option>
+                                                                        <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
+                                                                        <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
+                                                                    </select>
+                                                                </div> -->
+
                                                                 <div class="row mt-4">
                                                                     <div class="col-md-6">
                                                                         <label for="situacao{{ $sala->id }}"
                                                                             class="fw-bold fs-16">Situação:</label>
                                                                         <select name="situacao" id="situacao{{ $sala->id }}"
-                                                                            class="form-select input-custom" required>
+                                                                            class="form-select form-control input-custom pointer" required>
                                                                             <option disabled selected>Selecione uma opção</option>
                                                                             <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
                                                                             <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
@@ -190,15 +190,10 @@
                                                                     </div>
 
                                                                     <div class="col-md-6">
-                                                                        <label for="cor{{ $sala->id }}" class="fw-bold fs-16">Cor da
-                                                                            Sala:</label>
-                                                                        <input type="color" name="cor" id="cor{{ $sala->id }}"
-                                                                            class="form-control input-custom"
-                                                                            value="{{ $sala->cor ?? '#ffffff' }}">
+                                                                        <label for="cor{{ $sala->id }}" class="fw-bold fs-16">Cor da Sala:</label>
+                                                                        <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom pointer" value="{{ $sala->cor ?? '#ffffff' }}" style="height: 40px;">
                                                                     </div>
                                                                 </div>
-
-
 
                                                                 <div class="d-flex justify-content-end mt-4">
                                                                     <button type="submit" class="button-green fs-16">Salvar</button>
@@ -233,10 +228,8 @@
     </div>
 
     <!-- Modal de Cadastro -->
-    <div class="modal fade" id="cadastrarSalaModal" tabindex="-1" aria-labelledby="cadastrarSalaModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cadastrarSalaModal" tabindex="-1" aria-labelledby="cadastrarSalaModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h5>
@@ -244,28 +237,37 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-1">
-                    <span class="fst-italic" style="font-size: 14px; color: #374151;">Campos marcados com <span
-                            class="span-warning">*</span> são obrigatórios</span>
+                    <span class="fst-italic" style="font-size: 14px; color: #374151;">
+                        Campos marcados com <span class="span-warning">*</span> são obrigatórios
+                    </span>
                 </div>
 
                 <div class="modal-body">
                     <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="">
-                            <label for="nome" class="fw-bold">Sala<span class="span-warning">*</span>:</label>
+                            <label for="nome" class="fw-bold">
+                                Sala <span class="span-warning">*</span>:
+                            </label>
+
                             <input type="text" name="nome" id="nome" class="input-custom" required>
                         </div>
 
                         <div class="mt-4">
-                            <label for="descricao" class="fw-bold">Descrição/ Localização<span
-                                    class="span-warning">*</span>:</label>
+                            <label for="descricao" class="fw-bold">
+                                Descrição/ Localização: <span class="span-warning">*</span>:
+                            </label>
+
                             <input type="text" name="descricao" id="descricao" class="input-custom" required>
                         </div>
 
                         <div class="row mt-4">
                             <div class="col-3">
-                                <label for="situacao" class="fw-bold">Situação<span class="span-warning">*</span>:</label>
-                                <select name="situacao" id="situacao" class="form-select" required>
+                                <label for="situacao" class="fw-bold">
+                                    Situação <span class="span-warning">*</span>:
+                                </label>
+
+                                <select name="situacao" id="situacao" class="form-select input-custom pointer" required>
                                     <option value="ativa">Ativa</option>
                                     <option value="inativa">Inativa</option>
                                 </select>
@@ -273,20 +275,18 @@
 
                             <div class="col-9">
                                 <label for="imagem" class="fw-bold">Imagem<span class="span-warning">*</span>:</label>
-                                <input type="file" name="imagem" id="imagem" class="input-custom" style="padding: 8px;"
-                                    required>
+                                <input type="file" name="imagem" id="imagem" class="input-custom" style="padding: 5px;" required>
                             </div>
                         </div>
 
                         <!-- NOVO CAMPO DE COR -->
                         <div class="mt-4">
                             <label for="cor" class="fw-bold">Cor da Sala:</label>
-                            <input type="color" name="cor" id="cor" class="form-control form-control-color" value="#3788d8">
+                            <input type="color" name="cor" id="cor" class="form-control input-custom form-control-color" style="width: 100px;" value="#3788d8">
                         </div>
 
                         <div class="text-end mt-4">
-                            <button type="submit" class="button-green fs-16"
-                                style="margin-right: 0 !important;">Salvar</button>
+                            <button type="submit" class="button-green fs-16" style="margin-right: 0 !important;">Salvar</button>
                         </div>
 
                     </form>
