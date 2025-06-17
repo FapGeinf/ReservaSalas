@@ -82,6 +82,14 @@
         @endforeach
     </div>
 
+
+    <div class="container-fluid mt-3">
+  <div class="row">
+    <!-- Mini calendário -->
+    <div class="col-md-3">
+      <div id="miniCalendar"></div>
+    </div>
+
     <!-- Calendário -->
     <div class="caixa-calendario">
         <div class="area-calendario">
@@ -200,12 +208,150 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- FullCalendar com suporte a pt-br -->
+   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
     <script>
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var miniCalendarEl = document.getElementById('miniCalendar');
+
+    // Calendário principal
+    window.calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        slotDuration: '00:15:00',
+        slotLabelInterval: '00:30:00',
+        slotMinTime: '07:00:00',
+        slotMaxTime: '21:00:00',
+        eventOverlap: false,
+        timeZone: 'local',
+        locale: 'pt-br',
+
+        hiddenDays: [0, 6], // Oculta domingo e sábado
+
+        events: '/eventos',
+        selectable: true,
+        editable: false,
+        eventDisplay: 'block',
+
+        buttonText: {
+            today: 'Hoje',
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            list: 'Lista'
+        },
+
+        eventContent: function (arg) {
+            const horaInicio = arg.event.extendedProps.hora_inicio || '';
+            const horaFim = arg.event.extendedProps.hora_fim || '';
+            const unidade = arg.event.extendedProps.unidade || '';
+            const nomeSala = arg.event.title || '';
+
+            return {
+                html: `
+                <div style="font-size: 0.95em; color: #555555;">
+                    <span class="fw-bold text-uppercase">${nomeSala}</span><br>
+                    <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
+                    ${horaInicio} - ${horaFim}<br>
+                    ${unidade}
+                </div>
+                `
+            };
+        },
+
+        eventDidMount: function (info) {
+            const today = new Date();
+            const eventEnd = new Date(info.event.end || info.event.start);
+            today.setHours(0, 0, 0, 0);
+            eventEnd.setHours(0, 0, 0, 0);
+
+            if (eventEnd < today) {
+                info.el.style.opacity = '0.4';
+                info.el.style.filter = 'grayscale(10%)';
+            }
+        },
+
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,listWeek'
+        },
+
+        dateClick: function (info) {
+            document.getElementById('data_reserva').value = info.dateStr.split('T')[0];
+            document.getElementById('hora_inicio').value = info.dateStr.substring(11, 16);
+
+            var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+            modalReserva.show();
+
+            setTimeout(() => {
+                document.getElementById('sala_fk').focus();
+            }, 500);
+        },
+
+        eventClick: function (info) {
+            Swal.fire({
+                html: `
+                <div class="p-4 rounded border" style="background-color: #f8f9fa;">
+                    <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
+                    <hr>
+                    <div class="mb-3 mt-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold" style="color: #394151;">Sala:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold" style="color: #394151;">Unidade:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold" style="color: #394151;">Horário:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">
+                                ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold" style="color: #394151;">Responsável:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+                        </div>
+                    </div>
+                </div>
+                `,
+                confirmButtonText: 'Fechar',
+                customClass: {
+                    confirmButton: 'button-grey'
+                }
+            });
+        }
+    });
+
+    window.calendar.render();
+
+    // Mini calendário (FullCalendar)
+    window.miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: false,
+        locale: 'pt-br',
+        dateClick: function (info) {
+            window.calendar.gotoDate(info.date);
+        }
+    });
+
+    window.miniCalendar.render();
+});
+</script>
+
+
+    <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        var miniCalendarEl = document.getElementById('miniCalendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        window.calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
             slotDuration: '00:15:00',
             slotLabelInterval: '00:30:00',
@@ -213,14 +359,16 @@
             slotMaxTime: '21:00:00',
             eventOverlap: false,
             timeZone: 'local',
-
-
             locale: 'pt-br',
+
+            hiddenDays: [0, 6], // 0 = Domingo, 6 = Sábado
+
             events: '/eventos',
             selectable: true,
             editable: false,
             eventDisplay: 'block',
 
+    
             buttonText: {
                 today: 'Hoje',
                 month: 'Mês',
@@ -232,7 +380,7 @@
             eventContent: function(arg) {
                 const horaInicio = arg.event.extendedProps.hora_inicio || '';
                 const horaFim = arg.event.extendedProps.hora_fim || '';
-                const responsavel = arg.event.extendedProps.responsavel || '';
+                const unidade = arg.event.extendedProps.unidade || '';
                 const nomeSala = arg.event.title || '';
 
                 // Verifica se a sala é uma unidade específica
@@ -240,7 +388,7 @@
     <div style="font-size: 0.95em; color: #555555;">
     <span class="fw-bold text-uppercase">${nomeSala}</span><br>
     <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> ${horaInicio} - ${horaFim}<br>
-    ${responsavel}
+    ${unidade}
     </div>
   `;
                 return {
@@ -319,10 +467,46 @@
             }
         });
 
-        calendar.render();
+        window.calendar.render();
     });
+
+    // Mini calendário
+    window.miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
+  initialView: 'dayGridMonth',
+  headerToolbar: false,
+  locale: 'pt-br', // ✅ idioma correto
+  dateClick: function(info) {
+    window.calendar.gotoDate(info.date); // sincroniza com o calendário principal
+  }
+});
+  window.miniCalendar.render();
+
     </script>
 
+    <script>
+      // quando o usuario clicar em uma data, irá navegar o calendário grande
+     $(function() {
+    $("#miniCalendar").datepicker({
+        dateFormat: "yy-mm-dd",
+        onSelect: function(dateText) {
+            // Quando o usuário clicar numa data
+            if (window.calendar) {
+                window.calendar.gotoDate(dateText); // Navega para a data selecionada
+            }
+        }
+    });
+});
+
+// $(function() {
+//   $("#miniCalendar").datepicker({
+//     dateFormat: "yy-mm-dd",
+//     onSelect: function(dateText) {
+//       const calendar = FullCalendar.getCalendar(); // recupera o calendário se tiver armazenado globalmente
+//       calendar.gotoDate(dateText);
+//     }
+//   });
+// });
+</script> -->
 
     <script>
     // Função para abrir o modal do calendário e selecionar uma sala
@@ -663,6 +847,7 @@
         });
     });
     </script>
+
 
     <!-- Modal de Confirmação -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
