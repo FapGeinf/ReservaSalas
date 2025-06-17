@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title') {{ 'Lista de Reuniões' }} @endsection
 
 @section('content')
 
@@ -10,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -23,15 +25,13 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
-
-
 <div class="container mt-5">
     <div class="tabela-main-page">
         <div class="text-center fw-bold mb-4">
             <span class="title-meetings text-uppercase">Lista de Reuniões</span>
         </div>
 
-        <table class="table-reservas" id="reservas">
+        <table class="table-reservas table-striped" id="reservas">
             <thead>
                 <tr>
                     <th>
@@ -96,33 +96,30 @@
                         </td>
 
                         <td data-label="Opções">
-                            <div class="dropdown-custom">
-                                <button class="btn-dropdown" onclick="toggleDropdown(this)">
+                            <div class="dropdown">
+                                <button class="custom-actions-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </button>
 
-                                <div class="dropdown-menu-custom">
-                                    <button class="btn-dropdown dropdown-item">
-                                        <a href="{{ route('reservas.show', $reserva->id) }}"
-                                            class="text-decoration-none text-pattern">
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('reservas.show', $reserva->id) }}" class="dropdown-item text-decoration-none text-pattern">
                                             <i class="bi bi-info-circle me-1"></i> Detalhes
                                         </a>
-                                    </button>
+                                    </li>
 
-                                    <button class="btn-dropdown dropdown-item">
-                                        <a href="{{ route('reservas.edit', $reserva->id) }}"
-                                            class="text-decoration-none text-pattern">
+                                    <li>
+                                        <a href="{{ route('reservas.edit', $reserva->id) }}" class="dropdown-item text-decoration-none text-pattern">
                                             <i class="bi bi-pencil-square me-1"></i> Editar
                                         </a>
-                                    </button>
-
-                                    <button class="btn-dropdown dropdown-item text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal" onclick="setDeleteId({{ $reserva->id }})">
-                                        <i class="bi bi-trash"></i> Excluir
-                                    </button>
-
-                                    </form>
-                                </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteId({{ $reserva->id }})">
+                                            <i class="bi bi-trash me-1"></i> Excluir
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>
@@ -131,28 +128,11 @@
         </table>
     </div>
 </div>
-<!-- Modal de Confirmação de Exclusão -->
-<script>
-    function toggleDropdown(button) {
-        const dropdown = button.parentElement;
-        dropdown.classList.toggle("open");
-
-        // Fecha o dropdown ao clicar fora dele
-        document.addEventListener("click", function closeDropdown(event) {
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove("open");
-                document.removeEventListener("click", closeDropdown);
-            }
-        });
-    }
-</script>
-
-
 
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script>
 
+<script>
     // Definir o plugin de ordenação personalizada ANTES de usar
     jQuery.extend(jQuery.fn.dataTableExt.oSort, {
         "date-euro-pre": function (a) {
@@ -189,6 +169,7 @@
                     type: 'date-euro' // Usa nosso tipo de ordenação personalizado
                 }
             ],
+
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
                 search: "Procurar:",
@@ -222,9 +203,6 @@
             setDeleteAction(deleteUrl);
         });
     });
-
-
-
 
     function selecionarSala(salaId) {
         console.log('Sala selecionada:', salaId); // Depuração
@@ -260,23 +238,23 @@
                         const horaFim = reserva.data_fim.split(' ')[1];
 
                         html += `
-      <div class="reserva-card">
-      <span class="reserva-info">
-      <i class="bi bi-building"></i>
-      <strong>Unidade:</strong> ${unidade}
-      </span>
+                        <div class="reserva-card">
+                            <span class="reserva-info">
+                                <i class="bi bi-building"></i>
+                                <strong>Unidade:</strong> ${unidade}
+                            </span>
 
-      <span class="reserva-info">
-      <i class="bi bi-clock"></i>
-      <strong>Hora:</strong> ${horaInicio} - ${horaFim}
-      </span>
+                            <span class="reserva-info">
+                                <i class="bi bi-clock"></i>
+                                <strong>Hora:</strong> ${horaInicio} - ${horaFim}
+                            </span>
 
-      <span class="reserva-info">
-      <i class="bi bi-person"></i>
-      <strong>Reservado por:</strong> ${usuario}
-      </span>
-      </div>
-      `;
+                            <span class="reserva-info">
+                                <i class="bi bi-person"></i>
+                                <strong>Reservado por:</strong> ${usuario}
+                            </span>
+                        </div>
+                        `;
                     });
                     html += '</div>';
                 }
@@ -312,22 +290,25 @@
 </script>
 
 <!-- Modal de Confirmação -->
-  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirmar Exclusão</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
             <div class="modal-body">
                 Tem certeza que deseja excluir esta reserva?
             </div>
+
             <div class="modal-footer">
                 <form id="deleteForm" method="POST">
                     @csrf
-                    @method('DELETE') <!-- Define explicitamente que é DELETE -->
+                    @method('DELETE')
                     <button type="submit" class="btn btn-danger">Excluir</button>
                 </form>
+
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -335,10 +316,10 @@
 </div>
 
 <script>
-  function setDeleteId(reservaId) {
-    console.log("Exclusão da reserva ID:", reservaId); // Depuração
+    function setDeleteId(reservaId) {
+        console.log("Exclusão da reserva ID:", reservaId); // Depuração
 
-    // Define o ID da reserva para exclusão
-    $('#deleteForm').attr('action', `/reservas/${reservaId}`);
-}
+        // Define o ID da reserva para exclusão
+        $('#deleteForm').attr('action', `/reservas/${reservaId}`);
+    }
 </script>

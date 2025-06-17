@@ -25,7 +25,7 @@
 
 /* Estilo da página principal */
 .pagina-container {
-  max-width: 1600px;
+  /* max-width: 1600px; */
   margin: 2rem auto;
   padding: 1rem;
 }
@@ -62,6 +62,7 @@
   height: 95px;
   object-fit: cover;
   background-color: #dee2e6;
+  margin-left: 30px;
 }
 
 /* Informações da Sala */
@@ -71,6 +72,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  margin-left: 40px;
 }
 
 .titulo-sala {
@@ -165,13 +167,10 @@ th {
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
-  width: calc(25% - 15px);
+  /* width: calc(25% - 15px); */
 }
 
 /* Remova todos os `margin-right` e os `nth-child(...)` do CSS */
-
-
-
 
 /* 3 por linha até 1366px */
 @media (max-width: 1366px) {

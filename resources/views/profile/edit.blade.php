@@ -56,8 +56,8 @@
             <div class="mb-3 col-12">
               <label for="unidade_fk" class="fw-bold fs-16">Unidade:</label>
 
-              <select name="unidade_fk" id="unidade_fk" class="form-select" required>
-                <option value="">Selecione a unidade</option>
+              <select name="unidade_fk" id="unidade_fk" class="form-select form-control input-custom pointer" required>
+                <option value="" selected disabled>Selecione a unidade</option>
                 @foreach($unidades as $unidade)
                   <option value="{{ $unidade->id }}" {{ auth()->user()->unidade_fk == $unidade->id ? 'selected' : '' }}>{{ $unidade->nome }}</option>
                 @endforeach

@@ -57,7 +57,7 @@ class ProfileController extends Controller
     
         $user->save();
     
-        return Redirect::route('profile.edit')->with('status', 'Alteração realizado com sucesso!');
+        return Redirect::route('profile.edit')->with('status', 'Alteração realizada com sucesso!');
     }
     
 

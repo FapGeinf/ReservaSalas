@@ -1,3 +1,7 @@
+label {
+  font-size: 14px !important;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -63,10 +67,6 @@
 
 .fs-19 {
   font-size: 19px;
-}
-
-.pointer {
-  cursor: pointer;
 }
 
 .td-mb {
