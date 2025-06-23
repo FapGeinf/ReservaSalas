@@ -196,7 +196,7 @@
                                                             </div>
 
                                                             <div class="d-flex justify-content-end mt-4">
-                                                                <button type="submit" class="button-green fs-16">Salvar</button>
+                                                                <button type="submit" class="button-green">Salvar</button>
                                                             </div>
 
                                                         </form>
@@ -219,7 +219,7 @@
 <div class="p-30__no-top">
     <div class="mx-auto form_create__no-border">
         <div class="box__no-border no-margin-bottom" style="background-color: #f1f1f1;">
-            <a href="#" class="button-blue text-decoration-none float-end" style="font-size: 16px;"
+            <a href="#" class="button-blue text-decoration-none float-end"
                 data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
                 Nova Sala
             </a>
