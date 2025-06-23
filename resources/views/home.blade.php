@@ -233,8 +233,7 @@
                                                         <div class="col-12 col-md-6">
                                                             <label for="data_fim" class="fw-bold fs-16">Hora
                                                                 Término:</label>
-                                                            <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
-
+                                                           <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
                                                         </div>
                                                     </div>
 
