@@ -74,6 +74,9 @@ Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia'
 Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
 
 
+Route::put('/reservas/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
+
+
 
 // Rotas de usuários
 

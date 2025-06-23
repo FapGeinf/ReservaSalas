@@ -153,11 +153,12 @@ class ReservaController extends Controller
 
     public function update(Request $request, Reserva $reserva)
     {
+        
         // Bloqueia se o usuário não for admin e não for o dono da reserva
         if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
             return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
         }
-
+ 
         $request->validate([
             'sala_id' => 'required|exists:salas,id',
             // 'data_inicio' => 'required|date',
@@ -233,19 +234,25 @@ class ReservaController extends Controller
             $textColor = $isPast ? '#333333' : '#ffffff';
 
             $events[] = [
-                'title' => $reserva->sala->nome,
-                'start' => Carbon::parse($reserva->data_inicio)->format('Y-m-d\TH:i:s'),
-'end'   => Carbon::parse($reserva->data_fim)->format('Y-m-d\TH:i:s'),
-                'backgroundColor' => $backgroundColor,
-                'borderColor' => $borderColor,
-                'textColor' => $textColor,
-                'extendedProps' => [
-                    'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-                    'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-                    'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-                    'responsavel' => $reserva->user->name
-                ]
-            ];
+                $events[] = [
+    'id' => $reserva->id,
+    'title' => $reserva->sala->nome,
+    'start' => Carbon::parse($reserva->data_inicio)->format('Y-m-d\TH:i:s'),
+    'end' => Carbon::parse($reserva->data_fim)->format('Y-m-d\TH:i:s'),
+    'backgroundColor' => $backgroundColor,
+    'borderColor' => $borderColor,
+    'textColor' => $textColor,
+    'extendedProps' => [
+        'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
+    'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+    'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+    'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),
+    'sala_id' => $reserva->sala_fk,
+    'responsavel' => $reserva->user->name
+
+    ]
+]
+    ];
         }
 
         return response()->json($events);
