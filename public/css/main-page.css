@@ -1,3 +1,8 @@
+#miniCalendar {
+  padding: 12px;
+  background-color: #fff;
+}
+
 .fc .fc-toolbar-title {
   font-style: normal;
   font-size: 20px !important;
@@ -25,9 +30,9 @@
 
 /* Estilo da página principal */
 .pagina-container {
-  max-width: 1600px;
-  margin: 2rem auto;
-  padding: 1rem;
+  /* max-width: 1600px; */
+  margin: 1rem auto;
+  padding: 1rem 1rem 0 1rem;
 }
 
 /* Cores de status */
@@ -59,9 +64,10 @@
 /* Imagem da Sala */
 .imagem-sala {
   width: 130px;
-  height: 95px;
+  height: 60px;
   object-fit: cover;
   background-color: #dee2e6;
+  /* margin-left: 30px; */
 }
 
 /* Informações da Sala */
@@ -71,11 +77,12 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  margin-left: 40px;
 }
 
 .titulo-sala {
   font-size: 19px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   color: #394151;
 }
 
@@ -116,7 +123,7 @@
 }
 
 .calendar-container {
-  height: 700px;
+  height: 753px;
 }
 
 /* Caixa da Tabela */
@@ -162,16 +169,11 @@ th {
 .sala-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  padding: 15px;
+  padding: 13px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
-  width: calc(25% - 15px);
+  /* width: calc(25% - 15px); */
 }
-
-/* Remova todos os `margin-right` e os `nth-child(...)` do CSS */
-
-
-
 
 /* 3 por linha até 1366px */
 @media (max-width: 1366px) {
@@ -207,7 +209,7 @@ th {
 
   .titulo-sala {
     font-size: 14px;
-    margin-bottom: 6px;
+    /* margin-bottom: 6px; */
   }
 
   .botao-reservar,

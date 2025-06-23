@@ -1,7 +1,11 @@
+label {
+  font-size: 14px !important;
+}
+
 .input-custom {
   display: block;
   border-radius: 2px;
-  background: #fff;
+  /* background: #fff; */
   border: 1px solid #aaa;
   color: #555;
   padding: 8px;
@@ -41,7 +45,7 @@
 .input-custom:focus {
   color: #444;
   border: 1px solid #7c7c7c;
-  background: #fff;
+  /* background: #fff; */
   outline: 0;
 }
 
