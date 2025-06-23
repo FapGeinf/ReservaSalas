@@ -27,6 +27,10 @@
     .fc .fc-toolbar.fc-header-toolbar {
         margin-bottom: 1rem;
     }
+    /* .fc-timegrid-slot {
+  background-color: #f8f9fa; /* ou qualquer cor que você quiser */
+
+
 </style>
 
 <div class="pagina-container">
