@@ -17,6 +17,10 @@
   box-shadow: none !important; 
 }
 
+.buttons-sm {
+  padding: 6px 10px !important;
+}
+
 .button-blue {
   background-color: #2563eb;
 }
@@ -60,3 +64,4 @@ background-color: #e0b139;
 .button-yellow i, .button-red i {
   font-size: 16px;
 }
+
