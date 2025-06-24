@@ -347,7 +347,7 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
         slotLabelInterval: '00:30:00',
         slotMinTime: '07:00:00',
         slotMaxTime: '21:00:00',
-        eventOverlap: false,
+        eventOverlap: true,
         timeZone: 'local',
         locale: 'pt-br',
 
