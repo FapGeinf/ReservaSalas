@@ -232,8 +232,8 @@ class ReservaController extends Controller
             $isPast = Carbon::parse($reserva->data_fim)->lt($now);
 
             $color = $reserva->sala->cor ?? '#3788d8';
-            $backgroundColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-            $borderColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
+            $backgroundColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
+            $borderColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
             $textColor = $isPast ? '#333333' : '#ffffff';
 
             $events[] = [
