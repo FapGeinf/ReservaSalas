@@ -25,6 +25,9 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <div class="container mt-5">
     <div class="tabela-main-page">
         <div class="text-center fw-bold mb-4">
@@ -323,3 +326,37 @@
         $('#deleteForm').attr('action', `/reservas/${reservaId}`);
     }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Sucesso!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'Fechar',
+                customClass: {
+                    confirmButton: 'button-red'
+                }
+            });
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Ops!',
+                text: "{{ session('error') }}",
+                icon: 'error',
+                confirmButtonText: 'Fechar',
+                customClass: {
+                    confirmButton: 'button-red'
+                }
+            });
+        });
+    </script>
+@endif

@@ -179,8 +179,11 @@ class ReservaController extends Controller
     {
         // Permite que apenas administradores ou o próprio usuário excluam a reserva
         if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('Desculpe!', 'Você não tem permissão para excluir esta reserva.');
+             return back()->with('error', 'Você não tem permissão para excluir esta reserva.');
         }
+
+        
+
 
         try {
             $reserva->delete();
