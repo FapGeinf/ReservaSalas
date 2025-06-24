@@ -1,0 +1,78 @@
+.form-custom {
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+}
+
+.form-no-bottom {
+  background-color: #ffffff;
+  padding: 25px 25px 25px 25px;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-no-top {
+  background-color: #f1f1f1;
+  padding: 0px 25px 5px 25px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-line label {
+  width: 115px;
+  /* text-align: right; */
+  text-align: left;
+  /* margin-right: 10px; */
+}
+
+/* .underline-title {
+  color: #374150;
+  text-transform: uppercase;
+  border-bottom: 3px solid #374150;
+  padding-bottom: 0.5rem;
+} */
+
+.form-line input,
+.form-line textarea {
+  flex: 1;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.form-line select,
+.form-line input {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.form-line textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 500px) {
+  .form-line {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-line label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+}
