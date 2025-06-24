@@ -59,7 +59,7 @@
                         @else
 
                             <table class="table table-striped" style="font-size: 14px; margin-bottom: 0;">
-                                <thead >
+                                <thead>
                                     <tr>
                                         <th class="text-center table-bg border-none">SALA</th>
                                         <th class="text-center table-bg border-none">DESCRIÇÃO</th>
@@ -72,20 +72,20 @@
                                 <tbody>
                                     @foreach($salas as $sala)
                                         <tr>
-                                            <td class="td-bg border-none text-center">
+                                            <td class="td-bg border-none text-uppercase align-middle text-center">
                                                 {{ $sala->nome }}
                                             </td>
 
-                                            <td class="td-bg border-none text-center">
+                                            <td class="td-bg border-none align-middle text-center">
                                                 {{ $sala->descricao }}
                                             </td>
 
-                                            <td class="td-bg border-none text-center">
+                                            <td class="td-bg border-none align-middle text-center">
                                                 {{ $sala->situacao }}
                                                 {{-- <x-status-indicator-green /> --}}
                                             </td>
 
-                                            <td class="td-bg border-none text-center">
+                                            <td class="td-bg border-none align-middle text-center">
                                                 @if ($sala->cor)
                                                     <span
                                                     style="display: inline-block; width: 25px; height: 25px; border-radius: 4px; background-color: {{ $sala->cor }}; border: 1px solid #ccc;"></span>
@@ -94,8 +94,7 @@
                                                 @endif
                                             </td>
 
-
-                                            <td class="text-center border-none">
+                                            <td class="text-center align-middle border-none">
                                                 <a href="#" class="button-yellow buttons-sm td-mb text-decoration-none"
                                                     data-bs-toggle="modal" data-bs-target="#editarSalaModal{{ $sala->id }}">
                                                     <i class="fas fa-pen" style="font-size: 14px;"></i>
