@@ -168,7 +168,6 @@ body {
 
     /* border-bottom: 1px solid #ccc !important; */
     /* border-top: 1px solid #ccc !important; */
-
 }
   
   table.dataTable thead th {
@@ -476,7 +475,7 @@ background-color: #f0be3f;
 }
 
 .modal-content {
-  border-radius: 0 !important;
+  border-radius: 8px !important;
 }
 
 .modal-footer {

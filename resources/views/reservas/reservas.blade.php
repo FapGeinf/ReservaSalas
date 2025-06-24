@@ -306,13 +306,13 @@
             </div>
 
             <div class="modal-footer">
+                <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+
                 <form id="deleteForm" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="button-red">Excluir</button>
                 </form>
-
-                <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
