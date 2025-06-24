@@ -32,17 +32,8 @@
 
 .form-line label {
   width: 115px;
-  /* text-align: right; */
   text-align: left;
-  /* margin-right: 10px; */
 }
-
-/* .underline-title {
-  color: #374150;
-  text-transform: uppercase;
-  border-bottom: 3px solid #374150;
-  padding-bottom: 0.5rem;
-} */
 
 .form-line input,
 .form-line textarea {
@@ -63,7 +54,20 @@
   min-height: 100px;
 }
 
-/* Responsividade para telas pequenas */
+.no-border-bottom {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: none;
+}
+
+.no-border-top {
+  border-left: 1px solid #ccc;
+  border-top: none;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
 @media (max-width: 500px) {
   .form-line {
     flex-direction: column;

@@ -159,6 +159,7 @@ label {
 
 .button-green {
   background-color: #10b981;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .button-green:hover {

@@ -11,7 +11,7 @@
 
 @section('title') {{ 'Editar Reserva' }} @endsection
 
-<div class="form-custom form-no-bottom mt-5">
+<div class="form-custom no-border-bottom form-no-bottom mt-5">
 
   <h5 class="fw-bold text-center text-uppercase underline-title mb-5">Editar Reserva</h5>
 
@@ -47,7 +47,7 @@
   </form>
 </div>
 
-<div class="form-custom form-no-top pt-3">
+<div class="form-custom no-border-top form-no-top pt-3">
   <div class="d-flex justify-content-end pb-3">
     <button type="submit" form="form-edit" class="button-green">Salvar Alterações</button>
   </div>

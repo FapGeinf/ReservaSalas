@@ -49,7 +49,7 @@
   padding: 20px;
   font-size: 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
   border-radius: 8px;
@@ -103,7 +103,7 @@
 /* Caixa do Calendário */
 .caixa-calendario {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   padding: 20px 20px 20px 20px;
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -130,7 +130,7 @@
 /* Caixa da Tabela */
 .caixa-tabela {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow-x: auto;
@@ -150,7 +150,7 @@ table {
 th, td {
   text-align: left;
   padding: 12px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
 }
 
 th {
@@ -169,7 +169,7 @@ th {
 /* Cards de Sala */
 .sala-card {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   padding: 13px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
