@@ -45,7 +45,7 @@
                         <span class="fw-bold" style="color: #374151; font-size: 20px;">CALENDÁRIO MENSAL</span>
                     </div>
                     
-                    <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #ddd;"></div>
+                    <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
                 </div>
 
                 <!-- Cards -->

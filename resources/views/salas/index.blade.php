@@ -254,7 +254,7 @@
 
             <div class="d-flex justify-content-center mt-1">
                 <span class="fst-italic" style="font-size: 14px; color: #374151;">Campos marcados com
-                    <span class="span-warning">*</span>são obrigatórios
+                    <span class="span-warning">*</span> são obrigatórios
                 </span>
             </div>
 

@@ -21,9 +21,12 @@
 </style>
 
 <nav class="navbar navbar-expand-lg fixed-top"
-  style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1); overflow: visible;">
-  <div class="container-fluid" style="overflow: visible;">
+  style="
+    background-color: #2d5857;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    overflow: visible;">
 
+  <div class="container-fluid" style="overflow: visible;">
 
     <div class="d-flex justify-content-between w-100">
       <ul class="navbar-nav gap-1 me-auto flex-row flex-wrap">
@@ -38,24 +41,19 @@
         </li>
 
         <li class="nav-item my-auto">
-        <a class="nav-link nav-buttons" href="{{ route('reservas.index') }}">
-        <i class="bi bi-calendar-check me-1"></i> Lista de Reuniões
-        </a>
-      </li>
+          <a class="nav-link nav-buttons" href="{{ route('reservas.index') }}">
+            <i class="bi bi-calendar-check me-1"></i> Lista de Reuniões
+          </a>
+        </li>
 
         @if(Auth::check() && Auth::user()->role === 'admin')
-      <li class="nav-item my-auto">
-        <a class="nav-link nav-buttons" href="{{ route('salas') }}">
-        <i class="
-          bi bi-door-open me-1"></i>Lista de Salas
-        </a>
-      </li>
-      
-    @endif
+        <li class="nav-item my-auto">
+          <a class="nav-link nav-buttons" href="{{ route('salas') }}">
+            <i class=" bi bi-door-open me-1"></i>Lista de Salas
+          </a>
+        </li>
+        @endif
       </ul>
-
-
-
 
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
@@ -86,10 +84,10 @@
             </li>
 
             @if(Auth::check() && Auth::user()->role === 'admin')
-        <li>
-          <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">Usuários</a>
-        </li>
-      @endif
+            <li>
+              <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">Usuários</a>
+            </li>
+            @endif
 
             <li>
               <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
