@@ -8,9 +8,9 @@ label {
   background-color: #fff;
   border: 1px solid #aaa;
   border-radius: 4px;
-
   transition: all .2s;
   width: 100%;
+  box-shadow: 3px 4px 3px #dee2e6;
 }
 
 .input-custom-disabled {
@@ -22,6 +22,7 @@ label {
   transition: all .2s;
   width: 100%;
   color: #535353;
+  box-shadow: 3px 4px 3px #dee2e6;
 }
 
 .custom-border {
@@ -34,14 +35,14 @@ label {
   background-color: #fff !important;
   border: 1px solid #aaa !important;
   border-radius: 4px !important;
-
+  box-shadow: 3px 4px 3px #dee2e6;
   transition: all .2s !important;
   width: 100% !important;
 }
 
 .input-custom:hover, .form-select:hover {
-  border: 1px solid #7c7c7c;
-  box-shadow: 0 1px 3px #aaa;
+  border: 1px solid #aaa;
+  /* box-shadow: 0 1px 3px #aaa; */
 }
 
 .input-custom:focus {
