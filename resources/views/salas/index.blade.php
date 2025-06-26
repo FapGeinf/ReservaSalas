@@ -91,7 +91,16 @@
                                             <td class="td-bg border-none align-middle text-center">
                                                 @if ($sala->cor)
                                                     <span
-                                                    style="display: inline-block; width: 25px; height: 25px; border-radius: 4px; background-color: {{ $sala->cor }}; border: 1px solid #ccc;"></span>
+                                                        style="
+                                                            display: inline-block;
+                                                            width: 25px;
+                                                            height: 25px;
+                                                            border-radius: 4px;
+                                                            background-color: {{ $sala->cor }};
+                                                            border: 1px solid #ccc;
+                                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                                                            ">
+                                                    </span>
                                                 @else
                                                     <span class="text-muted">—</span>
                                                 @endif
