@@ -88,7 +88,7 @@
                                                 {{-- <x-status-indicator-green /> --}}
                                             </td>
 
-                                            <td class="td-bg border-none align-middle text-center">
+                                            <td class="td-bg border-none align-middle text-center pointer">
                                                 @if ($sala->cor)
                                                     <span
                                                         style="
@@ -97,10 +97,10 @@
                                                             height: 25px;
                                                             border-radius: 4px;
                                                             background-color: {{ $sala->cor }};
-                                                            border: 1px solid #ccc;
                                                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-                                                            ">
+                                                        ">
                                                     </span>
+                                                    
                                                 @else
                                                     <span class="text-muted">—</span>
                                                 @endif
