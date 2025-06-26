@@ -476,6 +476,7 @@ background-color: #f0be3f;
 
 .modal-content {
   border-radius: 8px !important;
+  border: 1px solid #dee2e6;
 }
 
 .modal-footer {
