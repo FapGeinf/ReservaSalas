@@ -43,8 +43,7 @@
                 <div class="box__no-border no-margin-bottom title-bg pb-0 mb-0"
                     style="
                         border-top-left-radius: 8px;
-                        border-top-right-radius: 8px;
-                    ">
+                        border-top-right-radius: 8px;">
                     <h3 class="text-center text-uppercase fs-20 fw-bold">Lista de Salas</h3>
                 </div>
             </div>
