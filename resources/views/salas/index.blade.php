@@ -90,17 +90,15 @@
 
                                             <td class="td-bg border-none align-middle text-center pointer">
                                                 @if ($sala->cor)
-                                                    <span
-                                                        style="
+                                                    <span style="
                                                             display: inline-block;
                                                             width: 25px;
                                                             height: 25px;
                                                             border-radius: 4px;
                                                             background-color: {{ $sala->cor }};
-                                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-                                                        ">
+                                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
                                                     </span>
-                                                    
+
                                                 @else
                                                     <span class="text-muted">—</span>
                                                 @endif
