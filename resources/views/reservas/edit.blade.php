@@ -12,7 +12,6 @@
 @section('title') {{ 'Editar Reserva' }} @endsection
 
 <div class="form-custom no-border-bottom form-no-bottom mt-5">
-
   <h5 class="fw-bold text-center text-uppercase underline-title mb-5">Editar Reserva</h5>
 
   <form id="form-edit" action="{{ route('reservas.update', $reserva->id) }}" method="POST">
@@ -30,17 +29,17 @@
       </select>
     </div>
 
-    <div class="form-line">
+    <div class="form-line mt-4">
       <label for="data_inicio" class="fw-bold fs-16">Data:</label>
       <input type="date" name="data_inicio" id="data_inicio" class="input-custom pointer" value="{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('Y-m-d') }}" required>
     </div>
 
-    <div class="form-line">
+    <div class="form-line mt-4">
       <label for="hora_inicio" class="fw-bold fs-16">Hora Início:</label>
       <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" value="{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i') }}" required>
     </div>
 
-    <div class="form-line">
+    <div class="form-line mt-4">
       <label for="data_fim" class="fw-bold fs-16">Hora Término:</label>
       <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" value="{{ \Carbon\Carbon::parse($reserva->data_fim)->format('H:i') }}" required>
     </div>

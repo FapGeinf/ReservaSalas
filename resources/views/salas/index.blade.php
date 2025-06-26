@@ -24,8 +24,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     title: 'Sucesso!',
-                    text: '{{ session('
-                                                    success ') }}',
+                    text: '{{ session('success ') }}',
                     icon: 'success',
                     confirmButtonText: 'Fechar',
                     customClass: {
@@ -41,7 +40,11 @@
     <div class="mx-auto form_create">
         <div class="row justify-content-center">
             <div class="col">
-                <div class="box__no-border no-margin-bottom title-bg pb-0 mb-0">
+                <div class="box__no-border no-margin-bottom title-bg pb-0 mb-0"
+                    style="
+                        border-top-left-radius: 8px;
+                        border-top-right-radius: 8px;
+                    ">
                     <h3 class="text-center text-uppercase fs-20 fw-bold">Lista de Salas</h3>
                 </div>
             </div>
@@ -217,7 +220,13 @@
 
 <div class="p-30__no-top">
     <div class="mx-auto form_create__no-border">
-        <div class="box__no-border no-margin-bottom" style="background-color: #f1f1f1;">
+        <div class="box__no-border no-margin-bottom"
+            style="
+                background-color: #f1f1f1;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            ">
+
             <a href="#" class="button-blue text-decoration-none float-end"
                 data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
                 Nova Sala
