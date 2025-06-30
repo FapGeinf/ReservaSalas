@@ -165,7 +165,7 @@
                         <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="diaInteiro">
-                                <label class="form-check-label" for="diaInteiro">Dia inteiro</label>
+                                <label class="form-check-label fw-bold" for="diaInteiro">Dia inteiro</label>
                             </div>
                         </div>
                     </div>

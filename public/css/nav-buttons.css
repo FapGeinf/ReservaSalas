@@ -10,8 +10,8 @@ a.nav-buttons {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
   background-color: #f1f1f1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
 
 .nav-buttons:hover,

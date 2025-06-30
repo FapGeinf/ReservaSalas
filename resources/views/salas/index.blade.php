@@ -87,15 +87,16 @@
                                                 {{-- <x-status-indicator-green /> --}}
                                             </td>
 
-                                            <td class="td-bg border-none align-middle text-center pointer">
+                                            <td class="td-bg border-none align-middle text-center">
                                                 @if ($sala->cor)
                                                     <span style="
                                                             display: inline-block;
-                                                            width: 25px;
+                                                            width: 45px;
                                                             height: 25px;
+                                                            border: 1px solid #aaa;
                                                             border-radius: 4px;
                                                             background-color: {{ $sala->cor }};
-                                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+                                                           ">
                                                     </span>
 
                                                 @else
@@ -127,11 +128,11 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                                                             </div>
 
-                                                            <div class="modal-body text-start">
+                                                            <div class="modal-body" style="font-size: 1.05rem; padding-bottom: 3rem;">
                                                                 Tem certeza de que deseja excluir a sala "<span class="text-nowrap bg-body-secondary border">{{ $sala->nome }}</span>"?
                                                             </div>
 
-                                                            <div class="modal-footer">
+                                                            <div class="modal-footer" style="background-color: #f1f1f1; border-top: none;">
                                                                 <button type="button" class="button-grey"
                                                                     data-bs-dismiss="modal">Cancelar</button>
                                                                 <!-- Botão de Confirmação (Submete o Formulário) -->
@@ -159,11 +160,11 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
 
-                                                    <div class="modal-body">
-                                                        <form action="{{ route('salas.update', $sala) }}" method="POST">
+                                                    <div class="modal-body" style="padding-bottom: 3rem;">
+                                                        <form id="form-sala-{{ $sala->id }}" action="{{ route('salas.update', $sala) }}" method="POST" class="">
                                                             @csrf
                                                             @method('PUT')
-                                                            <div class="">
+                                                            <div>
                                                                 <label for="nome{{ $sala->id }}" class="fw-bold fs-16">Sala:</label>
                                                                 <input type="text" name="nome" id="nome{{ $sala->id }}" class="input-custom" value="{{ $sala->nome }}" required>
                                                             </div>
@@ -173,22 +174,10 @@
                                                                 <input type="text" name="descricao" id="descricao{{ $sala->id }}" class="input-custom" value="{{ $sala->descricao }}" required>
                                                             </div>
 
-                                                            <!-- <div class="mt-4 col-5">
-                                                                <label for="situacao{{ $sala->id }}"
-                                                                    class="fw-bold fs-16">Situação:</label>
-                                                                <select name="situacao" id="situacao{{ $sala->id }}"
-                                                                    class="form-select" required>
-                                                                    <option disabled selected>Selecione uma opção</option>
-                                                                    <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
-                                                                    <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
-                                                                </select>
-                                                            </div> -->
-
                                                             <div class="row mt-4">
                                                                 <div class="col-md-6">
                                                                     <label for="situacao{{ $sala->id }}" class="fw-bold fs-16">Situação:</label>
-                                                                    <select name="situacao" id="situacao{{ $sala->id }}"
-                                                                        class="form-select input-custom pointer" required>
+                                                                    <select name="situacao" id="situacao{{ $sala->id }}" class="form-select input-custom pointer" required>
                                                                         <option disabled selected>Selecione uma opção</option>
                                                                         <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
                                                                         <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
@@ -197,18 +186,18 @@
 
                                                                 <div class="col-md-6">
                                                                     <label for="cor{{ $sala->id }}" class="fw-bold fs-16">Cor da Sala:</label>
-                                                                    <input type="color" name="cor" id="cor{{ $sala->id }}"
-                                                                        class="form-control input-custom"
-                                                                        value="{{ $sala->cor ?? '#ffffff' }}">
+                                                                    <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom" style="height: 42px;" value="{{ $sala->cor ?? '#ffffff' }}">
                                                                 </div>
                                                             </div>
-
-                                                            <div class="d-flex justify-content-end mt-4">
-                                                                <button type="submit" class="button-green">Salvar</button>
-                                                            </div>
-
                                                         </form>
                                                     </div>
+
+                                                    <div class="modal-footer" style="background-color: #f1f1f1; border-top: none !important;">
+                                                        <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">Cancelar</a>
+                                                        <button type="submit" class="button-green" form="form-sala-{{ $sala->id }}">Salvar</button>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
