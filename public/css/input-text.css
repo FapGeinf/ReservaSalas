@@ -13,16 +13,6 @@ label {
   box-shadow: 3px 3px 0px #dee2e6;
 }
 
-.input-custom:focus, .form-select:focus {
-  border: 1px solid #7c7c7c;
-  outline: 0;
-}
-
-.input-custom:hover, .form-select:hover {
-  border: 1px solid #aaa;
-  box-shadow: 2px 1px 0px #dee2e6;
-}
-
 .input-custom-disabled {
   display: block;
   padding: 8px 12px;
@@ -48,6 +38,30 @@ label {
   box-shadow: 3px 3px 0px #dee2e6;
   transition: all .2s !important;
   width: 100% !important;
+}
+
+.input-custom:hover, .form-select:hover {
+  border: 1px solid #aaa;
+  /* box-shadow: 0 1px 3px #aaa; */
+}
+
+.input-custom:focus {
+  color: #444;
+  border: 1px solid #7c7c7c;
+  /* background: #fff; */
+  outline: 0;
+}
+
+.form-select:focus {
+  color: #444;
+  border: 1px solid #7c7c7c;
+  outline: 0;
+}
+
+.form-select:focus {
+  color: #444;
+  border: 1px solid #7c7c7c;
+  outline: 0;
 }
 
 .fs-16 {
