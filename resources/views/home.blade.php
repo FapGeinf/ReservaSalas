@@ -120,7 +120,6 @@
 </div>
 @endif
 
-
 <!-- Modal de Reserva -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -814,7 +813,7 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="dataSelecionada" class="form-label">Selecione a Data:</label>
+                    <label for="dataSelecionada" class="fw-bold">Selecione a Data:</label>
                     <input type="date" id="dataSelecionada" class="input-custom">
                 </div>
 
