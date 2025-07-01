@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
@@ -16,6 +17,17 @@
     .fs-20 {
         font-size: 20px;
     }
+
+    .form-line-split select:first-child {
+        margin-left: 44px;
+    }
+
+    @media (max-width: 768px) {
+        .form-line-split input:first-child {
+            margin-left: 0px;
+        }
+    }
+
 </style>
 
 @push('scripts')
@@ -160,35 +172,47 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
 
-                                                    <div class="modal-body" style="padding-bottom: 3rem;">
-                                                        <form id="form-sala-{{ $sala->id }}" action="{{ route('salas.update', $sala) }}" method="POST" class="">
+                                                    <div class="modal-body pt-0" style="padding-bottom: 1rem;">
+                                                        <form id="form-sala-{{ $sala->id }}" action="{{ route('salas.update', $sala) }}" method="POST">
                                                             @csrf
                                                             @method('PUT')
-                                                            <div>
+
+                                                            <div class="form-line mt-4">
                                                                 <label for="nome{{ $sala->id }}" class="fw-bold fs-16">Sala:</label>
                                                                 <input type="text" name="nome" id="nome{{ $sala->id }}" class="input-custom" value="{{ $sala->nome }}" required>
                                                             </div>
 
-                                                            <div class="mt-4">
-                                                                <label for="descricao{{ $sala->id }}" class="fw-bold fs-16">Descrição/ Localização:</label>
+                                                            <div class="form-line mt-4">
+                                                                <label for="descricao{{ $sala->id }}" class="fw-bold fs-16">Descrição/<br>Localização:</label>
                                                                 <input type="text" name="descricao" id="descricao{{ $sala->id }}" class="input-custom" value="{{ $sala->descricao }}" required>
                                                             </div>
 
-                                                            <div class="row mt-4">
-                                                                <div class="col-md-6">
-                                                                    <label for="situacao{{ $sala->id }}" class="fw-bold fs-16">Situação:</label>
+                                                            <div class="form-line mt-4">
+                                                                <label class="fw-bold">Situação/<br>Cor da Sala:</label>
+
+                                                                <div class="form-line-split">
                                                                     <select name="situacao" id="situacao{{ $sala->id }}" class="form-select input-custom pointer" required>
-                                                                        <option disabled selected>Selecione uma opção</option>
                                                                         <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
                                                                         <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
                                                                     </select>
-                                                                </div>
 
-                                                                <div class="col-md-6">
-                                                                    <label for="cor{{ $sala->id }}" class="fw-bold fs-16">Cor da Sala:</label>
-                                                                    <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom" style="height: 42px;" value="{{ $sala->cor ?? '#ffffff' }}">
+                                                                    <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom pointer" style="height: 42px;" value="{{ $sala->cor ?? '#ffffff' }}">
                                                                 </div>
                                                             </div>
+
+                                                            {{-- <div class="form-line mt-4">
+                                                                <label for="situacao{{ $sala->id }}" class="fw-bold fs-16">Situação:</label>
+                                                                <select name="situacao" id="situacao{{ $sala->id }}" class="form-select input-custom pointer" required>
+                                                                    <option disabled selected>Selecione uma opção</option>
+                                                                    <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
+                                                                    <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
+                                                                </select>
+                                                            </div> --}}
+
+                                                            {{-- <div class="form-line mt-4">
+                                                                <label for="cor{{ $sala->id }}" class="fw-bold fs-16">Cor da Sala:</label>
+                                                                <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom pointer" style="height: 42px;" value="{{ $sala->cor ?? '#ffffff' }}">
+                                                            </div> --}}
                                                         </form>
                                                     </div>
 
@@ -196,7 +220,6 @@
                                                         <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">Cancelar</a>
                                                         <button type="submit" class="button-green" form="form-sala-{{ $sala->id }}">Salvar</button>
                                                     </div>
-
 
                                                 </div>
                                             </div>
@@ -250,38 +273,48 @@
                         </span>
                     </div>
 
-                    <div>
-                        <label for="nome" class="fw-bold">Sala <span class="span-warning">*</span>:</label>
-                        <input type="text" name="nome" id="nome" class="input-custom" required>
-                    </div>
+                    <form>
+                        <div class="form-line mt-3">
+                            <label for="nome" class="fw-bold">Sala <span class="span-warning">*</span>:</label>
+                            <input type="text" name="nome" id="nome" class="input-custom" required>
+                        </div>
 
-                    <div class="mt-3">
-                        <label for="descricao" class="fw-bold">Descrição/ Localização <span class="span-warning">*</span>:</label>
-                        <input type="text" name="descricao" id="descricao" class="input-custom" required>
-                    </div>
+                        <div class="form-line mt-3">
+                            <label for="descricao" class="fw-bold">Descrição/<br>Localização <span class="span-warning">*</span>:</label>
+                            <input type="text" name="descricao" id="descricao" class="input-custom" required>
+                        </div>
 
-                    <div class="col-12 mt-3">
-                        <label for="imagem" class="fw-bold">Imagem <span class="span-warning">*</span>:</label>
-                        <input type="file" name="imagem" id="imagem" class="input-custom" required>
-                    </div>
+                        <div class="form-line mt-3">
+                            <label for="imagem" class="fw-bold">Imagem <span class="span-warning">*</span>:</label>
+                            <input type="file" name="imagem" id="imagem" class="input-custom" required>
+                        </div>
 
-                    <div class="row mt-3">
-                        <div class="col-6">
+                        <div class="form-line mt-3">
+                            <label class="fw-bold fs-16">Situação/<br>Cor da Sala:<span class="span-warning">*</span>:</label>
+
+                            <div class="form-line-split">
+                                <select name="situacao" id="situacao" class="form-select input-custom pointer" required>
+                                    <option value="ativa">Ativa</option>
+                                    <option value="inativa">Inativa</option>
+                                </select>
+
+                                <input type="color" name="cor" id="cor" class="form-control input-custom pointer" style="height: 42px;" value="#3788d8">
+                            </div>
+                        </div>
+
+                        {{-- <div class="form-line mt-3">
                             <label for="situacao" class="fw-bold">Situação <span class="span-warning">*</span>:</label>
-                            <select name="situacao" id="situacao" class="form-select" required>
+                            <select name="situacao" id="situacao" class="form-select input-custom pointer" required>
                                 <option value="ativa">Ativa</option>
                                 <option value="inativa">Inativa</option>
                             </select>
                         </div>
 
-                        <div class="col-6 mb-3">
-                            <div class="">
-                                <label for="cor" class="fw-bold">Cor da Sala:</label>
-                                <input type="color" name="cor" id="cor" style="height: 42px;" class="input-custom form-control-color" value="#3788d8">
-                            </div>
-                        </div>
-                    </div> 
-
+                        <div class="form-line mt-3 mb-3">
+                            <label for="cor" class="fw-bold">Cor da Sala:</label>
+                            <input type="color" name="cor" id="cor" class="form-control input-custom pointer" style="height: 42px;" value="#3788d8">
+                        </div> --}}
+                    </form>
                 </div>
 
                 <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
@@ -289,7 +322,6 @@
                     <button type="submit" class="button-green">Salvar</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
