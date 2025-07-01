@@ -15,7 +15,7 @@
   }
 
   @media (max-width: 768px) {
-    form-line-split input:first-child {
+    .form-line-split input:first-child {
       margin-left: 0px;
     }
   }
