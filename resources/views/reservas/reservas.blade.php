@@ -305,7 +305,7 @@
                 Tem certeza que deseja excluir esta reserva?
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
                 <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
 
                 <form id="deleteForm" method="POST">

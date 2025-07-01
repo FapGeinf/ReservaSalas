@@ -128,7 +128,7 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                                                             </div>
 
-                                                            <div class="modal-body" style="font-size: 1.05rem; padding-bottom: 3rem;">
+                                                            <div class="modal-body" style="font-size: 1.05rem; padding-bottom: 1rem;">
                                                                 Tem certeza de que deseja excluir a sala "<span class="text-nowrap bg-body-secondary border">{{ $sala->nome }}</span>"?
                                                             </div>
 
@@ -282,11 +282,10 @@
                         </div>
                     </div> 
 
-                   
-
                 </div>
 
                 <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
+                    <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">Cancelar</a>
                     <button type="submit" class="button-green">Salvar</button>
                 </div>
             </form>

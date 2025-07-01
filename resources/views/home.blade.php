@@ -131,7 +131,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
+                <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm" class="mb-3">
                     @csrf
 
                     <input type="hidden" name="data_reserva" id="data_reserva">
