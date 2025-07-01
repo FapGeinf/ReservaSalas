@@ -231,71 +231,70 @@
 </div>
 
 <!-- Modal de Cadastro -->
-<div class="modal fade" id="cadastrarSalaModal" tabindex="-1" aria-labelledby="cadastrarSalaModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="cadastrarSalaModal" tabindex="-1" aria-labelledby="cadastrarSalaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title fw-bold" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="d-flex justify-content-center mt-1">
-                <span class="fst-italic" style="font-size: 14px; color: #374151;">Campos marcados com
-                    <span class="span-warning">*</span> são obrigatórios
-                </span>
-            </div>
+            <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data" class="mb-0">
+                @csrf
 
-            <div class="modal-body">
-                <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="">
-                        <label for="nome" class="fw-bold">Sala
-                            <span class="span-warning">*</span>:
-                        </label>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mt-1 mb-3">
+                        <span class="fst-italic" style="font-size: 14px; color: #374151;">
+                            Campos marcados com <span class="span-warning">*</span> são obrigatórios
+                        </span>
+                    </div>
+
+                    <div>
+                        <label for="nome" class="fw-bold">Sala <span class="span-warning">*</span>:</label>
                         <input type="text" name="nome" id="nome" class="input-custom" required>
                     </div>
 
-                    <div class="mt-4">
-                        <label for="descricao" class="fw-bold">Descrição/ Localização
-                            <span class="span-warning">*</span>:
-                        </label>
+                    <div class="mt-3">
+                        <label for="descricao" class="fw-bold">Descrição/ Localização <span class="span-warning">*</span>:</label>
                         <input type="text" name="descricao" id="descricao" class="input-custom" required>
                     </div>
 
-                    <div class="row mt-4">
-                        <div class="col-3">
-                            <label for="situacao" class="fw-bold">Situação<span class="span-warning">*</span>:</label>
+                    <div class="col-12 mt-3">
+                        <label for="imagem" class="fw-bold">Imagem <span class="span-warning">*</span>:</label>
+                        <input type="file" name="imagem" id="imagem" class="input-custom" required>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label for="situacao" class="fw-bold">Situação <span class="span-warning">*</span>:</label>
                             <select name="situacao" id="situacao" class="form-select" required>
                                 <option value="ativa">Ativa</option>
                                 <option value="inativa">Inativa</option>
                             </select>
                         </div>
 
-                        <div class="col-9">
-                            <label for="imagem" class="fw-bold">Imagem
-                                <span class="span-warning">*</span>:
-                            </label>
-                            <input type="file" name="imagem" id="imagem" class="input-custom" style="padding: 8px;" required>
+                        <div class="col-6 mb-3">
+                            <div class="">
+                                <label for="cor" class="fw-bold">Cor da Sala:</label>
+                                <input type="color" name="cor" id="cor" style="height: 42px;" class="input-custom form-control-color" value="#3788d8">
+                            </div>
                         </div>
-                    </div>
+                    </div> 
 
-                    <!-- NOVO CAMPO DE COR -->
-                    <div class="mt-4">
-                        <label for="cor" class="fw-bold">Cor da Sala:</label>
-                        <input type="color" name="cor" id="cor" class="form-control form-control-color" value="#3788d8">
-                    </div>
+                   
 
-                    <div class="text-end mt-4">
-                        <button type="submit" class="button-green fs-16" style="margin-right: 0 !important;">Salvar</button>
-                    </div>
+                </div>
 
-                </form>
-            </div>
+                <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
+                    <button type="submit" class="button-green">Salvar</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
+
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
