@@ -35,7 +35,7 @@
   <div class="tabela-main-page">
     <div class="d-flex justify-content-center fw-bold mb-4 align-items-center gap-2">
       <span class="title-meetings text-uppercase">Usuários Cadastrados</span>
-      <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none d-flex align-items-center justify-content-center">
+      <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none d-flex align-items-center justify-content-center" style="padding: 7px 9px;">
         <i class="fas fa-plus" style="font-size: 10px;"></i>
       </a>
     </div>
