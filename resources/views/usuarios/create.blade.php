@@ -2,72 +2,118 @@
 @section('title') {{ 'Cadastrar Novo Usuário' }} @endsection
 @section('content')
 
-    <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/salas.css') }}">
+<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
-    <style>
-        label {
-            font-size: 16px;
-        }
+<style>
+  .form-line-split input:first-child {
+    margin-left: 42px;
+  }
 
-        .input-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+  @media (max-width: 768px) {
+    .form-line-split input:first-child {
+      margin-left: 0px;
+    }
+  }
+</style>
 
-        .input-custom {
-            width: 100%;
-            padding-right: 40px;
-            /* Espaço para o ícone */
-        }
+<script>
+  function togglePassword(inputId, iconId) {
+    let passwordField = document.getElementById(inputId);
+    let eyeIcon = document.getElementById(iconId);
 
-        i {
-            position: absolute;
-            right: 10px;
-            cursor: pointer;
-            color: #666;
-        }
-    </style>
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
 
+    } else {
+      passwordField.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    }
+  }
+</script>
+
+@push('scripts')
+  @if(session('success'))
     <script>
-        function togglePassword(inputId, iconId) {
-            let passwordField = document.getElementById(inputId);
-            let eyeIcon = document.getElementById(iconId);
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordField.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
-            }
-        }
+      document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+          title: 'Sucesso!',
+          text: '{{ session('success') }}',
+          icon: 'success',
+          confirmButtonText: 'Fechar'
+        });
+      });
     </script>
+  @endif
+@endpush
 
+<div class="form-custom no-border-bottom form-no-bottom mt-5">
+  <h5 class="fw-bold text-center text-uppercase mb-3">
+    Novo Usuário
+  </h5>
 
+  <form id="new-user" method="POST" action="{{ route('usuarios.store') }}">
+    @csrf
+    
+    <div class="form-line mt-4">
+      <label for="name" class="fw-bold">Nome:</label>
+      <input type="text" class="input-custom" id="name" name="name" required>
+    </div>
 
-    @push('scripts')
-        @if(session('success'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        text: '{{ session('success') }}',
-                        icon: 'success',
-                        confirmButtonText: 'Fechar'
-                    });
-                });
-            </script>
-        @endif
-    @endpush
+    <div class="form-line mt-4">
+      <label for="email" class="fw-bold">Email:</label>
+      <input type="email" class="input-custom" id="email" name="email" required>
+    </div>
 
-    <div class="p-30__no-bottom">
+    <div class="form-line mt-4">
+      <label for="unidade_fk" class="fw-bold">Unidade:</label>
+      <select class="form-select pointer" id="unidade_fk" name="unidade_fk" required>
+        <option value="">Selecione a unidade</option>
+
+        @foreach($unidades as $unidade)
+          <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+        @endforeach
+      </select>
+    </div>
+
+    <div class="form-line mt-4">
+      <label class="fw-bold">Login/ Tipo de Usuário:</label>
+
+      <div class="form-line-split">
+        <input type="text" class="input-custom" id="login" name="login" required>
+
+        <select class="form-select pointer" id="role" name="role" required>
+          <option value="user">Usuário Comum</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-line mt-4">
+      <label class="fw-bold">Senha/ Repita a senha:</label>
+
+      <div class="form-line-split">
+        <input type="password" class="input-custom" id="password" name="password" required>
+        <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="form-custom no-border-top form-no-top pt-3">
+  <div class="d-flex justify-content-end pb-3">
+    <button type="submit" form="new-user" class="button-green">Cadastrar</button>
+  </div>
+</div>
+
+    {{-- <div class="p-30__no-bottom">
         <div class="mx-auto box-profile">
             <div class="row justify-content-center">
                 <div class="col position-relative">
@@ -88,35 +134,21 @@
                         <form method="POST" action="{{ route('usuarios.store') }}">
                             @csrf
 
-                            <!-- Nome -->
                             <div class="mb-3">
                                 <label for="name" class="fw-bold">Nome:</label>
                                 <input type="text" class="input-custom" id="name" name="name" required>
                             </div>
 
-                            <!-- Login -->
                             <div class="mb-3">
                                 <label for="login" class="fw-bold">Login:</label>
                                 <input type="text" class="input-custom" id="login" name="login" required>
                             </div>
 
-                            <!-- Email -->
                             <div class="mb-3">
                                 <label for="email" class="fw-bold">Email:</label>
                                 <input type="email" class="input-custom" id="email" name="email" required>
                             </div>
 
-                            <!-- CPF
-                            <div class="mb-3">
-                                <label for="cpf" class="fw-bold">CPF:</label>
-                                <input type="text" class="input-custom" id="cpf" name="cpf">
-                                @error('cpf')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div> -->
-
-
-                            <!-- Unidade -->
                             <div class="mb-3">
                                 <label for="unidade_fk" class="fw-bold">Unidade:</label>
                                 <select class="form-select" id="unidade_fk" name="unidade_fk" required>
@@ -135,8 +167,6 @@
                                 </select>
                             </div>
 
-
-                            <!-- Senha -->
                             <div class="mb-3">
                                 <label for="password" class="fw-bold">Senha:</label>
                                 <div class="input-container">
@@ -146,7 +176,6 @@
                                 </div>
                             </div>
 
-                            <!-- Confirmação de Senha -->
                             <div class="mb-3">
                                 <label for="password_confirmation" class="fw-bold">Confirme a Senha:</label>
                                 <div class="input-container">
@@ -167,7 +196,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection
 
