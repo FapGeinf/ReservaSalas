@@ -40,18 +40,16 @@
       </a>
     </div>
 
-
-
-    <table class="table-reservas table-striped" id="tableUsers">
+    <table class="table table-striped" id="tableUsers">
       <thead>
         <tr>
-          <th class="text-light">Id</th>
-          <th class="text-light">Nome</th>
-          <th class="text-light">Login</th>
-          <th class="text-light">Email</th>
-          <th class="text-light">Unidade</th>
-          <th class="text-light">Tipo de Usuário</th>
-          <th class="text-light">Opções</th>
+          <th class="text-light bg-color-dgreen align-middle">Id</th>
+          <th class="text-light bg-color-dgreen align-middle">Nome</th>
+          <th class="text-light bg-color-dgreen align-middle">Login</th>
+          <th class="text-light bg-color-dgreen align-middle">Email</th>
+          <th class="text-light bg-color-dgreen align-middle">Unidade</th>
+          <th class="text-light bg-color-dgreen align-middle">Tipo de Usuário</th>
+          <th class="text-light bg-color-dgreen align-middle">Opções</th>
         </tr>
       </thead>
 
