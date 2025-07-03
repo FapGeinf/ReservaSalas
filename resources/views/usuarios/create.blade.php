@@ -10,12 +10,22 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
-  .form-line-split input:first-child {
+  /* Removendo margem apenas para campos que não sejam senha */
+  .form-line-split > input:first-child {
     margin-left: 42px;
   }
 
+  .split-password {
+    margin-left: 54px;
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
-    .form-line-split input:first-child {
+    .form-line-split > input:first-child {
+      margin-left: 0px;
+    }
+
+    .split-password {
       margin-left: 0px;
     }
   }
@@ -99,11 +109,36 @@
     <div class="form-line mt-4">
       <label class="fw-bold">Senha/ Repita a senha:</label>
 
-      <div class="form-line-split">
-        <input type="password" class="input-custom" id="password" name="password" required>
-        <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>
+      <div class="form-line-split split-password">
+        <div style="position: relative;">
+          <input type="password" class="input-custom" id="password" name="password" placeholder="********" required>
+          <i id="eyePassword" class="fa fa-eye" 
+            style="
+            position: absolute;
+            top: 50%;
+            color: #374151;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;"
+            onclick="togglePassword('password', 'eyePassword')">
+          </i>
+        </div>
+
+        <div style="position: relative;">
+          <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" placeholder="********" required>
+          <i id="eyePasswordConfirmation" class="fa fa-eye"
+            style="position: absolute;
+            top: 50%;
+            color: #374151;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;"
+            onclick="togglePassword('password_confirmation', 'eyePasswordConfirmation')">
+          </i>
+        </div>
       </div>
     </div>
+
   </form>
 </div>
 
@@ -113,99 +148,13 @@
   </div>
 </div>
 
-    {{-- <div class="p-30__no-bottom">
-        <div class="mx-auto box-profile">
-            <div class="row justify-content-center">
-                <div class="col position-relative">
-                    <div class="box__no-border no-margin-bottom title-bg">
-                        <h3 class="text-center fw-bold">Cadastrar Novo Usuário</h3>
-                        <!-- Botão Fechar -->
-                        <a href="{{ route('usuarios.index') }}" class="btn-close position-absolute end-0 top-0 m-3"
-                            aria-label="Fechar"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mx-auto box-profile">
-            <div class="row justify-content-center">
-                <div class="col">
-                    <div class="box__no-border">
-                        <form method="POST" action="{{ route('usuarios.store') }}">
-                            @csrf
-
-                            <div class="mb-3">
-                                <label for="name" class="fw-bold">Nome:</label>
-                                <input type="text" class="input-custom" id="name" name="name" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="login" class="fw-bold">Login:</label>
-                                <input type="text" class="input-custom" id="login" name="login" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="fw-bold">Email:</label>
-                                <input type="email" class="input-custom" id="email" name="email" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="unidade_fk" class="fw-bold">Unidade:</label>
-                                <select class="form-select" id="unidade_fk" name="unidade_fk" required>
-                                    <option value="">Selecione a unidade</option>
-                                    @foreach($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="role" class="fw-bold">Tipo de Usuário:</label>
-                                <select class="form-select" id="role" name="role" required>
-                                    <option value="user">Usuário Comum</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password" class="fw-bold">Senha:</label>
-                                <div class="input-container">
-                                    <input type="password" class="input-custom" id="password" name="password" required>
-                                    <i id="eyeIconPassword" class="fas fa-eye"
-                                        onclick="togglePassword('password', 'eyeIconPassword')"></i>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="fw-bold">Confirme a Senha:</label>
-                                <div class="input-container">
-                                    <input type="password" class="input-custom" id="password_confirmation"
-                                        name="password_confirmation" required>
-                                    <i id="eyeIconConfirm" class="fas fa-eye"
-                                        onclick="togglePassword('password_confirmation', 'eyeIconConfirm')"></i>
-                                </div>
-                            </div>
-
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="button-green">
-                                    Cadastrar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
 @endsection
 
-<!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @if(session('cpf_error'))
-    <script>
-        var cpfErrorModal = new bootstrap.Modal(document.getElementById('cpfErrorModal'));
-        cpfErrorModal.show();
-    </script>
+  <script>
+    var cpfErrorModal = new bootstrap.Modal(document.getElementById('cpfErrorModal'));
+    cpfErrorModal.show();
+  </script>
 @endif
