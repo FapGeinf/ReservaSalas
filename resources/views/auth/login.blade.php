@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 
@@ -49,13 +49,22 @@
               <input type="text" class="input-custom" id="login" name="login" required>
             </div>
 
-            <div class="mt-3">
+            <div class="mt-3 position-relative">
               <label for="password" class="fw-bold">Senha:</label>
-              <input type="password" id="password" name="password" class="input-custom"
-                placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 
+              <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+
+              <i id="togglePassword" class="bi bi-eye-slash" 
+              style="
+                position: absolute;
+                top: 33px;
+                right: 10px;
+                cursor: pointer;
+                color: #374151;">
+              </i>
               <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
+
           </form>
 
           <div class="block mt-3">
@@ -80,22 +89,18 @@
   </div>
 
   <script>
-  function togglePassword(inputId, iconId) {
-    let passwordField = document.getElementById(inputId);
-    let eyeIcon = document.getElementById(iconId);
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
 
-    if (passwordField.type === "password") {
-      passwordField.type = "text";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
 
-    } else {
-      passwordField.type = "password";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
-    }
-  }
+    this.classList.toggle('bi-eye');
+    this.classList.toggle('bi-eye-slash');
+  });
 </script>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -108,33 +113,6 @@
         }
       }, 4000);
     });
-
-    // document.getElementById("togglePassword").addEventListener("click", function () {
-    //   let passwordField = document.getElementById("password");
-    //   let icon = this;
-
-    //   if (passwordField.type === "password") {
-    //     passwordField.type = "text";
-    //     icon.classList.remove("bi-eye-slash");
-    //     icon.classList.add("bi-eye");
-
-    //   } else {
-    //     passwordField.type = "password";
-    //     icon.classList.remove("bi-eye");
-    //     icon.classList.add("bi-eye-slash");
-    //   }
-    // });
-
-    // document.addEventListener("DOMContentLoaded", function () {
-    //   let form = document.getElementById("loginForm");
-
-    //   form.addEventListener("keypress", function (event) {
-    //     if (event.key === "Enter") {
-    //       event.preventDefault();
-    //       form.submit();
-    //     }
-    //   });
-    // });
   </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
