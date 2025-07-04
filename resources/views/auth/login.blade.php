@@ -29,7 +29,7 @@
 
       <!-- Lado Direito -->
       <div class="col-lg-6">
-        <div class="form-custom no-border-bottom form-no-bottom mt-5" style="max-width: 410px;">
+        <div class="form-custom no-border-bottom form-no-bottom-login mt-5">
           <div class="logo text-center mb-4">
             <img src="{{ asset('/img/logo-letras.png') }}" alt="Logo Agendaí">
           </div>
@@ -76,10 +76,9 @@
   
         </div>
 
-        <div class="form-custom no-border-top form-no-top pt-3" style="max-width: 410px;">
+        <div class="form-custom no-border-top form-no-top-login pt-3">
           <div class="d-flex justify-content-end gap-2 pb-3">
-            <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="button-grey text-decoration-none" target="_blank">Esqueci minha
-              senha!</a>
+            <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="button-grey text-decoration-none" target="_blank">Esqueceu sua senha?</a>
             <button type="submit" form="form-login" class="button-green">Entrar</button>
           </div>
         </div>
@@ -89,18 +88,17 @@
   </div>
 
   <script>
-  const togglePassword = document.getElementById('togglePassword');
-  const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
 
-  togglePassword.addEventListener('click', function () {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
 
-    this.classList.toggle('bi-eye');
-    this.classList.toggle('bi-eye-slash');
-  });
-</script>
-
+      this.classList.toggle('bi-eye');
+      this.classList.toggle('bi-eye-slash');
+    });
+  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
