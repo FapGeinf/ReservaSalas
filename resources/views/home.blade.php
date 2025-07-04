@@ -27,6 +27,14 @@
     .fc .fc-toolbar.fc-header-toolbar {
         margin-bottom: 1rem;
     }
+
+    .fc-timegrid-event {
+  border-radius: 6px;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
     /* .fc-timegrid-slot {
   background-color: #f8f9fa; /* ou qualquer cor que você quiser */
 
@@ -349,6 +357,8 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
         eventOverlap: true,
         timeZone: 'local',
         locale: 'pt-br',
+        eventOverlap: true,
+        eventMaxStack: true,
 
         hiddenDays: [0, 6], // Oculta domingo e sábado
 
