@@ -12,6 +12,9 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
   <title>Agendaí! | Seja bem-vindo</title>
 
@@ -25,87 +28,76 @@
       <div class="col-lg-6"></div>
 
       <!-- Lado Direito -->
-      <div class="col-lg-6 d-flex align-items-center justify-content-center right-side form-box">
-        <div class="form-2-wrapper">
-
+      <div class="col-lg-6">
+        <div class="form-custom no-border-bottom form-no-bottom mt-5" style="max-width: 410px;">
           <div class="logo text-center mb-4">
-            <img src="{{ asset('/img/logo-alone.png') }}" alt="Logo Agendaí">
+            <img src="{{ asset('/img/logo-letras.png') }}" alt="Logo Agendaí">
           </div>
 
-          <form method="POST" action="{{ route('login') }}">
+          <form id="form-login" method="POST" action="{{ route('login') }}">
             @csrf
 
             @if ($errors->has('login'))
-        <div class="alert alert-danger d-flex align-items-center shadow-sm rounded p-1" role="alert">
-          <i class="bi bi-exclamation-circle-fill me-1"></i>
-          <span>{{ $errors->first('login') }}</span>
-        </div>
-      @endif
-
-            <div class="mb-3 form-box">
-              <label for="login">Login:</label>
-
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
+              <div class="alert alert-danger d-flex align-items-center shadow-sm rounded p-1" role="alert">
+                <i class="bi bi-exclamation-circle-fill me-1"></i>
+                <span>{{ $errors->first('login') }}</span>
               </div>
+            @endif
+
+            <div>
+              <label class="fw-bold" for="login">Login:</label>
+              <input type="text" class="input-custom" id="login" name="login" required>
             </div>
 
-            <label for="password">Senha:</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input type="password" id="password" name="password" class="form-control"
-                placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
-
-              <span class="input-group-text">
-                <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
-              </span>
-            </div>
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-
-
-            <!-- <label for="password">Senha:</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input type="password" id="password" name="password" class="form-control"
+            <div class="mt-3">
+              <label for="password" class="fw-bold">Senha:</label>
+              <input type="password" id="password" name="password" class="input-custom"
                 placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 
               <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div> -->
+            </div>
+          </form>
 
-            <!-- Lembrar de Mim -->
-            <div class="block mt-0">
+          <div class="block mt-3">
               <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded" name="remember">
                 <span class="ml-1 text-sm">Lembrar de mim</span>
               </label>
             </div>
-
-            <div class="d-flex justify-content-center mt-3">
-              <button type="submit" class="button-blue">Entrar</button>
-            </div>
-            <form method="POST" action="{{ route('login') }}" id="loginForm">
-
-          </form>
-
-          <p class="mt-3">
-            <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a
-              senha?</a>
-          </p>
+  
         </div>
 
-
-        <!-- <div class="text-start register-link mt-4">
-            <a href="{{ route('password.request') }}" class="">Esqueceu a senha?</a>
-            <p class="mt-1">Primeira vez usando o Agendaí? <a href="{{ route('register') }}" class="">Cadastre-se</a></p>
-          </div> -->
+        <div class="form-custom no-border-top form-no-top pt-3" style="max-width: 410px;">
+          <div class="d-flex justify-content-end gap-2 pb-3">
+            <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="button-grey text-decoration-none" target="_blank">Esqueci minha
+              senha!</a>
+            <button type="submit" form="form-login" class="button-green">Entrar</button>
+          </div>
+        </div>
 
       </div>
     </div>
   </div>
 
   <script>
-    // Função para alternar o tempo do alerta de erro
+  function togglePassword(inputId, iconId) {
+    let passwordField = document.getElementById(inputId);
+    let eyeIcon = document.getElementById(iconId);
+
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+
+    } else {
+      passwordField.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    }
+  }
+</script>
+
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
         let alertElement = document.querySelector(".alert-danger");
@@ -114,46 +106,39 @@
           alertElement.style.opacity = "0";
           setTimeout(() => alertElement.remove(), 500);
         }
-      }, 4000); // 5 segundos
+      }, 4000);
     });
 
-    // Função para alternar a visibilidade da senha
-    document.getElementById("togglePassword").addEventListener("click", function () {
-        let passwordField = document.getElementById("password");
-        let icon = this;
+    // document.getElementById("togglePassword").addEventListener("click", function () {
+    //   let passwordField = document.getElementById("password");
+    //   let icon = this;
 
-        if (passwordField.type === "password") {
-            passwordField.type = "text"; // Mostra a senha
-            icon.classList.remove("bi-eye-slash");
-            icon.classList.add("bi-eye"); // Ícone de olho aberto
-        } else {
-            passwordField.type = "password"; // Oculta a senha
-            icon.classList.remove("bi-eye");
-            icon.classList.add("bi-eye-slash"); // Ícone de olho fechado
-        }
-    });
+    //   if (passwordField.type === "password") {
+    //     passwordField.type = "text";
+    //     icon.classList.remove("bi-eye-slash");
+    //     icon.classList.add("bi-eye");
 
-    // Enviar o formulário ao pressionar Enter
-    document.addEventListener("DOMContentLoaded", function () {
-        let form = document.getElementById("loginForm");
+    //   } else {
+    //     passwordField.type = "password";
+    //     icon.classList.remove("bi-eye");
+    //     icon.classList.add("bi-eye-slash");
+    //   }
+    // });
 
-        form.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Evita comportamento padrão
-                form.submit(); // Envia o formulário
-            }
-        });
-    });
-</script>
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   let form = document.getElementById("loginForm");
 
+    //   form.addEventListener("keypress", function (event) {
+    //     if (event.key === "Enter") {
+    //       event.preventDefault();
+    //       form.submit();
+    //     }
+    //   });
+    // });
+  </script>
 
-  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- jQuery Mask Plugin -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
-  </div>
 </body>
-
 </html>
