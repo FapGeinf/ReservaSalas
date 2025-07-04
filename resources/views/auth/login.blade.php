@@ -68,11 +68,11 @@
           </form>
 
           <div class="block mt-3">
-              <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded" name="remember">
-                <span class="ml-1 text-sm">Lembrar de mim</span>
-              </label>
-            </div>
+            <label for="remember_me" class="inline-flex items-center">
+              <input id="remember_me" type="checkbox" class="rounded" name="remember">
+              <span class="ml-1 text-sm">Lembrar de mim</span>
+            </label>
+          </div>
   
         </div>
 
