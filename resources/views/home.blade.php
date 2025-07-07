@@ -50,7 +50,7 @@
                 <!-- Mini calendário no topo -->
                 <div class="calendar-container w-100 border shadow-sm" style="height: 390px; background-color: #fff;">
                     <div class="text-center" style="margin-top: 13px;">
-                        <span class="fw-bold" style="color: #374151; font-size: 20px;">CALENDÁRIO MENSAL</span>
+                        <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
                     
                     <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
@@ -509,7 +509,12 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
         // Mini calendário (FullCalendar)
         window.miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
             initialView: 'dayGridMonth',
-            headerToolbar: false,
+            headerToolbar: {
+              left: '',
+              center: 'title',
+              right: ''
+            },
+
             locale: 'pt-br',
             dateClick: function(info) {
                 window.calendar.gotoDate(info.date);
