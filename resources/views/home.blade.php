@@ -42,13 +42,13 @@
 </style>
 
 <div class="pagina-container">
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap flex-lg-nowrap">
         <!-- Coluna esquerda: Mini calendário + Cards -->
-        <div class="col-md-3" style="min-width: 300px;">
-            <div class="salas-grid d-flex flex-column gap-2 h-100">
+        <div class="col-lg-3 col-12 mb-3">
+            <div class="salas-grid d-flex flex-column-reverse flex-lg-column gap-2 h-100">
 
                 <!-- Mini calendário no topo -->
-                <div class="calendar-container w-100 border shadow-sm" style="height: 390px; background-color: #fff;">
+                <div class="calendar-container w-100 border shadow-sm mb-3" style="background-color: #fff;">
                     <div class="text-center" style="margin-top: 13px;">
                         <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
@@ -69,8 +69,8 @@
                         elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
                 @endphp
 
-                <div class="sala-card {{ $classeBorda }}">
-                    <div class="sala-card-conteudo d-flex align-items-center" style="gap: 1rem;">
+                <div class="sala-card {{ $classeBorda }} w-100">
+                    <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                         <!-- Imagem à esquerda -->
                         <div style="flex: 0 0 100px;">
                             <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px; height: auto;">
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Coluna direita: Calendário principal -->
-        <div class="col-md-9 px-3">
+        <div class="col-lg-9 col-12 px-lg-3">
             <div class="caixa-calendario">
                 <div class="area-calendario">
                     <div id="calendar" class="calendar-container" style="margin-top: 15px;"></div>
@@ -121,6 +121,7 @@
         </div>
     </div>
 </div>
+
           
 @if (session('error'))
 <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
@@ -208,8 +209,7 @@
 
         <div class="modal-content p-30__no-bottom">
             <div class="modal-header border-0 p-2 justify-content-end">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Fechar"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
 
             <div class="mx-auto form_create-800">

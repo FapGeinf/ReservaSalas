@@ -124,9 +124,9 @@
   font-style: italic;
 }
 
-.calendar-container {
+/* .calendar-container {
   height: 753px;
-}
+} */
 
 /* Caixa da Tabela */
 .caixa-tabela {
@@ -177,50 +177,23 @@ th {
   /* width: calc(25% - 15px); */
 }
 
-/* 3 por linha até 1366px */
-@media (max-width: 1366px) {
-  .sala-card {
-    width: calc(33.333% - 14px);
-  }
-}
-
-/* 2 por linha até 1050px */
-@media (max-width: 1050px) {
-  .sala-card {
-    width: calc(50% - 10px);
-  }
-}
-
-/* 2 por linha com layout compacto até 768px */
-@media (max-width: 768px) {
-  .sala-card {
-    width: calc(50% - 10px);
-  }
-
-  .sala-card-conteudo {
+/* @media (max-width: 1200px) {
+  .pagina-container .d-flex {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
   }
 
-  .imagem-sala {
-    width: 100px;
-    height: 75px;
+  .col-lg-3,
+  .col-lg-9 {
+    max-width: 100% !important;
+    flex: 0 0 100%;
   }
 
-  .titulo-sala {
-    font-size: 14px;
-    /* margin-bottom: 6px; */
+  .sala-card {
+    width: 100%;
   }
 
-  .botao-reservar,
-  .button-grey {
-    font-size: 13px;
-    padding: 6px 12px;
+  .calendar-container {
+    width: 100% !important;
   }
+} */
 
-  .sala-info {
-    align-items: center;
-  }
-}
