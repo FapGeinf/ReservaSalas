@@ -15,6 +15,15 @@
   max-width: 570px;
 }
 
+.form-no-bottom-register {
+  background-color: #ffffff;
+  padding: 25px 25px 25px 25px;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
 .form-no-bottom-login {
   background-color: #ffffff;
   padding: 25px 25px 25px 25px;
@@ -31,6 +40,15 @@
   box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 570px;
+}
+
+.form-no-top-register {
+  background-color: #f1f1f1;
+  padding: 0px 25px 5px 25px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
 .form-no-top-login {
@@ -86,6 +104,24 @@
   border-radius: 4px;
   color: #535353;
 }
+
+.form-line-vertical {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-line-vertical label {
+  margin-bottom: 4px; /* Ajuste conforme precisar */
+  font-weight: bold;
+}
+
+.form-line-vertical input,
+.form-line-vertical select,
+.form-line-vertical textarea {
+  flex: none; /* Remove o flex: 1 herdado */
+}
+
 
 .no-border-bottom {
   border-left: 1px solid #dee2e6;

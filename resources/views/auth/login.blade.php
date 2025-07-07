@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
   <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
-  <title>Agendaí! | Seja bem-vindo</title>
+  <title>Agendaí! | Bem-vindo</title>
 
 </head>
 
