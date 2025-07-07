@@ -63,7 +63,8 @@
            
             <div class="mt-3">
               <label for="cpf" class="fw-bold">CPF:</label>
-              <input type="text" id="cpf" name="cpf" class="input-custom" required placeholder="000.000.000-00">
+              <!-- <input type="text" id="cpf" name="cpf" class="input-custom" required placeholder="000.000.000-00"> -->
+               <input type="text" id="cpf" name="cpf" class="input-custom" placeholder="000.000.000-00">
             </div>
 
             <div class="mt-3">

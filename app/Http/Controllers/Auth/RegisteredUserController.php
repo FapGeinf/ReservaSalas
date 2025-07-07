@@ -37,16 +37,10 @@ class RegisteredUserController extends Controller
             'login' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'cpf' => 'required|string|max:14|unique:users', // Validação do CPF
+            'cpf' => 'nullable|string|max:14|unique:users', // Validação do CPF, opcional
             'unidade_fk' => 'required|exists:unidades,id'
         ]);
 
-        // Tentativa de autenticação
-    if (!Auth::attempt(['login' => $request->login, 'password' => $request->password])) {
-        return back()->withErrors([
-            'login' => 'Usuário ou senha incorretos.',
-        ]);
-    }
         $user = User::create([
             'name' => $request->name,
             'login' => $request->login,
