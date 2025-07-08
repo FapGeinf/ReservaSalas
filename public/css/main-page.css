@@ -186,6 +186,12 @@ th {
   width: 100%;
 }
 
+.calendar-container {
+  border-radius: 8px !important;
+  overflow: hidden; /* para garantir que conteúdo interno também respeite o arredondado */
+}
+
+
 @media (max-width: 991px) {
   .salas-grid {
     flex-direction: row;

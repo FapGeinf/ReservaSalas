@@ -95,9 +95,6 @@
                     
                     <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
                 </div>
-
-                
-
             </div>
         </div>
 
