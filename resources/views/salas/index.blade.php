@@ -263,7 +263,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data" class="mb-0">
+            <form id="form-save" action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data" class="mb-0">
                 @csrf
 
                 <div class="modal-body">
@@ -319,7 +319,7 @@
 
                 <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
                     <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">Cancelar</a>
-                    <button type="submit" class="button-green">Salvar</button>
+                    <button form="form-save" type="submit" class="button-green">Salvar</button>
                 </div>
             </form>
         </div>
