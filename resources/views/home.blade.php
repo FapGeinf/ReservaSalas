@@ -29,32 +29,18 @@
     }
 
     .fc-timegrid-event {
-  border-radius: 6px;
-  padding: 2px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border: none;
-}
-
-    /* .fc-timegrid-slot {
-  background-color: #f8f9fa; /* ou qualquer cor que você quiser */
-
-
+        border-radius: 6px;
+        padding: 2px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        border: none;
+    }
 </style>
 
 <div class="pagina-container">
     <div class="d-flex flex-wrap flex-lg-nowrap">
         <!-- Coluna esquerda: Mini calendário + Cards -->
         <div class="col-lg-3 col-12 mb-3">
-            <div class="salas-grid d-flex flex-column-reverse flex-lg-column gap-2 h-100">
-
-                <!-- Mini calendário no topo -->
-                <div class="calendar-container w-100 border shadow-sm mb-3" style="background-color: #fff;">
-                    <div class="text-center" style="margin-top: 13px;">
-                        <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
-                    </div>
-                    
-                    <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
-                </div>
+            <div class="salas-grid d-flex flex-lg-column gap-2 h-100">
 
                 <!-- Cards -->
                 @foreach($salas as $sala)
@@ -69,7 +55,7 @@
                         elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
                 @endphp
 
-                <div class="sala-card {{ $classeBorda }} w-100">
+                <div class="sala-card {{ $classeBorda }} width-100">
                     <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                         <!-- Imagem à esquerda -->
                         <div style="flex: 0 0 100px;">
@@ -101,6 +87,17 @@
                 </div>
                 @endforeach
 
+                <!-- Mini calendário no topo -->
+                <div class="calendar-container w-100 border shadow-sm" style="background-color: #fff;">
+                    <div class="text-center" style="margin-top: 13px;">
+                        <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
+                    </div>
+                    
+                    <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
+                </div>
+
+                
+
             </div>
         </div>
 
@@ -108,7 +105,7 @@
         <div class="col-lg-9 col-12 px-lg-3">
             <div class="caixa-calendario">
                 <div class="area-calendario">
-                    <div id="calendar" class="calendar-container" style="margin-top: 15px;"></div>
+                    <div id="calendar" class="calendar-container main-calendar" style="margin-top: 15px;"></div>
                 </div>
               
                 <div class="mt-1">
