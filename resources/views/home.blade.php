@@ -59,7 +59,7 @@
                     <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                         <!-- Imagem à esquerda -->
                         <div style="flex: 0 0 100px;">
-                            <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px; height: auto;">
+                            <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px;">
                         </div>
 
                         <!-- Nome e estado ao centro -->
