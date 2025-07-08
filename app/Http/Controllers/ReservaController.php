@@ -239,7 +239,8 @@ class ReservaController extends Controller
             $events[] = [
                 $events[] = [
     'id' => $reserva->id,
-    'title' => $reserva->sala->nome,
+    // 'title' => $reserva->sala->nome,
+    'title' => $reserva->sala?->nome,
     'start' => Carbon::parse($reserva->data_inicio)->format('Y-m-d\TH:i:s'),
     'end' => Carbon::parse($reserva->data_fim)->format('Y-m-d\TH:i:s'),
     'backgroundColor' => $backgroundColor,
