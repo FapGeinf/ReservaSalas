@@ -77,6 +77,7 @@
                                     <span class="nome-sala-full">{{ $sala->nome }}</span>
                                     <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
                                 </span>
+                                
                                 @if($situacao === 'inativa')
                                     <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
                                 @else

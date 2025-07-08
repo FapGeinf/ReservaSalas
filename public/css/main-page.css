@@ -204,6 +204,16 @@ th {
   
 }
 
+@media (max-width: 1420px) {
+  .nome-sala-full {
+    display: none !important;
+  }
+  .nome-sala-short {
+    display: inline !important;
+  }
+}
+
+
 @media (max-width: 767px) {
   .nome-sala-full {
     display: none !important;
