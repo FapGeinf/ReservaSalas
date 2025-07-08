@@ -50,9 +50,17 @@
                     $classeBorda = '';
 
                     if (str_contains($nomeSala, 'aquário')) $classeBorda = 'border-aquário';
-                        elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
-                        elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
-                        elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
+                    elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
+                    elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
+                    elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
+
+                    // Nome reduzido
+                    $nomeCurto = $sala->nome;
+                    if (str_contains($nomeSala, 'auditório tauató')) {
+                        $nomeCurto = 'Tauató';
+                    } elseif (str_contains($nomeSala, 'presidência')) {
+                        $nomeCurto = 'Pres.';
+                    }
                 @endphp
 
                 <div class="sala-card {{ $classeBorda }} width-100">
@@ -65,7 +73,10 @@
                         <!-- Nome e estado ao centro -->
                         <div class="flex-grow-1">
                             <div class="titulo-sala">
-                                <span class="text-uppercase fw-semibold d-block">{{ $sala->nome }}</span>
+                                <span class="text-uppercase fw-semibold d-block">
+                                    <span class="nome-sala-full">{{ $sala->nome }}</span>
+                                    <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
+                                </span>
                                 @if($situacao === 'inativa')
                                     <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
                                 @else
@@ -86,6 +97,7 @@
                     </div>
                 </div>
                 @endforeach
+
 
                 <!-- Mini calendário no topo -->
                 <div class="calendar-container w-100 border shadow-sm" style="background-color: #fff;">
