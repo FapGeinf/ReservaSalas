@@ -192,6 +192,7 @@
 
                                                                 <div class="form-line-split">
                                                                     <select name="situacao" id="situacao{{ $sala->id }}" class="form-select input-custom pointer" required>
+                                                                        <option selected disabled>Selecione</option>
                                                                         <option value="ativa" {{ $sala->situacao === 'ativa' ? 'selected' : '' }}>Ativa</option>
                                                                         <option value="inativa" {{ $sala->situacao === 'inativa' ? 'selected' : '' }}>Inativa</option>
                                                                     </select>
