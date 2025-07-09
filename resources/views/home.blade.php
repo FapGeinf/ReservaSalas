@@ -231,7 +231,7 @@
                     <input type="hidden" name="_method" value="PUT">
 
                     <div class="text-center">
-                        <span id="reserva-numero" class="fw-semibold" style="color: #374151;"></span>
+                        <span id="reserva-numero" class="fw-semibold text-nowrap bg-body-secondary border" style="color: #374151;"></span>
                     </div>
 
                     <div class="row mb-4">
