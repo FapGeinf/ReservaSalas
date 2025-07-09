@@ -112,9 +112,12 @@
                         <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     
                     <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 
 
@@ -125,6 +128,9 @@
                     
                     <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 </div>
 
@@ -313,6 +319,7 @@
             </div>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <div class="modal-body">
                 <div class="row pb-3">
                     <div class="col-5">
@@ -324,6 +331,8 @@
                         <label class="fw-bold">Unidade:</label>
                         <span id="detalheUnidade" class="input-custom-disabled"></span>
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 <<<<<<< HEAD
                                         <div class="row g-3">
@@ -389,6 +398,9 @@
                         <label class="fw-bold">Unidade:</label>
                         <span id="detalheUnidade" class="input-custom-disabled"></span>
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     </div>
                 </div>
@@ -535,10 +547,13 @@ function toggleDropdown(button) {
 
 <script>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var miniCalendarEl = document.getElementById('miniCalendar');
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 <<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function() {
@@ -554,6 +569,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var miniCalendarEl = document.getElementById('miniCalendar');
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
         window.calendar = new FullCalendar.Calendar(calendarEl, {
@@ -585,7 +603,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nomeSala = arg.event.title || '';
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 <<<<<<< HEAD
         hiddenDays: [0, 6], // Oculta domingo e sábado
@@ -701,20 +722,32 @@ document.addEventListener('DOMContentLoaded', function() {
 =======
 =======
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
                 return {
                     html: `
                     <div style="font-size: .9rem; color: #394151;">
+=======
+                return {
+                    html: `
+                    <div style="font-size: .9rem;">
+>>>>>>> Stashed changes
                         <span class="fw-bold text-uppercase">${nomeSala}</span><br>
                         <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
                         ${horaInicio} - ${horaFim}<br>
                         ${unidade}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
 =======
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     </div>
                     `
@@ -727,7 +760,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 eventEnd.setHours(0, 0, 0, 0);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 <<<<<<< HEAD
                     document.getElementById('excluirReservaSwal')
@@ -742,6 +778,9 @@ document.addEventListener('DOMContentLoaded', function() {
 =======
 =======
 >>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 if (eventEnd < today) {
                     info.el.style.opacity = '0.4';
