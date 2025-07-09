@@ -104,7 +104,8 @@
                 @endforeach
 
                 <!-- Mini calendário no topo -->
-                <div class="calendar-container w-100 border shadow-sm" style="background-color: #fff;">
+                <div class="calendar-container w-100 border shadow-sm flex-grow-1 d-flex flex-column" style="background-color: #fff;">
+
                     <div class="text-center" style="margin-top: 13px;">
                         <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
