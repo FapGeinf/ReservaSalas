@@ -103,7 +103,6 @@
                 </div>
                 @endforeach
 
-
                 <!-- Mini calendário no topo -->
                 <div class="calendar-container w-100 border shadow-sm" style="background-color: #fff;">
                     <div class="text-center" style="margin-top: 13px;">
@@ -133,7 +132,6 @@
     </div>
 </div>
 
-          
 @if (session('error'))
 <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
     {{ session('error') }}

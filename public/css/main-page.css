@@ -191,6 +191,33 @@ th {
   overflow: hidden; /* para garantir que conteúdo interno também respeite o arredondado */
 }
 
+@media (max-width: 1420px) {
+  .nome-sala-full {
+    display: none !important;
+  }
+  .nome-sala-short {
+    display: inline !important;
+  }
+
+  .titulo-sala {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 1045px) {
+  .titulo-sala {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 767px) {
+  .nome-sala-full {
+    display: none !important;
+  }
+  .nome-sala-short {
+    display: inline !important;
+  }
+}
 
 @media (max-width: 991px) {
   .salas-grid {
@@ -202,23 +229,7 @@ th {
     width: 48%;
   }
   
-}
-
-@media (max-width: 1420px) {
-  .nome-sala-full {
-    display: none !important;
-  }
-  .nome-sala-short {
-    display: inline !important;
-  }
-}
-
-
-@media (max-width: 767px) {
-  .nome-sala-full {
-    display: none !important;
-  }
-  .nome-sala-short {
-    display: inline !important;
+  .titulo-sala {
+    font-size: 19px;
   }
 }
