@@ -41,7 +41,7 @@
         <!-- Coluna esquerda: Mini calendário + Cards -->
         <div class="col-lg-3 col-12 mb-3">
             <div class="salas-grid d-flex flex-lg-column gap-2 h-100">
-
+            
                 <!-- Cards -->
                 @foreach($salas as $sala)
                 @php
@@ -63,7 +63,11 @@
                     }
                 @endphp
 
-                <div class="sala-card {{ $classeBorda }} width-100">
+                <!-- <div class="sala-card {{ $classeBorda }} width-100"> -->
+                       <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
+
+
+
                     <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                         <!-- Imagem à esquerda -->
                         <div style="flex: 0 0 100px;">
