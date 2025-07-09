@@ -105,13 +105,13 @@
 
                 <!-- Mini calendário no topo -->
                 <div class="calendar-container w-100 border shadow-sm flex-grow-1 d-flex flex-column" style="background-color: #fff;">
-
                     <div class="text-center" style="margin-top: 13px;">
                         <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
                     
-                    <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
+                    <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
                 </div>
+
             </div>
         </div>
 
