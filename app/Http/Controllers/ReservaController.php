@@ -108,14 +108,26 @@ class ReservaController extends Controller
         }
 
 
+        // Protege a sala Aquário
+if (str_contains(strtolower($sala->nome), 'aquário')) {
+    // Verifica se o usuário logado NÃO é admin
+    if (auth()->user()->role !== 'admin') {
+        return back()->with('error', 'A sala Aquário só pode ser reservada por administradores para uso de pesquisadores.');
+    }
+}
+
+
+
         // Criar a reserva
         $reserva = Reserva::create([
-            'sala_fk' => $salaId,
-            'data_inicio' => $dataInicio,
-            'data_fim' => $dataFim,
-            'user_id' => auth()->id(),
-            'unidade_fk' => auth()->user()->unidade_fk,
-        ]);
+    'sala_fk' => $salaId,
+    'data_inicio' => $dataInicio,
+    'data_fim' => $dataFim,
+    'user_id' => auth()->id(),
+    'unidade_fk' => auth()->user()->unidade_fk,
+    'finalidade' => $request->input('tipo_reserva'), // <- Aqui!
+]);
+
 
         // Resposta para requisições AJAX
         if ($request->ajax()) {

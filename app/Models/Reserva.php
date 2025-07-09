@@ -17,6 +17,7 @@ class Reserva extends Model
         'sala_fk',
         'user_id',
         'unidade_fk',
+        'finalidade', // Tipo de reserva: interno ou pesquisador
          ];
 
     public function sala()
