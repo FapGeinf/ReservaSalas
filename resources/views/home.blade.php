@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
+<link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -198,6 +199,7 @@
     </div>
 </div>
 
+{{-- 
 <!-- Modal de Detalhes da Reserva -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="toastReserva" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -211,81 +213,146 @@
         </div>
 
     </div>
-</div>
+</div> --}}
 
 <!-- Modal de Edição de Reserva -->
 <div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-
-        <div class="modal-content p-30__no-bottom">
-            <div class="modal-header border-0 p-2 justify-content-end">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="modal-editar-reserva-label">Editar Reserva</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
 
-            <div class="mx-auto form_create-800">
-                <div class="row justify-content-center">
-                    <div class="col">
-                        <div class="box__no-border no-margin-bottom title-bg">
-                            <h3 class="text-center fw-bold">Editar Reserva</h3>
-                            <div class="text-center">
-                                <span id="reserva-numero" class="fs-19" style="color: #374151;"></span>
+            <div class="modal-body pb-4">
+                <form method="POST" id="form-editar-reserva">
+                    @csrf
+
+                    <input type="hidden" name="_method" value="PUT">
+
+                    <div class="text-center">
+                        <span id="reserva-numero" class="fw-semibold" style="color: #374151;"></span>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-7">
+                            <label for="sala_id" class="fw-bold">Sala:</label>
+                            <select name="sala_id" id="sala_id" class="form-select pointer" required>
+                                <!-- opções preenchidas via JavaScript -->
+                            </select>
+                        </div>
+
+                        <div class="col-5">
+                            <label for="data_inicio" class="fw-bold fs-16">Data:</label>
+                            <input type="date" name="data_inicio" id="data_inicio" class="input-custom pointer" required>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-end">
+
+                        <div class="col-4">
+                            <label for="hora_inicio" class="fw-bold fs-16">Hora Início:</label>
+                            <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" step="60" required>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="data_fim" class="fw-bold fs-16">Hora Término:</label>
+                            <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
+                        </div>
+
+                        <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="diaInteiro">
+                                <label class="form-check-label fw-bold" for="diaInteiro">Dia inteiro</label>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
+            </div>
 
-                <div class="mx-auto form_create__no-border-800">
-                    <div class="row justify-content-center">
-                        <div class="col">
-                            <div class="box__no-border">
-                                <div style="padding: 0 !important;">
-                                    <form method="POST" id="form-editar-reserva">
-                                        @csrf
-                                        <input type="hidden" name="_method" value="PUT">
+            <div class="modal-footer">
+                <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="form-editar-reserva" class="button-green">Salvar Alterações</button>
+            </div>
+                    
+        </div>
+    </div>
+</div>
+                   
+<!-- Modal Detalhes da Reserva -->
+<div class="modal fade" id="modalDetalhesReserva" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Detalhes da Reserva</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
 
-                                        <div class="row g-3">
-                                            <div class="col-12 col-md-6">
-                                                <label for="sala_id" class="fw-bold fs-16">Sala:</label>
-                                                <select name="sala_id" id="sala_id"
-                                                    class="form-select pointer" required>
-                                                    <!-- opções preenchidas via JavaScript -->
-                                                </select>
-                                            </div>
+            <div class="modal-body">
+                <div class="row pb-3">
+                    <div class="col-5">
+                        <label class="fw-bold">Sala:</label>
+                        <span id="detalheSala" class="input-custom-disabled"></span>
+                    </div>
 
-                                            <div class="col-12 col-md-6">
-                                                <label for="data_inicio" class="fw-bold fs-16">Data:</label>
-                                                <input type="date" name="data_inicio" id="data_inicio"
-                                                    class="input-custom pointer" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="row g-3 mt-1">
-                                            <div class="col-12 col-md-6">
-                                                <label for="hora_inicio" class="fw-bold fs-16">Hora Início:</label>
-                                                <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" step="60" required>
-                                            </div>
-
-                                            <div class="col-12 col-md-6">
-                                                <label for="data_fim" class="fw-bold fs-16">Hora Término:</label>
-                                                <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex justify-content-end mt-5">
-                                            <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="button-blue">Salvar Alterações</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-7">
+                        <label class="fw-bold">Unidade:</label>
+                        <span id="detalheUnidade" class="input-custom-disabled"></span>
                     </div>
                 </div>
+
+                <div class="row mb-3">
+                    <div class="col-5">
+                        <label class="fw-bold">Horário:</label>
+                        <span id="detalheHorario" class="input-custom-disabled"></span>
+                    </div>
+
+                    <div class="col-7">
+                        <label class="fw-bold">Responsável:</label>
+                        <span id="detalheResponsavel" class="input-custom-disabled"></span> 
+                    </div>
+                </div>  
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btnEditar" class="button-blue">Editar</button>
+                <button type="button" id="btnExcluir" class="button-red">Excluir</button>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function abrirModalDetalhes(event) {
+        document.getElementById('detalheSala').innerText = event.title || '';
+        document.getElementById('detalheUnidade').innerText = event.extendedProps.unidade || '';
+        document.getElementById('detalheHorario').innerText = `${event.extendedProps.hora_inicio} - ${event.extendedProps.hora_fim}` || '';
+        document.getElementById('detalheResponsavel').innerText = event.extendedProps.responsavel || '';
+
+        document.getElementById('btnEditar').onclick = function() {
+            abrirModalEdicao(
+                event.id,
+                event.extendedProps.hora_inicio,
+                event.extendedProps.hora_fim,
+                event.extendedProps.data_inicio,
+                event.extendedProps.sala_id
+            );
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalDetalhesReserva'));
+            modal.hide();
+        };
+
+        document.getElementById('btnExcluir').onclick = function() {
+            setDeleteId(event.id);
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalDetalhesReserva'));
+            modal.hide();
+            var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+            confirmModal.show();
+        };
+
+        var modalDetalhes = new bootstrap.Modal(document.getElementById('modalDetalhesReserva'));
+        modalDetalhes.show();
+    }
+</script>
 
 <script>
 document.getElementById('diaInteiro').addEventListener('change', function () {
@@ -378,177 +445,90 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var miniCalendarEl = document.getElementById('miniCalendar');
+        var calendarEl = document.getElementById('calendar');
+        var miniCalendarEl = document.getElementById('miniCalendar');
 
-    // Calendário principal
-    window.calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        slotDuration: '00:15:00',
-        slotLabelInterval: '00:30:00',
-        slotMinTime: '07:00:00',
-        slotMaxTime: '21:00:00',
-        eventOverlap: true,
-        timeZone: 'local',
-        locale: 'pt-br',
-        eventOverlap: true,
-        eventMaxStack: true,
+        window.calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            slotDuration: '00:15:00',
+            slotLabelInterval: '00:30:00',
+            slotMinTime: '07:00:00',
+            slotMaxTime: '21:00:00',
+            eventOverlap: true,
+            timeZone: 'local',
+            locale: 'pt-br',
+            eventMaxStack: true,
+            hiddenDays: [0, 6],
+            events: '/eventos',
+            selectable: true,
+            editable: false,
+            eventDisplay: 'block',
+            buttonText: {
+                today: 'Hoje',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Lista'
+            },
+            eventContent: function(arg) {
+                const horaInicio = arg.event.extendedProps.hora_inicio || '';
+                const horaFim = arg.event.extendedProps.hora_fim || '';
+                const unidade = arg.event.extendedProps.unidade || '';
+                const nomeSala = arg.event.title || '';
 
-        hiddenDays: [0, 6], // Oculta domingo e sábado
-
-        events: '/eventos',
-        selectable: true,
-        editable: false,
-        eventDisplay: 'block',
-
-        buttonText: {
-            today: 'Hoje',
-            month: 'Mês',
-            week: 'Semana',
-            day: 'Dia',
-            list: 'Lista'
-        },
-
-        eventContent: function(arg) {
-            const horaInicio = arg.event.extendedProps.hora_inicio || '';
-            const horaFim = arg.event.extendedProps.hora_fim || '';
-            const unidade = arg.event.extendedProps.unidade || '';
-            const nomeSala = arg.event.title || '';
-
-            return {
-                html: `
-                <div style="font-size: 0.95em; color: #555555;">
-                    <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-                    <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
-                    ${horaInicio} - ${horaFim}<br>
-                    ${unidade}
-                </div>
-                `
-            };
-        },
-
-    eventDidMount: function(info) {
-        const today = new Date();
-        const eventEnd = new Date(info.event.end || info.event.start);
-        today.setHours(0, 0, 0, 0);
-        eventEnd.setHours(0, 0, 0, 0);
-
-        if (eventEnd < today) {
-            info.el.style.opacity = '0.4';
-            info.el.style.filter = 'grayscale(10%)';
-        }
-    },
-
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,listWeek'
-    },
-
-    dateClick: function(info) {
-        document.getElementById('data_reserva').value = info.dateStr.split('T')[0];
-        document.getElementById('hora_inicio').value = info.dateStr.substring(11,
-            16);
-
-        var modalReserva = new bootstrap.Modal(document.getElementById(
-            'modalReserva'));
-        modalReserva.show();
-
-        setTimeout(() => {
-            document.getElementById('sala_fk').focus();
-        }, 500);
-    },
-
-    eventClick: function(info) {
-        Swal.fire({
-            html: `
-                <div class="p-4 rounded border" style="background-color: #f8f9fa;">
-                    <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
-                    <hr>
-
-                    <div class="mb-3 mt-4">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold" style="color: #394151;">Sala:</span>
-                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold" style="color: #394151;">Unidade:</span>
-                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="fw-semibold" style="color: #394151;">Horário:</span>
-                            <span class="text-end fw-bold" style="color: #6c757d;">
-                                ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}
-                            </span>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-4">
-                            <span class="fw-semibold" style="color: #394151;">Responsável:</span>
-                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
-                        </div>
-
-                        <div class="dropdown text-center">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownSwal" data-bs-toggle="dropdown" aria-expanded="false">
-                                Opções
-                            </button>
-
-                            <ul class="dropdown-menu" aria-labelledby="dropdownSwal">
-                                <li>
-                                    <a class="dropdown-item" href="#" id="editarReservaSwal"><i class="bi bi-pencil-square me-1"></i>Editar</a>
-                                </li>
-
-                                <li>
-                                    <a class="dropdown-item text-danger" href="#" id="excluirReservaSwal"><i class="bi bi-trash me-1"></i>Excluir</a>
-                                </li>
-                            </ul>
-                        </div>
+                return {
+                    html: `
+                    <div style="font-size: 0.95em; color: #555555;">
+                        <span class="fw-bold text-uppercase">${nomeSala}</span><br>
+                        <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
+                        ${horaInicio} - ${horaFim}<br>
+                        ${unidade}
                     </div>
-                </div>
-                `,
-                showConfirmButton: false,
-                showCloseButton: true,
-                didOpen: () => {
-                    document.getElementById('editarReservaSwal')
-                        .addEventListener('click', () => {
-                            abrirModalEdicao(
-                                info.event.id,
-                                info.event.extendedProps
-                                .hora_inicio,
-                                info.event.extendedProps.hora_fim,
-                                info.event.extendedProps
-                                .data_inicio,
-                                info.event.extendedProps.sala_id
-                            );
-                            Swal.close();
-                        });
+                    `
+                };
+            },
+            eventDidMount: function(info) {
+                const today = new Date();
+                const eventEnd = new Date(info.event.end || info.event.start);
+                today.setHours(0, 0, 0, 0);
+                eventEnd.setHours(0, 0, 0, 0);
 
-                    document.getElementById('excluirReservaSwal')
-                        .addEventListener('click', () => {
-                            setDeleteId(info.event.id);
-                            const modal = new bootstrap.Modal(document
-                                .getElementById(
-                                    'confirmDeleteModal'));
-                            modal.show();
-                            Swal.close();
-                        });
-                    }
-                });
+                if (eventEnd < today) {
+                    info.el.style.opacity = '0.4';
+                    info.el.style.filter = 'grayscale(10%)';
+                }
+            },
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,listWeek'
+            },
+            dateClick: function(info) {
+                document.getElementById('data_reserva').value = info.dateStr.split('T')[0];
+                document.getElementById('hora_inicio').value = info.dateStr.substring(11, 16);
+
+                var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+                modalReserva.show();
+
+                setTimeout(() => {
+                    document.getElementById('sala_fk').focus();
+                }, 500);
+            },
+            eventClick: function(info) {
+                // Abre modal Bootstrap separado
+                abrirModalDetalhes(info.event);
             }
         });
 
         window.calendar.render();
 
-        // Mini calendário (FullCalendar)
         window.miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
             initialView: 'dayGridMonth',
             headerToolbar: {
-              left: '',
-              center: 'title',
-              right: ''
+                left: '',
+                center: 'title',
+                right: ''
             },
-
             locale: 'pt-br',
             dateClick: function(info) {
                 window.calendar.gotoDate(info.date);
@@ -558,6 +538,7 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
         window.miniCalendar.render();
     });
 </script>
+
 
 <script>
     function abrirModalEdicao(id, horaInicio, horaFim, dataInicio, salaId) {
