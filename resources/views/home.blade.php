@@ -25,16 +25,16 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
 <style>
-    .fc .fc-toolbar.fc-header-toolbar {
-        margin-bottom: 1rem;
-    }
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1rem;
+}
 
-    .fc-timegrid-event {
-        border-radius: 6px;
-        padding: 2px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        border: none;
-    }
+.fc-timegrid-event {
+    border-radius: 6px;
+    padding: 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    border: none;
+}
 </style>
 
 <div class="pagina-container">
@@ -42,37 +42,39 @@
         <!-- Coluna esquerda: Mini calendário + Cards -->
         <div class="col-lg-3 col-12 mb-3">
             <div class="salas-grid d-flex flex-lg-column gap-2 h-100">
-            
+
                 <!-- Cards -->
                 @foreach($salas as $sala)
                 @php
-                    $situacao = strtolower(trim($sala->situacao));
-                    $nomeSala = strtolower(trim($sala->nome));
-                    $classeBorda = '';
+                $situacao = strtolower(trim($sala->situacao));
+                $nomeSala = strtolower(trim($sala->nome));
+                $classeBorda = '';
 
-                    if (str_contains($nomeSala, 'aquário')) $classeBorda = 'border-aquário';
-                    elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
-                    elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
-                    elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
+                if (str_contains($nomeSala, 'aquário')) $classeBorda = 'border-aquário';
+                elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
+                elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
+                elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
 
-                    // Nome reduzido
-                    $nomeCurto = $sala->nome;
-                    if (str_contains($nomeSala, 'auditório tauató')) {
-                        $nomeCurto = 'Tauató';
-                    } elseif (str_contains($nomeSala, 'presidência')) {
-                        $nomeCurto = 'Pres.';
-                    }
+                // Nome reduzido
+                $nomeCurto = $sala->nome;
+                if (str_contains($nomeSala, 'auditório tauató')) {
+                $nomeCurto = 'Tauató';
+                } elseif (str_contains($nomeSala, 'presidência')) {
+                $nomeCurto = 'Pres.';
+                }
                 @endphp
 
                 <!-- <div class="sala-card {{ $classeBorda }} width-100"> -->
-                       <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
+                <div class="sala-card {{ $classeBorda }}width-100"
+                    style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
 
 
 
                     <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                         <!-- Imagem à esquerda -->
                         <div style="flex: 0 0 100px;">
-                            <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px;">
+                            <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}"
+                                class="imagem-sala" style="width: 100px;">
                         </div>
 
                         <!-- Nome e estado ao centro -->
@@ -82,11 +84,11 @@
                                     <span class="nome-sala-full">{{ $sala->nome }}</span>
                                     <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
                                 </span>
-                                
+
                                 @if($situacao === 'inativa')
-                                    <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
+                                <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
                                 @else
-                                    <span class="s-disponivel fw-medium" style="font-size: 14px;">Sala disponível</span>
+                                <span class="s-disponivel fw-medium" style="font-size: 14px;">Sala disponível</span>
                                 @endif
                             </div>
                         </div>
@@ -109,8 +111,21 @@
                     <div class="text-center" style="margin-top: 13px;">
                         <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
+<<<<<<< Updated upstream
                     
                     <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
+=======
+<<<<<<< HEAD
+
+
+                    <div id="miniCalendar" class="w-100" style="border-bottom: 1px solid #dee2e6;"></div>
+
+
+=======
+                    
+                    <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+>>>>>>> Stashed changes
                 </div>
 
             </div>
@@ -122,7 +137,7 @@
                 <div class="area-calendario">
                     <div id="calendar" class="calendar-container main-calendar" style="margin-top: 15px;"></div>
                 </div>
-              
+
                 <div class="mt-1">
                     <span style="font-size: 14px; color: #374151;">
                         <i class="bi bi-lightbulb-fill text-warning"></i>
@@ -161,16 +176,16 @@
                             <label for="sala_fk" class="fw-bold">Sala:</label>
 
                             <select name="sala_fk" id="sala_fk" class="form-select input-custom pointer" required>
-                            <option value="" disabled selected>Selecione uma sala</option>
-                            @foreach($salas as $sala)
+                                <option value="" disabled selected>Selecione uma sala</option>
+                                @foreach($salas as $sala)
                                 <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-                            @endforeach
+                                @endforeach
                             </select>
                         </div>
                     </div>
 
                     <div class="row align-items-end">
-                    
+
                         <div class="col-4">
                             <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
                             <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
@@ -187,6 +202,15 @@
                                 <label class="form-check-label fw-bold" for="diaInteiro">Dia inteiro</label>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="tipo_reserva">Tipo de Reserva</label>
+                            <select name="tipo_reserva" class="form-control" required>
+                                <option value="interno">Uso interno</option>
+                                <option value="pesquisador">Pesquisador externo</option>
+                            </select>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -288,6 +312,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
 
+<<<<<<< Updated upstream
             <div class="modal-body">
                 <div class="row pb-3">
                     <div class="col-5">
@@ -298,6 +323,73 @@
                     <div class="col-7">
                         <label class="fw-bold">Unidade:</label>
                         <span id="detalheUnidade" class="input-custom-disabled"></span>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                        <div class="row g-3">
+                                            <div class="col-12 col-md-6">
+                                                <label for="sala_id" class="fw-bold fs-16">Sala:</label>
+                                                <select name="sala_id" id="sala_id" class="form-select pointer"
+                                                    required>
+                                                    <!-- opções preenchidas via JavaScript -->
+                                                </select>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <label for="data_inicio" class="fw-bold fs-16">Data:</label>
+                                                <input type="date" name="data_inicio" id="data_inicio"
+                                                    class="input-custom pointer" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3 mt-1">
+                                            <div class="col-12 col-md-6">
+                                                <label for="hora_inicio" class="fw-bold fs-16">Hora Início:</label>
+                                                <input type="time" name="hora_inicio" id="hora_inicio"
+                                                    class="input-custom pointer" step="60" required>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <label for="data_fim" class="fw-bold fs-16">Hora Término:</label>
+                                                <input type="time" name="data_fim" id="data_fim"
+                                                    class="input-custom pointer" step="60" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end mt-5">
+                                            <button type="button" class="btn btn-secondary ms-2"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="button-blue">Salvar Alterações</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+=======
+            <div class="modal-body">
+                <div class="row pb-3">
+                    <div class="col-5">
+                        <label class="fw-bold">Sala:</label>
+                        <span id="detalheSala" class="input-custom-disabled"></span>
+                    </div>
+
+                    <div class="col-7">
+                        <label class="fw-bold">Unidade:</label>
+                        <span id="detalheUnidade" class="input-custom-disabled"></span>
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+=======
+            <div class="modal-body">
+                <div class="row pb-3">
+                    <div class="col-5">
+                        <label class="fw-bold">Sala:</label>
+                        <span id="detalheSala" class="input-custom-disabled"></span>
+                    </div>
+
+                    <div class="col-7">
+                        <label class="fw-bold">Unidade:</label>
+                        <span id="detalheUnidade" class="input-custom-disabled"></span>
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+>>>>>>> Stashed changes
                     </div>
                 </div>
 
@@ -355,7 +447,7 @@
 </script>
 
 <script>
-document.getElementById('diaInteiro').addEventListener('change', function () {
+document.getElementById('diaInteiro').addEventListener('change', function() {
     const inicio = document.getElementById('hora_inicio');
     const termino = document.getElementById('hora_termino');
     if (this.checked) {
@@ -372,9 +464,7 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
         inicio.value = '';
         termino.value = "";
     }
-    }
-);
-
+});
 </script>
 
 <!-- <script>
@@ -397,42 +487,42 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 </script> -->
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const campoHora = document.getElementById('horaSelecionada');
     if (campoHora) {
-      campoHora.addEventListener('change', function () {
-        const dataSelecionada = new Date(this.value);
-        const hoje = new Date();
+        campoHora.addEventListener('change', function() {
+            const dataSelecionada = new Date(this.value);
+            const hoje = new Date();
 
-        hoje.setHours(0, 0, 0, 0);
-        dataSelecionada.setHours(0, 0, 0, 0);
+            hoje.setHours(0, 0, 0, 0);
+            dataSelecionada.setHours(0, 0, 0, 0);
 
-        if (dataSelecionada < hoje) {
-          Swal.fire({
-            title: 'Erro!',
-            text: 'A data selecionada já passou. Escolha uma data futura.',
-            icon: 'error'
-          });
-        }
-      });
+            if (dataSelecionada < hoje) {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'A data selecionada já passou. Escolha uma data futura.',
+                    icon: 'error'
+                });
+            }
+        });
     }
-  });
+});
 </script>
 
 
 <script>
-    function toggleDropdown(button) {
-        const dropdown = button.parentElement;
-        dropdown.classList.toggle("open");
+function toggleDropdown(button) {
+    const dropdown = button.parentElement;
+    dropdown.classList.toggle("open");
 
-        // Fecha o dropdown ao clicar fora dele
-        document.addEventListener("click", function closeDropdown(event) {
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove("open");
-                document.removeEventListener("click", closeDropdown);
-            }
-        });
-    }
+    // Fecha o dropdown ao clicar fora dele
+    document.addEventListener("click", function closeDropdown(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove("open");
+            document.removeEventListener("click", closeDropdown);
+        }
+    });
+}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -444,9 +534,27 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 <script>
+<<<<<<< Updated upstream
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var miniCalendarEl = document.getElementById('miniCalendar');
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var miniCalendarEl = document.getElementById('miniCalendar');
+=======
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var miniCalendarEl = document.getElementById('miniCalendar');
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+=======
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var miniCalendarEl = document.getElementById('miniCalendar');
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+>>>>>>> Stashed changes
 
         window.calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
@@ -476,6 +584,124 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
                 const unidade = arg.event.extendedProps.unidade || '';
                 const nomeSala = arg.event.title || '';
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+        hiddenDays: [0, 6], // Oculta domingo e sábado
+
+        events: '/eventos',
+        selectable: true,
+        editable: false,
+        eventDisplay: 'block',
+
+        buttonText: {
+            today: 'Hoje',
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            list: 'Lista'
+        },
+
+        eventContent: function(arg) {
+            const horaInicio = arg.event.extendedProps.hora_inicio || '';
+            const horaFim = arg.event.extendedProps.hora_fim || '';
+            const unidade = arg.event.extendedProps.unidade || '';
+            const nomeSala = arg.event.title || '';
+
+            return {
+                html: `
+                <div style="font-size: 0.95em; color: #555555;">
+                    <span class="fw-bold text-uppercase">${nomeSala}</span><br>
+                    <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
+                    ${horaInicio} - ${horaFim}<br>
+                    ${unidade}
+                </div>
+                `
+            };
+        },
+
+        eventDidMount: function(info) {
+            const today = new Date();
+            const eventEnd = new Date(info.event.end || info.event.start);
+            today.setHours(0, 0, 0, 0);
+            eventEnd.setHours(0, 0, 0, 0);
+
+            if (eventEnd < today) {
+                info.el.style.opacity = '0.4';
+                info.el.style.filter = 'grayscale(10%)';
+            }
+        },
+
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,listWeek'
+        },
+
+        dateClick: function(info) {
+            document.getElementById('data_reserva').value = info.dateStr.split('T')[0];
+            document.getElementById('hora_inicio').value = info.dateStr.substring(11,
+                16);
+
+            var modalReserva = new bootstrap.Modal(document.getElementById(
+                'modalReserva'));
+            modalReserva.show();
+
+            setTimeout(() => {
+                document.getElementById('sala_fk').focus();
+            }, 500);
+        },
+
+        eventClick: function(info) {
+            Swal.fire({
+                html: `
+                <div class="p-4 rounded border" style="background-color: #f8f9fa;">
+                    <h5 class="fw-bold text-center" style="color: #394151;">📅 Detalhes da Reserva</h5>
+                    <hr>
+
+                    <div class="mb-3 mt-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold" style="color: #394151;">Sala:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.title}</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold" style="color: #394151;">Unidade:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.unidade}</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold" style="color: #394151;">Horário:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">
+                                ${info.event.extendedProps.hora_inicio} - ${info.event.extendedProps.hora_fim}
+                            </span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fw-semibold" style="color: #394151;">Responsável:</span>
+                            <span class="text-end fw-bold" style="color: #6c757d;">${info.event.extendedProps.responsavel}</span>
+                        </div>
+
+                        <div class="dropdown text-center">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownSwal" data-bs-toggle="dropdown" aria-expanded="false">
+                                Opções
+                            </button>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownSwal">
+                                <li>
+                                    <a class="dropdown-item" href="#" id="editarReservaSwal"><i class="bi bi-pencil-square me-1"></i>Editar</a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#" id="excluirReservaSwal"><i class="bi bi-trash me-1"></i>Excluir</a>
+                                </li>
+                            </ul>
+                        </div>
+=======
+=======
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+>>>>>>> Stashed changes
                 return {
                     html: `
                     <div style="font-size: .9rem;">
@@ -483,6 +709,13 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
                         <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
                         ${horaInicio} - ${horaFim}<br>
                         ${unidade}
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+=======
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+>>>>>>> Stashed changes
                     </div>
                     `
                 };
@@ -493,6 +726,23 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
                 today.setHours(0, 0, 0, 0);
                 eventEnd.setHours(0, 0, 0, 0);
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    document.getElementById('excluirReservaSwal')
+                        .addEventListener('click', () => {
+                            setDeleteId(info.event.id);
+                            const modal = new bootstrap.Modal(document
+                                .getElementById(
+                                    'confirmDeleteModal'));
+                            modal.show();
+                            Swal.close();
+                        });
+=======
+=======
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
+>>>>>>> Stashed changes
                 if (eventEnd < today) {
                     info.el.style.opacity = '0.4';
                     info.el.style.filter = 'grayscale(10%)';
@@ -628,159 +878,274 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
                 complete: function() {
                     // Restaura o botão
                     submitBtn.prop('disabled', false).html('Salvar Reserva');
+>>>>>>> 166aea7f435452e23a50749bda36a6c7dea50cce
                 }
             });
-        });
+        }
     });
 
-    // Verificação em tempo real
-    $('#hora_inicio, #hora_termino').change(function() {
-        verificarDisponibilidade();
+    window.calendar.render();
+
+    // Mini calendário (FullCalendar)
+    window.miniCalendar = new FullCalendar.Calendar(miniCalendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: '',
+            center: 'title',
+            right: ''
+        },
+
+        locale: 'pt-br',
+        dateClick: function(info) {
+            window.calendar.gotoDate(info.date);
+        }
     });
 
-    function verificarDisponibilidade() {
-        const salaId = $('#sala_fk').val();
-        const data = $('#data_reserva').val();
-        const horaInicio = $('#hora_inicio').val();
-        const horaTermino = $('#hora_termino').val();
+    window.miniCalendar.render();
+});
+</script>
 
-        if (!salaId || !data || !horaInicio || !horaTermino) return;
+<script>
+function abrirModalEdicao(id, horaInicio, horaFim, dataInicio, salaId) {
+    if (!id) {
+        alert('Erro: ID da reserva ausente!');
+        return;
+    }
+
+    // Preenche os campos
+    document.getElementById('data_inicio').value = dataInicio;
+    document.getElementById('hora_inicio').value = horaInicio;
+    document.getElementById('data_fim').value = horaFim;
+    document.getElementById('reserva-numero').textContent = `Reserva ${id}`;
+    document.getElementById('form-editar-reserva').action = `/reservas/${id}`;
+
+    // Preenche o select de salas
+    const selectSala = document.getElementById('sala_id');
+    selectSala.innerHTML = ''; // limpa opções anteriores
+
+    salasDisponiveis.forEach(sala => {
+        const option = document.createElement('option');
+        option.value = sala.id;
+        option.textContent = sala.nome;
+        if (sala.id === salaId) {
+            option.selected = true;
+        }
+        selectSala.appendChild(option);
+    });
+
+    // Abre o modal
+    const modal = new bootstrap.Modal(document.getElementById('modal-editar-reserva'));
+    modal.show();
+}
+</script>
+
+<script>
+// Função para abrir o modal do calendário e selecionar uma sala
+function abrirModalCalendario(salaId) {
+    console.log("Sala selecionada:", salaId);
+    $('#sala_fk').val(salaId); // Define a sala no formulário
+    $('#modalCalendario').modal('show');
+}
+
+$(document).ready(function() {
+    $('#reservaForm').submit(function(e) {
+        e.preventDefault();
+
+        // Mostra o loader no botão
+        const submitBtn = $(this).find('button[type="submit"]');
+        submitBtn.prop('disabled', true).html(
+            '<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...'
+        );
 
         $.ajax({
-            url: '/verificar-disponibilidade',
+            url: $(this).attr('action'),
             type: 'POST',
-            data: {
-                sala_id: salaId,
-                data_reserva: data,
-                hora_inicio: horaInicio,
-                hora_termino: horaTermino,
-                _token: $('meta[name="csrf-token"]').attr('content')
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                    // Fecha o modal de reserva
+
+                    $('#modalReserva').modal('hide');
+                    // Mostra mensagem de sucesso
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Reserva realizada com sucesso!',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'button-green'
+                        }
+                    }).then((result) => {
+                        // Redireciona para a home após clicar em OK
+                        window.location.href = "{{ route('home') }}";
+                    });
+                }
             },
 
-            success: function(response) {
-                if (response.disponivel) {
-                    $('#disponibilidade-status').html(
-                        '<span class="text-success">Horário disponível</span>');
-                    $('.btn-submit').prop('disabled', false);
-                } else {
-                    $('#disponibilidade-status').html('<span class="text-danger">' + response
-                        .mensagem +
-                        '</span>');
-                    $('.btn-submit').prop('disabled', true);
-                }
+            error: function(xhr) {
+                Swal.fire({
+                    title: 'Desculpe!',
+                    text: xhr.responseJSON?.message ||
+                        'Erro ao realizar reserva',
+                    icon: 'error'
+                });
+            },
+            complete: function() {
+                // Restaura o botão
+                submitBtn.prop('disabled', false).html('Salvar Reserva');
             }
         });
-    }
+    });
+});
+
+// Verificação em tempo real
+$('#hora_inicio, #hora_termino').change(function() {
+    verificarDisponibilidade();
+});
+
+function verificarDisponibilidade() {
+    const salaId = $('#sala_fk').val();
+    const data = $('#data_reserva').val();
+    const horaInicio = $('#hora_inicio').val();
+    const horaTermino = $('#hora_termino').val();
+
+    if (!salaId || !data || !horaInicio || !horaTermino) return;
+
+    $.ajax({
+        url: '/verificar-disponibilidade',
+        type: 'POST',
+        data: {
+            sala_id: salaId,
+            data_reserva: data,
+            hora_inicio: horaInicio,
+            hora_termino: horaTermino,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+
+        success: function(response) {
+            if (response.disponivel) {
+                $('#disponibilidade-status').html(
+                    '<span class="text-success">Horário disponível</span>');
+                $('.btn-submit').prop('disabled', false);
+            } else {
+                $('#disponibilidade-status').html('<span class="text-danger">' + response
+                    .mensagem +
+                    '</span>');
+                $('.btn-submit').prop('disabled', true);
+            }
+        }
+    });
+}
 </script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
-    // Definir o plugin de ordenação personalizada ANTES de usar
-    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
-        "date-euro-pre": function(a) {
-            if ($.trim(a) !== '') {
-                var parts = a.split(' | ');
-                var dateParts = parts[0].split('/');
-                var timeParts = parts[1].split(':');
+// Definir o plugin de ordenação personalizada ANTES de usar
+jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+    "date-euro-pre": function(a) {
+        if ($.trim(a) !== '') {
+            var parts = a.split(' | ');
+            var dateParts = parts[0].split('/');
+            var timeParts = parts[1].split(':');
 
-                return new Date(
-                    dateParts[2], // ano
-                    dateParts[1] - 1, // mês (0-11)
-                    dateParts[0], // dia
-                    timeParts[0], // horas
-                    timeParts[1] // minutos
-                ).getTime();
+            return new Date(
+                dateParts[2], // ano
+                dateParts[1] - 1, // mês (0-11)
+                dateParts[0], // dia
+                timeParts[0], // horas
+                timeParts[1] // minutos
+            ).getTime();
+        }
+        return 0;
+    },
+    "date-euro-asc": function(a, b) {
+        return a - b;
+    },
+    "date-euro-desc": function(a, b) {
+        return b - a;
+    }
+});
+
+$(document).ready(function() {
+    // Inicialização única da DataTable
+    var table = $('#reservas').DataTable({
+        order: [
+            [0, 'desc']
+        ], // Ordena pela coluna de Hora Início (índice 2)
+        columnDefs: [{
+            targets: [2, 3], // Colunas de data/hora
+            type: 'date-euro' // Usa nosso tipo de ordenação personalizado
+        }],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+            search: "Procurar:",
+            lengthMenu: "Mostrar _MENU_ registros por página",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Nenhum registro disponível",
+            infoFiltered: "(filtrado de _MAX_ registros totais)",
+            zeroRecords: "Nenhum registro encontrado",
+            paginate: {
+                first: "Primeira",
+                last: "Última",
+                next: "Próximo",
+                previous: "Anterior"
             }
-            return 0;
         },
-        "date-euro-asc": function(a, b) {
-            return a - b;
-        },
-        "date-euro-desc": function(a, b) {
-            return b - a;
-        }
+        scrollCollapse: true,
+        responsive: true,
+        paging: true,
+        searching: true,
+        lengthChange: true
     });
 
-    $(document).ready(function() {
-        // Inicialização única da DataTable
-        var table = $('#reservas').DataTable({
-            order: [
-                [0, 'desc']
-            ], // Ordena pela coluna de Hora Início (índice 2)
-            columnDefs: [{
-                targets: [2, 3], // Colunas de data/hora
-                type: 'date-euro' // Usa nosso tipo de ordenação personalizado
-            }],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-                search: "Procurar:",
-                lengthMenu: "Mostrar _MENU_ registros por página",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                infoEmpty: "Nenhum registro disponível",
-                infoFiltered: "(filtrado de _MAX_ registros totais)",
-                zeroRecords: "Nenhum registro encontrado",
-                paginate: {
-                    first: "Primeira",
-                    last: "Última",
-                    next: "Próximo",
-                    previous: "Anterior"
-                }
-            },
-            scrollCollapse: true,
-            responsive: true,
-            paging: true,
-            searching: true,
-            lengthChange: true
-        });
-
-        // Função para o modal de confirmação de exclusão
-        function setDeleteAction(action) {
-            $('#deleteForm').attr('action', action);
-        }
-
-        // Exemplo de como você poderia usar (adaptar conforme necessário)
-        $('.btn-delete').on('click', function() {
-            var deleteUrl = $(this).data('url');
-            setDeleteAction(deleteUrl);
-        });
-    });
-
-    function selecionarSala(salaId) {
-        console.log('Sala selecionada:', salaId); // Depuração
-        document.getElementById('sala_fk').value = salaId;
+    // Função para o modal de confirmação de exclusão
+    function setDeleteAction(action) {
+        $('#deleteForm').attr('action', action);
     }
 
-    function carregarReservas(salaId) {
-        const dataSelecionada = document.getElementById('dataSelecionada').value;
+    // Exemplo de como você poderia usar (adaptar conforme necessário)
+    $('.btn-delete').on('click', function() {
+        var deleteUrl = $(this).data('url');
+        setDeleteAction(deleteUrl);
+    });
+});
 
-        $('#reservasContainer').html(
-            '<p class="text-center"><i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...</p>'
-        );
+function selecionarSala(salaId) {
+    console.log('Sala selecionada:', salaId); // Depuração
+    document.getElementById('sala_fk').value = salaId;
+}
 
-        $.ajax({
-            url: '/reservas/sala/' + salaId, // Rota para buscar as reservas da sala
-            type: 'GET',
-            data: {
-                data: dataSelecionada
-            },
+function carregarReservas(salaId) {
+    const dataSelecionada = document.getElementById('dataSelecionada').value;
 
-            success: function(reservas) {
-                let html = '';
+    $('#reservasContainer').html(
+        '<p class="text-center"><i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...</p>'
+    );
 
-                if (reservas.length === 0) {
-                    html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
-                } else {
+    $.ajax({
+        url: '/reservas/sala/' + salaId, // Rota para buscar as reservas da sala
+        type: 'GET',
+        data: {
+            data: dataSelecionada
+        },
 
-                    html += '<div class="reservas-grid">';
-                    reservas.forEach(reserva => {
-                        const unidade = reserva.user?.unidade?.nome ??
-                            'Unidade Desconhecida';
-                        const usuario = reserva.user ? reserva.user.name : 'N/A';
-                        const horaInicio = reserva.data_inicio.split(' ')[1];
-                        const horaFim = reserva.data_fim.split(' ')[1];
+        success: function(reservas) {
+            let html = '';
 
-                        html += `
+            if (reservas.length === 0) {
+                html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
+            } else {
+
+                html += '<div class="reservas-grid">';
+                reservas.forEach(reserva => {
+                    const unidade = reserva.user?.unidade?.nome ??
+                        'Unidade Desconhecida';
+                    const usuario = reserva.user ? reserva.user.name : 'N/A';
+                    const horaInicio = reserva.data_inicio.split(' ')[1];
+                    const horaFim = reserva.data_fim.split(' ')[1];
+
+                    html += `
                         <div class="reserva-card">
                             <span class="reserva-info">
                                 <i class="bi bi-building"></i>
@@ -798,38 +1163,38 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
                             </span>
                         </div>
                         `;
-                    });
-                    html += '</div>';
-                }
-
-                $('#reservasContainer').html(html);
-            },
-
-            error: function() {
-                $('#reservasContainer').html(
-                    '<p class="text-center"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
-                );
+                });
+                html += '</div>';
             }
-        });
-    }
 
-    $(document).ready(function() {
-        $('#dataSelecionada').on('change', function() {
-            const salaId = $('#verReservasModal').data('sala-id');
-            carregarReservas(salaId);
-        });
+            $('#reservasContainer').html(html);
+        },
 
-        $('#verReservasModal').on('show.bs.modal', function(event) {
-            const button = $(event.relatedTarget);
-            const salaId = button.data('sala-id');
-            $('#verReservasModal').data('sala-id', salaId);
-
-            const hoje = new Date().toISOString().split('T')[0];
-            $('#dataSelecionada').val(hoje);
-
-            carregarReservas(salaId);
-        });
+        error: function() {
+            $('#reservasContainer').html(
+                '<p class="text-center"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
+            );
+        }
     });
+}
+
+$(document).ready(function() {
+    $('#dataSelecionada').on('change', function() {
+        const salaId = $('#verReservasModal').data('sala-id');
+        carregarReservas(salaId);
+    });
+
+    $('#verReservasModal').on('show.bs.modal', function(event) {
+        const button = $(event.relatedTarget);
+        const salaId = button.data('sala-id');
+        $('#verReservasModal').data('sala-id', salaId);
+
+        const hoje = new Date().toISOString().split('T')[0];
+        $('#dataSelecionada').val(hoje);
+
+        carregarReservas(salaId);
+    });
+});
 </script>
 
 <!-- Modal para Ver Reservas -->
@@ -858,64 +1223,66 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 </div>
 
 <script>
-    // Função para definir o ID da reserva a ser excluída
-    function setDeleteId(reservaId) {
-        // Define a ação do formulário com a rota correta
-        $('#deleteForm').attr('action', `/reservas/${reservaId}`);
+// Função para definir o ID da reserva a ser excluída
+function setDeleteId(reservaId) {
+    // Define a ação do formulário com a rota correta
+    $('#deleteForm').attr('action', `/reservas/${reservaId}`);
 
-        // Armazena o ID para uso posterior se necessário
-        $('#confirmDeleteModal').data('reserva-id', reservaId);
-    }
+    // Armazena o ID para uso posterior se necessário
+    $('#confirmDeleteModal').data('reserva-id', reservaId);
+}
 
-    // Evento de submit do formulário de exclusão
-    $('#deleteForm').on('submit', function(e) {
-        e.preventDefault();
+// Evento de submit do formulário de exclusão
+$('#deleteForm').on('submit', function(e) {
+    e.preventDefault();
 
-        const form = this;
+    const form = this;
 
-        // Aqui você pode adicionar uma animação de loading se quiser
-        $(form).find('button[type="submit"]').prop('disabled', true).html(
-            '<span class="spinner-border spinner-border-sm" role="status"></span> Excluindo...');
+    // Aqui você pode adicionar uma animação de loading se quiser
+    $(form).find('button[type="submit"]').prop('disabled', true).html(
+        '<span class="spinner-border spinner-border-sm" role="status"></span> Excluindo...');
 
-        // Envia a requisição AJAX
-        $.ajax({
-            url: form.action,
-            type: 'POST',
-            data: $(form).serialize(),
-            success: function(response) {
-                // Fecha o modal
-                $('#confirmDeleteModal').modal('hide');
+    // Envia a requisição AJAX
+    $.ajax({
+        url: form.action,
+        type: 'POST',
+        data: $(form).serialize(),
+        success: function(response) {
+            // Fecha o modal
+            $('#confirmDeleteModal').modal('hide');
 
-                // Mostra mensagem de sucesso
-                Swal.fire({
-                    title: 'Sucesso!',
-                    text: 'Reserva excluída com sucesso!',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    customClass: {
-                        confirmButton: 'button-green'
-                    }
-                }).then(() => {
-                    // Recarrega a página ou atualiza a tabela
-                    location.reload();
-                });
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    title: 'Erro!',
-                    text: xhr.responseJSON?.message || 'Erro ao excluir reserva',
-                    icon: 'error'
-                });
-            },
-            complete: function() {
-                // Reativa o botão
-                $(form).find('button[type="submit"]').prop('disabled', false).text('Excluir');
-            }
-        });
+            // Mostra mensagem de sucesso
+            Swal.fire({
+                title: 'Sucesso!',
+                text: 'Reserva excluída com sucesso!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'button-green'
+                }
+            }).then(() => {
+                // Recarrega a página ou atualiza a tabela
+                location.reload();
+            });
+        },
+        error: function(xhr) {
+            Swal.fire({
+                title: 'Erro!',
+                text: xhr.responseJSON?.message || 'Erro ao excluir reserva',
+                icon: 'error'
+            });
+        },
+        complete: function() {
+            // Reativa o botão
+            $(form).find('button[type="submit"]').prop('disabled', false).text('Excluir');
+        }
     });
+});
 </script>
 
-<script>const salasDisponiveis = @json($salas);</script>
+<script>
+const salasDisponiveis = @json($salas);
+</script>
 
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
@@ -939,7 +1306,7 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
                     @method('DELETE')
                     <button type="submit" class="button-red">Excluir</button>
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -947,23 +1314,19 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 
 @if (session('success'))
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            title: 'Sucesso!',
-            text: '{{ session('
-            success ') }}',
-            icon: 'success',
-            confirmButtonText: 'Fechar',
-            customClass: {
-                confirmButton: 'button-red'
-            }
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        title: 'Sucesso!',
+        text: '{{ session('
+        success ') }}',
+        icon: 'success',
+        confirmButtonText: 'Fechar',
+        customClass: {
+            confirmButton: 'button-red'
+        }
     });
+});
 </script>
 @endif
 
 @endsection
-
-
-
-
