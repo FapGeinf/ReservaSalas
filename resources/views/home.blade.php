@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', function() {
 >>>>>>> Stashed changes
                 return {
                     html: `
-                    <div style="font-size: .9rem;">
+                    <div style="font-size: .9rem; color: #394151;">
                         <span class="fw-bold text-uppercase">${nomeSala}</span><br>
                         <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
                         ${horaInicio} - ${horaFim}<br>
