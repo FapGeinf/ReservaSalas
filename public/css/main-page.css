@@ -23,6 +23,10 @@
   background-color: #eeeeee;
 }
 
+.fc-event {
+  opacity: 1 !important;
+}
+
 .title-meetings {
   color: #394151;
   font-size: 20px;
