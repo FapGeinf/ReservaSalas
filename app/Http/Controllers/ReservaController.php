@@ -259,7 +259,7 @@ if (str_contains(strtolower($sala->nome), 'aquário')) {
     'borderColor' => $borderColor,
     'textColor' => $textColor,
     'extendedProps' => [
-        'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
+        'unidade' => $reserva->user->unidade->sigla ?? 'nome da unidade',
     'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
     'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
     'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),

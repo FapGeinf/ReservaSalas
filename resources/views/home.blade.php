@@ -169,15 +169,7 @@
                         </div>
                     </div>
 
-                      <div class="row mb-3">
-                        <div class="col-8">
-                            <label for="tipo_reserva" class="fw-bold">Tipo de Reserva:</label>
-                            <select name="tipo_reserva" id="tipo_reserva" class="form-select" required>
-                                <option value="interno">Uso interno</option>
-                                <option value="pesquisador">Pesquisador externo</option>
-                            </select>
-                        </div>
-                        </div>
+                    
 
                     <div class="row align-items-end">
                     
