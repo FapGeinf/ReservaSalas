@@ -65,7 +65,7 @@
                 @endphp
 
                 <!-- <div class="sala-card {{ $classeBorda }} width-100"> -->
-                       <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
+                <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
 
 
 
@@ -172,17 +172,15 @@
                      <div class="row mb-3">
                         <div class="col-8">
                             <label for="tipo_reserva" class="fw-bold">Tipo de Reserva:</label>
-                            <select name="tipo_reserva" id="tipo_reserva" class="form-select" required>
+                            <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
+                                <option value="" selected disabled>Selecione uma opção</option>
                                 <option value="interno">Uso interno</option>
                                 <option value="pesquisador">Pesquisador externo</option>
                             </select>
                         </div>
-                        </div>
-
-                    
+                    </div>
 
                     <div class="row align-items-end">
-                    
                         <div class="col-4">
                             <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
                             <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
@@ -490,7 +488,7 @@ document.getElementById('diaInteiro').addEventListener('change', function () {
 
                 return {
                     html: `
-                    <div style="font-size: .9rem;">
+                    <div style="font-size: .9rem; color: #555555;">
                         <span class="fw-bold text-uppercase">${nomeSala}</span><br>
                         <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
                         ${horaInicio} - ${horaFim}<br>
