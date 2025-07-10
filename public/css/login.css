@@ -70,6 +70,10 @@ body {
   .row {
     margin-right: 0;
   }
+
+  .container {
+    margin-left: .1rem !important;
+  }
 }
 
 
