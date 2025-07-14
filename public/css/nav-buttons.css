@@ -31,6 +31,8 @@ a.nav-buttons:hover {
 
 .dropdown-menu {
   font-size: 14px !important;
+  right: 0 !important;
+  left: auto !important;
 }
 
 .dropdown-menu-custom {
@@ -86,8 +88,8 @@ a.nav-buttons:hover {
   .dropdown-menu {
     position: absolute !important;
     top: 100% !important;
-    right: 0 !important;
-    left: auto !important;
+    left: 0 !important;
+    right: auto !important;
     margin-top: 5px;
     z-index: 1050;
   }
