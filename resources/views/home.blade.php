@@ -41,78 +41,69 @@
     <div class="d-flex flex-wrap flex-lg-nowrap">
         <!-- Coluna esquerda: Mini calendário + Cards -->
         <div class="col-lg-3 col-12 mb-3">
-            <div class="salas-grid d-flex flex-lg-column gap-2 h-100">
-            
-                <!-- Cards -->
-                @foreach($salas as $sala)
-                @php
-                    $situacao = strtolower(trim($sala->situacao));
-                    $nomeSala = strtolower(trim($sala->nome));
-                    $classeBorda = '';
+            <div class="salas-grid d-flex flex-lg-column gap-2 h-100 flex-column flex-md-row">
+                <!-- Cards de salas -->
+                <div class="w-100 w-md-50 d-flex flex-column gap-2">
+                    @foreach($salas as $sala)
+                    @php
+                        $situacao = strtolower(trim($sala->situacao));
+                        $nomeSala = strtolower(trim($sala->nome));
+                        $classeBorda = '';
 
-                    if (str_contains($nomeSala, 'aquário')) $classeBorda = 'border-aquário';
-                    elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
-                    elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
-                    elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
+                        if (str_contains($nomeSala, 'aquário')) $classeBorda = 'border-aquário';
+                        elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
+                        elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
+                        elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
 
-                    // Nome reduzido
-                    $nomeCurto = $sala->nome;
-                    if (str_contains($nomeSala, 'auditório tauató')) {
-                        $nomeCurto = 'Tauató';
-                    } elseif (str_contains($nomeSala, 'presidência')) {
-                        $nomeCurto = 'Pres.';
-                    }
-                @endphp
+                        // Nome reduzido
+                        $nomeCurto = $sala->nome;
+                        if (str_contains($nomeSala, 'auditório tauató')) {
+                            $nomeCurto = 'Tauató';
+                        } elseif (str_contains($nomeSala, 'presidência')) {
+                            $nomeCurto = 'Pres.';
+                        }
+                    @endphp
 
-                <!-- <div class="sala-card {{ $classeBorda }} width-100"> -->
-                <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
-
-
-
-                    <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
-                        <!-- Imagem à esquerda -->
-                        <div style="flex: 0 0 100px;">
-                            <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px;">
-                        </div>
-
-                        <!-- Nome e estado ao centro -->
-                        <div class="flex-grow-1">
-                            <div class="titulo-sala">
-                                <span class="text-uppercase fw-semibold d-block">
-                                    <span class="nome-sala-full">{{ $sala->nome }}</span>
-                                    <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
-                                </span>
-                                
-                                @if($situacao === 'inativa')
-                                    <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
-                                @else
-                                    <span class="s-disponivel fw-medium" style="font-size: 14px;">Sala disponível</span>
-                                @endif
+                    <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
+                        <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
+                            <!-- Imagem à esquerda -->
+                            <div style="flex: 0 0 100px;">
+                                <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px;">
                             </div>
+                            <!-- Nome e estado ao centro -->
+                            <div class="flex-grow-1">
+                                <div class="titulo-sala">
+                                    <span class="text-uppercase fw-semibold d-block">
+                                        <span class="nome-sala-full">{{ $sala->nome }}</span>
+                                        <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
+                                    </span>
+                                    @if($situacao === 'inativa')
+                                        <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
+                                    @else
+                                        <span class="s-disponivel fw-medium" style="font-size: 14px;">Sala disponível</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <!-- Botão à direita -->
+                            @if($situacao !== 'ativa')
+                            <div style="flex-shrink: 0;">
+                                <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
+                                    data-sala-id="{{ $sala->id }}">
+                                    Ver Reservas
+                                </button>
+                            </div>
+                            @endif
                         </div>
-
-                        <!-- Botão à direita -->
-                        @if($situacao !== 'ativa')
-                        <div style="flex-shrink: 0;">
-                            <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
-                                data-sala-id="{{ $sala->id }}">
-                                Ver Reservas
-                            </button>
-                        </div>
-                        @endif
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-
-                <!-- Mini calendário no topo -->
-                <div class="calendar-container w-100 border shadow-sm flex-grow-1 d-flex flex-column" style="background-color: #fff;">
+                <!-- Mini calendário -->
+                <div class="calendar-container w-100 w-md-50 border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0" style="background-color: #fff;">
                     <div class="text-center" style="margin-top: 13px;">
                         <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
                     </div>
-                    
                     <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
                 </div>
-
             </div>
         </div>
 
@@ -122,7 +113,6 @@
                 <div class="area-calendario">
                     <div id="calendar" class="calendar-container main-calendar" style="margin-top: 15px;"></div>
                 </div>
-              
                 <div class="mt-1">
                     <span style="font-size: 14px; color: #374151;">
                         <i class="bi bi-lightbulb-fill text-warning"></i>
@@ -133,6 +123,36 @@
         </div>
     </div>
 </div>
+
+<style>
+    @media (max-width: 991.98px) {
+        .salas-grid {
+            flex-direction: row !important;
+        }
+        .salas-grid > .w-100.w-md-50 {
+            width: 50% !important;
+            max-width: 50%;
+        }
+        .salas-grid > .calendar-container.w-100.w-md-50 {
+            width: 49% !important;
+            max-width: 49%;
+            margin-top: 0 !important;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .salas-grid {
+            flex-direction: column !important;
+        }
+        .salas-grid > .w-100.w-md-50,
+        .salas-grid > .calendar-container.w-100.w-md-50 {
+            width: 100% !important;
+            max-width: 100%;
+        }
+        .calendar-container {
+            margin-top: 1rem !important;
+        }
+    }
+</style>
 
 @if (session('error'))
 <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">

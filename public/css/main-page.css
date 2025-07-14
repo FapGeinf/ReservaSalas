@@ -184,6 +184,7 @@ th {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
   /* width: calc(25% - 15px); */
+  width: 100%;
 }
 
 .width-100 {
