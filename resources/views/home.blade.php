@@ -130,8 +130,8 @@
             flex-direction: row !important;
         }
         .salas-grid > .w-100.w-md-50 {
-            width: 50% !important;
-            max-width: 50%;
+            width: 49% !important;
+            max-width: 49%;
         }
         .salas-grid > .calendar-container.w-100.w-md-50 {
             width: 49% !important;
