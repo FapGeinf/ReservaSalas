@@ -50,9 +50,15 @@ body {
   cursor: pointer;
 }
 
+@media only screen and (max-width: 1366px) {
+  .row {
+    margin-right: 0px;
+  }
+}
+
 /* MEDIA QUERIES */
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 768px) {
   body {
     background-image: url('/img/bg-blessing.png');
     transition: .2s;
@@ -71,7 +77,6 @@ body {
     margin-right: 0;
   }
 }
-
 
 /* @media only screen and (max-width: 1366px) {
   .form-2-wrapper {
