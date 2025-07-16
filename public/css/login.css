@@ -51,15 +51,19 @@ body {
 }
 
 @media only screen and (max-width: 1366px) {
+  body {
+    background-image: url('/img/bg-blessing-hd.png');
+  }
+
   .row {
     margin-right: 0px;
-    
+
   }
 }
 
 /* MEDIA QUERIES */
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
   body {
     background-image: url('/img/bg-blessing.png');
     transition: .2s;
