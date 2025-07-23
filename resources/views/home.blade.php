@@ -37,11 +37,6 @@
     }
 </style>
 
-{{-- <button id="botaoTutorial" class="btn btn-outline-primary btn-sm">
-    📘 Como usar
-</button> --}}
-
-
 <div class="pagina-container">
     <div class="d-flex flex-wrap flex-lg-nowrap">
         <!-- Coluna esquerda: Mini calendário + Cards -->
