@@ -27,6 +27,7 @@ class User extends Authenticatable
         'image',
         'cpf',
         'login',
+        'tutorial_exibido'=> 'boolean',
     ];
 
     /**

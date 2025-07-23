@@ -128,6 +128,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    const tutorialJaVisto = {{ auth()->user()->tutorial_exibido ? 'true' : 'false' }};
     const steps = [
         {
             element: '[data-help="cards-salas"]',
@@ -146,7 +147,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentStep = 0;
 
     function showStep(index) {
-        if (index >= steps.length) return;
+        if (index >= steps.length) {
+            // Marcar tutorial como visto no banco
+            fetch("{{ route('usuario.marcarTutorial') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({})
+            });
+            return;
+        }
 
         const step = steps[index];
         const el = document.querySelector(step.element);
@@ -164,6 +176,10 @@ document.addEventListener("DOMContentLoaded", function () {
             boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
             zIndex: 1000,
             maxWidth: '300px',
+            fontSize: '16px',
+            lineHeight: '1.4',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+            color: '#111',
         });
 
         document.body.appendChild(tooltip);
@@ -185,10 +201,12 @@ document.addEventListener("DOMContentLoaded", function () {
         tooltip.appendChild(next);
     }
 
-    // Iniciar tutorial automaticamente (ou sob ação de botão)
-    showStep(currentStep);
+    if (!tutorialJaVisto) {
+        showStep(currentStep);
+    }
 });
 </script>
+
 
 <style>
     .tutorial-tooltip {

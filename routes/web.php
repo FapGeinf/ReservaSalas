@@ -12,6 +12,11 @@ Route::middleware('auth')->group(function () {
     // Página "Home"
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::post('/usuario/marcar-tutorial', [UserController::class, 'marcarTutorial'])
+    ->middleware('auth')
+    ->name('usuario.marcarTutorial');
+
+
 
    // Rotas acessíveis por todos os usuários autenticados
     Route::middleware(['auth'])->group(function () {
