@@ -66,7 +66,7 @@
               <div class="text-uppercase">
                 <strong style="color: #394151;">{{ Auth::user()->name }}</strong>
                 <br>
-                <small class="text-muted" style="white-space: normal;">
+                <small class="text-muted">
                   <i class="bi bi-building me-1"></i>
                   {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }}
                 </small>
