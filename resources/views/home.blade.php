@@ -176,10 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
             boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
             zIndex: 1000,
             maxWidth: '300px',
-            fontSize: '16px',
-            lineHeight: '1.4',
-            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-            color: '#111',
         });
 
         document.body.appendChild(tooltip);
