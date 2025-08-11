@@ -60,16 +60,16 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+    'users' => [
+        'driver' => 'ldap',
+        'model' => LdapRecord\Models\ActiveDirectory\User::class,
+        'rules' => [
+            // App\Ldap\Rules\OnlySpecificGroup::class,
+            // App\Ldap\Rules\OnlyActiveUsers::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        
     ],
+],
 
     /*
     |--------------------------------------------------------------------------
