@@ -256,29 +256,36 @@ class ReservaController extends Controller
     $now = Carbon::now();
 
     $events = [];
-    foreach ($reservas as $reserva) {
-        $isPast = Carbon::parse($reserva->data_fim)->lt($now);
+		foreach ($reservas as $reserva) {
+				try {
+						$isPast = Carbon::parse($reserva->data_fim)->lt($now);
 
-        $color = $reserva->sala->cor ?? '#3788d8';
-        $backgroundColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-        $borderColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-        $textColor = $isPast ? '#333333' : '#ffffff';
+						$color = $reserva->sala->cor ?? '#3788d8';
+						$backgroundColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
+						$borderColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
+						$textColor = $isPast ? '#333333' : '#ffffff';
 
-        $events[] = [
-            'title' => $reserva->sala->nome,
-            'start' => $reserva->data_inicio,
-            'end' => $reserva->data_fim,
-            'backgroundColor' => $backgroundColor,
-            'borderColor' => $borderColor,
-            'textColor' => $textColor,
-            'extendedProps' => [
-                'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-                'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-                'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-                'responsavel' => $reserva->user->name
-            ]
-        ];
-    }
+						$events[] = [
+								'title' => $reserva->sala->nome ?? 'Sem sala',
+								'start' => $reserva->data_inicio,
+								'end' => $reserva->data_fim,
+								'backgroundColor' => $backgroundColor,
+								'borderColor' => $borderColor,
+								'textColor' => $textColor,
+								'extendedProps' => [
+										'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
+										'hora_inicio' => $reserva->data_inicio ? Carbon::parse($reserva->data_inicio)->format('H:i') : null,
+										'hora_fim' => $reserva->data_fim ? Carbon::parse($reserva->data_fim)->format('H:i') : null,
+										'responsavel' => $reserva->user->name ?? 'Sem usuário'
+								]
+						];
+				} catch (\Throwable $e) {
+						\Log::error('Erro ao montar evento', [
+								'reserva_id' => $reserva->id ?? null,
+								'mensagem' => $e->getMessage(),
+						]);
+				}
+		}
 
     return response()->json($events);
 }
