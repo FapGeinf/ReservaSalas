@@ -34,13 +34,6 @@ class UserController extends Controller
      'role' => 'required|in:user,admin', // Adicionando validação para o tipo de usuário
   ], $messages);
  
-
-       
-    // $existingUser = User::where('cpf', $request->cpf)->first();
-    // if ($existingUser) {
-    //     return redirect()->back()->with('cpf_error', 'O CPF informado já está cadastrado para o usuário: ' . $existingUser->name);
-    // }
-
     // Verificar se o CPF já está cadastrado
     if (!empty($request->cpf)) { // Verifica se o CPF foi preenchido
     $existingUser = User::where('cpf', $request->cpf)->first();
@@ -74,7 +67,5 @@ class UserController extends Controller
 
     return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
 }
-
-
 
 }

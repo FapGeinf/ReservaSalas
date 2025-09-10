@@ -10,138 +10,92 @@ use App\Models\Reserva;
 
 class SalaController extends Controller
 {
-    
-     
-     // Método para listar todas as salas
-   
-
-     public function index()
-     {
-         $salas = Sala::all();
-         $reservas = Reserva::with('sala', 'user')->get(); // Carregue as relações sala e user
-         return view('salas.index', compact('salas', 'reservas'));
-     }
-     
-
-     //Método para exibir o formulário de criação de sala
-    public function create()
-    {
-        $salas = Sala::all();
-        $users = User::all();
-        return view('reservas.create', compact('salas', 'users'));
-    }
-
-    // Método para armazenar uma nova sala
-//     public function store(Request $request)
-// {
-//     // Validação dos dados da requisição
-//     $request->validate([ 
-//         'nome' => 'required|string|max:255', 
-//         'descricao' => 'required|string|max:255', 
-//         'situacao' => 'required|in:ativa,inativa',
-//         'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validação da imagem
-//         'cor' => 'nullable|string', // <- cor opcional
-//     ]);
 
 
-//     dd($request->all());
+	// Método para listar todas as salas
 
-//      Sala::create([
-//         'nome' => $request->nome,
-//         'descricao' => $request->descricao,
-//         'situacao' => $request->situacao,
-//         // 'imagem' => $caminhoImagem, // defina isso na lógica de upload
-//         'cor' => $request->cor, // ← ESSENCIAL!
-        
-//     ]);
 
-//     // Tratamento da imagem
-//     if ($request->hasFile('imagem')) { 
-//         $imagem = $request->file('imagem'); 
-//         $imageName = time().'.'.$imagem->getClientOriginalExtension(); 
-//         $imagem->move(public_path('img/salas'), $imageName); 
-//     } else { 
-//         $imageName = null; // Caso contrário, o valor será null
-//     }
+	public function index()
+	{
+		$salas = Sala::all();
+		$reservas = Reserva::with('sala', 'user')->get(); // Carregue as relações sala e user
+		return view('salas.index', compact('salas', 'reservas'));
+	}
 
-//     // Criação da nova sala 
-//     $sala = new Sala; 
-//     $sala->nome = $request->input('nome'); 
-//     $sala->descricao = $request->input('descricao'); 
-//     $sala->situacao = $request->input('situacao'); 
-//     $sala->imagem = $imageName; 
-//     $sala->save();
 
-//     // Redirecionamento após criação da sala 
-//     return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
-// }
-
-public function store(Request $request)
-{
-    // Validação dos dados
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'descricao' => 'required|string|max:255',
-        'situacao' => 'required|in:ativa,inativa',
-        'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        'cor' => 'nullable|string',
-    ]);
-
-    // Upload da imagem (se houver)
-    $imageName = null;
-    if ($request->hasFile('imagem')) {
-        $imagem = $request->file('imagem');
-        $imageName = time() . '.' . $imagem->getClientOriginalExtension();
-        $imagem->move(public_path('img/salas'), $imageName);
-    }
-
-    // Criação da sala com todos os campos
-    Sala::create([
-        'nome' => $request->nome,
-        'descricao' => $request->descricao,
-        'situacao' => $request->situacao,
-        'imagem' => $imageName,
-        'cor' => $request->cor, // Agora vai salvar corretamente!
-    ]);
-
-    return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
-}
+	//Método para exibir o formulário de criação de sala
+	public function create()
+	{
+		$salas = Sala::all();
+		$users = User::all();
+		return view('reservas.create', compact('salas', 'users'));
+	}
 
 
 
-   
-    // Método para exibir uma sala específica
-    public function show(Sala $sala)
-    {
-        return view('salas.show', compact('sala'));
-    }
+	public function store(Request $request)
+	{
+		// Validação dos dados
+		$request->validate([
+			'nome' => 'required|string|max:255',
+			'descricao' => 'required|string|max:255',
+			'situacao' => 'required|in:ativa,inativa',
+			'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+			'cor' => 'nullable|string',
+		]);
 
-    
-    // Método para exibir o formulário de edição de sala
-    public function edit(Sala $sala)
-    {
-        return view('salas.edit', compact('sala'));
-    }
+		// Upload da imagem (se houver)
+		$imageName = null;
+		if ($request->hasFile('imagem')) {
+			$imagem = $request->file('imagem');
+			$imageName = time() . '.' . $imagem->getClientOriginalExtension();
+			$imagem->move(public_path('img/salas'), $imageName);
+		}
 
-    // Método para atualizar uma sala existente
-    public function update(Request $request, Sala $sala)
-{
-    $sala->nome = $request->nome;
-    $sala->descricao = $request->descricao;
-    $sala->situacao = $request->situacao;
-    $sala->cor = $request->cor; // Atualizando a cor
-    $sala->save();
+		// Criação da sala com todos os campos
+		Sala::create([
+			'nome' => $request->nome,
+			'descricao' => $request->descricao,
+			'situacao' => $request->situacao,
+			'imagem' => $imageName,
+			'cor' => $request->cor, // Agora vai salvar corretamente!
+		]);
 
-    return redirect()->route('salas')->with('success', 'Sala atualizada com sucesso!');
-}
+		return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
+	}
+
+	// Método para exibir uma sala específica
+	public function show(Sala $sala)
+	{
+		return view('salas.show', compact('sala'));
+	}
 
 
-      // Método para excluir uma sala
-    public function destroy(Sala $sala)
-    {
-        $sala->delete();
-        return redirect()->route('salas', 'salas.index')->with('success', 'Sala excluída com sucesso!');
-    }
+	// Método para exibir o formulário de edição de sala
+	public function edit(Sala $sala)
+	{
+		return view('salas.edit', compact('sala'));
+	}
 
-   
+	// Método para atualizar uma sala existente
+	public function update(Request $request, Sala $sala)
+	{
+		$sala->nome = $request->nome;
+		$sala->descricao = $request->descricao;
+		$sala->situacao = $request->situacao;
+		$sala->cor = $request->cor; // Atualizando a cor
+		$sala->save();
+
+		return redirect()->route('salas')->with('success', 'Sala atualizada com sucesso!');
+	}
+
+
+	// Método para excluir uma sala
+	public function destroy(Sala $sala)
+	{
+		$sala->delete();
+		return redirect()->route('salas', 'salas.index')->with('success', 'Sala excluída com sucesso!');
+	}
+
+
 }
