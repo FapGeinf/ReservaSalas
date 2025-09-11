@@ -11,41 +11,34 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Buscar todas as salas
         $salas = Sala::all();
-
-        // Buscar todas as reservas com relação à sala
-        $reservas = Reserva::with('sala')->get();
-
-        // Redirecionar conforme o tipo de usuário
-
-        if (Auth::user()->role === 'admin') {
-            return view('home', compact('salas', 'reservas'));
-        } else {
-            return view('home', compact('salas', 'reservas'));
-        }
-
-
+				$today = \Carbon\Carbon::today();
+        $reservas = Reserva::with('sala')
+					->whereDate('data_inicio','>=', $today)
+					->orderBy('data_inicio', 'asc')
+					->get();
+        return view('home', compact('salas', 'reservas'));
     }
 
     public function adminHome()
     {
-        // Buscar todas as salas
         $salas = Sala::all();
-
-        // Buscar todas as reservas com relação à sala
-        $reservas = Reserva::with('sala')->get();
-
+				$today = \Carbon\Carbon::today();
+        $reservas = Reserva::with('sala')
+					->whereDate('data_inicio','>=', $today)
+					->orderBy('data_inicio', 'asc')
+					->get();
         return view('home', compact('salas', 'reservas'));
     }
 
     public function userHome()
     {
-        // Buscar todas as salas
         $salas = Sala::all();
-
-        // Buscar todas as reservas com relação à sala
-        $reservas = Reserva::with('sala')->get();
+				$today = \Carbon\Carbon::today();
+        $reservas = Reserva::with('sala')
+					->whereDate('data_inicio','>=', $today)
+					->orderBy('data_inicio', 'asc')
+					->get();
 
         return view('home.user', compact('salas', 'reservas'));
     }
