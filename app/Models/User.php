@@ -27,6 +27,11 @@ class User extends Authenticatable
         'image',
         'cpf',
         'login',
+				'username',
+				'tipo',
+				'is_admin',
+				'domain',
+				'guid'
     ];
 
     /**

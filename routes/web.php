@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
 
+
 Route::middleware('auth')->group(function () {
 	// Página "Home"
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
