@@ -1,3 +1,8 @@
+#miniCalendar {
+  padding: 12px;
+  background-color: #fff;
+}
+
 .fc .fc-toolbar-title {
   font-style: normal;
   font-size: 20px !important;
@@ -18,6 +23,10 @@
   background-color: #eeeeee;
 }
 
+.fc-event {
+  opacity: 1 !important;
+}
+
 .title-meetings {
   color: #394151;
   font-size: 20px;
@@ -25,9 +34,9 @@
 
 /* Estilo da página principal */
 .pagina-container {
-  max-width: 1600px;
-  margin: 2rem auto;
-  padding: 1rem;
+  /* max-width: 1600px; */
+  margin: 1rem auto;
+  padding: 1rem 1rem 0 1rem;
 }
 
 /* Cores de status */
@@ -44,9 +53,10 @@
   padding: 20px;
   font-size: 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #dee2e6;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+  border-radius: 8px;
 }
 
 /* Conteúdo interno do Card */
@@ -59,9 +69,10 @@
 /* Imagem da Sala */
 .imagem-sala {
   width: 130px;
-  height: 95px;
+  height: 60px;
   object-fit: cover;
   background-color: #dee2e6;
+  /* margin-left: 30px; */
 }
 
 /* Informações da Sala */
@@ -71,11 +82,12 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  margin-left: 40px;
 }
 
 .titulo-sala {
   font-size: 19px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   color: #394151;
 }
 
@@ -95,11 +107,17 @@
 /* Caixa do Calendário */
 .caixa-calendario {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #dee2e6 !important;
   padding: 20px 20px 20px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   padding-top: 0;
+  border-radius: 8px;
+}
+
+.main-calendar {
+  height: calc(110vh - 250px);
+  overflow-y: auto;
 }
 
 .titulo-calendario {
@@ -115,14 +133,14 @@
   font-style: italic;
 }
 
-.calendar-container {
-  height: 400px;
-}
+/* .calendar-container {
+  height: 753px;
+} */
 
 /* Caixa da Tabela */
 .caixa-tabela {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow-x: auto;
@@ -142,7 +160,7 @@ table {
 th, td {
   text-align: left;
   padding: 12px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
 }
 
 th {
@@ -161,62 +179,62 @@ th {
 /* Cards de Sala */
 .sala-card {
   background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
+  border: 1px solid #dee2e6;
+  padding: 13px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
-  width: calc(25% - 15px);
+  /* width: calc(25% - 15px); */
+  width: 100%;
 }
 
-/* Remova todos os `margin-right` e os `nth-child(...)` do CSS */
-
-
-
-
-/* 3 por linha até 1366px */
-@media (max-width: 1366px) {
-  .sala-card {
-    width: calc(33.333% - 14px);
-  }
+.width-100 {
+  width: 100%;
 }
 
-/* 2 por linha até 1050px */
-@media (max-width: 1050px) {
-  .sala-card {
-    width: calc(50% - 10px);
-  }
+.calendar-container {
+  border-radius: 8px !important;
+  overflow: hidden; /* para garantir que conteúdo interno também respeite o arredondado */
 }
 
-/* 2 por linha com layout compacto até 768px */
-@media (max-width: 768px) {
-  .sala-card {
-    width: calc(50% - 10px);
+@media (max-width: 1420px) {
+  .nome-sala-full {
+    display: none !important;
   }
-
-  .sala-card-conteudo {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-  }
-
-  .imagem-sala {
-    width: 100px;
-    height: 75px;
+  .nome-sala-short {
+    display: inline !important;
   }
 
   .titulo-sala {
-    font-size: 14px;
-    margin-bottom: 6px;
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 1045px) {
+  .titulo-sala {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 767px) {
+  .nome-sala-full {
+    display: none !important;
+  }
+  .nome-sala-short {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .salas-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
-  .botao-reservar,
-  .button-grey {
-    font-size: 13px;
-    padding: 6px 12px;
+  .sala-card.width-100 {
+    width: 48%;
   }
-
-  .sala-info {
-    align-items: center;
+  
+  .titulo-sala {
+    font-size: 19px;
   }
 }

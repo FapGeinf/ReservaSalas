@@ -14,9 +14,9 @@ h1, h2, h3, h4, h5, h6, td, th {
   color: #e5534b;
 }
 
-.modal-content {
+/* .modal-content {
   border-radius: 0 !important;
-}
+} */
 
 .table-bg {
   color: #fff !important;
@@ -28,9 +28,9 @@ h1, h2, h3, h4, h5, h6, td, th {
 }
 
 .border-none {
-  border-top: 1px solid #fff !important;
+  /* border-top: 1px solid #fff !important;
   border-right: 1px solid #fff !important;
-  border-left: 1px solid #fff !important;
+  border-left: 1px solid #fff !important; */
   border-bottom: 1px solid #fff !important;
 }
 
@@ -159,6 +159,7 @@ label {
 
 .button-green {
   background-color: #10b981;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .button-green:hover {

@@ -6,14 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
-  <title>Agendaí! | Seja bem-vindo</title>
+  <title>Agendaí! | Bem-vindo</title>
 
 </head>
 
@@ -25,87 +28,79 @@
       <div class="col-lg-6"></div>
 
       <!-- Lado Direito -->
-      <div class="col-lg-6 d-flex align-items-center justify-content-center right-side form-box">
-        <div class="form-2-wrapper">
-
+      <div class="col-lg-6">
+        <div class="form-custom no-border-bottom form-no-bottom-login mt-5">
           <div class="logo text-center mb-4">
-            <img src="{{ asset('/img/logo-alone.png') }}" alt="Logo Agendaí">
+            <img src="{{ asset('/img/logo-letras.png') }}" alt="Logo Agendaí">
           </div>
 
-          <form method="POST" action="{{ route('login') }}">
+          <form id="form-login" method="POST" action="{{ route('login') }}">
             @csrf
 
             @if ($errors->has('login'))
-        <div class="alert alert-danger d-flex align-items-center shadow-sm rounded p-1" role="alert">
-          <i class="bi bi-exclamation-circle-fill me-1"></i>
-          <span>{{ $errors->first('login') }}</span>
-        </div>
-      @endif
-
-            <div class="mb-3 form-box">
-              <label for="login">Login:</label>
-
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                <input type="text" class="form-control" id="login" name="login" placeholder="Login" required>
+              <div class="alert alert-danger d-flex align-items-center shadow-sm rounded p-1" role="alert">
+                <i class="bi bi-exclamation-circle-fill me-1"></i>
+                <span>{{ $errors->first('login') }}</span>
               </div>
+            @endif
+
+            <div>
+              <label class="fw-bold" for="login">Login:</label>
+              <input type="text" class="input-custom" id="login" name="login" required>
             </div>
 
-            <label for="password">Senha:</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input type="password" id="password" name="password" class="form-control"
-                placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
+            <div class="mt-3 position-relative">
+              <label for="password" class="fw-bold">Senha:</label>
 
-              <span class="input-group-text">
-                <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
-              </span>
-            </div>
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+              <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 
-
-            <!-- <label for="password">Senha:</label>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input type="password" id="password" name="password" class="form-control"
-                placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
-
+              <i id="togglePassword" class="bi bi-eye-slash" 
+              style="
+                position: absolute;
+                top: 33px;
+                right: 10px;
+                cursor: pointer;
+                color: #374151;">
+              </i>
               <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div> -->
-
-            <!-- Lembrar de Mim -->
-            <div class="block mt-0">
-              <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded" name="remember">
-                <span class="ml-1 text-sm">Lembrar de mim</span>
-              </label>
             </div>
-
-            <div class="d-flex justify-content-center mt-3">
-              <button type="submit" class="button-blue">Entrar</button>
-            </div>
-            <form method="POST" action="{{ route('login') }}" id="loginForm">
 
           </form>
 
-          <p class="mt-3">
-            <a href="http://10.10.3.252/glpi/front/ticket.form.php" style="font-size: 15px;" target="_blank">Esqueceu a
-              senha?</a>
-          </p>
+          <div class="block mt-3">
+            <label for="remember_me" class="inline-flex items-center">
+              <input id="remember_me" type="checkbox" class="rounded" name="remember">
+              <span class="ml-1 text-sm">Lembrar de mim</span>
+            </label>
+          </div>
+  
         </div>
 
-
-        <!-- <div class="text-start register-link mt-4">
-            <a href="{{ route('password.request') }}" class="">Esqueceu a senha?</a>
-            <p class="mt-1">Primeira vez usando o Agendaí? <a href="{{ route('register') }}" class="">Cadastre-se</a></p>
-          </div> -->
+        <div class="form-custom no-border-top form-no-top-login pt-3">
+          <div class="d-flex justify-content-end gap-2 pb-3">
+            <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="button-grey text-decoration-none" target="_blank">Esqueceu sua senha?</a>
+            <button type="submit" form="form-login" class="button-green">Entrar</button>
+          </div>
+        </div>
 
       </div>
     </div>
   </div>
 
   <script>
-    // Função para alternar o tempo do alerta de erro
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+
+      this.classList.toggle('bi-eye');
+      this.classList.toggle('bi-eye-slash');
+    });
+  </script>
+
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
         let alertElement = document.querySelector(".alert-danger");
@@ -114,46 +109,12 @@
           alertElement.style.opacity = "0";
           setTimeout(() => alertElement.remove(), 500);
         }
-      }, 4000); // 5 segundos
+      }, 4000);
     });
+  </script>
 
-    // Função para alternar a visibilidade da senha
-    document.getElementById("togglePassword").addEventListener("click", function () {
-        let passwordField = document.getElementById("password");
-        let icon = this;
-
-        if (passwordField.type === "password") {
-            passwordField.type = "text"; // Mostra a senha
-            icon.classList.remove("bi-eye-slash");
-            icon.classList.add("bi-eye"); // Ícone de olho aberto
-        } else {
-            passwordField.type = "password"; // Oculta a senha
-            icon.classList.remove("bi-eye");
-            icon.classList.add("bi-eye-slash"); // Ícone de olho fechado
-        }
-    });
-
-    // Enviar o formulário ao pressionar Enter
-    document.addEventListener("DOMContentLoaded", function () {
-        let form = document.getElementById("loginForm");
-
-        form.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Evita comportamento padrão
-                form.submit(); // Envia o formulário
-            }
-        });
-    });
-</script>
-
-
-  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- jQuery Mask Plugin -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
-  </div>
 </body>
-
 </html>

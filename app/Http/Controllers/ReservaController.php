@@ -12,15 +12,16 @@ use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
-	public function index()
-	{
-		$users = User::all();
-		$reservas = Reserva::with('sala', 'user.unidade')
-			->orderBy('hora_inicio', 'desc') // Ordenar pela data de início mais recente
-			->get();
-		$salas = Sala::all();
-		return view('home', compact('reservas', 'salas', 'users'));
-	}
+    public function index()
+{
+    $users = User::all();
+   $reservas = Reserva::with('sala', 'user.unidade')
+    ->orderBy('data_inicio', 'desc') // Ordena corretamente
+    ->get();
+    $salas = Sala::all();
+    return view('home', compact('reservas', 'salas', 'users'));
+}
+
 
 
 	public function create()
@@ -32,42 +33,56 @@ class ReservaController extends Controller
 	}
 
 
-	public function store(Request $request)
-	{
-
-		$request->validate([
-			'sala_fk' => 'required|exists:salas,id',
-			'data_reserva' => 'required|date|after_or_equal:today',
-			// 'data_reserva' => 'required|date',
-
-			'hora_inicio' => 'required|date_format:H:i',
-			'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-		], [
-			'sala_fk.required' => 'Selecione uma sala.',
-			'sala_fk.exists' => 'Sala não encontrada.',
-			'data_reserva.required' => 'Informe a data da reserva.',
-			'data_reserva.after_or_equal' => 'A data escolhida deve ser hoje ou uma futura.',
-			'hora_inicio.required' => 'Informe a hora de início.',
-			'hora_termino.after' => 'A hora de término deve ser após a hora de início.',
-		]);
+    public function store(Request $request)
+    {
+        $dataSelecionada = Carbon::parse($request->input('data_reserva'));
 
 
-		// Verificar se a sala está ativa
-		$sala = Sala::findOrFail($request->input('sala_fk'));
-		if (strtolower(trim($sala->situacao)) !== 'ativa') {
-			if ($request->ajax()) {
-				return response()->json([
-					'success' => false,
-					'message' => 'A sala está em manutenção e não pode ser reservada.'
-				], 400);
-			}
-			return back()->with('error', 'A sala está em manutenção e não pode ser reservada.');
-		}
+       $request->validate([
+    'sala_fk' => 'required|exists:salas,id',
+    'data_reserva' => [
+        'required',
+        'date',
+        function ($attribute, $value, $fail) {
+            if (Carbon::parse($value)->lt(Carbon::today())) {
+                $fail('A data escolhida deve ser hoje ou uma futura.');
+            }
+        },
+    ],
+            // 'data_reserva' => 'required|date',
+
+            'hora_inicio' => 'required|date_format:H:i',
+            'hora_termino' => 'required|date_format:H:i|after:hora_inici',
+        ], [
+            'sala_fk.required' => 'Selecione uma sala.',
+            'sala_fk.exists' => 'Sala não encontrada.',
+            'data_reserva.required' => 'Informe a data da reserva.',
+            'data_reserva.after_or_equal' => 'A data escolhida deve ser hoje ou uma futura.',
+            'hora_inicio.required' => 'Informe a hora de início.',
+            'hora_termino.after' => 'A hora de término deve ser após a hora de início.',
+        ]);
 
 
-		$salaId = $request->input('sala_fk');
-		$dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
-		$dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
+        // Verificar se a sala está ativa
+        $sala = Sala::findOrFail($request->input('sala_fk'));
+        if (strtolower(trim($sala->situacao)) !== 'ativa') {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A sala está em manutenção e não pode ser reservada.'
+                ], 400);
+            }
+            return back()->with('Desculpe!', 'A sala está em manutenção e não pode ser reservada.');
+        }
+
+
+        $salaId = $request->input('sala_fk');
+        // $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
+        // $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
+
+       $dataInicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio)->format('Y-m-d H:i:s');
+       $dataFim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino)->format('Y-m-d H:i:s');
+
 
 		// Verificar conflitos de horário
 		$conflito = Reserva::where('sala_fk', $salaId)
@@ -82,25 +97,37 @@ class ReservaController extends Controller
 			->exists();
 
 
-		if ($conflito) {
-			if ($request->ajax()) {
-				return response()->json([
-					'success' => false,
-					'message' => 'A sala já está reservada neste horário.'
-				], 400);
-			}
-			return back()->with('error', 'A sala já está reservada neste horário.');
-		}
+        if ($conflito) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A sala já está reservada neste horário.'
+                ], 400);
+            }
+            return back()->with('Desculpe!', 'A sala já está reservada neste horário.');
+        }
 
 
-		// Criar a reserva
-		$reserva = Reserva::create([
-			'sala_fk' => $salaId,
-			'data_inicio' => $dataInicio,
-			'data_fim' => $dataFim,
-			'user_id' => auth()->id(),
-			'unidade_fk' => auth()->user()->unidade_fk,
-		]);
+        // Protege a sala Aquário
+if (str_contains(strtolower($sala->nome), 'aquário')) {
+    // Verifica se o usuário logado NÃO é admin
+    if (auth()->user()->role !== 'admin') {
+        return back()->with('error', 'A sala Aquário só pode ser reservada por administradores para uso de pesquisadores.');
+    }
+}
+
+
+
+        // Criar a reserva
+        $reserva = Reserva::create([
+    'sala_fk' => $salaId,
+    'data_inicio' => $dataInicio,
+    'data_fim' => $dataFim,
+    'user_id' => auth()->id(),
+    'unidade_fk' => auth()->user()->unidade_fk,
+    'finalidade' => $request->input('tipo_reserva'), // <- Aqui!
+]);
+
 
 		// Resposta para requisições AJAX
 		if ($request->ajax()) {
@@ -136,19 +163,20 @@ class ReservaController extends Controller
 		return view('reservas.edit', compact('reserva', 'salas', 'users'));
 	}
 
-	public function update(Request $request, Reserva $reserva)
-	{
-		// Bloqueia se o usuário não for admin e não for o dono da reserva
-		if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-			return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
-		}
-
-		$request->validate([
-			'sala_id' => 'required|exists:salas,id',
-			'data_inicio' => 'required|date',
-			'hora_inicio' => 'required|date_format:H:i',
-			'data_fim' => 'required|date_format:H:i|after:hora_inicio',
-		]);
+    public function update(Request $request, Reserva $reserva)
+    {
+        
+        // Bloqueia se o usuário não for admin e não for o dono da reserva
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
+        }
+ 
+        $request->validate([
+            'sala_id' => 'required|exists:salas,id',
+            // 'data_inicio' => 'required|date',
+            'hora_inicio' => 'required|date_format:H:i',
+            'data_fim' => 'required|date_format:H:i|after:hora_inicio',
+        ]);
 
 		$reserva->update([
 			'sala_fk' => $request->input('sala_id'),
@@ -159,20 +187,23 @@ class ReservaController extends Controller
 		return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
 	}
 
-	public function destroy(Reserva $reserva)
-	{
-		// Permite que apenas administradores ou o próprio usuário excluam a reserva
-		if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-			return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta reserva.');
-		}
+    public function destroy(Reserva $reserva)
+    {
+        // Permite que apenas administradores ou o próprio usuário excluam a reserva
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+             return back()->with('error', 'Você não tem permissão para excluir esta reserva.');
+        }
 
-		try {
-			$reserva->delete();
-			return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-		} catch (\Exception $e) {
-			return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
-		}
-	}
+        
+
+
+        try {
+            $reserva->delete();
+            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+        }
+    }
 
 
 	public function view($id)
@@ -193,29 +224,9 @@ class ReservaController extends Controller
 	{
 		$data = $request->query('data'); // Obtém a data da requisição
 
-		// Busca as reservas da sala para a data especificada
-		$reservas = Reserva::where('sala_fk', $salaId)
-			->whereDate('data_inicio', $data)
-			->with(['user', 'user.unidade'])
-			->get();
-
-		return response()->json($reservas);
-	}
-
-	public function getEventos()
-	{
-		$reservas = Reserva::with(['sala', 'user.unidade'])->get();
-		$now = Carbon::now();
-
-		$events = [];
-		foreach ($reservas as $reserva) {
-			try {
-				$isPast = Carbon::parse($reserva->data_fim)->lt($now);
-
-				$color = $reserva->sala->cor ?? '#3788d8';
-				$backgroundColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-				$borderColor = $isPast ? $this->hexToRgba($color, 0.2) : $color;
-				$textColor = $isPast ? '#333333' : '#ffffff';
+    public function getReservasPorSalaEData($salaId, Request $request)
+    {
+        $data = $request->query('data'); // Obtém a data da requisição
 
 				$events[] = [
 					'title' => $reserva->sala->nome ?? 'Sem sala',
@@ -242,21 +253,70 @@ class ReservaController extends Controller
 		return response()->json($events);
 	}
 
-	private function hexToRgba($hex, $opacity = 1.0)
-	{
-		$hex = str_replace('#', '', $hex);
+    public function getEventos()
+    {
+        $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+        $now = Carbon::now();
 
-		if (strlen($hex) === 3) {
-			$r = hexdec(str_repeat(substr($hex, 0, 1), 4));
-			$g = hexdec(str_repeat(substr($hex, 1, 1), 4));
-			$b = hexdec(str_repeat(substr($hex, 2, 1), 4));
-		} else {
-			$r = hexdec(substr($hex, 0, 2));
-			$g = hexdec(substr($hex, 2, 2));
-			$b = hexdec(substr($hex, 4, 2));
-		}
+        $events = [];
+        foreach ($reservas as $reserva) {
+            $isPast = Carbon::parse($reserva->data_fim)->lt($now);
 
-		return "rgba($r, $g, $b, $opacity)";
-	}
+            $color = $reserva->sala->cor ?? '#3788d8';
+            $backgroundColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
+            $borderColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
+            $textColor = $isPast ? '#333333' : '#ffffff';
+
+            $events[] = [
+                $events[] = [
+    'id' => $reserva->id,
+    // 'title' => $reserva->sala->nome,
+    'title' => $reserva->sala?->nome,
+    'start' => Carbon::parse($reserva->data_inicio)->format('Y-m-d\TH:i:s'),
+    'end' => Carbon::parse($reserva->data_fim)->format('Y-m-d\TH:i:s'),
+    'backgroundColor' => $backgroundColor,
+    'borderColor' => $borderColor,
+    'textColor' => $textColor,
+    'extendedProps' => [
+        'unidade' => $reserva->user->unidade->sigla ?? 'nome da unidade',
+    'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+    'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+    'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),
+    'sala_id' => $reserva->sala_fk,
+    'responsavel' => $reserva->user->name
+
+    ]
+]
+    ];
+        }
+
+        return response()->json($events);
+    }
+
+
+
+    private function hexToRgba($hex, $opacity = 1.0)
+    {
+        $hex = str_replace('#', '', $hex);
+
+        if (strlen($hex) === 3) {
+            $r = hexdec(str_repeat(substr($hex, 0, 1), 4));
+            $g = hexdec(str_repeat(substr($hex, 1, 1), 4));
+            $b = hexdec(str_repeat(substr($hex, 2, 1), 4));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+
+        return "rgba($r, $g, $b, $opacity)";
+    }
+
+   public function listarReunioes()
+{
+    $reservas = Reserva::with('sala', 'user.unidade')->get();
+    return view('reservas.reservas', compact('reservas'));
+
+}
 
 }

@@ -2,181 +2,159 @@
 @section('title') {{ 'Cadastrar Novo Usuário' }} @endsection
 @section('content')
 
-    <link rel="stylesheet" href="{{ asset('css/salas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/salas.css') }}">
+<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
-    <style>
-        label {
-            font-size: 16px;
-        }
+<style>
+  /* Removendo margem apenas para campos que não sejam senha */
+  .form-line-split > input:first-child {
+    margin-left: 42px;
+  }
 
-        .input-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+  .split-password {
+    margin-left: 54px;
+  }
 
-        .input-custom {
-            width: 100%;
-            padding-right: 40px;
-            /* Espaço para o ícone */
-        }
+  /* Mobile */
+  @media (max-width: 768px) {
+    .form-line-split > input:first-child {
+      margin-left: 0px;
+    }
 
-        i {
-            position: absolute;
-            right: 10px;
-            cursor: pointer;
-            color: #666;
-        }
-    </style>
+    .split-password {
+      margin-left: 0px;
+    }
+  }
+</style>
 
+<script>
+  function togglePassword(inputId, iconId) {
+    let passwordField = document.getElementById(inputId);
+    let eyeIcon = document.getElementById(iconId);
+
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+
+    } else {
+      passwordField.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    }
+  }
+</script>
+
+@push('scripts')
+  @if(session('success'))
     <script>
-        function togglePassword(inputId, iconId) {
-            let passwordField = document.getElementById(inputId);
-            let eyeIcon = document.getElementById(iconId);
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordField.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
-            }
-        }
+      document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+          title: 'Sucesso!',
+          text: '{{ session('success') }}',
+          icon: 'success',
+          confirmButtonText: 'Fechar'
+        });
+      });
     </script>
+  @endif
+@endpush
 
+<div class="form-custom no-border-bottom form-no-bottom mt-5">
+  <h5 class="fw-bold text-center text-uppercase mb-3">
+    Novo Usuário
+  </h5>
 
-
-    @push('scripts')
-        @if(session('success'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        text: '{{ session('success') }}',
-                        icon: 'success',
-                        confirmButtonText: 'Fechar'
-                    });
-                });
-            </script>
-        @endif
-    @endpush
-
-    <div class="p-30__no-bottom">
-        <div class="mx-auto box-profile">
-            <div class="row justify-content-center">
-                <div class="col position-relative">
-                    <div class="box__no-border no-margin-bottom title-bg">
-                        <h3 class="text-center fw-bold">Cadastrar Novo Usuário</h3>
-                        <!-- Botão Fechar -->
-                        <a href="{{ route('usuarios.index') }}" class="btn-close position-absolute end-0 top-0 m-3"
-                            aria-label="Fechar"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mx-auto box-profile">
-            <div class="row justify-content-center">
-                <div class="col">
-                    <div class="box__no-border">
-                        <form method="POST" action="{{ route('usuarios.store') }}">
-                            @csrf
-
-                            <!-- Nome -->
-                            <div class="mb-3">
-                                <label for="name" class="fw-bold">Nome:</label>
-                                <input type="text" class="input-custom" id="name" name="name" required>
-                            </div>
-
-                            <!-- Login -->
-                            <div class="mb-3">
-                                <label for="login" class="fw-bold">Login:</label>
-                                <input type="text" class="input-custom" id="login" name="login" required>
-                            </div>
-
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="fw-bold">Email:</label>
-                                <input type="email" class="input-custom" id="email" name="email" required>
-                            </div>
-
-                            <!-- CPF
-                            <div class="mb-3">
-                                <label for="cpf" class="fw-bold">CPF:</label>
-                                <input type="text" class="input-custom" id="cpf" name="cpf">
-                                @error('cpf')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div> -->
-
-
-                            <!-- Unidade -->
-                            <div class="mb-3">
-                                <label for="unidade_fk" class="fw-bold">Unidade:</label>
-                                <select class="form-select" id="unidade_fk" name="unidade_fk" required>
-                                    <option value="">Selecione a unidade</option>
-                                    @foreach($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="role" class="fw-bold">Tipo de Usuário:</label>
-                                <select class="form-select" id="role" name="role" required>
-                                    <option value="user">Usuário Comum</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
-                            </div>
-
-
-                            <!-- Senha -->
-                            <div class="mb-3">
-                                <label for="password" class="fw-bold">Senha:</label>
-                                <div class="input-container">
-                                    <input type="password" class="input-custom" id="password" name="password" required>
-                                    <i id="eyeIconPassword" class="fas fa-eye"
-                                        onclick="togglePassword('password', 'eyeIconPassword')"></i>
-                                </div>
-                            </div>
-
-                            <!-- Confirmação de Senha -->
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="fw-bold">Confirme a Senha:</label>
-                                <div class="input-container">
-                                    <input type="password" class="input-custom" id="password_confirmation"
-                                        name="password_confirmation" required>
-                                    <i id="eyeIconConfirm" class="fas fa-eye"
-                                        onclick="togglePassword('password_confirmation', 'eyeIconConfirm')"></i>
-                                </div>
-                            </div>
-
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="button-green">
-                                    Cadastrar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <form id="new-user" method="POST" action="{{ route('usuarios.store') }}">
+    @csrf
+    
+    <div class="form-line mt-4">
+      <label for="name" class="fw-bold">Nome:</label>
+      <input type="text" class="input-custom" id="name" name="name" required>
     </div>
+
+    <div class="form-line mt-4">
+      <label for="email" class="fw-bold">Email:</label>
+      <input type="email" class="input-custom" id="email" name="email" required>
+    </div>
+
+    <div class="form-line mt-4">
+      <label for="unidade_fk" class="fw-bold">Unidade:</label>
+      <select class="form-select pointer" id="unidade_fk" name="unidade_fk" required>
+        <option value="">Selecione a unidade</option>
+
+        @foreach($unidades as $unidade)
+          <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+        @endforeach
+      </select>
+    </div>
+
+    <div class="form-line mt-4">
+      <label class="fw-bold">Login/ Tipo de Usuário:</label>
+
+      <div class="form-line-split">
+        <input type="text" class="input-custom" id="login" name="login" required>
+
+        <select class="form-select pointer" id="role" name="role" required>
+          <option value="user">Usuário Comum</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-line mt-4">
+      <label class="fw-bold">Senha/ Repita a senha:</label>
+
+      <div class="form-line-split split-password">
+        <div style="position: relative;">
+          <input type="password" class="input-custom" id="password" name="password" placeholder="********" required>
+          <i id="eyePassword" class="fa fa-eye" 
+            style="
+            position: absolute;
+            top: 50%;
+            color: #374151;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;"
+            onclick="togglePassword('password', 'eyePassword')">
+          </i>
+        </div>
+
+        <div style="position: relative;">
+          <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" placeholder="********" required>
+          <i id="eyePasswordConfirmation" class="fa fa-eye"
+            style="position: absolute;
+            top: 50%;
+            color: #374151;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;"
+            onclick="togglePassword('password_confirmation', 'eyePasswordConfirmation')">
+          </i>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="form-custom no-border-top form-no-top pt-3">
+  <div class="d-flex justify-content-end pb-3">
+    <button type="submit" form="new-user" class="button-green">Cadastrar</button>
+  </div>
+</div>
 
 @endsection
 
-<!-- bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @if(session('cpf_error'))
-    <script>
-        var cpfErrorModal = new bootstrap.Modal(document.getElementById('cpfErrorModal'));
-        cpfErrorModal.show();
-    </script>
+  <script>
+    var cpfErrorModal = new bootstrap.Modal(document.getElementById('cpfErrorModal'));
+    cpfErrorModal.show();
+  </script>
 @endif

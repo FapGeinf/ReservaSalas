@@ -15,7 +15,7 @@
 
 .sala-card {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
   flex: 1 1 calc(25% - 20px);
@@ -71,7 +71,7 @@
 /* Calendário */
 .caixa-calendario {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
@@ -98,7 +98,7 @@
 /* Tabela de Reservas */
 .caixa-tabela {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
