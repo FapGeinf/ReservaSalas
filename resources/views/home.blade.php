@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 <script src="{{ asset('js/tutorial.js') }}"></script>
+<script src="{{ asset('js/modal/abrirModalDetalhes.js') }}"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -22,6 +23,8 @@
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <x-alert-toast/>
 
@@ -294,7 +297,7 @@
   </div>
 </div>
 
-<script>
+{{-- <script>
   function abrirModalDetalhes(event) {
     document.getElementById('detalheSala').innerText = event.title || '';
     document.getElementById('detalheUnidade').innerText = event.extendedProps.unidade || '';
@@ -325,7 +328,7 @@
     var modalDetalhes = new bootstrap.Modal(document.getElementById('modalDetalhesReserva'));
     modalDetalhes.show();
   }
-</script>
+</script> --}}
 
 <script>
   document.getElementById('diaInteiro').addEventListener('change', function () {
@@ -638,9 +641,6 @@
   }
 </script>
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
 <script>
   // Definir o plugin de ordenação personalizada ANTES de usar
   jQuery.extend(jQuery.fn.dataTableExt.oSort, {
@@ -844,11 +844,10 @@
 
     const form = this;
 
-    // Aqui você pode adicionar uma animação de loading se quiser
     $(form).find('button[type="submit"]').prop('disabled', true).html(
-      '<span class="spinner-border spinner-border-sm" role="status"></span> Excluindo...');
+      '<span class="spinner-border spinner-border-sm" role="status"></span> Excluindo...'
+    );
 
-    // Envia a requisição AJAX
     $.ajax({
       url: form.action,
       type: 'POST',
