@@ -34,7 +34,9 @@
   }
 </style>
 
-<div class="position-fixed top-0 start-50 translate-middle-x mt-5 p-3" style="z-index: 1055;" id="alert-container">
+<div class="position-fixed top-0 start-50 translate-middle-x mt-5 p-3" 
+  style="z-index: 1055;" id="alert-container">
+  
   @if(session('success'))
     <div class="toast toast-style align-items-center border-0 show fade mb-2"
       role="alert" aria-live="assertive" aria-atomic="true"
