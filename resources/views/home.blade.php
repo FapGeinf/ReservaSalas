@@ -17,7 +17,7 @@
 
 <script src="{{ asset('js/miniCalendar.js') }}"></script>
 <script src="{{ asset('js/abrirModalEdicao.js') }}"></script>
-<script src="{{ asset('js/modal/abrirModalDetalhes.js') }}"></script>
+<script src="{{ asset('js/abrirModalDetalhes.js') }}"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -302,110 +302,6 @@
     </div>
   </div>
 </div>
-
-<script>
-  // Função para abrir o modal do calendário e selecionar uma sala
-  function abrirModalCalendario(salaId) {
-    console.log("Sala selecionada:", salaId);
-    $('#sala_fk').val(salaId); // Define a sala no formulário
-    $('#modalCalendario').modal('show');
-  }
-
-  $(document).ready(function() {
-    $('#reservaForm').submit(function(e) {
-      e.preventDefault();
-
-      // Mostra o loader no botão
-      const submitBtn = $(this).find('button[type="submit"]');
-      submitBtn.prop('disabled', true).html(
-        '<span class="spinner-border spinner-border-sm" role="status"></span> Salvando...'
-      );
-
-      $.ajax({
-        url: $(this).attr('action'),
-        type: 'POST',
-        data: $(this).serialize(),
-
-        success: function(response) {
-          if (response.success) {
-            // Fecha o modal de reserva
-
-            $('#modalReserva').modal('hide');
-            // Mostra mensagem de sucesso
-            Swal.fire({
-              title: 'Sucesso!',
-              text: 'Reserva realizada com sucesso!',
-              icon: 'success',
-              confirmButtonText: 'OK',
-              customClass: {
-                confirmButton: 'button-green'
-              }
-
-            }).then((result) => {
-              // Redireciona para a home após clicar em OK
-              window.location.href = "{{ route('home') }}";
-            });
-          }
-        },
-
-        error: function(xhr) {
-          Swal.fire({
-            title: 'Desculpe!',
-            text: xhr.responseJSON?.message ||
-              'Erro ao realizar reserva',
-            icon: 'error'
-          });
-        },
-
-        complete: function() {
-          // Restaura o botão
-          submitBtn.prop('disabled', false).html('Salvar Reserva');
-        }
-      });
-    });
-  });
-
-  // Verificação em tempo real
-  $('#hora_inicio, #hora_termino').change(function() {
-    verificarDisponibilidade();
-  });
-
-  function verificarDisponibilidade() {
-    const salaId = $('#sala_fk').val();
-    const data = $('#data_reserva').val();
-    const horaInicio = $('#hora_inicio').val();
-    const horaTermino = $('#hora_termino').val();
-
-    if (!salaId || !data || !horaInicio || !horaTermino) return;
-
-    $.ajax({
-      url: '/verificar-disponibilidade',
-      type: 'POST',
-      data: {
-        sala_id: salaId,
-        data_reserva: data,
-        hora_inicio: horaInicio,
-        hora_termino: horaTermino,
-        _token: $('meta[name="csrf-token"]').attr('content')
-      },
-
-      success: function(response) {
-        if (response.disponivel) {
-          $('#disponibilidade-status').html(
-            '<span class="text-success">Horário disponível</span>');
-          $('.btn-submit').prop('disabled', false);
-        } 
-        
-        else {
-          $('#disponibilidade-status').html('<span class="text-danger">' + response
-            .mensagem +
-            '</span>');
-          $('.btn-submit').prop('disabled', true);
-        }
-      }
-    });
-  }
-</script>
 
 <script>
   // Definir o plugin de ordenação personalizada ANTES de usar
@@ -702,6 +598,7 @@
 
 <script src="{{ asset('js/horaSelecionada.js') }}"></script>
 <script src="{{ asset('js/diaInteiro.js') }}"></script>
+<script src="{{ asset('js/abrirModalCalendario.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
