@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 <script src="{{ asset('js/tutorial.js') }}"></script>
-<script defer src="{{ asset('js/diaInteiro.js') }}"></script>
 <script src="{{ asset('js/modal/abrirModalDetalhes.js') }}"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -878,4 +877,5 @@
   </script>
 @endif
 
+<script src="{{ asset('js/diaInteiro.js') }}"></script>
 @endsection
