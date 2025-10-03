@@ -47,6 +47,63 @@
   white-space: normal;
 }
 
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1rem;
+}
+
+.fc-timegrid-event {
+  border-radius: 6px;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.tutorial-tooltip {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; transform: scale(0.95); 
+  }
+
+  to { 
+    opacity: 1; transform: scale(1); 
+  }
+}
+
+@media (max-width: 991.98px) {
+  .salas-grid {
+    flex-direction: row !important;
+  }
+
+  .salas-grid > .w-100.w-md-50 {
+    width: 49% !important;
+    max-width: 49%;
+  }
+
+  .salas-grid > .calendar-container.w-100.w-md-50 {
+    width: 49% !important;
+    max-width: 49%;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .salas-grid {
+    flex-direction: column !important;
+  }
+
+  .salas-grid > .w-100.w-md-50,
+  .salas-grid > .calendar-container.w-100.w-md-50 {
+    width: 100% !important;
+    max-width: 100%;
+  }
+  .calendar-container {
+    margin-top: 1rem !important;
+  }
+}
+
 /* BORDAS COLORIDAS */
 
 .border-aquário {

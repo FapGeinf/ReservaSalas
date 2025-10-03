@@ -16,25 +16,11 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<!-- <script src="js/custom.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
-
-<style>
-  .fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 1rem;
-  }
-
-  .fc-timegrid-event {
-    border-radius: 6px;
-    padding: 2px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    border: none;
-  }
-</style>
 
 <div class="pagina-container">
   <div class="d-flex flex-wrap flex-lg-nowrap">
@@ -66,9 +52,9 @@
             <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
               <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                 <!-- Imagem à esquerda -->
-                <div style="flex: 0 0 100px;">
+                {{-- <div style="flex: 0 0 100px;">
                   <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px;">
-                </div>
+                </div> --}}
 
                 <!-- Nome e estado ao centro -->
                 <div class="flex-grow-1">
@@ -208,51 +194,6 @@
     }
   });
 </script>
-
-
-<style>
-    .tutorial-tooltip {
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-</style>
-
-<style>
-  @media (max-width: 991.98px) {
-    .salas-grid {
-      flex-direction: row !important;
-    }
-
-    .salas-grid > .w-100.w-md-50 {
-      width: 49% !important;
-      max-width: 49%;
-    }
-
-    .salas-grid > .calendar-container.w-100.w-md-50 {
-      width: 49% !important;
-      max-width: 49%;
-      margin-top: 0 !important;
-    }
-  }
-
-  @media (max-width: 767.98px) {
-    .salas-grid {
-      flex-direction: column !important;
-    }
-
-    .salas-grid > .w-100.w-md-50,
-    .salas-grid > .calendar-container.w-100.w-md-50 {
-      width: 100% !important;
-      max-width: 100%;
-    }
-    .calendar-container {
-      margin-top: 1rem !important;
-    }
-  }
-</style>
 
 @if (session('error'))
   <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
