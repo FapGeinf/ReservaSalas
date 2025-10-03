@@ -24,13 +24,13 @@ class ReservaController extends Controller
 
 
 
-	public function create()
-	{
-		$salas = Sala::all();
-		$users = User::all();
-		$reservas = Reserva::with('sala')->get(); // Carrega as reservas e suas relações com as salas
-		return view('reservas.create', compact('salas', 'reservas', 'users'));
-	}
+    public function create()
+    {
+        $salas = Sala::all();
+        $users = User::all();
+        $reservas = Reserva::with('sala')->get(); // Carrega as reservas e suas relações com as salas
+        return view('reservas.create', compact('salas', 'reservas', 'users'));
+    }
 
 
     public function store(Request $request)
@@ -84,17 +84,17 @@ class ReservaController extends Controller
        $dataFim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino)->format('Y-m-d H:i:s');
 
 
-		// Verificar conflitos de horário
-		$conflito = Reserva::where('sala_fk', $salaId)
-			->where(function ($query) use ($dataInicio, $dataFim) {
-				$query->whereBetween('data_inicio', [$dataInicio, $dataFim])
-					->orWhereBetween('data_fim', [$dataInicio, $dataFim])
-					->orWhere(function ($query) use ($dataInicio, $dataFim) {
-						$query->where('data_inicio', '<=', $dataInicio)
-							->where('data_fim', '>=', $dataFim);
-					});
-			})
-			->exists();
+        // Verificar conflitos de horário
+        $conflito = Reserva::where('sala_fk', $salaId)
+            ->where(function ($query) use ($dataInicio, $dataFim) {
+                $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
+                    ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
+                    ->orWhere(function ($query) use ($dataInicio, $dataFim) {
+                        $query->where('data_inicio', '<=', $dataInicio)
+                            ->where('data_fim', '>=', $dataFim);
+                    });
+            })
+            ->exists();
 
 
         if ($conflito) {
@@ -129,39 +129,39 @@ if (str_contains(strtolower($sala->nome), 'aquário')) {
 ]);
 
 
-		// Resposta para requisições AJAX
-		if ($request->ajax()) {
-			return response()->json([
-				'success' => true,
-				'reserva' => $reserva,
-				'redirect' => route('home'),
-				'message' => 'Reserva realizada com sucesso!'
-			]);
-		}
+        // Resposta para requisições AJAX
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'reserva' => $reserva,
+                'redirect' => route('home'),
+                'message' => 'Reserva realizada com sucesso!'
+            ]);
+        }
 
-		// Resposta para requisições normais
-		return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
-	}
-
-
-	public function show(Reserva $reserva)
-	{
-		return view('reservas.show', compact('reserva'));
-	}
+        // Resposta para requisições normais
+        return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
+    }
 
 
+    public function show(Reserva $reserva)
+    {
+        return view('reservas.show', compact('reserva'));
+    }
 
-	public function edit(Reserva $reserva)
-	{
-		// Verifica se o usuário é admin OU se a reserva pertence a ele
-		if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-			return redirect()->route('home')->with('error', 'Você não tem permissão para editar esta reserva.');
-		}
 
-		$salas = Sala::all();
-		$users = User::all();
-		return view('reservas.edit', compact('reserva', 'salas', 'users'));
-	}
+
+    public function edit(Reserva $reserva)
+    {
+        // Verifica se o usuário é admin OU se a reserva pertence a ele
+        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para editar esta reserva.');
+        }
+
+        $salas = Sala::all();
+        $users = User::all();
+        return view('reservas.edit', compact('reserva', 'salas', 'users'));
+    }
 
     public function update(Request $request, Reserva $reserva)
     {
@@ -178,14 +178,14 @@ if (str_contains(strtolower($sala->nome), 'aquário')) {
             'data_fim' => 'required|date_format:H:i|after:hora_inicio',
         ]);
 
-		$reserva->update([
-			'sala_fk' => $request->input('sala_id'),
-			'data_inicio' => $request->input('data_inicio') . ' ' . $request->input('hora_inicio'),
-			'data_fim' => $request->input('data_inicio') . ' ' . $request->input('data_fim'),
-		]);
+        $reserva->update([
+            'sala_fk' => $request->input('sala_id'),
+            'data_inicio' => $request->input('data_inicio') . ' ' . $request->input('hora_inicio'),
+            'data_fim' => $request->input('data_inicio') . ' ' . $request->input('data_fim'),
+        ]);
 
-		return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
-	}
+        return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
+    }
 
     public function destroy(Reserva $reserva)
     {
@@ -206,52 +206,33 @@ if (str_contains(strtolower($sala->nome), 'aquário')) {
     }
 
 
-	public function view($id)
-	{
-		$reserva = Reserva::findOrFail($id);
-		return view('reservas.view', compact('reserva'));
-	}
+    public function view($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        return view('reservas.view', compact('reserva'));
+    }
 
-	// Método personalizado para cancelar uma reserva específica 
-	public function cancel($id)
-	{
-		$reserva = Reserva::findOrFail($id);
-		$reserva->delete();
-		return redirect()->route('reservas.index')->with('status', 'Reserva cancelada com sucesso!');
-	}
+    // Método personalizado para cancelar uma reserva específica 
+    public function cancel($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        $reserva->delete();
+        return redirect()->route('reservas.index')->with('status', 'Reserva cancelada com sucesso!');
+    }
 
-	public function getReservasPorSalaEData($salaId, Request $request)
-	{
-		$data = $request->query('data'); // Obtém a data da requisição
 
     public function getReservasPorSalaEData($salaId, Request $request)
     {
         $data = $request->query('data'); // Obtém a data da requisição
 
-				$events[] = [
-					'title' => $reserva->sala->nome ?? 'Sem sala',
-					'start' => $reserva->data_inicio,
-					'end' => $reserva->data_fim,
-					'backgroundColor' => $backgroundColor,
-					'borderColor' => $borderColor,
-					'textColor' => $textColor,
-					'extendedProps' => [
-						'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-						'hora_inicio' => $reserva->data_inicio ? Carbon::parse($reserva->data_inicio)->format('H:i') : null,
-						'hora_fim' => $reserva->data_fim ? Carbon::parse($reserva->data_fim)->format('H:i') : null,
-						'responsavel' => $reserva->user->name ?? 'Sem usuário'
-					]
-				];
-			} catch (\Throwable $e) {
-				\Log::error('Erro ao montar evento', [
-					'reserva_id' => $reserva->id ?? null,
-					'mensagem' => $e->getMessage(),
-				]);
-			}
-		}
+        // Busca as reservas da sala para a data especificada
+        $reservas = Reserva::where('sala_fk', $salaId)
+            ->whereDate('data_inicio', $data)
+            ->with(['user', 'user.unidade'])
+            ->get();
 
-		return response()->json($events);
-	}
+        return response()->json($reservas);
+    }
 
     public function getEventos()
     {
