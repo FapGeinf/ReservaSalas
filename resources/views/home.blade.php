@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 <script src="{{ asset('js/tutorial.js') }}"></script>
+
+{{-- Não sei se esse botão é necessário --}}
+<script src="{{ asset('js/toggleDropdown.js') }}"></script>
 <script src="{{ asset('js/modal/abrirModalDetalhes.js') }}"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -30,10 +33,10 @@
 
 <div class="pagina-container">
   <div class="d-flex flex-wrap flex-lg-nowrap">
-    <!-- Coluna esquerda: Mini calendário + Cards -->
+    <!-- Mini calendário + Cards -->
     <div class="col-lg-3 col-12 mb-3">
       <div class="salas-grid d-flex flex-lg-column gap-2 h-100 flex-column flex-md-row">
-        <!-- Cards de salas -->
+        <!-- Cards Salas -->
         <div class="w-100 w-md-50 d-flex flex-column gap-2" data-help="cards-salas">
           @foreach($salas as $sala)
             @php
@@ -104,7 +107,7 @@
       </div>
     </div>
 
-    <!-- Coluna direita: Calendário principal -->
+    <!-- Calendário principal -->
     <div class="col-lg-9 col-12 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
         <div class="area-calendario">
@@ -297,7 +300,7 @@
   </div>
 </div>
 
-<script>
+{{-- <script>
   function toggleDropdown(button) {
     const dropdown = button.parentElement;
     dropdown.classList.toggle("open");
@@ -310,7 +313,7 @@
       }
     });
   }
-</script>
+</script> --}}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
