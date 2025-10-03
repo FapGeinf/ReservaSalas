@@ -23,6 +23,8 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 
+<x-alert-toast/>
+
 <div class="pagina-container">
   <div class="d-flex flex-wrap flex-lg-nowrap">
     <!-- Coluna esquerda: Mini calendário + Cards -->
@@ -116,14 +118,6 @@
     </div>
   </div>
 </div>
-
-
-
-@if (session('error'))
-  <div class="alert alert-danger text-center mx-auto" style="max-width: 30%;">
-    {{ session('error') }}
-  </div>
-@endif
 
 <!-- Modal de Reserva -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
