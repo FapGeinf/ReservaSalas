@@ -298,30 +298,6 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const campoHora = document.getElementById('horaSelecionada');
-    if (campoHora) {
-      campoHora.addEventListener('change', function () {
-        const dataSelecionada = new Date(this.value);
-        const hoje = new Date();
-
-        hoje.setHours(0, 0, 0, 0);
-        dataSelecionada.setHours(0, 0, 0, 0);
-
-        if (dataSelecionada < hoje) {
-          Swal.fire({
-            title: 'Erro!',
-            text: 'A data selecionada já passou. Escolha uma data futura.',
-            icon: 'error'
-          });
-        }
-      });
-    }
-  });
-</script>
-
-
-<script>
   function toggleDropdown(button) {
     const dropdown = button.parentElement;
     dropdown.classList.toggle("open");
@@ -877,5 +853,6 @@
   </script>
 @endif
 
+<script src="{{ asset('js/horaSelecionada.js') }}"></script>
 <script src="{{ asset('js/diaInteiro.js') }}"></script>
 @endsection
