@@ -34,12 +34,14 @@
 
 <x-alert-toast/>
 
-<div class="pagina-container">
-  <div class="d-flex flex-wrap flex-lg-nowrap">
-    <!-- Mini calendário + Cards -->
-    <div class="col-lg-3 col-12 mb-3">
-      <div class="salas-grid d-flex flex-lg-column gap-2 h-100 flex-column flex-md-row">
-        <!-- Cards Salas -->
+<div class="pagina-container container-fluid px-3 px-lg-4">
+  <div class="d-flex flex-wrap flex-xl-nowrap">
+    
+    <!-- Coluna lateral (salas + mini calendário) -->
+    <div class="col-xl-3 col-lg-4 col-md-12 mb-3">
+      <div class="salas-grid d-flex flex-column flex-md-row flex-xl-column gap-3 h-100">
+        
+        <!-- Lista de salas -->
         <div class="w-100 w-md-50 d-flex flex-column gap-2" data-help="cards-salas">
           @foreach($salas as $sala)
             @php
@@ -52,73 +54,61 @@
               elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
               elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
 
-              // Nome reduzido
               $nomeCurto = $sala->nome;
-              if (str_contains($nomeSala, 'auditório tauató')) {
-                $nomeCurto = 'Tauató';
-              } elseif (str_contains($nomeSala, 'presidência')) {
-                $nomeCurto = 'Pres.';
-              }
+              if (str_contains($nomeSala, 'auditório tauató')) $nomeCurto = 'Tauató';
+              elseif (str_contains($nomeSala, 'presidência')) $nomeCurto = 'Pres.';
             @endphp
 
-            <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
-              <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
-                <!-- Imagem à esquerda -->
-                {{-- <div style="flex: 0 0 100px;">
-                  <img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala" style="width: 100px;">
-                </div> --}}
-
-                <!-- Nome e estado ao centro -->
+            <div class="sala-card {{ $classeBorda }} w-100"
+                 style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
+              <div class="sala-card-conteudo d-flex align-items-center justify-content-between flex-wrap gap-2 p-2">
                 <div class="flex-grow-1">
                   <div class="titulo-sala">
-                      <span class="text-uppercase fw-semibold d-block">
-                        <span class="nome-sala-full">{{ $sala->nome }}</span>
-                        <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
-                      </span>
+                    <span class="text-uppercase fw-semibold d-block">
+                      <span class="nome-sala-full">{{ $sala->nome }}</span>
+                      <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
+                    </span>
 
-                      @if($situacao === 'inativa')
-                        <span class="s-manutencao fw-semibold" style="font-size: 15px;">Sala em manutenção</span>
-                      @else
-                        <span class="s-disponivel fw-semibold" style="font-size: 15px;">Sala disponível</span>
-                      @endif
+                    @if($situacao === 'inativa')
+                      <span class="s-manutencao fw-semibold">Sala em manutenção</span>
+                    @else
+                      <span class="s-disponivel fw-semibold">Sala disponível</span>
+                    @endif
                   </div>
                 </div>
 
-                  <!-- Botão à direita -->
-                  {{-- @if($situacao !== 'ativa') --}}
-                    <div style="flex-shrink: 0;">
-                      <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
-                        data-sala-id="{{ $sala->id }}">
-                        <i class="bi bi-search me-1"></i>
-                        Consultar Reservas
-                      </button>
-                    </div>
-                  {{-- @endif --}}
+                <div class="text-end">
+                  <button class="button-grey w-100 w-sm-auto" data-bs-toggle="modal" data-bs-target="#verReservasModal"
+                    data-sala-id="{{ $sala->id }}">
+                    <i class="bi bi-search me-1"></i>
+                    Consultar Reservas
+                  </button>
+                </div>
               </div>
             </div>
-            @endforeach
+          @endforeach
         </div>
 
         <!-- Mini calendário -->
-        <div class="calendar-container w-100 w-md-50 border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0" 
+        <div class="calendar-container w-100 w-md-50 border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
           style="background-color: #fff;" data-help="mini-calendario">
-          <div class="text-center" style="margin-top: 13px;">
+          <div class="text-center py-2">
             <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
           </div>
-
-          <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
+          <div id="miniCalendar" class="w-100 flex-fill border-top" style="min-height: 260px;"></div>
         </div>
+
       </div>
     </div>
 
-    <!-- Calendário principal -->
-    <div class="col-lg-9 col-12 px-lg-3">
+    <!-- Coluna principal (calendário grande) -->
+    <div class="col-xl-9 col-lg-8 col-md-12 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
         <div class="area-calendario">
-          <div id="calendar" class="calendar-container main-calendar" style="margin-top: 15px;"></div>
+          <div id="calendar" class="calendar-container main-calendar mt-3" style="min-height: 650px;"></div>
         </div>
 
-        <div class="mt-1">
+        <div class="mt-2">
           <span style="font-size: 14px; color: #374151;">
             <i class="bi bi-lightbulb-fill text-warning"></i>
             Clique em uma data para reservar uma sala ou visualizar agendamentos.

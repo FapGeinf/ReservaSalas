@@ -32,23 +32,21 @@
   font-size: 20px;
 }
 
-/* Estilo da página principal */
 .pagina-container {
-  /* max-width: 1600px; */
   margin: 1rem auto;
   padding: 1rem 1rem 0 1rem;
 }
 
-/* Cores de status */
 .s-disponivel {
   color: #1ab394;
+  font-size: 14px;
 }
 
 .s-manutencao {
   color: #e74c3c;
+  font-size: 14px;
 }
 
-/* Caixa da tabela principal */
 .tabela-main-page {
   padding: 20px;
   font-size: 14px;
@@ -59,23 +57,19 @@
   border-radius: 8px;
 }
 
-/* Conteúdo interno do Card */
 .sala-card-conteudo {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* Imagem da Sala */
 .imagem-sala {
   width: 130px;
   height: 60px;
   object-fit: cover;
   background-color: #dee2e6;
-  /* margin-left: 30px; */
 }
 
-/* Informações da Sala */
 .sala-info {
   flex: 1;
   display: flex;
@@ -87,7 +81,6 @@
 
 .titulo-sala {
   font-size: 19px;
-  /* margin-bottom: 10px; */
   color: #394151;
 }
 
@@ -104,7 +97,6 @@
   background-color: #0056b3;
 }
 
-/* Caixa do Calendário */
 .caixa-calendario {
   background-color: #fff;
   border: 1px solid #dee2e6 !important;
@@ -133,11 +125,6 @@
   font-style: italic;
 }
 
-/* .calendar-container {
-  height: 753px;
-} */
-
-/* Caixa da Tabela */
 .caixa-tabela {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -167,7 +154,6 @@ th {
   background-color: #2d5857;
 }
 
-/* Grid de Salas */
 .salas-grid {
   display: flex;
   flex-wrap: wrap;
@@ -176,14 +162,12 @@ th {
   justify-content: flex-start;
 }
 
-/* Cards de Sala */
 .sala-card {
   background-color: #fff;
   border: 1px solid #dee2e6;
   padding: 13px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
-  /* width: calc(25% - 15px); */
   width: 100%;
 }
 
@@ -193,38 +177,75 @@ th {
 
 .calendar-container {
   border-radius: 8px !important;
-  overflow: hidden; /* para garantir que conteúdo interno também respeite o arredondado */
+  overflow: hidden;
 }
 
-@media (max-width: 1420px) {
+@media (max-width: 1600px) {
+  .col-xl-3 {
+    flex: 0 0 30%;
+    max-width: 30%;
+  }
+
+  .col-xl-9 {
+    flex: 0 0 70%;
+    max-width: 70%;
+  }
+
+  #calendar {
+    min-height: 470px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .col-xl-3 {
+    flex: 0 0 32%;
+    max-width: 32%;
+  }
+  
+  .col-xl-9 {
+    flex: 0 0 68%;
+    max-width: 68%;
+  }
+
   .nome-sala-full {
     display: none !important;
   }
+
   .nome-sala-short {
     display: inline !important;
+    font-size: 13px;
   }
 
-  .titulo-sala {
-    font-size: 19px;
+  .sala-card {
+    font-size: 0.95rem;
+    padding: 2px;
+  }
+
+  .s-manutencao,
+  .s-disponivel {
+    font-size: 12px;
+  }
+  
+  .button-grey {
+    font-size: 0.85rem;
+    padding: 4px 8px;
   }
 }
 
-@media (max-width: 1045px) {
-  .titulo-sala {
-    font-size: 17px;
+@media (max-width: 992px) {
+  .d-flex.flex-xl-nowrap {
+    flex-wrap: wrap !important;
   }
-}
 
-@media (max-width: 767px) {
-  .nome-sala-full {
-    display: none !important;
+  .col-xl-3, .col-xl-9, .col-lg-4, .col-lg-8 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
-  .nome-sala-short {
-    display: inline !important;
-  }
-}
 
-@media (max-width: 991px) {
+  #calendar {
+    min-height: 500px !important;
+  }
+
   .salas-grid {
     flex-direction: row;
     flex-wrap: wrap;
@@ -236,5 +257,30 @@ th {
   
   .titulo-sala {
     font-size: 19px;
+  }  
+}
+
+@media (max-width: 767px) {
+  .nome-sala-full {
+    display: none !important;
+  }
+
+  .nome-sala-short {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .sala-card-conteudo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-grey {
+    width: 100%;
+  }
+
+  #miniCalendar {
+    min-height: 220px !important;
   }
 }
