@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
-<script src="{{ asset('js/tutorial.js') }}"></script>
+{{-- <script src="{{ asset('js/tutorial.js') }}"></script> --}}
 
 {{-- Não sei se esse botão é necessário --}}
 <script src="{{ asset('js/toggleDropdown.js') }}"></script>
@@ -77,22 +77,23 @@
                       </span>
 
                       @if($situacao === 'inativa')
-                        <span class="s-manutencao fw-medium" style="font-size: 14px;">Sala em manutenção</span>
+                        <span class="s-manutencao fw-semibold" style="font-size: 14px;">Sala em manutenção</span>
                       @else
-                        <span class="s-disponivel fw-medium" style="font-size: 14px;">Sala disponível</span>
+                        <span class="s-disponivel fw-semibold" style="font-size: 14px;">Sala disponível</span>
                       @endif
                   </div>
                 </div>
 
                   <!-- Botão à direita -->
-                  @if($situacao !== 'ativa')
+                  {{-- @if($situacao !== 'ativa') --}}
                     <div style="flex-shrink: 0;">
                       <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
                         data-sala-id="{{ $sala->id }}">
-                        Ver Reservas
+                        <i class="bi bi-search me-1"></i>
+                        Consultar Reservas
                       </button>
                     </div>
-                  @endif
+                  {{-- @endif --}}
               </div>
             </div>
             @endforeach
