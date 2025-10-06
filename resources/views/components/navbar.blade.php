@@ -1,24 +1,26 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
-<style>
-  body {
-    padding-top: 40px;
-  }
+  <style>
+    body {
+      padding-top: 40px;
+    }
 
-  .navbar {
-    overflow: visible !important;
-  }
+    .navbar {
+      overflow: visible !important;
+    }
 
-  .container-fluid {
-    overflow: visible !important;
-  }
+    .container-fluid {
+      overflow: visible !important;
+    }
 
-  .navbar .dropdown-menu {
-    z-index: 1055;
-  }
-</style>
+    .navbar .dropdown-menu {
+      z-index: 1055;
+    }
+  </style>
+</head>
 
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);">
   <div class="container-fluid">
@@ -60,6 +62,7 @@
           <a class="nav-link dropdown-toggle nav-buttons" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Conta
           </a>
+
           <ul class="dropdown-menu dropdown-meu-start-sm">
             <li class="dropdown-item d-flex align-items-center li-person">
               <i class="bi bi-person-circle" style="font-size: 3rem; margin-right: 10px; color: #394151"></i>
@@ -72,11 +75,22 @@
                 </small>
               </div>
             </li>
+
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item nav-buttons-dp" href="{{ route('profile.edit') }}">Editar Perfil</a></li>
+            <li>
+              <a class="dropdown-item nav-buttons-dp" href="{{ route('profile.edit') }}">
+                Editar Perfil
+              </a>
+            </li>
+
             @if(Auth::check() && Auth::user()->role === 'admin')
-            <li><a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">Usuários</a></li>
+            <li>
+              <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">
+                Usuários
+              </a>
+            </li>
             @endif
+            
             <li>
               <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
                 @csrf
@@ -84,6 +98,7 @@
               </form>
             </li>
           </ul>
+
         </li>
       </ul>
 

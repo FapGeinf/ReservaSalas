@@ -77,9 +77,9 @@
                       </span>
 
                       @if($situacao === 'inativa')
-                        <span class="s-manutencao fw-semibold" style="font-size: 14px;">Sala em manutenção</span>
+                        <span class="s-manutencao fw-semibold" style="font-size: 15px;">Sala em manutenção</span>
                       @else
-                        <span class="s-disponivel fw-semibold" style="font-size: 14px;">Sala disponível</span>
+                        <span class="s-disponivel fw-semibold" style="font-size: 15px;">Sala disponível</span>
                       @endif
                   </div>
                 </div>
