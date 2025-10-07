@@ -55,8 +55,8 @@
               elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
 
               $nomeCurto = $sala->nome;
-              if (str_contains($nomeSala, 'auditório tauató')) $nomeCurto = 'Tauató';
-              elseif (str_contains($nomeSala, 'presidência')) $nomeCurto = 'Pres.';
+              if (str_contains($nomeSala, 'auditório tauató')) $nomeCurto = 'Auditório Tauató';
+              elseif (str_contains($nomeSala, 'presidência')) $nomeCurto = 'Presidência';
             @endphp
 
             <div class="sala-card {{ $classeBorda }} w-100"
