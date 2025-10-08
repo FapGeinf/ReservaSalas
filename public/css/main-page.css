@@ -33,8 +33,6 @@
 }
 
 .pagina-container {
-  /* max-width: 1600px; */
-  /* margin: 1rem auto; */
   padding: 1rem 1rem 0 1rem;
 }
 
@@ -182,13 +180,6 @@ th {
 }
 
 @media (max-width: 1420px) {
-  /* .nome-sala-full {
-    display: none !important;
-  }
-  .nome-sala-short {
-    display: inline !important;
-  } */
-
   .titulo-sala {
     font-size: 14px;
   }
@@ -204,15 +195,6 @@ th {
     flex: 0 0 68%;
     max-width: 68%;
   }
-
-@media (max-width: 767px) {
-  /* .nome-sala-full {
-    display: none !important;
-  }
-
-  .nome-sala-short {
-    display: inline !important;
-  } */
 }
 
 @media (max-width: 992px) {
