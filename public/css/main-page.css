@@ -83,19 +83,6 @@
   color: #394151;
 }
 
-.botao-reservar {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.botao-reservar:hover {
-  background-color: #0056b3;
-}
-
 .caixa-calendario {
   background-color: #fff;
   border: 1px solid #dee2e6 !important;
@@ -107,8 +94,24 @@
 }
 
 .main-calendar {
-  height: calc(110vh - 250px);
+  min-height: 500px;
+  max-height: 80vh;
   overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1400px) {
+  .main-calendar {
+    max-height: 75vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-calendar {
+    min-height: 400px;
+    max-height: 70vh;
+  }
 }
 
 .titulo-calendario {
@@ -177,80 +180,4 @@ th {
 .calendar-container {
   border-radius: 8px !important;
   overflow: hidden;
-}
-
-@media (max-width: 1420px) {
-  .titulo-sala {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 1400px) {
-  .col-xl-3 {
-    flex: 0 0 32%;
-    max-width: 32%;
-  }
-  
-  .col-xl-9 {
-    flex: 0 0 68%;
-    max-width: 68%;
-  }
-}
-
-@media (max-width: 992px) {
-  .d-flex.flex-xl-nowrap {
-    flex-wrap: wrap !important;
-  }
-
-  .col-xl-3, .col-xl-9, .col-lg-4, .col-lg-8 {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-  }
-
-  #calendar {
-    min-height: 500px !important;
-  }
-
-  .salas-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .sala-card.width-100 {
-    width: 48%;
-  }
-  
-  .titulo-sala {
-    font-size: 19px;
-  }  
-
-  .button-grey {
-    width: 100% !important;
-    max-width: none;
-  }
-}
-
-@media (max-width: 767px) {
-  .nome-sala-full {
-    display: none !important;
-  }
-
-  .nome-sala-short {
-    display: inline !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .sala-card-conteudo {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .button-grey {
-    width: 100%;
-  }
-
-  #miniCalendar {
-    min-height: 220px !important;
-  }
 }

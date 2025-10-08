@@ -37,70 +37,15 @@
 
 <div class="pagina-container">
   <div class="d-flex flex-wrap flex-lg-nowrap">
-    <!-- Mini calendário + Cards -->
     <div class="col-lg-3 col-12 mb-3">
       <div class="salas-grid d-flex flex-lg-column gap-2 h-50 flex-column flex-md-row">
-        <!-- Cards Salas -->
-        {{-- <div class="w-100 w-md-50 d-flex flex-column gap-2" data-help="cards-salas">
-          @foreach($salas as $sala)
-            @php
-              $situacao = strtolower(trim($sala->situacao));
-              $nomeSala = strtolower(trim($sala->nome));
-              $classeBorda = '';
-
-              if (str_contains($nomeSala, 'aquário')) $classeBorda = 'border-aquário';
-              elseif (str_contains($nomeSala, 'daf')) $classeBorda = 'border-daf';
-              elseif (str_contains($nomeSala, 'pres')) $classeBorda = 'border-pres';
-              elseif (str_contains($nomeSala, 'audit')) $classeBorda = 'border-audit';
-
-              $nomeCurto = $sala->nome;
-              if (str_contains($nomeSala, 'auditório tauató')) $nomeCurto = 'Auditório Tauató';
-              elseif (str_contains($nomeSala, 'presidência')) $nomeCurto = 'Presidência';
-            @endphp
-
-            <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
-              <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
-                <div class="flex-grow-1">
-                  <div class="titulo-sala">
-                    <span class="text-uppercase fw-semibold d-block">
-                      <span class="nome-sala-full">{{ $sala->nome }}</span>
-                      <span class="nome-sala-short d-none">{{ $nomeCurto }}</span>
-                    </span>
-
-                    @if($situacao === 'inativa')
-                      <span class="s-manutencao fw-semibold">Sala em manutenção</span>
-                    @else
-                      <span class="s-disponivel fw-semibold">Sala disponível</span>
-                    @endif
-                  </div>
-                </div>
-
-                <div style="flex-shrink: 0;">
-                  <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
-                    data-sala-id="{{ $sala->id }}">
-                    <i class="bi bi-search me-1"></i>
-                    Consultar Reservas
-                  </button>
-                </div>
-              </div>
-            </div>
-          @endforeach
-        </div> --}}
-
-        <!-- Mini calendário -->
         <div class="calendar-container w-100 w-md-50 border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
           style="background-color: #fff;" data-help="mini-calendario">
-          {{-- <div class="text-center" style="margin-top: 13px;">
-            <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
-          </div> --}}
-
           <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
         </div>
-
       </div>
     </div>
 
-    <!-- Coluna principal (calendário grande) -->
     <div class="col-xl-9 col-lg-8 col-md-12 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
         <div class="area-calendario">
