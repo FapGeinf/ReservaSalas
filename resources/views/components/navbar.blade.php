@@ -22,7 +22,7 @@
   </style>
 </head>
 
-<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2d5857; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);">
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2d5857;">
   <div class="container-fluid">
 
     <a class="navbar-brand" href="{{ route('home') }}">

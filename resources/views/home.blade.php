@@ -33,16 +33,15 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <x-alert-toast/>
+<x-navbar-main :salas="$salas"/>
 
-<div class="pagina-container container-fluid px-3 px-lg-4">
-  <div class="d-flex flex-wrap flex-xl-nowrap">
-    
-    <!-- Coluna lateral (salas + mini calendário) -->
-    <div class="col-xl-3 col-lg-4 col-md-12 mb-3">
-      <div class="salas-grid d-flex flex-column flex-md-row flex-xl-column gap-3 h-100">
-        
-        <!-- Lista de salas -->
-        <div class="w-100 w-md-50 d-flex flex-column gap-2" data-help="cards-salas">
+<div class="pagina-container">
+  <div class="d-flex flex-wrap flex-lg-nowrap">
+    <!-- Mini calendário + Cards -->
+    <div class="col-lg-3 col-12 mb-3">
+      <div class="salas-grid d-flex flex-lg-column gap-2 h-50 flex-column flex-md-row">
+        <!-- Cards Salas -->
+        {{-- <div class="w-100 w-md-50 d-flex flex-column gap-2" data-help="cards-salas">
           @foreach($salas as $sala)
             @php
               $situacao = strtolower(trim($sala->situacao));
@@ -59,9 +58,8 @@
               elseif (str_contains($nomeSala, 'presidência')) $nomeCurto = 'Presidência';
             @endphp
 
-            <div class="sala-card {{ $classeBorda }} w-100"
-                 style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
-              <div class="sala-card-conteudo d-flex align-items-center justify-content-between flex-wrap gap-2 p-2">
+            <div class="sala-card {{ $classeBorda }}width-100" style="border-left: 6px solid {{ $sala->cor }}; border-radius:10px;">
+              <div class="sala-card-conteudo d-flex align-items-center flex-wrap" style="gap: 1rem;">
                 <div class="flex-grow-1">
                   <div class="titulo-sala">
                     <span class="text-uppercase fw-semibold d-block">
@@ -77,8 +75,8 @@
                   </div>
                 </div>
 
-                <div class="text-end">
-                  <button class="button-grey w-100 w-sm-auto" data-bs-toggle="modal" data-bs-target="#verReservasModal"
+                <div style="flex-shrink: 0;">
+                  <button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
                     data-sala-id="{{ $sala->id }}">
                     <i class="bi bi-search me-1"></i>
                     Consultar Reservas
@@ -87,15 +85,16 @@
               </div>
             </div>
           @endforeach
-        </div>
+        </div> --}}
 
         <!-- Mini calendário -->
         <div class="calendar-container w-100 w-md-50 border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
           style="background-color: #fff;" data-help="mini-calendario">
-          <div class="text-center py-2">
+          {{-- <div class="text-center" style="margin-top: 13px;">
             <span class="fw-bold" style="color: #374151; font-size: 15px;">CALENDÁRIO MENSAL</span>
-          </div>
-          <div id="miniCalendar" class="w-100 flex-fill border-top" style="min-height: 260px;"></div>
+          </div> --}}
+
+          <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
         </div>
 
       </div>

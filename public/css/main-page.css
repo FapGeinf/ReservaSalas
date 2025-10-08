@@ -33,7 +33,8 @@
 }
 
 .pagina-container {
-  margin: 1rem auto;
+  /* max-width: 1600px; */
+  /* margin: 1rem auto; */
   padding: 1rem 1rem 0 1rem;
 }
 
@@ -180,27 +181,13 @@ th {
   overflow: hidden;
 }
 
-@media (max-width: 1600px) {
-  .col-xl-3 {
-    flex: 0 0 30%;
-    max-width: 30%;
+@media (max-width: 1420px) {
+  /* .nome-sala-full {
+    display: none !important;
   }
-
-  .col-xl-9 {
-    flex: 0 0 70%;
-    max-width: 70%;
-  }
-
-  #calendar {
-    min-height: 470px !important;
-  }
-
-  .button-grey {
-    font-size: 14px !important;
-    padding: 5px 8px !important;
-    max-width: 180px;
-    white-space: nowrap;
-  }
+  .nome-sala-short {
+    display: inline !important;
+  } */
 
   .titulo-sala {
     font-size: 14px;
@@ -218,34 +205,14 @@ th {
     max-width: 68%;
   }
 
-  .nome-sala-full {
+@media (max-width: 767px) {
+  /* .nome-sala-full {
     display: none !important;
   }
 
   .nome-sala-short {
     display: inline !important;
-    font-size: 13px;
-  }
-
-  .sala-card {
-    font-size: 0.95rem;
-    padding: 2px;
-  }
-
-  .s-manutencao,
-  .s-disponivel {
-    font-size: 12px;
-  }
-  
-  .button-grey {
-    font-size: 11px !important;
-    padding: 5px 8px !important;
-    /* max-width: 160px; */
-  }
-
-  .titulo-sala {
-    font-size: 14px;
-  }
+  } */
 }
 
 @media (max-width: 992px) {
