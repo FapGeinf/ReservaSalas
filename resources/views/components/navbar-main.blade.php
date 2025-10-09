@@ -1,5 +1,5 @@
 <nav class="navbar justify-content-center pt-4 py-2"
-     style="background-color: #FFF; /* amarelo pastel */">
+  style="background-color: #FFF;">
   <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
 
     @foreach($salas as $sala)
@@ -9,7 +9,7 @@
       @endphp
 
       <div class="d-flex flex-column align-items-center px-2 py-1"
-           style="font-size: 13px; line-height: 1.2; min-width: 100px; color: #4B3F2F;">
+        style="font-size: 13px; line-height: 1.2; min-width: 100px; color: #4B3F2F;">
         
         <!-- Nome da sala -->
         <span class="fw-semibold text-uppercase text-center mb-1" style="font-size: 13px;">
