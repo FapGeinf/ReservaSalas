@@ -20,7 +20,7 @@
         <div class="d-flex align-items-center gap-1">
           <span class="rounded-circle {{ $statusColor }}" style="width: 8px; height: 8px; display:inline-block;"></span>
           @if($situacao === 'inativa')
-            <span class="fw-medium" style="font-size: 12px; color: #A83232;">Manutenção</span>
+            <span class="fw-medium" style="font-size: 12px; color: #A83232;">Em manutenção</span>
           @else
             <span class="fw-medium" style="font-size: 12px; color: #2F593B;">Disponível</span>
           @endif
@@ -29,7 +29,7 @@
     @endforeach
 
     <!-- Botão minimalista de pesquisa -->
-   <button class="btn btn-sm btn-light border rounded d-flex align-items-center"
+   <button class="button-light-grey border rounded d-flex align-items-center"
     style="height: 32px; white-space: nowrap; padding: 0 8px;" 
     data-bs-toggle="modal"
     data-bs-target="#verReservasModal"> 

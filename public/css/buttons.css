@@ -1,6 +1,7 @@
 .button-green,
 .button-yellow,
 .button-grey,
+.button-light-grey,
 .button-blue,
 .button-red {
   color: #fff;
@@ -35,6 +36,15 @@
 
 .button-green:hover {
   background-color: #0ea271;
+}
+
+.button-light-grey {
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.button-light-grey:hover {
+  background-color: #f1f1f1;
 }
 
 .button-grey {
