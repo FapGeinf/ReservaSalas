@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
       timeZone: 'local',
       locale: 'pt-br',
       eventMaxStack: true,
-      hiddenDays: [0, 6],
+      // hiddenDays: [0, 6],
       events: '/eventos',
       selectable: true,
       editable: false,
@@ -33,9 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return {
           html: `
-          <div style="font-size: 1rem; color: #555555;">
+          <!-- <div style="font-size: 1rem; color: #555555;"> -->
+          <div>
             <span class="fw-bold text-uppercase">${nomeSala}</span><br>
-            <i class="bi bi-clock" style="font-size: 11px; position: relative; top: -1px;"></i> 
+            <i class="bi bi-clock" style="position: relative; top: -1px;"></i> 
             ${horaInicio} - ${horaFim}<br>
             ${unidade}
           </div>
@@ -74,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
       },
 
       eventClick: function(info) {
-        // Abre modal Bootstrap separado
         abrirModalDetalhes(info.event);
       }
     });
