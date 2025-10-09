@@ -35,7 +35,7 @@ $(document).ready(function() {
 
           }).then((result) => {
             // Redireciona para a home após clicar em OK
-            window.location.href = "{{ route('home') }}";
+            window.location.href = homeUrl;
           });
         }
       },
