@@ -93,13 +93,13 @@
   border-radius: 8px;
 }
 
-.main-calendar {
+/* .main-calendar {
   min-height: 500px;
   max-height: 80vh;
   overflow-y: auto;
   width: 100%;
   box-sizing: border-box;
-}
+} */
 
 @media (min-width: 1400px) {
   .main-calendar {
@@ -180,4 +180,36 @@ th {
 .calendar-container {
   border-radius: 8px !important;
   overflow: hidden;
+}
+
+/* Container principal do calendário */
+.main-calendar, .calendar-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto; /* permite rolar se precisar, mas evita corte */
+  box-sizing: border-box;
+}
+
+/* Para o calendário interno do FullCalendar */
+.fc {
+  width: 100% !important;
+}
+
+/* Tabela e grid de salas */
+.salas-grid {
+  width: 100%;
+  gap: 1.25rem; /* mantém espaçamento proporcional */
+  flex-wrap: wrap;
+}
+
+.sala-card {
+  width: 100%; /* para caber em qualquer tela */
+  max-width: 100%;
+}
+
+/* Ajustes para telas muito grandes (HD/Full HD) */
+@media (min-width: 1920px) {
+  .pagina-container, .caixa-calendario, .caixa-tabela, .tabela-main-page {
+    padding: 2rem; /* aumenta espaçamento sem cortar */
+  }
 }
