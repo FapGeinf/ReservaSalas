@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     timeZone: 'local',
     locale: 'pt-br',
     eventMaxStack: true,
-    // hiddenDays: [0, 6],
+    hiddenDays: [0, 6],
     events: '/eventos',
     selectable: true,
     editable: false,
