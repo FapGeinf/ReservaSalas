@@ -33,13 +33,11 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <style>
-  /* Força eventos a ficarem empilhados verticalmente */
   .fc-timegrid-col-events {
     display: flex !important;
     flex-direction: column !important;
   }
 
-  /* Garante que cada evento ocupe 100% da largura e fique um abaixo do outro */
   .fc-timegrid-event-harness {
     position: relative !important;
     width: 100% !important;
@@ -48,15 +46,7 @@
     transform: none !important;
     margin-bottom: 5rem !important;
   }
-
-  /* .fc-event,
-  .fc-timegrid-event {
-    background: rgba(255, 255, 255) !important;
-    border-left: 4px solid #6c757d !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  } */
-
-  /* Opcional: remove qualquer sobreposição residual */
+  
   .fc-timegrid-event-harness + .fc-timegrid-event-harness {
     margin-top: 4px !important;
   }
