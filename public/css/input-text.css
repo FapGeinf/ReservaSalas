@@ -1,5 +1,5 @@
 label {
-  font-size: 14px !important;
+  font-size: 12px !important;
   color: #374151 !important;
 }
 
@@ -15,6 +15,10 @@ label {
   box-shadow: 3px 3px 0px #dee2e6;
 }
 
+.input-custom {
+  font-size: 13px;
+}
+
 .input-custom-disabled {
   display: block;
   padding: 8px 12px;
@@ -25,6 +29,7 @@ label {
   width: 100%;
   color: #535353;
   box-shadow: 3px 3px 0px #dee2e6;
+  font-size: 13px;
 }
 
 .custom-border {
@@ -41,6 +46,7 @@ label {
   box-shadow: 3px 3px 0px #dee2e6;
   transition: all .2s !important;
   width: 100% !important;
+  font-size: 13px !important;
 }
 
 .input-custom:hover, .form-select:hover {

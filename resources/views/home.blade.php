@@ -54,6 +54,18 @@
   .fc-timegrid-slot-label-cushion {
     color: #fff;
   }
+
+  .swal2-icon {
+    font-size: 8px !important;
+  }
+
+  .swal2-title {
+    font-size: 16px;
+  }
+
+  .swal2-html-container {
+    font-size: 14px;
+  }
 </style>
 
 <script>
@@ -67,7 +79,7 @@
 <div class="pagina-container">
   <div class="d-flex flex-wrap flex-lg-nowrap">
     <div class="col-lg-3 col-12 mb-3">
-      <div class="salas-grid d-flex flex-lg-column gap-2 h-50 flex-column flex-md-row">
+      <div class="salas-grid d-flex flex-lg-column gap-2 flex-column flex-md-row">
         <div class="ver-reservas-container border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
           style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
 
@@ -116,7 +128,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="modalReservaLabel">Nova Reserva</h5>
+        <h6 class="modal-title" id="modalReservaLabel">Nova Reserva</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
@@ -129,8 +141,7 @@
 
           <div class="row mb-3">
             <div class="col-8">
-              <label for="sala_fk" class="fw-bold">Sala:</label>
-
+              <label for="sala_fk" class="fw-semibold">Sala:</label>
               <select name="sala_fk" id="sala_fk" class="form-select input-custom pointer" required>
                 <option value="" disabled selected>Selecione uma sala</option>
 
@@ -143,7 +154,7 @@
 
           <div class="row mb-3">
             <div class="col-8">
-              <label for="tipo_reserva" class="fw-bold">Tipo de Reserva:</label>
+              <label for="tipo_reserva" class="fw-semibold">Tipo de Reserva:</label>
               <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
                 <option value="" selected disabled>Selecione uma opção</option>
                 <option value="interno">Uso interno</option>
@@ -154,19 +165,19 @@
 
           <div class="row align-items-end">
             <div class="col-4">
-              <label for="hora_inicio" class="fw-bold">Hora de Início:</label>
+              <label for="hora_inicio" class="fw-semibold">Hora de Início:</label>
               <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
             </div>
 
             <div class="col-4">
-              <label for="hora_termino" class="fw-bold">Hora de Término:</label>
+              <label for="hora_termino" class="fw-semibold">Hora de Término:</label>
               <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
             </div>
 
             <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-bold" for="diaInteiro">Dia inteiro</label>
+                <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
               </div>
             </div>
           </div>
@@ -174,8 +185,15 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Cancelar
+        </button>
+
+        <button type="submit" form="reservaForm" class="button-green">
+          <i class="bi bi-save me-1"></i>
+          Salvar Reserva
+        </button>
       </div>
     </div>
   </div>
@@ -186,7 +204,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="modal-editar-reserva-label">Editar Reserva</h5>
+        <h6 class="modal-title" id="modal-editar-reserva-label">Editar Reserva</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
@@ -196,39 +214,40 @@
 
           <input type="hidden" name="_method" value="PUT">
 
-          <div class="text-center pb-3">
-            <span id="reserva-numero" class="fw-semibold" style="color: #374151;"></span>
+          <div class="text-center">
+            <!-- Inserido d-none, remover em caso de bug -->
+            <span id="reserva-numero" class="fw-semibold d-none" style="color: #374151;"></span>
           </div>
 
           <div class="row mb-4">
             <div class="col-7">
-              <label for="sala_id" class="fw-bold">Sala:</label>
+              <label for="sala_id" class="fw-semibold">Sala:</label>
               <select name="sala_id" id="sala_id" class="form-select pointer" required>
                 <!-- opções preenchidas via JavaScript -->
               </select>
             </div>
 
             <div class="col-5">
-              <label for="data_inicio" class="fw-bold fs-16">Data:</label>
+              <label for="data_inicio" class="fw-semibold">Data:</label>
               <input type="date" name="data_inicio" id="data_inicio" class="input-custom pointer" required>
             </div>
           </div>
 
           <div class="row align-items-end">
             <div class="col-4">
-              <label for="hora_inicio" class="fw-bold fs-16">Hora Início:</label>
+              <label for="hora_inicio" class="fw-semibold">Hora Início:</label>
               <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" step="60" required>
             </div>
 
             <div class="col-4">
-              <label for="data_fim" class="fw-bold fs-16">Hora Término:</label>
+              <label for="data_fim" class="fw-semibold">Hora Término:</label>
               <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
             </div>
 
             <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-bold" for="diaInteiro">Dia inteiro</label>
+                <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
               </div>
             </div>
           </div>
@@ -236,8 +255,15 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" form="form-editar-reserva" class="button-green">Salvar Alterações</button>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Cancelar
+        </button>
+
+        <button type="submit" form="form-editar-reserva" class="button-green">
+          <i class="bi bi-save me-1"></i>
+          Salvar Alterações
+        </button>
       </div>
     </div>
   </div>
@@ -248,39 +274,46 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold">Detalhes da Reserva</h5>
+        <h6 class="modal-title">Detalhes da Reserva</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
       <div class="modal-body">
         <div class="row pb-3">
           <div class="col-5">
-            <label class="fw-bold">Sala:</label>
+            <label class="fw-semibold">Sala:</label>
             <span id="detalheSala" class="input-custom-disabled"></span>
           </div>
 
           <div class="col-7">
-            <label class="fw-bold">Unidade:</label>
+            <label class="fw-semibold">Unidade:</label>
             <span id="detalheUnidade" class="input-custom-disabled"></span>
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-5">
-            <label class="fw-bold">Horário:</label>
+            <label class="fw-semibold">Horário:</label>
             <span id="detalheHorario" class="input-custom-disabled"></span>
           </div>
 
           <div class="col-7">
-            <label class="fw-bold">Responsável:</label>
+            <label class="fw-semibold">Responsável:</label>
             <span id="detalheResponsavel" class="input-custom-disabled"></span> 
           </div>
         </div>  
       </div>
 
       <div class="modal-footer">
-        <button type="button" id="btnEditar" class="button-blue">Editar</button>
-        <button type="button" id="btnExcluir" class="button-red">Excluir</button>
+        <button type="button" id="btnEditar" class="button-blue">
+          <i class="bi bi-pencil-square fs-icon me-1"></i>
+          Editar
+        </button>
+
+        <button type="button" id="btnExcluir" class="button-red">
+          <i class="bi bi-trash fs-icon me-1"></i>
+          Excluir
+        </button>
       </div>
     </div>
   </div>
@@ -292,21 +325,27 @@
   <div class="modal-dialog modal-dialog-top">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+        <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" style="font-size: 14px;">
         Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Cancelar
+        </button>
 
         <form id="deleteForm" method="POST">
           @csrf
           @method('DELETE')
-          <button type="submit" class="button-red">Excluir</button>
+          <button type="submit" class="button-red">
+            <i class="bi bi-trash fs-icon me-1"></i>
+            Excluir
+          </button>
         </form>
       </div>
     </div>

@@ -28,7 +28,7 @@ $(document).ready(function() {
             title: 'Sucesso!',
             text: 'Reserva realizada com sucesso!',
             icon: 'success',
-            confirmButtonText: 'OK',
+            confirmButtonText: 'Fechar',
             customClass: {
               confirmButton: 'button-green'
             }
@@ -45,7 +45,11 @@ $(document).ready(function() {
           title: 'Desculpe!',
           text: xhr.responseJSON?.message ||
             'Erro ao realizar reserva',
-          icon: 'error'
+          icon: 'error',
+          confirmButtonText: 'Fechar',
+          customClass: {
+            confirmButton: 'button-red'
+          }
         });
       },
 

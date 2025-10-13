@@ -7,9 +7,9 @@
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 8px 12px;
+  padding: 6px 9px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +71,10 @@ background-color: #e0b139;
   background-color: #8d1e19;
 }
 
-.button-yellow i, .button-red i {
+/* .button-yellow i, .button-red i {
   font-size: 16px;
+} */
+
+.fs-icon {
+  font-size: 12px !important;
 }
