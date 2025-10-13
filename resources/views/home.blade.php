@@ -50,10 +50,10 @@
     margin-top: 4px !important;
   }
 
-  /* Deixa a cor da hora branca, escondendo-a, pois a mesma não é necessária */
+  /* Deixa a cor da hora branca, escondendo-a, pois a mesma não é necessária 
   .fc-timegrid-slot-label-cushion {
     color: #fff;
-  }
+  }*/
 
   .swal2-icon {
     font-size: 8px !important;
@@ -83,16 +83,22 @@
         <div class="ver-reservas-container border rounded shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
           style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
 
-          <h5 class="fw-bold text-center mb-4">Reservas</h5>
+          <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
+
+          <span class="text-muted mb-4 text-center" style="font-size: 13px;">
+            Escolha a <span class="fw-semibold">sala</span> e a <span class="fw-semibold">data</span> desejadas para visualizar todas as reservas já feitas.
+          </span>
 
           <div class="row g-3 mb-3">
             <div class="col-7">
-              <label for="salaSelecionada" class="fw-semibold">Selecione a sala:</label>
-              <select id="salaSelecionada" class="input-custom form-select pointer w-100"></select>              
+              <label for="salaSelecionada" class="fw-semibold">Sala:</label>
+              <select id="salaSelecionada" class="input-custom form-select pointer w-100">
+                <option value="">Selecione uma sala</option>
+              </select>
             </div>
 
             <div class="col-5">
-              <label for="dataSelecionada" class="fw-semibold">Selecione a data:</label>
+              <label for="dataSelecionada" class="fw-semibold">Data:</label>
               <input type="date" id="dataSelecionada" class="input-custom w-100">
             </div>
           </div>
@@ -103,7 +109,6 @@
               <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
             </p>
           </div>
-
         </div>
       </div>
     </div>

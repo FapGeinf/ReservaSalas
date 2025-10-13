@@ -199,14 +199,14 @@ $(document).ready(function() {
     const data = $dataInput.val();
 
     if (!salaId) {
-      $reservasContainer.html('<p class="text-center text-muted">Nenhuma sala selecionada.</p>');
+      $reservasContainer.html('<div class="text-center text-muted my-2" style="font-size: 13px;"><i class="bi bi-exclamation-triangle-fill me-1" style="color: #ffc107;"></i> Nenhuma sala selecionada.</div>');
       return;
     }
 
     $reservasContainer.html(`
-      <p class="text-center text-muted">
-        <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
-      </p>
+      <div class="text-center text-muted my-2" style="font-size: 13px;">
+        <i class="bi bi-arrow-repeat me-1" style="color: #2a64e7;"></i> Carregando reservas...
+      </div>
     `);
 
     $.ajax({
@@ -215,7 +215,7 @@ $(document).ready(function() {
       data: { data: data },
       success: function(reservas) {
         if (!reservas || reservas.length === 0) {
-          $reservasContainer.html('<p class="text-center text-muted">Nenhuma reserva para esta data.</p>');
+          $reservasContainer.html('<div class="text-center text-muted my-2" style="font-size: 13px;"><i class="bi bi-exclamation-triangle-fill me-1" style="color: #ffc107;"></i> Nenhuma reserva para esta data.</div>');
           return;
         }
 
