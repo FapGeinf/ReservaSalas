@@ -26,11 +26,11 @@
       </div>
     @endforeach
 
-   <button class="button-light-grey border rounded d-flex align-items-center consultar-reserva-btn"
+   {{-- <button class="button-light-grey border rounded d-flex align-items-center consultar-reserva-btn"
     data-bs-toggle="modal"
     data-bs-target="#verReservasModal"> 
       <i class="bi bi-search fs-14"></i> 
       <span class="ms-1 fs-12">Consultar reservas</span>
-    </button>
+    </button> --}}
   </div>
 </nav>

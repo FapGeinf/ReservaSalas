@@ -139,20 +139,120 @@ function carregarReservas(salaId) {
   });
 }
 
+// CODIGO ANTIGO
+// $(document).ready(function() {
+//   $('#dataSelecionada').on('change', function() {
+//     const salaId = $('#verReservasModal').data('sala-id');
+//     carregarReservas(salaId);
+//   });
+
+//   $('#verReservasModal').on('show.bs.modal', function(event) {
+//     const button = $(event.relatedTarget);
+//     const salaId = button.data('sala-id');
+//     $('#verReservasModal').data('sala-id', salaId);
+
+//     const hoje = new Date().toISOString().split('T')[0];
+//     $('#dataSelecionada').val(hoje);
+
+//     carregarReservas(salaId);
+//   });
+// });
+
+// CODIGO NOVO FUNCIONAL
+// $(document).ready(function() {
+//   const primeiraSala = salasDisponiveis.length > 0 ? salasDisponiveis[0].id : null;
+  
+//   if (primeiraSala) {
+//     const hoje = new Date().toISOString().split('T')[0];
+//     $('#dataSelecionada').val(hoje);
+//     carregarReservas(primeiraSala);
+//   }
+
+//   $('#dataSelecionada').on('change', function() {
+//     if (primeiraSala) {
+//       carregarReservas(primeiraSala);
+//     }
+//   });
+// });
+
 $(document).ready(function() {
-  $('#dataSelecionada').on('change', function() {
-    const salaId = $('#verReservasModal').data('sala-id');
-    carregarReservas(salaId);
-  });
+  const $salaSelect = $('#salaSelecionada');
+  const $dataInput = $('#dataSelecionada');
+  const $reservasContainer = $('#reservasContainer');
 
-  $('#verReservasModal').on('show.bs.modal', function(event) {
-    const button = $(event.relatedTarget);
-    const salaId = button.data('sala-id');
-    $('#verReservasModal').data('sala-id', salaId);
+  // Preenche o select com as salas disponíveis
+  if (typeof salasDisponiveis !== 'undefined' && salasDisponiveis.length > 0) {
+    salasDisponiveis.forEach(sala => {
+      $salaSelect.append(`<option value="${sala.id}">${sala.nome}</option>`);
+    });
+  } else {
+    $salaSelect.append('<option value="">Nenhuma sala disponível</option>');
+  }
 
-    const hoje = new Date().toISOString().split('T')[0];
-    $('#dataSelecionada').val(hoje);
+  // Define a data atual como padrão
+  const hoje = new Date().toISOString().split('T')[0];
+  $dataInput.val(hoje);
 
-    carregarReservas(salaId);
-  });
+  // Função para carregar reservas
+  function carregarReservasFixas() {
+    const salaId = $salaSelect.val();
+    const data = $dataInput.val();
+
+    if (!salaId) {
+      $reservasContainer.html('<p class="text-center text-muted">Nenhuma sala selecionada.</p>');
+      return;
+    }
+
+    $reservasContainer.html(`
+      <p class="text-center text-muted">
+        <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
+      </p>
+    `);
+
+    $.ajax({
+      url: `/reservas/sala/${salaId}`, // endpoint para buscar reservas
+      method: 'GET',
+      data: { data: data },
+      success: function(reservas) {
+        if (!reservas || reservas.length === 0) {
+          $reservasContainer.html('<p class="text-center text-muted">Nenhuma reserva para esta data.</p>');
+          return;
+        }
+
+        const reservasHtml = reservas.map(r => {
+          // Extrai horas de data_inicio/data_fim
+          const horaInicio = r.data_inicio ? r.data_inicio.split(' ')[1] : '??:??';
+          const horaFim = r.data_fim ? r.data_fim.split(' ')[1] : '??:??';
+
+          // Pega o nome do usuário ou usa placeholder
+          const usuario = r.user && r.user.name ? r.user.name : 'Usuário desconhecido';
+
+          // Pega o nome da unidade, se existir
+          const unidade = r.user && r.user.unidade && r.user.unidade.nome 
+                          ? r.user.unidade.nome 
+                          : 'Unidade desconhecida';
+
+          return `
+            <div class="border rounded p-2 mb-2">
+              <span><strong>Unidade:</strong> ${unidade}</span><br>
+              <span><strong>Horário:</strong> ${horaInicio} - ${horaFim}</span><br>
+              <span><strong>Reservado por:</strong> ${usuario}</span>
+            </div>
+          `;
+        }).join('');
+
+        $reservasContainer.html(reservasHtml);
+      },
+      error: function() {
+        $reservasContainer.html('<p class="text-center text-danger">Erro ao carregar reservas.</p>');
+      }
+    });
+  }
+
+  // Carrega reservas iniciais
+  carregarReservasFixas();
+
+  // Atualiza ao trocar sala ou data
+  $salaSelect.on('change', carregarReservasFixas);
+  $dataInput.on('change', carregarReservasFixas);
 });

@@ -68,9 +68,28 @@
   <div class="d-flex flex-wrap flex-lg-nowrap">
     <div class="col-lg-3 col-12 mb-3">
       <div class="salas-grid d-flex flex-lg-column gap-2 h-50 flex-column flex-md-row">
-        <div class="calendar-container w-100 w-md-50 border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
-          style="background-color: #fff;" data-help="mini-calendario">
-          <div id="miniCalendar" class="w-100 flex-fill" style="border-bottom: 1px solid #dee2e6;"></div>
+        <div class="ver-reservas-container border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
+          style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
+
+          <h5 class="fw-bold mb-3">Reservas</h5>
+
+          <div class="mb-3">
+            <label for="salaSelecionada" class="fw-bold">Selecione a Sala:</label>
+            <select id="salaSelecionada" class="input-custom form-select w-100"></select>
+          </div>
+
+          <div class="mb-3">
+            <label for="dataSelecionada" class="fw-bold">Selecione a Data:</label>
+            <input type="date" id="dataSelecionada" class="input-custom w-100">
+          </div>
+
+          <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto"
+            style="max-height: 450px;">
+            <p class="text-center text-muted">
+              <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -262,31 +281,6 @@
       <div class="modal-footer">
         <button type="button" id="btnEditar" class="button-blue">Editar</button>
         <button type="button" id="btnExcluir" class="button-red">Excluir</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal para Ver Reservas -->
-<div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content custom-modal">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="verReservasModalLabel">Reservas</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="dataSelecionada" class="fw-bold">Selecione a Data:</label>
-          <input type="date" id="dataSelecionada" class="input-custom">
-        </div>
-
-        <div id="reservasContainer" class="reservas-container">
-          <p class="text-center text-muted">
-            <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
-          </p>
-        </div>
       </div>
     </div>
   </div>
