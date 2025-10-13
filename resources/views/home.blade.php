@@ -25,61 +25,63 @@
 
 		<div class="pagina-container">
 			<div class="salas-grid">
+				@foreach($salas as $sala)
+					@php
+						$situacao = strtolower(trim($sala->situacao));
+						$nomeSala = strtolower(trim($sala->nome));
 
-			@foreach($salas as $sala)
-				@php
-					$situacao = strtolower(trim($sala->situacao));
-					$nomeSala = strtolower(trim($sala->nome));
+						// Define a classe de borda com base no nome da sala
+						$classeBorda = '';
+						if (str_contains($nomeSala, 'aquário')) {
+							$classeBorda = 'border-aquário';
+						} elseif (str_contains($nomeSala, 'daf')) {
+							$classeBorda = 'border-daf';
+						} elseif (str_contains($nomeSala, 'pres')) {
+							$classeBorda = 'border-pres';
+						} elseif (str_contains($nomeSala, 'audit')) {
+							$classeBorda = 'border-audit';
+						}
+					@endphp
 
-					// Define a classe de borda com base no nome da sala
-					$classeBorda = '';
-					if (str_contains($nomeSala, 'aquário')) {
-						$classeBorda = 'border-aquário';
-					} elseif (str_contains($nomeSala, 'daf')) {
-						$classeBorda = 'border-daf';
-					} elseif (str_contains($nomeSala, 'pres')) {
-						$classeBorda = 'border-pres';
-					} elseif (str_contains($nomeSala, 'audit')) {
-						$classeBorda = 'border-audit';
-					}
-				@endphp
+					<div class="sala-card {{ $classeBorda }}">
+						<div class="sala-card-conteudo" style="position: relative;">
 
-				<div class="sala-card {{ $classeBorda }}">
-					<div class="sala-card-conteudo" style="position: relative;">
+						<img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
 
-					<img src="{{ asset('img/salas/' . $sala->imagem) }}" alt="Imagem {{ $sala->nome }}" class="imagem-sala">
+						<div class="sala-info">
 
-					<div class="sala-info">
+							<div class="titulo-sala">
+							<span class="text-uppercase fw-semibold">
+								{{ $sala->nome }}
+							</span>
+								<button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
+								data-sala-id="{{ $sala->id }}">
+								Ver Reservas
+								</button>
 
-					<div class="titulo-sala">
-					<span class="text-uppercase fw-semibold">
-						{{ $sala->nome }}
-					</span>
+							@if($situacao === 'inativa')
+								<span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
+								Sala em manutenção
+								</span>
+							@else
+								<span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
+								Sala disponível
+								</span>
+							@endif
+							</div>
 
-					@if($situacao === 'inativa')
-						<span class="d-block s-manutencao fw-medium" style="font-size: 14px;">
-						Sala em manutenção
-						</span>
-					@else
-						<span class="d-block s-disponivel fw-medium" style="font-size: 14px;">
-						Sala disponível
-						</span>
-					@endif
+							@if($situacao === 'ativa')
+								<!-- {{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}} -->
+							@else
+								<button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
+								data-sala-id="{{ $sala->id }}">
+								Ver Reservas
+								</button>
+							@endif
+							</div>
+						</div>
 					</div>
-
-					@if($situacao === 'ativa')
-						{{-- <button class="botao-reservar" onclick="abrirModalCalendario({{ $sala->id }})"></button> --}}
-					@else
-						<button class="button-grey" data-bs-toggle="modal" data-bs-target="#verReservasModal"
-						data-sala-id="{{ $sala->id }}">
-						Ver Reservas
-						</button>
-					@endif
-
-					</div>
-					</div>
-				</div>
-			@endforeach
+				@endforeach
 			</div>
 
 			Calendário
@@ -729,41 +731,41 @@
 		<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog modal-dialog-top">
-			<div class="modal-content">
-				<div class="modal-header">
-				<h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
 
-				<div class="modal-body">
-				Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
-				</div>
+					<div class="modal-body">
+					Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
+					</div>
 
-				<div class="modal-footer">
-				<form id="deleteForm" method="POST">
-					@csrf
-					@method('DELETE')
-					<button type="submit" class="button-red">Excluir</button>
-				</form>
+					<div class="modal-footer">
+					<form id="deleteForm" method="POST">
+						@csrf
+						@method('DELETE')
+						<button type="submit" class="button-red">Excluir</button>
+					</form>
 
-				<button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+					<button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
 			</div>
 		</div>
 		@if (session('success'))
 			<script>
-			document.addEventListener('DOMContentLoaded', function () {
-			Swal.fire({
-				title: 'Sucesso!',
-				text: '{{ session('success') }}',
-				icon: 'success',
-				confirmButtonText: 'Fechar',
-				customClass: {
-				confirmButton: 'button-red'
-				}
-			});
-			});
+				document.addEventListener('DOMContentLoaded', function () {
+					Swal.fire({
+						title: 'Sucesso!',
+						text: '{{ session('success') }}',
+						icon: 'success',
+						confirmButtonText: 'Fechar',
+						customClass: {
+						confirmButton: 'button-red'
+						}
+					});
+				});
 			</script>
 		@endif
 
