@@ -80,19 +80,21 @@
   <div class="d-flex flex-wrap flex-lg-nowrap">
     <div class="col-lg-3 col-12 mb-3">
       <div class="salas-grid d-flex flex-lg-column gap-2 flex-column flex-md-row">
-        <div class="ver-reservas-container border shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
+        <div class="ver-reservas-container border rounded shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
           style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
 
-          <h5 class="fw-bold mb-3">Reservas</h5>
+          <h5 class="fw-bold text-center mb-4">Reservas</h5>
 
-          <div class="mb-3">
-            <label for="salaSelecionada" class="fw-bold">Selecione a Sala:</label>
-            <select id="salaSelecionada" class="input-custom form-select w-100"></select>
-          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-7">
+              <label for="salaSelecionada" class="fw-semibold">Selecione a sala:</label>
+              <select id="salaSelecionada" class="input-custom form-select pointer w-100"></select>              
+            </div>
 
-          <div class="mb-3">
-            <label for="dataSelecionada" class="fw-bold">Selecione a Data:</label>
-            <input type="date" id="dataSelecionada" class="input-custom w-100">
+            <div class="col-5">
+              <label for="dataSelecionada" class="fw-semibold">Selecione a data:</label>
+              <input type="date" id="dataSelecionada" class="input-custom w-100">
+            </div>
           </div>
 
           <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto"
