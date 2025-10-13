@@ -133,7 +133,7 @@ function carregarReservas(salaId) {
 
     error: function() {
       $('#reservasContainer').html(
-        '<p class="text-center"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</p>'
+        '<div class="text-center text-muted my-2" style="font-size: 13px;"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</div>'
       );
     }
   });
@@ -215,7 +215,7 @@ $(document).ready(function() {
       data: { data: data },
       success: function(reservas) {
         if (!reservas || reservas.length === 0) {
-          $reservasContainer.html('<div class="text-center text-muted my-2" style="font-size: 13px;"><i class="bi bi-exclamation-triangle-fill me-1" style="color: #ffc107;"></i> Nenhuma reserva para esta data.</div>');
+            $reservasContainer.html('<div class="text-center text-success my-2" style="font-size: 13px;"><i class="bi bi-check-circle-fill me-1" style="color: #28a745;"></i> Nenhuma reunião agendada.<br>Sala disponível para reserva.</div>');
           return;
         }
 
