@@ -182,12 +182,15 @@ th {
   overflow: hidden;
 }
 
-/* Container principal do calendário */
 .main-calendar, .calendar-container {
   width: 100%;
   max-width: 100%;
-  overflow-x: auto; /* permite rolar se precisar, mas evita corte */
+  max-height: 650px;       /* altura máxima visível */
+  overflow-y: auto;        /* rolagem vertical */
+  overflow-x: hidden;      /* impede rolagem lateral */
   box-sizing: border-box;
+  background-color: #fff;
+  padding: 8px;
 }
 
 /* Para o calendário interno do FullCalendar */
