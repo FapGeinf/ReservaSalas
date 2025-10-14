@@ -16,6 +16,18 @@
   <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
   <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+        font-family: 'Poppins', sans-serif !important;
+
+        /* font-weight: 300; */
+        font-style: normal;
+        src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+      }
+  </style>
+
   <title>Agendaí! | Bem-vindo</title>
 
 </head>
@@ -78,8 +90,15 @@
 
         <div class="form-custom no-border-top form-no-top-login pt-3">
           <div class="d-flex justify-content-end gap-2 pb-3">
-            <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="button-grey text-decoration-none" target="_blank">Esqueceu sua senha?</a>
-            <button type="submit" form="form-login" class="button-green">Entrar</button>
+            <a href="http://10.10.3.252/glpi/front/ticket.form.php"class="button-grey text-decoration-none" target="_blank">
+              <i class="bi bi-question-circle me-1"></i>
+              Esqueci minha senha
+            </a>
+
+            <button type="submit" form="form-login" class="button-green">
+              <i class="bi bi-box-arrow-in-right me-1"></i>
+              Entrar
+            </button>
           </div>
         </div>
 
