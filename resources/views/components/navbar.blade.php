@@ -66,7 +66,7 @@
           <ul class="dropdown-menu dropdown-meu-start-sm">
             <li class="dropdown-item d-flex align-items-center li-person">
               <i class="bi bi-person-circle" style="font-size: 3rem; margin-right: 10px; color: #394151"></i>
-              <div class="text-uppercase">
+              <div class="text-capitalized">
                 <strong style="color: #394151;">{{ Auth::user()->name }}</strong>
                 <br>
                 <small class="text-muted">
