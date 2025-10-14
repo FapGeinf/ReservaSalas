@@ -50,7 +50,7 @@
     margin-top: 4px !important;
   }
 
-  /* Deixa a cor da hora branca, escondendo-a, pois a mesma não é necessária 
+  /* Deixa a cor da hora branca 
   .fc-timegrid-slot-label-cushion {
     color: #fff;
   }*/
@@ -66,12 +66,19 @@
   .swal2-html-container {
     font-size: 14px;
   }
+
+  /* .fc-daygrid-day-events {
+    max-width: 200px;
+  } */
+
+  /* .fc-daygrid-day-top {
+    max-width: 235px;
+  } */
 </style>
 
 <script>
   const homeUrl = "{{ route('home') }}";
 </script>
-
 
 <x-alert-toast/>
 <x-navbar-main :salas="$salas"/>
@@ -90,14 +97,14 @@
           </span>
 
           <div class="row g-3 mb-3">
-            <div class="col-12 col-md-7">
+            <div class="col-12">
               <label for="salaSelecionada" class="fw-semibold">Sala:</label>
               <select id="salaSelecionada" class="input-custom form-select pointer w-100">
                 <option value="">Selecione uma sala</option>
               </select>
             </div>
 
-            <div class="col-12 col-md-5">
+            <div class="col-12">
               <label for="dataSelecionada" class="fw-semibold">Data:</label>
               <input type="date" id="dataSelecionada" class="input-custom w-100">
             </div>
