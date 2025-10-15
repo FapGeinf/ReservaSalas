@@ -139,42 +139,6 @@ function carregarReservas(salaId) {
   });
 }
 
-// CODIGO ANTIGO
-// $(document).ready(function() {
-//   $('#dataSelecionada').on('change', function() {
-//     const salaId = $('#verReservasModal').data('sala-id');
-//     carregarReservas(salaId);
-//   });
-
-//   $('#verReservasModal').on('show.bs.modal', function(event) {
-//     const button = $(event.relatedTarget);
-//     const salaId = button.data('sala-id');
-//     $('#verReservasModal').data('sala-id', salaId);
-
-//     const hoje = new Date().toISOString().split('T')[0];
-//     $('#dataSelecionada').val(hoje);
-
-//     carregarReservas(salaId);
-//   });
-// });
-
-// CODIGO NOVO FUNCIONAL
-// $(document).ready(function() {
-//   const primeiraSala = salasDisponiveis.length > 0 ? salasDisponiveis[0].id : null;
-  
-//   if (primeiraSala) {
-//     const hoje = new Date().toISOString().split('T')[0];
-//     $('#dataSelecionada').val(hoje);
-//     carregarReservas(primeiraSala);
-//   }
-
-//   $('#dataSelecionada').on('change', function() {
-//     if (primeiraSala) {
-//       carregarReservas(primeiraSala);
-//     }
-//   });
-// });
-
 $(document).ready(function() {
   const $salaSelect = $('#salaSelecionada');
   const $dataInput = $('#dataSelecionada');
