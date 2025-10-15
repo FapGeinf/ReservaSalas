@@ -38,44 +38,42 @@
 <x-alert-toast/>
 <x-navbar-main :salas="$salas"/>
 
-<div class="pagina-container">
-  <div class="d-flex flex-wrap flex-lg-nowrap">
-    <div class="col-lg-3 col-12 mb-3">
-      <div class="salas-grid d-flex flex-lg-column gap-2 flex-column flex-md-row">
-        <div class="ver-reservas-container border rounded shadow-sm flex-grow-1 d-flex flex-column mt-3 mt-md-0"
-          style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
+<div class="pagina-container container">
+  <div class="row">
+    <div class="col-12 col-lg-3 mb-3">
+      <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
+        style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
 
-          <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
+        <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
 
-          <span class="text-muted mb-4 text-center" style="font-size: 13px;">
-            Escolha a <span class="fw-semibold">sala</span> e a <span class="fw-semibold">data</span> desejadas para visualizar todas as reservas já feitas.
-          </span>
+        <span class="text-muted mb-4 text-center" style="font-size: 13px;">
+          Escolha a <span class="fw-semibold">sala</span> e a <span class="fw-semibold">data</span> desejadas para visualizar todas as reservas já feitas.
+        </span>
 
-          <div class="row g-3 mb-3">
-            <div class="col-12">
-              <label for="salaSelecionada" class="fw-semibold">Sala:</label>
-              <select id="salaSelecionada" class="input-custom form-select pointer w-100">
-                <option value="">Selecione uma sala</option>
-              </select>
-            </div>
-
-            <div class="col-12">
-              <label for="dataSelecionada" class="fw-semibold">Data:</label>
-              <input type="date" id="dataSelecionada" class="input-custom w-100">
-            </div>
+        <div class="row g-3 mb-3">
+          <div class="col-12">
+            <label for="salaSelecionada" class="fw-semibold">Sala:</label>
+            <select id="salaSelecionada" class="input-custom form-select pointer w-100">
+              <option value="">Selecione uma sala</option>
+            </select>
           </div>
 
-          <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto"
-            style="max-height: 450px;">
-            <p class="text-center text-muted">
-              <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
-            </p>
+          <div class="col-12">
+            <label for="dataSelecionada" class="fw-semibold">Data:</label>
+            <input type="date" id="dataSelecionada" class="input-custom w-100">
           </div>
+        </div>
+
+        <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto"
+          style="max-height: 450px;">
+          <p class="text-center text-muted">
+            <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
+          </p>
         </div>
       </div>
     </div>
 
-    <div class="col-xl-9 col-lg-8 col-md-12 px-lg-3">
+    <div class="col-12 col-lg-9 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
         <div class="area-calendario">
           <div id="calendar" class="calendar-container main-calendar mt-3" style="min-height: 650px;"></div>
