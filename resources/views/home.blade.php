@@ -31,51 +31,6 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-<style>
-  .fc-timegrid-col-events {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
-  .fc-timegrid-event-harness {
-    position: relative !important;
-    width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-    transform: none !important;
-    margin-bottom: 5rem !important;
-  }
-
-  .fc-timegrid-event-harness + .fc-timegrid-event-harness {
-    margin-top: 4px !important;
-  }
-
-  /* Deixa a cor da hora branca 
-  .fc-timegrid-slot-label-cushion {
-    color: #fff;
-  }*/
-
-  .swal2-icon {
-    font-size: 8px !important;
-  }
-
-  .swal2-title {
-    font-size: 16px;
-  }
-
-  .swal2-html-container {
-    font-size: 14px;
-  }
-
-  /* .fc-daygrid-day-events {
-    max-width: 200px;
-  } */
-
-  /* .fc-daygrid-day-top {
-    max-width: 235px;
-  } */
-</style>
-
 <script>
   const homeUrl = "{{ route('home') }}";
 </script>
