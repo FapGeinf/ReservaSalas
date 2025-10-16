@@ -39,6 +39,7 @@
   right: 0 !important;
   transform: none !important;
   margin-bottom: 5rem !important;
+  cursor: pointer;
 }
 
 .fc-timegrid-event-harness + .fc-timegrid-event-harness {

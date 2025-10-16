@@ -75,12 +75,12 @@
 
     <div class="col-12 col-lg-9 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
-        <div class="area-calendario">
-          <div id="calendar" class="calendar-container main-calendar mt-3" style="min-height: 650px;"></div>
+        <div class="area-calendario border rounded mt-3">
+          <div id="calendar" class="calendar-container main-calendar" style="min-height: 650px;"></div>
         </div>
 
         <div class="mt-2">
-          <span style="font-size: 14px; color: #374151;">
+          <span style="font-size: 12px; color: #374151;">
             <i class="bi bi-lightbulb-fill text-warning"></i>
             Clique em uma data para reservar uma sala ou visualizar agendamentos.
           </span>
