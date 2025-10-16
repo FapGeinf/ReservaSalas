@@ -116,7 +116,6 @@ table.table-reservas.no-footer {
   width: 100%;
   min-width: 300px; /* evita colapsar demais */
   border-collapse: collapse;
-  font-family: Arial, sans-serif;
   font-size: 14px;
   background-color: #fff;
   border: 1px solid #ccc;
