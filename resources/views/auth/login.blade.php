@@ -7,27 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
   <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
   <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
   <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
   <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-        font-family: 'Poppins', sans-serif !important;
-
-        /* font-weight: 300; */
-        font-style: normal;
-        src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-      }
-  </style>
-
   <title>Agendaí! | Bem-vindo</title>
 
 </head>
@@ -90,7 +75,7 @@
 
         <div class="form-custom no-border-top form-no-top-login pt-3">
           <div class="d-flex justify-content-end gap-2 pb-3">
-            <a href="http://10.10.3.252/glpi/front/ticket.form.php"class="button-grey text-decoration-none" target="_blank">
+            <a href="http://10.10.3.252/glpi/front/ticket.form.php" class="button-grey text-decoration-none" target="_blank">
               <i class="bi bi-question-circle me-1"></i>
               Esqueci minha senha
             </a>
