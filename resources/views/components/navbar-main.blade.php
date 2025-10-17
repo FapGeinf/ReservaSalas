@@ -11,7 +11,7 @@
         $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
       @endphp
 
-      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm" style="min-width: 260px;">
+      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm" >
         <div class="d-flex flex-column">
           <span class="fw-semibold text-uppercase fs-13">{{ $sala->nome }}</span>
           <div class="d-flex align-items-center gap-1">
@@ -27,13 +27,13 @@
         @if($situacao !== 'inativa')
           <button 
             type="button"
-            class="button-blue btn-agendar fs-12 px-2 py-1 ms-2" 
+            class="button-blue btn-agendar fs-12 px-2 py-1 ms-3" 
             data-bs-toggle="modal" 
             data-bs-target="#modalReserva"
             data-sala-id="{{ $sala->id }}"
             data-sala-nome="{{ $sala->nome }}">
-            <i class="bi bi-calendar-plus me-1"></i>
-            Agendar
+            <i class="bi bi-calendar-plus me-1" style="font-size: 12px;"></i>
+            Reservar
           </button>
         @endif
       </div>
