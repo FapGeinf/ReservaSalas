@@ -11,15 +11,15 @@
         $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
       @endphp
 
-      <div class="d-flex align-items-center justify-content-between px-3 py-2 border bg-light rounded shadow-sm" >
+      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm" >
         <div class="d-flex flex-column">
           <span class="fw-semibold text-uppercase fs-13">{{ $sala->nome }}</span>
           <div class="d-flex align-items-center gap-1">
             <span class="rounded-circle {{ $statusColor }} status-ball"></span>
             @if($situacao === 'inativa')
-              <span class="fw-medium fs-12 text-danger">Em manutenção</span>
+              <span class="fw-medium fs-11 text-danger">Em manutenção</span>
             @else
-              <span class="fw-medium fs-12 text-success">Disponível</span>
+              <span class="fw-medium fs-11 text-success">Disponível</span>
             @endif
           </div>
         </div>
