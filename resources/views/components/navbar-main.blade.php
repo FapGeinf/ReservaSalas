@@ -11,23 +11,20 @@
         $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
       @endphp
 
-      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm" >
-        <div class="d-flex flex-column">
-          <span class="fw-semibold text-uppercase fs-13">{{ $sala->nome }}</span>
-          <div class="d-flex align-items-center gap-1">
-            <span class="rounded-circle {{ $statusColor }} status-ball"></span>
-            @if($situacao === 'inativa')
-              <span class="fw-medium fs-11 text-danger">Em manutenção</span>
-            @else
-              <span class="fw-medium fs-11 text-success">Disponível</span>
-            @endif
+      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm">
+        <div class="d-flex flex-column bg-light px-2 py-1 rounded">
+          <div class="d-flex align-items-center gap-1 mb-1">
+            <i class="bi bi-house-fill text-secondary" style="font-size: 14px;"></i>
+            <span class="rounded-circle {{ $statusColor }} status-ball"
+            style="width: 7px; height: 7px; display: inline-block;"></span>
+            <span class="fw-semibold text-uppercase fs-13">{{ $sala->nome }}</span>
           </div>
         </div>
 
         @if($situacao !== 'inativa')
           <button 
             type="button"
-            class="button-blue btn-agendar fs-12 px-2 py-1 ms-3" 
+            class="button-blue btn-agendar fs-12 px-2 py-1 ms-2" 
             data-bs-toggle="modal" 
             data-bs-target="#modalReserva"
             data-sala-id="{{ $sala->id }}"
