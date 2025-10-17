@@ -11,7 +11,7 @@
         $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
       @endphp
 
-      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm" >
+      <div class="d-flex align-items-center justify-content-between px-3 py-2 border bg-light rounded shadow-sm" >
         <div class="d-flex flex-column">
           <span class="fw-semibold text-uppercase fs-13">{{ $sala->nome }}</span>
           <div class="d-flex align-items-center gap-1">
