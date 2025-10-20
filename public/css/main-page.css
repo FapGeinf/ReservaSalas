@@ -67,7 +67,9 @@
 }
 
 .fc-timegrid-slot-label-cushion,
-.fc-list-empty-cushion {
+.fc-list-empty-cushion,
+.fc-daygrid-day-top,
+.fc-list-event-time {
   font-size: 13px !important;
 }
 
