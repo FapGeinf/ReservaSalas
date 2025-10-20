@@ -30,10 +30,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-<script>
-  const homeUrl = "{{ route('home') }}";
-</script>
+<script> const homeUrl = "{{ route('home') }}"; </script>
 
 <x-alert-toast/>
 <x-navbar-main :salas="$salas"/>
