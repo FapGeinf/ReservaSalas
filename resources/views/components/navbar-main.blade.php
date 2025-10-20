@@ -27,7 +27,7 @@
         $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
       @endphp
 
-      <div class="d-flex align-items-center justify-content-between px-3 py-2 border rounded shadow-sm">
+      <div class="d-flex align-items-center justify-content-between px-2 py-1 border rounded shadow-sm">
         <div class="d-flex flex-column bg-light px-2 py-1 rounded">
           <div class="d-flex align-items-center gap-1 mb-1">
             <i class="bi bi-building text-secondary" style="font-size: 14px;"></i>
