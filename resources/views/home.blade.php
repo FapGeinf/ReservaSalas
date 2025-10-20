@@ -13,7 +13,8 @@
 {{-- <script src="{{ asset('js/tutorial.js') }}"></script> --}}
 
 <style>
-  .fc-timegrid-slot-label-cushion {
+  .fc-timegrid-slot-label-cushion,
+  .fc-list-empty-cushion {
     font-size: 13px !important;
   }
 </style>
