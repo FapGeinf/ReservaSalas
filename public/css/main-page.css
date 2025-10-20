@@ -66,6 +66,11 @@
   font-size: 16px !important;
 }
 
+.fc-timegrid-slot-label-cushion,
+.fc-list-empty-cushion {
+  font-size: 13px !important;
+}
+
 /* Deixa a cor da hora branca 
 .fc-timegrid-slot-label-cushion {
   color: #fff;
