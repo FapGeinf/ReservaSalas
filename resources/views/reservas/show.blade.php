@@ -65,7 +65,7 @@
 
 <div class="form-custom no-border-top form-no-top pt-3">
   <div class="d-flex justify-content-end pb-3">
-    <span style="color: #f1f1f1">Hidden</span>
+    <span style="color: #f1f1f1">Jesus vive!</span>
   </div>
 </div>
 

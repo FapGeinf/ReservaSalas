@@ -54,7 +54,7 @@
     <div class="form-line mt-4">
       <label for="unidade_fk" class="fw-bold">Unidade:</label>
 
-      <select name="unidade_fk" id="unidade_fk" class="form-control input-custom pointer" required>
+      <select name="unidade_fk" id="unidade_fk" class="form-control form-select input-custom pointer" required>
         <option value="" selected disabled>Selecione a unidade</option>
         @foreach($unidades as $unidade)
           <option value="{{ $unidade->id }}" {{ auth()->user()->unidade_fk == $unidade->id ? 'selected' : '' }}>{{ $unidade->nome }}</option>
@@ -62,26 +62,29 @@
       </select>
     </div>
 
-    <div class="form-line mt-4">
-      <label class="fw-bold">Senha/<br>Repita a Senha:</label>
-
-      <div class="form-line-split">
+    <div class="form-line col-10 mt-4">
+      <label for="password" class="fw-bold">Senha:</label>
         <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
         <x-input-error :messages="$errors->get('password')" class="mt-2" />
+    </div>
 
-        <input type="password" id="password_confirmation" name="password_confirmation" class="input-custom" placeholder="Repita a senha" autocomplete="new-password">
+    <div class="form-line col-10 mt-4">
+      <label for="password_confirmation" class="fw-bold">Repita a senha:</label>
+      <input type="password" id="password_confirmation" name="password_confirmation" class="input-custom" placeholder="Repita a senha" autocomplete="new-password">
         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-      </div>
     </div>
   </form>
 </div>
 
 <div class="form-custom no-border-top form-no-top pt-3">
   <div class="d-flex justify-content-end pb-3">
-    <button type="submit" form="form-profile" class="button-green">Atualizar Perfil</button>
+    <button type="submit" form="form-profile" class="button-green">
+      <i class="bi bi-save me-1"></i>
+      Atualizar Perfil
+    </button>
   </div>
 </div>
-            
+
 @endsection
 
 <!-- bootstrap -->
