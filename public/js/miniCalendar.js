@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var miniCalendarEl = document.getElementById('miniCalendar');
 
   window.calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'timeGridWeek',
+    initialView: 'dayGridMonth',
     allDaySlot: false,
     slotDuration: '00:15:00',
     slotLabelInterval: '00:30:00',
@@ -138,4 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
    calendarEl.style.maxHeight = '700px';
    miniCalendarEl.style.overflowY = 'auto';
    miniCalendarEl.style.maxHeight = '400px';
+});
+
+// --- Corrige largura da última coluna após carregamento completo ---
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (window.calendar) {
+      window.calendar.updateSize();
+      window.calendar.render();
+    }
+  }, 300);
 });
