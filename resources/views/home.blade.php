@@ -12,16 +12,8 @@
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 {{-- <script src="{{ asset('js/tutorial.js') }}"></script> --}}
 
-<style>
-  .fc-timegrid-slot-label-cushion,
-  .fc-list-empty-cushion {
-    font-size: 13px !important;
-  }
-</style>
-
 {{-- Não sei se esse botão é necessário --}}
 <script src="{{ asset('js/toggleDropdown.js') }}"></script>
-
 <script src="{{ asset('js/miniCalendar.js') }}"></script>
 <script src="{{ asset('js/abrirModalEdicao.js') }}"></script>
 <script src="{{ asset('js/abrirModalDetalhes.js') }}"></script>
