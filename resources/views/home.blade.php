@@ -36,14 +36,14 @@
 
 <div class="pagina-container container">
   <div class="row">
-    <div class="col-12 col-lg-4 mb-3">
+    <div class="col-12 col-lg-3 mb-3">
       <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
         style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
 
         <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
 
         <span class="text-muted mb-4 text-center" style="font-size: 13px;">
-          Escolha a <span class="fw-semibold">sala</span> e a <span class="fw-semibold">data</span> desejadas para visualizar todas as reservas já feitas.
+          Escolha a <span class="fw-semibold">sala</span> e a <span class="fw-semibold">data</span> desejadas para visualizar as reservas já feitas.
         </span>
 
         <div class="row g-3 mb-3">
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-lg-8 px-lg-3">
+    <div class="col-12 col-lg-9 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
         <div class="area-calendario border rounded mt-3">
           <div id="calendar" class="calendar-container main-calendar" style="min-height: 650px;"></div>

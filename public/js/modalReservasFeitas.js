@@ -190,8 +190,13 @@ $(document).ready(function() {
 
         const reservasHtml = reservas.map(r => {
           // Extrai horas de data_inicio/data_fim
-          const horaInicio = r.data_inicio ? r.data_inicio.split(' ')[1] : '??:??';
-          const horaFim = r.data_fim ? r.data_fim.split(' ')[1] : '??:??';
+          const horaInicio = r.data_inicio
+            ? ((r.data_inicio.split(' ')[1] || '').slice(0, 5) || '??:??')
+            : '??:??';
+
+          const horaFim = r.data_fim
+            ? ((r.data_fim.split(' ')[1] || '').slice(0, 5) || '??:??')
+            : '??:??';
 
           // Pega o nome do usuário ou usa placeholder
           const usuario = r.user && r.user.name ? r.user.name : 'Usuário desconhecido';
@@ -202,16 +207,33 @@ $(document).ready(function() {
                           : 'Unidade desconhecida';
 
           return `
-            <div class="border rounded p-2 mb-2">
-              <span><strong>Unidade:</strong> ${unidade}</span><br>
-              <span><strong>Horário:</strong> ${horaInicio} - ${horaFim}</span><br>
-              <span><strong>Reservado por:</strong> ${usuario}</span>
+            <div class="border rounded shadow-sm p-2 mb-2" style="background-color: #f7f7f7;">
+
+              <!-- Informar a unidade aqui é desnecessário 
+              <div class="d-flex align-items-start px-1" style="gap: 30px;">
+                <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Unidade:</span>
+                <span class="fs-13" style="color: #374151;">${unidade}</span>
+              </div> -->
+
+              <div class="d-flex align-items-start px-1" style="gap: 30px;">
+                <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Horário:</span>
+                <span class="fs-13" style="color: #374151;">${horaInicio} - ${horaFim}</span>
+              </div>
+
+              <div class="d-flex align-items-start px-1" style="gap: 30px;">
+                <span class="fw-bold fs-13" style="color: #374151; width: 100px; white-space: nowrap";>Reservado por:</span>
+                <!-- <span class="fs-13" style="color: #374151;">${usuario}</span> -->
+                <span class="fs-13" style="color: #374151;">${unidade}</span>
+              </div>
             </div>
+
+
           `;
         }).join('');
 
         $reservasContainer.html(reservasHtml);
       },
+
       error: function() {
         $reservasContainer.html('<p class="text-center text-danger">Erro ao carregar reservas.</p>');
       }
