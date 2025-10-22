@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     timeZone: 'local',
     locale: 'pt-br',
     eventMaxStack: true,
+    /* Esconde sábado e domingo */
     hiddenDays: [0, 6],
     events: '/eventos',
     selectable: true,
@@ -85,7 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,listWeek'
+      // right: 'dayGridMonth,timeGridWeek,listWeek ("lista" removida dos botões)'
+      right: 'dayGridMonth,timeGridWeek'
     },
 
     dateClick: function(info) {
