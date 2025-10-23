@@ -37,20 +37,20 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
         <li class="nav-item">
-          <a class="nav-link nav-buttons" href="{{ route('home') }}">
+          <a class="nav-link nav-buttons fs-12" href="{{ route('home') }}">
             <i class="bi bi-house me-1"></i>Início
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link nav-buttons" href="{{ route('reservas.index') }}">
-            <i class="bi bi-calendar-check me-1"></i>Lista de Reuniões
+          <a class="nav-link nav-buttons fs-12" href="{{ route('reservas.index') }}">
+            <i class="bi bi-calendar-check fs-12 me-1"></i>Lista de Reuniões
           </a>
         </li>
 
         @if(Auth::check() && Auth::user()->role === 'admin')
         <li class="nav-item">
-          <a class="nav-link nav-buttons" href="{{ route('salas') }}">
+          <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
             <i class="bi bi-door-open me-1"></i>Lista de Salas
           </a>
         </li>
@@ -59,33 +59,39 @@
 
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle nav-buttons" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle nav-buttons fs-12" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-gear me-1"></i>
             Conta
           </a>
 
           <ul class="dropdown-menu dropdown-menu-start-sm">
             <li class="dropdown-item d-flex align-items-center li-person">
-              <i class="bi bi-person-circle" style="font-size: 3rem; margin-right: 10px; color: #394151"></i>
+              <i class="bi bi-person-circle fs-12"
+                style="font-size: 2rem; 
+                margin-right: 10px; 
+                color: #394151";>
+              </i>
+
               <div class="text-capitalized">
                 <strong style="color: #394151;">{{ Auth::user()->name }}</strong>
                 <br>
                 <small class="text-muted">
                   <i class="bi bi-building me-1"></i>
-                  {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }}
+                  {{-- {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }} --}}
+                  {{ Auth::user()->unidade ? explode(' ', Auth::user()->unidade->nome)[0] : 'Unidade não encontrada' }}
                 </small>
               </div>
             </li>
 
             <li><hr class="dropdown-divider"></li>
-            <li>
+            <li class="fs-13">
               <a class="dropdown-item nav-buttons-dp" href="{{ route('profile.edit') }}">
                 Editar Perfil
               </a>
             </li>
 
             @if(Auth::check() && Auth::user()->role === 'admin')
-            <li>
+            <li class="fs-13">
               <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">
                 Usuários
               </a>

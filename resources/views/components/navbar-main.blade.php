@@ -18,8 +18,12 @@
           <div class="d-flex align-items-center gap-1 mb-1">
             <i class="bi bi-building text-secondary" style="font-size: 14px;"></i>
             <span class="rounded-circle {{ $statusColor }} status-ball"
-            style="width: 7px; height: 7px; display: inline-block;"></span>
-            <span class="fw-semibold text-uppercase fs-13">{{ $sala->nome }}</span>
+              style="width: 7px; height: 7px; display: inline-block;">
+            </span>
+
+            <span class="fw-semibold text-uppercase fs-12">
+              {{ $sala->nome }}
+            </span>
           </div>
         </div>
 
@@ -31,7 +35,7 @@
             data-bs-target="#modalReserva"
             data-sala-id="{{ $sala->id }}"
             data-sala-nome="{{ $sala->nome }}">
-            <i class="bi bi-calendar-plus me-1" style="font-size: 12px;"></i>
+            <i class="bi bi-calendar-plus me-1 fs-11"></i>
             Reservar
           </button>
         @endif

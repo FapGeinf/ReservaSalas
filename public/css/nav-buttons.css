@@ -57,6 +57,22 @@ a.nav-buttons:hover {
   font-size: 15px;
 }
 
+.fs-14 {
+  font-size: 14px !important;
+}
+
+.fs-13 {
+  font-size: 13px !important;
+}
+
+.fs-11 {
+  font-size: 11px !important;
+}
+
+.fs-12 {
+  font-size: 12px !important;
+}
+
 .dropdown-menu-custom button:hover {
   background-color: #f8f9fa;
 }
