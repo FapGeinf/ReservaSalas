@@ -242,29 +242,43 @@
       </div>
 
       <div class="modal-body">
-        <div class="row pb-3">
-          <div class="col-5">
-            <label class="fw-semibold">Sala:</label>
+        <div class="row g-3">
+          <div class="col-12 col-sm-6">
+            <label class="fw-semibold d-block">Sala:</label>
             <span id="detalheSala" class="input-custom-disabled"></span>
           </div>
+      
+          <div class="col-12 col-sm-4">
+            <label class="fw-semibold d-block">Data da reserva:</label>
+            <span id="detalheData" class="input-custom-disabled"></span>
+          </div>
+        </div>
 
-          <div class="col-7">
-            <label class="fw-semibold">Unidade:</label>
+        <div class="row g-3 mt-1 mb-3">
+          <div class="col-12 col-sm-4">
+            <label class="fw-bold d-block">Hora início:</label>
+            <span id="detalheHoraInicio" class="input-custom-disabled"></span>
+          </div>
+
+          <div class="col-12 col-sm-4">
+            <label class="fw-bold d-block">Hora término:</label>
+            <span id="detalheHoraFim" class="input-custom-disabled"></span>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 col-sm-8">
+            <label class="fw-semibold">Unidade responsável:</label>
             <span id="detalheUnidade" class="input-custom-disabled"></span>
           </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-5">
-            <label class="fw-semibold">Horário:</label>
-            <span id="detalheHorario" class="input-custom-disabled"></span>
-          </div>
-
+        <div class="row g-3 d-none">
           <div class="col-7">
             <label class="fw-semibold">Responsável:</label>
             <span id="detalheResponsavel" class="input-custom-disabled"></span> 
           </div>
-        </div>  
+        </div>
       </div>
 
       <div class="modal-footer">

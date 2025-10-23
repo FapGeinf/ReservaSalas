@@ -1,8 +1,15 @@
   function abrirModalDetalhes(event) {
     document.getElementById('detalheSala').innerText = event.title || '';
     document.getElementById('detalheUnidade').innerText = event.extendedProps.unidade || '';
-    document.getElementById('detalheHorario').innerText = `${event.extendedProps.hora_inicio} - ${event.extendedProps.hora_fim}` || '';
+    // document.getElementById('detalheHorario').innerText = `${event.extendedProps.hora_inicio} - ${event.extendedProps.hora_fim}` || '';
+    document.getElementById('detalheHoraInicio').innerText = event.extendedProps.hora_inicio || '';
+    document.getElementById('detalheHoraFim').innerText = event.extendedProps.hora_fim || '';
     document.getElementById('detalheResponsavel').innerText = event.extendedProps.responsavel || '';
+
+    const dataReserva = event.extendedProps.data_inicio 
+      ? new Date(event.extendedProps.data_inicio).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+      : '';
+    document.getElementById('detalheData').innerText = dataReserva;
 
     document.getElementById('btnEditar').onclick = function() {
       abrirModalEdicao(
