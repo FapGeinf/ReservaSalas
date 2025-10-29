@@ -94,16 +94,16 @@
     </div>
 
     <div class="form-line mt-4">
-      <label class="fw-bold">Login/ Tipo de Usuário:</label>
+      <label class="fw-bold">Login:</label>
+      <input type="text" class="input-custom" id="login" name="login" required>
+    </div>
 
-      <div class="form-line-split">
-        <input type="text" class="input-custom" id="login" name="login" required>
-
-        <select class="form-select pointer" id="role" name="role" required>
-          <option value="user">Usuário Comum</option>
-          <option value="admin">Administrador</option>
-        </select>
-      </div>
+    <div class="form-line mt-4">
+      <label class="fw-bold">Tipo de Usuário:</label>
+      <select class="form-select pointer" id="role" name="role" required>
+        <option value="user">Usuário Comum</option>
+        <option value="admin">Administrador</option>
+      </select>
     </div>
 
     <div class="form-line mt-4">
