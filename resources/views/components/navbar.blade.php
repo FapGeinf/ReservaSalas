@@ -66,8 +66,9 @@
 
           <ul class="dropdown-menu dropdown-menu-start-sm">
             <li class="dropdown-item d-flex align-items-center li-person">
-              <i class="bi bi-person-circle fs-12"
-                style="font-size: 2rem; 
+              <i class="bi bi-person-circle"
+                style="
+                font-size: 2rem;
                 margin-right: 10px; 
                 color: #394151";>
               </i>
@@ -76,7 +77,7 @@
                 <strong style="color: #394151;">{{ Auth::user()->name }}</strong>
                 <br>
                 <small class="text-muted">
-                  <i class="bi bi-building me-1"></i>
+                  <i class="bi bi-building"></i>
                   {{-- {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }} --}}
                   {{ Auth::user()->unidade ? explode(' ', Auth::user()->unidade->nome)[0] : 'Unidade não encontrada' }}
                 </small>
@@ -101,7 +102,7 @@
             <li>
               <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
                 @csrf
-                <button class="dropdown-item" type="submit">Sair</button>
+                <button class="dropdown-item fs-13" type="submit">Sair</button>
               </form>
             </li>
           </ul>
