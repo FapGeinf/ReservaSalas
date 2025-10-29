@@ -38,13 +38,13 @@
 
     if (passwordField.type === "password") {
       passwordField.type = "text";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");
+      eyeIcon.classList.remove("bi-eye");
+      eyeIcon.classList.add("bi-eye-slash");
 
     } else {
       passwordField.type = "password";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
+      eyeIcon.classList.remove("bi-eye-slash");
+      eyeIcon.classList.add("bi-eye");
     }
   }
 </script>
@@ -111,8 +111,8 @@
 
       <div class="form-line-split split-password">
         <div style="position: relative;">
-          <input type="password" class="input-custom" id="password" name="password" placeholder="********" required>
-          <i id="eyePassword" class="fa fa-eye" 
+          <input type="password" class="input-custom" id="password" name="password" required>
+          <i id="eyePassword" class="bi bi-eye" 
             style="
             position: absolute;
             top: 50%;
@@ -125,8 +125,8 @@
         </div>
 
         <div style="position: relative;">
-          <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" placeholder="********" required>
-          <i id="eyePasswordConfirmation" class="fa fa-eye"
+          <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>
+          <i id="eyePasswordConfirmation" class="bi bi-eye"
             style="position: absolute;
             top: 50%;
             color: #374151;
@@ -142,9 +142,12 @@
   </form>
 </div>
 
-<div class="form-custom no-border-top form-no-top pt-3">
-  <div class="d-flex justify-content-end pb-3">
-    <button type="submit" form="new-user" class="button-green">Cadastrar</button>
+<div class="form-custom no-border-top form-no-top pb-3" style="padding-top: 13px;">
+  <div class="d-flex justify-content-end">
+    <button type="submit" form="new-user" class="button-green">
+      <i class="bi bi-save me-1"></i>
+      Cadastrar
+    </button>
   </div>
 </div>
 

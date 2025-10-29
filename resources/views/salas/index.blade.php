@@ -140,7 +140,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="button-red">
-                          <i class="bi bi-save fs-12 me-1"></i>
+                          <i class="bi bi-trash fs-12 me-1"></i>
                           Confirmar
                         </button>
                       </form>
@@ -291,7 +291,6 @@
     </div>
   </div>
 </div>
-
 @endsection
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
