@@ -16,6 +16,12 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
+<style>
+  .dataTables_wrapper .dataTables_info {
+    font-size: 13px;
+  }
+</style>
+
 @push('scripts')
   @if(session('success'))
     <script>
@@ -43,46 +49,37 @@
     <table class="table table-striped" id="tableUsers">
       <thead>
         <tr>
-          <th class="text-light bg-color-dgreen align-middle">Id</th>
-          <th class="text-light bg-color-dgreen align-middle">Nome</th>
-          <th class="text-light bg-color-dgreen align-middle">Login</th>
-          <th class="text-light bg-color-dgreen align-middle">Email</th>
-          <th class="text-light bg-color-dgreen align-middle">Unidade</th>
-          <th class="text-light bg-color-dgreen align-middle">Tipo de Usuário</th>
-          <th class="text-light bg-color-dgreen align-middle">Opções</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Id</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Nome</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Login</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Email</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Unidade</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Tipo de Usuário</th>
+          <th class="text-light bg-color-dgreen align-middle fs-12">Opções</th>
         </tr>
       </thead>
 
       <tbody>
         @foreach($usuarios as $usuario)
         <tr>
-          <td data-th="Id">{{ $usuario->id }}</td>
-          <td data-th="Nome">{{ $usuario->name }}</td>
-          <td data-th="Login">{{ $usuario->login }}</td>
-          <td data-th="Email">{{ $usuario->email }}</td>
-          <td data-th="Unidade">{{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}</td>
-          <td data-th="Tipo de Usuário">@if($usuario->role == 'admin')
-            <i class="fas fa-user-shield" style="color: blue;" title="Administrador"></i>
+          <td class="fs-13" data-th="Id">{{ $usuario->id }}</td>
+          <td class="fs-13" data-th="Nome">{{ $usuario->name }}</td>
+          <td class="fs-13" data-th="Login">{{ $usuario->login }}</td>
+          <td class="fs-13" data-th="Email">{{ $usuario->email }}</td>
+          <td class="fs-13" data-th="Unidade">{{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}</td>
+
+          <td class="fs-13" data-th="Tipo de Usuário">
+            @if(in_array($usuario->unidade_fk, [12, 14]))
+              Administrador
             @else
-              <i class="fas fa-user" style="color:rgb(19, 12, 240);" title="Usuário Comum"></i>
+              Comum
             @endif
           </td>
 
-          <td data-th="Opções" class="align-middle">
-            <div class="dropdown">
-              <button class="custom-actions-btn" type="button" id="optionsDropdown{{ $usuario->id }}"
-                data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 9px;">
-                <i class="bi bi-three-dots-vertical"></i>
-              </button>
-
-              <ul class="dropdown-menu" aria-labelledby="optionsDropdown{{ $usuario->id }}">
-                <li>
-                  <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
-                    <i class="fas fa-trash me-2"></i>Excluir
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <td class="fs-13" data-th="Opções">
+            <button type="button" class="button-red fs-13" style="padding: 2px 6px;" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
+              <i class="bi bi-trash fs-12 me-1"></i>Excluir
+            </button>
           </td>
         </tr>
         @endforeach
@@ -96,21 +93,27 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="confirmDeleteModalLabel">Confirmação de Exclusão</h5>
+        <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmação de Exclusão</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body fs-13">
         Tem certeza que deseja excluir este usuário?
       </div>
 
-      <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+      <div class="modal-footer py-2" style="background-color: #f1f1f1; border-top: 0px;">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x me-1"></i>
+          Cancelar
+        </button>
 
         <form id="deleteForm" action="" method="POST">
           @csrf
           @method('DELETE')
-          <button type="submit" class="button-red">Excluir</button>
+          <button type="submit" class="button-red">
+            <i class="bi bi-trash fs-12 me-1"></i>
+            Excluir
+          </button>
         </form>
       </div>
     </div>
