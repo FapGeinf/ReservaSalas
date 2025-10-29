@@ -73,21 +73,24 @@
                   <li>
                     <a href="{{ route('reservas.show', $reserva->id) }}"
                       class="dropdown-item text-decoration-none text-pattern fs-13">
-                      <i class="bi bi-info-circle me-1"></i> Detalhes
+                      <i class="bi bi-info-circle me-1"></i>
+                      Detalhes
                     </a>
                   </li>
 
                   <li>
                     <a href="{{ route('reservas.edit', $reserva->id) }}"
                       class="dropdown-item text-decoration-none text-pattern fs-13">
-                      <i class="bi bi-pencil-square me-1"></i> Editar
+                      <i class="bi bi-pencil-square me-1"></i>
+                      Editar
                     </a>
                   </li>
 
                   <li>
                     <button class="dropdown-item text-danger fs-13" data-bs-toggle="modal"
                       data-bs-target="#confirmDeleteModal" onclick="setDeleteId({{ $reserva->id }})">
-                      <i class="bi bi-trash me-1"></i> Excluir
+                      <i class="bi bi-trash me-1"></i>
+                      Excluir
                     </button>
                   </li>
                 </ul>
