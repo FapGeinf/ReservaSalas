@@ -44,7 +44,7 @@
   @endif
 @endpush
 
-<div class="container mt-5">
+<div class="container mt-5" style="width: 800px;">
   <div class="tabela-main-page">
     <div class="text-center fw-bold mb-4">
       <span class="title-meetings text-uppercase">Lista de Salas</span>
