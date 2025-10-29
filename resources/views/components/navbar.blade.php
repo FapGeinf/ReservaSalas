@@ -48,12 +48,12 @@
           </a>
         </li>
 
-        @if(Auth::check() && Auth::user()->role === 'admin')
-        <li class="nav-item">
-          <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
-            <i class="bi bi-door-open me-1"></i>Lista de Salas
-          </a>
-        </li>
+        @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+          <li class="nav-item">
+            <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
+              <i class="bi bi-door-open me-1"></i>Lista de Salas
+            </a>
+          </li>
         @endif
       </ul>
 
@@ -91,12 +91,12 @@
               </a>
             </li>
 
-            @if(Auth::check() && Auth::user()->role === 'admin')
-            <li class="fs-13">
-              <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">
-                Usuários
-              </a>
-            </li>
+            @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+              <li class="fs-13">
+                <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">
+                  Usuários
+                </a>
+              </li>
             @endif
 
             <li>
