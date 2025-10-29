@@ -78,7 +78,6 @@
                 <br>
                 <small class="text-muted">
                   <i class="bi bi-building"></i>
-                  {{-- {{ Auth::user()->unidade ? Auth::user()->unidade->nome : 'Unidade não encontrada' }} --}}
                   {{ Auth::user()->unidade ? explode(' ', Auth::user()->unidade->nome)[0] : 'Unidade não encontrada' }}
                 </small>
               </div>
