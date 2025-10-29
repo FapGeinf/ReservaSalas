@@ -280,7 +280,10 @@
         <form id="deleteForm" method="POST">
           @csrf
           @method('DELETE')
-          <button type="submit" class="button-red">Excluir</button>
+          <button type="submit" class="button-red">
+            <i class="bi bi-trash me-1"></i>
+            Excluir
+          </button>
         </form>
       </div>
     </div>

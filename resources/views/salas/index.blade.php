@@ -130,12 +130,19 @@
                     </div>
 
                     <div class="modal-footer py-2" style="background-color: #f1f1f1; border-top: 0px;">
-                      <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="button" class="button-grey" data-bs-dismiss="modal">
+                        <i class="bi bi-x me-1"></i>
+                        Cancelar
+                      </button>
+
                       <form action="{{ route('salas.destroy', $sala) }}" method="POST"
                         style="display:inline-block;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="button-red">Confirmar</button>
+                        <button type="submit" class="button-red">
+                          <i class="bi bi-save fs-12 me-1"></i>
+                          Confirmar
+                        </button>
                       </form>
                     </div>
                   </div>
@@ -184,15 +191,21 @@
                         <label class="fw-bold">Cor da Sala:</label>
                         <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom pointer"
                           style="height: 38px;" value="{{ $sala->cor ?? '#ffffff' }}">
-                          
                       </div>
                     </div>
                   </form>
                 </div>
 
                 <div class="modal-footer py-2" style="background-color: #f1f1f1; border-top: 0px !important;">
-                  <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">Cancelar</a>
-                  <button type="submit" class="button-green" form="form-sala-{{ $sala->id }}">Salvar</button>
+                  <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">
+                    <i class="bi bi-x me-1"></i>
+                    Cancelar
+                  </a>
+
+                  <button type="submit" class="button-green" form="form-sala-{{ $sala->id }}">
+                    <i class="bi bi-save me-1"></i>
+                    Salvar
+                  </button>
                 </div>
               </div>
             </div>
@@ -201,20 +214,11 @@
       </tbody>
     </table>
     @endif
-  </div>
-</div>
 
-<div class="p-30__no-top">
-  <div class="mx-auto form_create__no-border">
-    <div class="box__no-border no-margin-bottom"
-      style="
-        background-color: #f1f1f1;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-      ">
-
+    <div class="pt-3 pb-4">
       <a href="#" class="button-blue text-decoration-none float-end"
         data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
+        <i class="bi bi-plus fs-12 me-1"></i>
         Nova Sala
       </a>
     </div>
@@ -225,7 +229,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h5>
+        <h6 class="modal-title" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -234,7 +238,7 @@
 
         <div class="modal-body">
           <div class="d-flex justify-content-center mt-1 mb-3">
-            <span class="fst-italic" style="font-size: 14px; color: #374151;">
+            <span class="fs-13" style="color: #374151;">
               Campos marcados com <span class="span-warning">*</span> são obrigatórios
             </span>
           </div>
@@ -246,7 +250,7 @@
             </div>
 
             <div class="form-line mt-3">
-              <label for="descricao" class="fw-bold">Descrição/<br>Localização <span class="span-warning">*</span>:</label>
+              <label for="descricao" class="fw-bold">Descrição/ Localização <span class="span-warning">*</span>:</label>
               <input type="text" name="descricao" id="descricao" class="input-custom" required>
             </div>
 
@@ -255,24 +259,33 @@
               <input type="file" name="imagem" id="imagem" class="input-custom" required>
             </div>
 
-            <div class="form-line mt-3">
-              <label class="fw-bold fs-16">Situação/<br>Cor da Sala:<span class="span-warning">*</span>:</label>
-
-              <div class="form-line-split">
+            <div class="row mt-3">
+              <div class="col-12 col-sm-6">
+                <label class="fw-bold fs-13">Situação:<span class="span-warning">*</span>:</label>
                 <select name="situacao" id="situacao" class="form-select input-custom pointer" required>
                   <option value="ativa">Ativa</option>
                   <option value="inativa">Inativa</option>
                 </select>
+              </div>
 
-                <input type="color" name="cor" id="cor" class="form-control input-custom pointer" style="height: 42px;" value="#3788d8">
+              <div class="col-12 col-sm-6">
+                <label class="fw-bold fs-13">Cor da Sala:<span class="span-warning">*</span>:</label>
+                <input type="color" name="cor" id="cor" class="form-control input-custom pointer" style="height: 38px;" value="#3788d8">
               </div>
             </div>
           </form>
         </div>
 
         <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
-          <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">Cancelar</a>
-          <button form="form-save" type="submit" class="button-green">Salvar</button>
+          <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">
+            <i class="bi bi-x me-1"></i>
+            Cancelar
+          </a>
+
+          <button form="form-save" type="submit" class="button-green">
+            <i class="bi bi-save me-1"></i>
+            Salvar
+          </button>
         </div>
       </form>
     </div>
