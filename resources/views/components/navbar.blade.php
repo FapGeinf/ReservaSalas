@@ -38,20 +38,30 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
         <li class="nav-item">
           <a class="nav-link nav-buttons fs-12" href="{{ route('home') }}">
-            <i class="bi bi-house me-1"></i>Início
+            <i class="bi bi-house me-1"></i>
+            Início
           </a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link nav-buttons fs-12" href="{{ route('reservas.index') }}">
-            <i class="bi bi-calendar-check fs-12 me-1"></i>Lista de Reuniões
+            <i class="bi bi-calendar-check fs-12 me-1"></i>
+            Lista de Reuniões
           </a>
         </li>
 
         @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
           <li class="nav-item">
             <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
-              <i class="bi bi-door-open me-1"></i>Lista de Salas
+              <i class="bi bi-door-open me-1"></i>
+              Salas
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link nav-buttons fs-12" href="{{ route('usuarios.index') }}">
+              <i class="bi bi-people me-1"></i>
+              Usuários
             </a>
           </li>
         @endif
@@ -84,19 +94,12 @@
             </li>
 
             <li><hr class="dropdown-divider"></li>
+            
             <li class="fs-13">
               <a class="dropdown-item nav-buttons-dp" href="{{ route('profile.edit') }}">
                 Editar Perfil
               </a>
             </li>
-
-            @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
-              <li class="fs-13">
-                <a class="dropdown-item nav-buttons-dp" href="{{ route('usuarios.index') }}">
-                  Usuários
-                </a>
-              </li>
-            @endif
 
             <li>
               <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
