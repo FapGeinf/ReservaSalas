@@ -47,14 +47,14 @@
         </span>
 
         <div class="row g-3 mb-3">
-          <div class="col-7">
+          <div class="col-12 col-sm-7">
             <label for="salaSelecionada" class="fw-semibold">Sala:</label>
             <select id="salaSelecionada" class="input-custom form-select pointer w-100">
               <option value="">Selecione uma sala</option>
             </select>
           </div>
 
-          <div class="col-5">
+          <div class="col-12 col-sm-5">
             <label for="dataSelecionada" class="fw-semibold">Data:</label>
             <input type="date" id="dataSelecionada" class="input-custom w-100">
           </div>
@@ -103,7 +103,7 @@
           <input type="hidden" id="sala_fk_hidden">
 
           <div class="row mb-3">
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
               <label for="sala_fk" class="fw-semibold">Sala:</label>
               <select name="sala_fk" id="sala_fk" class="form-select input-custom pointer" required>
                 <option value="" disabled selected>Selecione uma sala</option>
@@ -116,7 +116,7 @@
           </div>
 
           <div class="row mb-3">
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
               <label for="tipo_reserva" class="fw-semibold">Tipo de Reserva:</label>
               <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
                 <option value="" selected disabled>Selecione uma opção</option>
@@ -127,17 +127,17 @@
           </div>
 
           <div class="row align-items-end">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <label for="hora_inicio" class="fw-semibold">Hora de Início:</label>
               <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
             </div>
 
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <label for="hora_termino" class="fw-semibold">Hora de Término:</label>
               <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
             </div>
 
-            <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
+            <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
                 <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
@@ -183,31 +183,31 @@
           </div>
 
           <div class="row mb-4">
-            <div class="col-7">
+            <div class="col-12 col-sm-7">
               <label for="sala_id" class="fw-semibold">Sala:</label>
               <select name="sala_id" id="sala_id" class="form-select pointer" required>
                 <!-- opções preenchidas via JavaScript -->
               </select>
             </div>
 
-            <div class="col-5">
+            <div class="col-12 col-sm-5">
               <label for="data_inicio" class="fw-semibold">Data:</label>
               <input type="date" name="data_inicio" id="data_inicio" class="input-custom pointer" required>
             </div>
           </div>
 
           <div class="row align-items-end">
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <label for="hora_inicio" class="fw-semibold">Hora Início:</label>
               <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" step="60" required>
             </div>
 
-            <div class="col-4">
+            <div class="col-12 col-sm-4">
               <label for="data_fim" class="fw-semibold">Hora Término:</label>
               <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
             </div>
 
-            <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
+            <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
                 <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
@@ -274,7 +274,7 @@
         </div>
 
         <div class="row g-3 d-none">
-          <div class="col-7">
+          <div class="col-12 col-sm-7">
             <label class="fw-semibold">Responsável:</label>
             <span id="detalheResponsavel" class="input-custom-disabled"></span> 
           </div>
