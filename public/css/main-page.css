@@ -137,7 +137,7 @@
 .caixa-calendario {
   background-color: #fff;
   border: 1px solid #dee2e6 !important;
-  padding: 20px 20px 20px 20px;
+  padding: 10px;
   margin-bottom: 16px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   padding-top: 0;
@@ -241,7 +241,7 @@ th {
   overflow-x: hidden;      /* impede rolagem lateral */
   box-sizing: border-box;
   background-color: #fff;
-  padding: 8px;
+  /* padding: 8px; */
 }
 
 /* Para o calendário interno do FullCalendar */

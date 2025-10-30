@@ -71,7 +71,7 @@
 
     <div class="col-12 col-lg-8 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
-        <div class="area-calendario border rounded mt-3">
+        <div class="area-calendario border-bottom rounded mt-3">
           <div id="calendar" class="calendar-container main-calendar" style="min-height: 650px;"></div>
         </div>
 
