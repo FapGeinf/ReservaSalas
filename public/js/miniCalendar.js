@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Esconde sábado e domingo */
     hiddenDays: [0, 6],
     events: '/eventos',
-    selectable: true,
+    selectable: false,
     editable: false,
     eventDisplay: 'block',
     buttonText: {
@@ -27,14 +27,24 @@ document.addEventListener('DOMContentLoaded', function() {
       list: 'Lista'
     },
 
-    // --- VISUAL ---
     height: 'auto',
     expandRows: true,
     stickyHeaderDates: true,
     dayMaxEvents: false,       // impede o agrupamento
     eventMaxStack: Infinity,   // permite pilha ilimitada
     slotEventOverlap: false,   // força exibição em linhas separadas
-    eventOrder: "start", // garante que eventos com mesma hora sejam empilhados na ordem de início
+    eventOrder: "start",       // garante que eventos com mesma hora sejam empilhados na ordem de início
+
+    dayCellDidMount: function(info) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const cellDate = new Date(info.date);
+      cellDate.setHours(0, 0, 0, 0);
+
+      if (cellDate < today) {
+        info.el.style.backgroundColor = '#f7f7f7'; // cinza claro
+      }
+    },
 
     eventContent: function(arg) {
       const horaInicio = arg.event.extendedProps.hora_inicio || '';
