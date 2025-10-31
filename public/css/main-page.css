@@ -152,6 +152,10 @@
   box-sizing: border-box;
 } */
 
+.fc .fc-daygrid-day-number {
+  font-weight: 600 !important;
+}
+
 @media (min-width: 1400px) {
   .main-calendar {
     max-height: 75vh;
