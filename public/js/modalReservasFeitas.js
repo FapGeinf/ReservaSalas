@@ -80,7 +80,7 @@ $(document).ready(function() {
               </div>
 
               <div class="px-1 mt-2">
-                <button class="btn btn-sm btn-primary btn-view-reserva" data-id="${r.id}"><i class="bi bi-eye"></i> Visualizar</button>
+                <button class="button-blue btn-view-reserva fs-12" style="padding: 4px 9px;" data-id="${r.id}"><i class="bi bi-plus fs-13 me-1"></i>Detalhes</button>
               </div>
             </div>
           `;
