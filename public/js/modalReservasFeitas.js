@@ -36,11 +36,11 @@ $(document).ready(function() {
     const data = $dataInput.val();
 
     if (!salaId) {
-      $reservasContainer.html('<div class="text-center text-muted my-2">Nenhuma sala selecionada.</div>');
+      $reservasContainer.html('<div class="text-center fs-13 fw-medium text-secondary my-2"><i class="bi bi-info-circle me-1"></i>Nenhuma sala selecionada.</div>');
       return;
     }
 
-    $reservasContainer.html('<div class="text-center text-muted my-2"><i class="bi bi-arrow-repeat"></i> Carregando reservas...</div>');
+    $reservasContainer.html('<div class="text-center fs-13 fw-medium text-secondary my-2"><i class="bi bi-arrow-repeat me-1 text-primary"></i>Carregando reservas...</div>');
 
     $.ajax({
       url: `/reservas/sala/${salaId}`,
@@ -49,7 +49,7 @@ $(document).ready(function() {
       success: function(res) {
         reservas = res || [];
         if (!reservas.length) {
-          $reservasContainer.html('<div class="text-center text-muted my-2">Nenhuma reunião agendada.<br><span class="text-success">Sala disponível para reserva.</span></div>');
+          $reservasContainer.html('<div class="text-center fs-13 text-secondary fw-medium my-2"><i class="bi bi-exclamation-triangle me-1"></i>Nenhuma reunião agendada.<br><span class="text-success"><i class="bi bi-check-circle me-1"></i>Sala disponível para reserva.</span></div>');
           return;
         }
 
