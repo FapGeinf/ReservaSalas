@@ -4,158 +4,31 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
       var parts = a.split(' | ');
       var dateParts = parts[0].split('/');
       var timeParts = parts[1].split(':');
-
-      return new Date(
-        dateParts[2], // ano
-        dateParts[1] - 1, // mês (0-11)
-        dateParts[0], // dia
-        timeParts[0], // horas
-        timeParts[1] // minutos
-      ).getTime();
+      return new Date(dateParts[2], dateParts[1] - 1, dateParts[0], timeParts[0], timeParts[1]).getTime();
     }
     return 0;
   },
-
-  "date-euro-asc": function(a, b) {
-    return a - b;
-  },
-
-  "date-euro-desc": function(a, b) {
-    return b - a;
-  }
+  "date-euro-asc": function(a, b) { return a - b; },
+  "date-euro-desc": function(a, b) { return b - a; }
 });
 
-$(document).ready(function() {
-  // Inicialização única da DataTable
-  var table = $('#reservas').DataTable({
-    order: [
-      [0, 'desc']
-    ], // Ordena pela coluna de Hora Início (índice 2)
-
-    columnDefs: [{
-      targets: [2, 3], // Colunas de data/hora
-      type: 'date-euro' // Usa nosso tipo de ordenação personalizado
-    }],
-
-    language: {
-      url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-      search: "Procurar:",
-      lengthMenu: "Mostrar _MENU_ registros por página",
-      info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-      infoEmpty: "Nenhum registro disponível",
-      infoFiltered: "(filtrado de _MAX_ registros totais)",
-      zeroRecords: "Nenhum registro encontrado",
-      paginate: {
-        first: "Primeira",
-        last: "Última",
-        next: "Próximo",
-        previous: "Anterior"
-      }
-    },
-
-    scrollCollapse: true,
-    responsive: true,
-    paging: true,
-    searching: true,
-    lengthChange: true
-  });
-
-  // Função para o modal de confirmação de exclusão
-  function setDeleteAction(action) {
-    $('#deleteForm').attr('action', action);
-  }
-
-  // Exemplo de como você poderia usar (adaptar conforme necessário)
-  $('.btn-delete').on('click', function() {
-    var deleteUrl = $(this).data('url');
-    setDeleteAction(deleteUrl);
-  });
-});
-
-function selecionarSala(salaId) {
-  console.log('Sala selecionada:', salaId); // Depuração
-  document.getElementById('sala_fk').value = salaId;
-}
-
-function carregarReservas(salaId) {
-  const dataSelecionada = document.getElementById('dataSelecionada').value;
-
-  $('#reservasContainer').html(
-    '<p class="text-center"><i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...</p>'
-  );
-
-  $.ajax({
-    url: '/reservas/sala/' + salaId, // Rota para buscar as reservas da sala
-    type: 'GET',
-    data: {
-      data: dataSelecionada
-    },
-
-    success: function(reservas) {
-      let html = '';
-
-      if (reservas.length === 0) {
-        html = '<p class="reserva-vazia">Nenhuma reserva para esta data.</p>';
-      } else {
-
-        html += '<div class="reservas-grid">';
-        reservas.forEach(reserva => {
-          const unidade = reserva.user?.unidade?.nome ??
-            'Unidade Desconhecida';
-          const usuario = reserva.user ? reserva.user.name : 'N/A';
-          const horaInicio = reserva.data_inicio.split(' ')[1];
-          const horaFim = reserva.data_fim.split(' ')[1];
-
-          html += `
-          <div class="reserva-card">
-            <span class="reserva-info">
-              <i class="bi bi-building"></i>
-              <strong>Unidade:</strong> ${unidade}
-            </span>
-
-            <span class="reserva-info">
-              <i class="bi bi-clock"></i>
-              <strong>Hora:</strong> ${horaInicio} - ${horaFim}
-            </span>
-
-            <span class="reserva-info">
-              <i class="bi bi-person"></i>
-              <strong>Reservado por:</strong> ${usuario}
-            </span>
-          </div>
-          `;
-        });
-      html += '</div>';
-    }
-
-    $('#reservasContainer').html(html);
-  },
-
-    error: function() {
-      $('#reservasContainer').html(
-        '<div class="text-center text-muted my-2" style="font-size: 13px;"><i class="bi bi-exclamation-circle-fill me-1" style="color: #b22720;"></i> Erro ao carregar reservas.</div>'
-      );
-    }
-  });
-}
+// 🔹 Variável global para armazenar as reservas carregadas
+let reservas = [];
 
 $(document).ready(function() {
   const $salaSelect = $('#salaSelecionada');
   const $dataInput = $('#dataSelecionada');
   const $reservasContainer = $('#reservasContainer');
 
-  // Preenche o select com as salas disponíveis
+  // Preenche select com salas disponíveis
   if (typeof salasDisponiveis !== 'undefined' && salasDisponiveis.length > 0) {
-    salasDisponiveis.forEach(sala => {
-      $salaSelect.append(`<option value="${sala.id}">${sala.nome}</option>`);
-    });
+    salasDisponiveis.forEach(sala => $salaSelect.append(`<option value="${sala.id}">${sala.nome}</option>`));
   } else {
     $salaSelect.append('<option value="">Nenhuma sala disponível</option>');
   }
 
-  // Define a data atual como padrão
-  const hoje = new Date().toISOString().split('T')[0];
-  $dataInput.val(hoje);
+  // Data padrão para hoje
+  $dataInput.val(new Date().toISOString().split('T')[0]);
 
   // Função para carregar reservas
   function carregarReservasFixas() {
@@ -163,65 +36,40 @@ $(document).ready(function() {
     const data = $dataInput.val();
 
     if (!salaId) {
-      $reservasContainer.html('<div class="text-center text-muted my-2" style="font-size: 13px;"><i class="bi bi-exclamation-triangle-fill me-1" style="color: #ffc107;"></i> Nenhuma sala selecionada.</div>');
+      $reservasContainer.html('<div class="text-center text-muted my-2">Nenhuma sala selecionada.</div>');
       return;
     }
 
-    $reservasContainer.html(`
-      <div class="text-center text-muted my-2" style="font-size: 13px;">
-        <i class="bi bi-arrow-repeat me-1" style="color: #2a64e7;"></i> Carregando reservas...
-      </div>
-    `);
+    $reservasContainer.html('<div class="text-center text-muted my-2"><i class="bi bi-arrow-repeat"></i> Carregando reservas...</div>');
 
     $.ajax({
-      url: `/reservas/sala/${salaId}`, // endpoint para buscar reservas
+      url: `/reservas/sala/${salaId}`,
       method: 'GET',
       data: { data: data },
-      success: function(reservas) {
-        if (!reservas || reservas.length === 0) {
-            $reservasContainer.html(`
-              <div class="text-center text-muted my-2" style="font-size: 13px;">
-                <i class="bi bi-exclamation-triangle-fill me-1" style="color: #ffc107"></i> Nenhuma reunião agendada.<br>
-                <span class="text-success"><i class="bi bi-check-circle-fill me-1" style="color: #28a745;"></i> Sala disponível para reserva.</span>
-              </div>
-            `);
+      success: function(res) {
+        reservas = res || [];
+        if (!reservas.length) {
+          $reservasContainer.html('<div class="text-center text-muted my-2">Nenhuma reunião agendada.<br><span class="text-success">Sala disponível para reserva.</span></div>');
           return;
         }
 
         const reservasHtml = reservas.map(r => {
-          // Extrai horas de data_inicio/data_fim
-          const horaInicio = r.data_inicio
-            ? ((r.data_inicio.split(' ')[1] || '').slice(0, 5) || '??:??')
-            : '??:??';
-
-          const horaFim = r.data_fim
-            ? ((r.data_fim.split(' ')[1] || '').slice(0, 5) || '??:??')
-            : '??:??';
-
-          // Pega o nome do usuário ou usa placeholder
-          const usuario = r.user && r.user.name ? r.user.name : 'Usuário desconhecido';
-
-          // Pega o nome da unidade, se existir
-          const unidade = r.user && r.user.unidade && r.user.unidade.nome 
-                          ? r.user.unidade.nome 
-                          : 'Unidade desconhecida';
-
+          const horaInicio = r.data_inicio ? r.data_inicio.split(' ')[1]?.slice(0,5) || '??:??' : '??:??';
+          const horaFim = r.data_fim ? r.data_fim.split(' ')[1]?.slice(0,5) || '??:??' : '??:??';
+          const usuario = r.user?.name || 'Usuário desconhecido';
+          const unidade = r.user?.unidade?.nome || 'Unidade desconhecida';
           return `
             <div class="border rounded shadow-sm p-2 mb-2" style="background-color: #f7f7f7;">
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
                 <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Horário:</span>
-                <span class="fs-13" style="color: #374151;">
-                  <i class="bi bi-clock"></i>
-                  ${horaInicio} - ${horaFim}
-                </span>
+                <span class="fs-13" style="color: #374151;"><i class="bi bi-clock"></i> ${horaInicio} - ${horaFim}</span>
               </div>
-
-              <div class="d-flex align-items-start px-1" style="gap: 30px;">
-                <span class="fw-bold fs-13" style="color: #374151; width: 100px; white-space: nowrap";>Reservado por:</span>
-                <span class="fs-13" style="color: #374151;">
-                  <i class="bi bi-person"></i>
-                  ${unidade}
-                </span>
+              <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
+                <span class="fw-bold fs-13" style="color: #374151; width: 100px; white-space: nowrap;">Reservado por:</span>
+                <span class="fs-13" style="color: #374151;"><i class="bi bi-person"></i> ${usuario}</span>
+              </div>
+              <div class="px-1 mt-2">
+                <button class="btn btn-sm btn-primary btn-view-reserva" data-id="${r.id}"><i class="bi bi-eye"></i> Visualizar</button>
               </div>
             </div>
           `;
@@ -229,12 +77,65 @@ $(document).ready(function() {
 
         $reservasContainer.html(reservasHtml);
       },
-
       error: function() {
         $reservasContainer.html('<p class="text-center text-danger">Erro ao carregar reservas.</p>');
       }
     });
   }
+
+  // 🔹 Clique no botão "Visualizar" na listagem
+  $(document).on('click', '.btn-view-reserva', function() {
+    const reservaId = $(this).data('id');
+    const reserva = reservas.find(r => String(r.id) === String(reservaId));
+    if (!reserva) return;
+
+    $('#reservaSala').text(reserva.sala?.nome || $('#salaSelecionada option:selected').text() || 'Sala desconhecida');
+    $('#reservaData').text(reserva.data_inicio?.split(' ')[0] ?? '??/??/????');
+    $('#reservaHoraInicio').text(reserva.data_inicio?.split(' ')[1]?.slice(0,5) ?? '??:??');
+    $('#reservaHoraFim').text(reserva.data_fim?.split(' ')[1]?.slice(0,5) ?? '??:??');
+    $('#reservaUnidade').text(reserva.user?.unidade?.nome ?? 'Unidade desconhecida');
+    $('#reservaResponsavel').text(reserva.user?.name ?? 'Usuário desconhecido');
+
+    $('#btnEditarReservaUnica').data('id', reserva.id);
+    $('#btnExcluirReservaUnica').data('id', reserva.id).data('url', `/reservas/${reserva.id}/delete`);
+
+    new bootstrap.Modal(document.getElementById('modalReservaUnica')).show();
+  });
+
+  // 🔹 Editar reserva (fecha o modal de visualização antes)
+  $('#modalReservaUnica').off('click', '#btnEditarReservaUnica').on('click', '#btnEditarReservaUnica', function() {
+    const id = $(this).data('id');
+    const reserva = reservas.find(r => String(r.id) === String(id));
+    if (!reserva) return;
+
+    // Fecha o modal de visualização
+    const modalVisualizacao = bootstrap.Modal.getInstance(document.getElementById('modalReservaUnica'));
+    if (modalVisualizacao) modalVisualizacao.hide();
+
+    abrirModalEdicao(
+      reserva.id,
+      reserva.data_inicio?.split(' ')[1]?.slice(0,5) ?? '',
+      reserva.data_fim?.split(' ')[1]?.slice(0,5) ?? '',
+      reserva.data_inicio?.split(' ')[0] ?? '',
+      reserva.sala?.id || $salaSelect.val()
+    );
+  });
+
+  // 🔹 Excluir reserva
+  $('#modalReservaUnica').off('click', '#btnExcluirReservaUnica').on('click', '#btnExcluirReservaUnica', function() {
+    const id = $(this).data('id');
+    if (!id) return;
+
+    const deleteAction = `/reservas/${id}/delete`;
+    $('#deleteForm').attr('action', deleteAction);
+
+    const modalExcluirEl = document.getElementById('modalExcluirReserva');
+    if (modalExcluirEl) {
+      new bootstrap.Modal(modalExcluirEl).show();
+    } else if (confirm('Confirmar exclusão da reserva?')) {
+      $('#deleteForm').submit();
+    }
+  });
 
   // Carrega reservas iniciais
   carregarReservasFixas();

@@ -15,14 +15,19 @@ function abrirModalEdicao(id, horaInicio, horaFim, dataInicio, salaId) {
   const selectSala = document.getElementById('sala_id');
   selectSala.innerHTML = ''; // limpa opções anteriores
 
+  // adiciona o option inicial desabilitado e sempre selecionado
+  const optionPadrao = document.createElement('option');
+  optionPadrao.value = '';
+  optionPadrao.textContent = 'Selecione uma opção';
+  optionPadrao.disabled = true;
+  optionPadrao.selected = true;
+  selectSala.appendChild(optionPadrao);
+
+  // adiciona as salas disponíveis
   salasDisponiveis.forEach(sala => {
     const option = document.createElement('option');
     option.value = sala.id;
     option.textContent = sala.nome;
-
-    if (sala.id === salaId) {
-      option.selected = true;
-    }
     selectSala.appendChild(option);
   });
 

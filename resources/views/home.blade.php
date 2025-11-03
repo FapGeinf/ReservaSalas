@@ -296,6 +296,39 @@
   </div>
 </div>
 
+<!-- Container onde serão listadas as reservas -->
+<div id="reservasContainer"></div>
+
+<!-- Modal único para visualizar/editar/excluir reserva -->
+<div class="modal fade" id="modalReservaUnica" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalhes da Reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Sala:</strong> <span id="reservaSala"></span></p>
+        <p><strong>Data:</strong> <span id="reservaData"></span></p>
+        <p><strong>Hora:</strong> <span id="reservaHoraInicio"></span> - <span id="reservaHoraFim"></span></p>
+        <p><strong>Unidade:</strong> <span id="reservaUnidade"></span></p>
+        <p><strong>Responsável:</strong> <span id="reservaResponsavel"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnEditarReservaUnica" class="btn btn-primary">Editar</button>
+        <button type="button" id="btnExcluirReservaUnica" class="btn btn-danger">Excluir</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulário para exclusão (pode estar oculto) -->
+<form id="deleteForm" method="POST" style="display:none;">
+  @csrf
+  @method('DELETE')
+</form>
+
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
   aria-hidden="true">
