@@ -54,20 +54,31 @@ $(document).ready(function() {
         }
 
         const reservasHtml = reservas.map(r => {
-          const horaInicio = r.data_inicio ? r.data_inicio.split(' ')[1]?.slice(0,5) || '??:??' : '??:??';
-          const horaFim = r.data_fim ? r.data_fim.split(' ')[1]?.slice(0,5) || '??:??' : '??:??';
-          const usuario = r.user?.name || 'Usuário desconhecido';
-          const unidade = r.user?.unidade?.nome || 'Unidade desconhecida';
+          const horaInicio = r.data_inicio ? (r.data_inicio.split(' ')[1]?.slice(0,5) || '??:??') : '??:??';
+          const horaFim    = r.data_fim    ? (r.data_fim.split(' ')[1]?.slice(0,5) || '??:??')    : '??:??';
+          const usuario    = r.user?.name || 'Usuário desconhecido';
+          const unidade    = r.user?.unidade?.nome || 'Unidade desconhecida';
+
+          // Usa o nome da sala que já está selecionado no select (repete o nome buscado)
+          const nomeSala = $('#salaSelecionada option:selected').text() || 'Sala desconhecida';
+
           return `
             <div class="border rounded shadow-sm p-2 mb-2" style="background-color: #f7f7f7;">
+              <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
+                <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Sala:</span>
+                <span class="fs-13" style="color: #374151;"><i class="bi bi-door-closed"></i> ${nomeSala}</span>
+              </div>
+
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
                 <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Horário:</span>
                 <span class="fs-13" style="color: #374151;"><i class="bi bi-clock"></i> ${horaInicio} - ${horaFim}</span>
               </div>
+
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
                 <span class="fw-bold fs-13" style="color: #374151; width: 100px; white-space: nowrap;">Reservado por:</span>
                 <span class="fs-13" style="color: #374151;"><i class="bi bi-person"></i> ${usuario}</span>
               </div>
+
               <div class="px-1 mt-2">
                 <button class="btn btn-sm btn-primary btn-view-reserva" data-id="${r.id}"><i class="bi bi-eye"></i> Visualizar</button>
               </div>
