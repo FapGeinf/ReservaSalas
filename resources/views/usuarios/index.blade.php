@@ -97,7 +97,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
-      <div class="modal-body fs-13">
+      <div class="modal-body fs-14">
         Tem certeza que deseja excluir este usuário?
       </div>
 
