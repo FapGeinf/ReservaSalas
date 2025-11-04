@@ -429,6 +429,25 @@
   </div>
 </div>
 
+<!-- Modal de Erro - Data Passada -->
+<div class="modal fade" id="modalErroDataPassada" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h6 class="modal-title">Data inválida</h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Não é possível agendar em uma data anterior à atual.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>const salasDisponiveis = @json($salas);</script>
 <script src="{{ asset('js/horaSelecionada.js') }}"></script>
 <script src="{{ asset('js/diaInteiro.js') }}"></script>

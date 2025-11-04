@@ -101,10 +101,30 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     dateClick: function(info) {
-      document.getElementById('data_reserva').value = info.dateStr.split('T')[0];
+      const dataClicada = new Date(info.dateStr);
+      const hoje = new Date();
+
+      // Normaliza para comparar apenas o dia (ano, mês, dia)
+      const dataClicadaStr = dataClicada.toISOString().split('T')[0];
+      const hojeStr = hoje.toISOString().split('T')[0];
+
+      // Calcula "ontem" baseado na data de hoje
+      const ontem = new Date(hoje);
+      ontem.setDate(hoje.getDate() - 1);
+      const ontemStr = ontem.toISOString().split('T')[0];
+
+      // Bloqueia datas até ontem
+      if (dataClicadaStr <= ontemStr) {
+        const modalErro = new bootstrap.Modal(document.getElementById('modalErroDataPassada'));
+        modalErro.show();
+        return;
+      }
+
+      // Abre modal normalmente para hoje ou futuras
+      document.getElementById('data_reserva').value = dataClicadaStr;
       document.getElementById('hora_inicio').value = info.dateStr.substring(11, 16);
 
-      var modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+      const modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
       modalReserva.show();
 
       setTimeout(() => {
