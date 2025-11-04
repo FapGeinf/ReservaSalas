@@ -264,14 +264,14 @@
 
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title fw-bold">Confirmar Exclusão</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
-      <div class="modal-body fs-13">
+      <div class="modal-body fs-14">
         Tem certeza que deseja excluir esta reserva?
       </div>
 

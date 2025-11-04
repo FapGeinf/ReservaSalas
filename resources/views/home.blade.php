@@ -371,7 +371,7 @@
 
 <!-- Modal de Confirmação de Exclusão -->
 <div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title">Confirmar Exclusão</h6>
@@ -399,15 +399,15 @@
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-top">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body" style="font-size: 14px;">
-        Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.
+      <div class="modal-body fs-14">
+        <p>Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.</p>
       </div>
 
       <div class="modal-footer">
@@ -431,7 +431,7 @@
 
 <!-- Modal de Erro - Data Passada -->
 <div class="modal fade" id="modalErroDataPassada" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title">Data inválida</h6>
@@ -451,7 +451,6 @@
     </div>
   </div>
 </div>
-
 
 <script>const salasDisponiveis = @json($salas);</script>
 <script src="{{ asset('js/horaSelecionada.js') }}"></script>

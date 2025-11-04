@@ -117,7 +117,7 @@
               <div class="modal fade" id="confirmarExclusaoModal{{ $sala->id }}" tabindex="-1"
                 aria-labelledby="confirmarExclusaoModalLabel{{ $sala->id }}" aria-hidden="true">
 
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h6 class="modal-title" id="confirmarExclusaoModalLabel{{ $sala->id }}">Confirmar Exclusão</h6>
@@ -154,7 +154,7 @@
           <div class="modal fade" id="editarSalaModal{{ $sala->id }}" tabindex="-1"
             aria-labelledby="editarSalaModalLabel{{ $sala->id }}" aria-hidden="true">
 
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h6 class="modal-title" id="editarSalaModalLabel{{ $sala->id }}">Editar Sala</h6>
@@ -226,7 +226,7 @@
 </div>
 
 <div class="modal fade" id="cadastrarSalaModal" tabindex="-1" aria-labelledby="cadastrarSalaModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="cadastrarSalaModalLabel">Cadastrar Nova Sala</h6>
