@@ -43,7 +43,7 @@
         <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
 
         <span class="text-muted mb-4 text-center" style="font-size: 13px;">
-          Escolha a <span class="fw-semibold text-secondary">sala</span> e a <span class="fw-semibold text-secondary">data</span> desejadas para visualizar as reservas já feitas.
+          Escolha a <span class="fw-semibold" style="color: #374151;">sala</span> e a <span class="fw-semibold" style="color: #374151;">data</span> desejadas para visualizar as reservas já feitas.
         </span>
 
         <div class="row g-3 mb-3">
