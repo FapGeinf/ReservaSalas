@@ -64,8 +64,8 @@
   </form>
 </div>
 
-<div class="form-custom no-border-top form-no-top pt-3" style="max-width: 480px;">
-  <div class="d-flex justify-content-end pb-3">
+<div class="form-custom no-border-top form-no-top" style="max-width: 480px; padding-top: 12px;">
+  <div class="d-flex justify-content-end pb-2">
     <button type="submit" form="form-profile" class="button-green">
       <i class="bi bi-save me-1"></i>
       Atualizar Perfil
