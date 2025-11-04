@@ -43,7 +43,7 @@
         <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
 
         <span class="text-muted mb-4 text-center" style="font-size: 13px;">
-          Escolha a <span class="fw-medium text-secondary">sala</span> e a <span class="fw-medium text-secondary">data</span> desejadas para visualizar as reservas já feitas.
+          Escolha a <span class="fw-semibold text-secondary">sala</span> e a <span class="fw-semibold text-secondary">data</span> desejadas para visualizar as reservas já feitas.
         </span>
 
         <div class="row g-3 mb-3">
@@ -273,9 +273,9 @@
           </div>
         </div>
 
-        <div class="row g-3 d-none">
+        <div class="row g-3 mt-1">
           <div class="col-12 col-sm-7">
-            <label class="fw-semibold">Responsável:</label>
+            <label class="fw-semibold">Pessoa responsável:</label>
             <span id="detalheResponsavel" class="input-custom-disabled"></span> 
           </div>
         </div>
@@ -304,20 +304,62 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Detalhes da Reserva</h5>
+        <h6 class="modal-title">Detalhes da Reserva</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
+
       <div class="modal-body">
-        <p><strong>Sala:</strong> <span id="reservaSala"></span></p>
-        <p><strong>Data:</strong> <span id="reservaData"></span></p>
-        <p><strong>Hora:</strong> <span id="reservaHoraInicio"></span> - <span id="reservaHoraFim"></span></p>
-        <p><strong>Unidade:</strong> <span id="reservaUnidade"></span></p>
-        <p><strong>Responsável:</strong> <span id="reservaResponsavel"></span></p>
+        <div class="row g-3">
+          <div class="col-12 col-sm-6">
+            <label for="" class="fw-semibold">Sala:</label>
+            <span id="reservaSala" class="input-custom-disabled"></span>
+          </div>
+
+          <div class="col-12 col-sm-4">
+            <label for="" class="fw-semibold">Data da reserva:</label>
+            <span id="reservaData" class="input-custom-disabled"></span>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-12 col-sm-4">
+            <label for="" class="fw-semibold">Hora início:</label>
+            <span id="reservaHoraInicio" class="input-custom-disabled"></span>
+          </div>
+
+          <div class="col-12 col-sm-4">
+            <label for="" class="fw-semibold">Hora término:</label>
+            <span id="reservaHoraFim" class="input-custom-disabled"></span>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-12 col-sm-8">
+            <label for="" class="fw-semibold">Unidade responsável:</label>
+            <span id="reservaUnidade" class="input-custom-disabled"></span>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-12 col-sm-7">
+            <label for="" class="fw-semibold">Pessoa responsável:</label>
+            <span id="reservaResponsavel" class="input-custom-disabled"></span>
+          </div>
+        </div>
       </div>
+
       <div class="modal-footer">
-        <button type="button" id="btnEditarReservaUnica" class="btn btn-primary">Editar</button>
-        <button type="button" id="btnExcluirReservaUnica" class="btn btn-danger">Excluir</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" id="btnEditarReservaUnica" class="button-blue">
+          <i class="bi bi-pencil-square fs-icon me-1"></i>
+          Editar
+        </button>
+        
+        <button type="button" id="btnExcluirReservaUnica" class="button-red">
+          <i class="bi bi-trash fs-icon me-1"></i>
+          Excluir
+        </button>
+
+        {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button> --}}
       </div>
     </div>
   </div>
