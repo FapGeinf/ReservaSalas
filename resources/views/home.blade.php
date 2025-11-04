@@ -369,6 +369,33 @@
   @method('DELETE')
 </form>
 
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">Confirmar Exclusão</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        <p class="mb-0 fs-14">Tem certeza de que deseja excluir esta reserva? Essa ação não poderá ser desfeita.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x me-1"></i>Cancelar
+        </button>
+
+        <button type="button" id="btnConfirmarExclusao" class="button-red">
+          <i class="bi bi-trash me-1"></i>Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
   aria-hidden="true">

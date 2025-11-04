@@ -132,21 +132,37 @@ $(document).ready(function() {
     );
   });
 
-  // 🔹 Excluir reserva
+  // 🔹 Excluir reserva com modal de confirmação Bootstrap
   $('#modalReservaUnica').off('click', '#btnExcluirReservaUnica').on('click', '#btnExcluirReservaUnica', function() {
     const id = $(this).data('id');
     if (!id) return;
 
-    // Define a rota correta (Laravel usa DELETE em /reservas/{id})
+    // Fecha o modal de visualização antes de abrir o de confirmação
+    const modalVisualizar = bootstrap.Modal.getInstance(document.getElementById('modalReservaUnica'));
+    if (modalVisualizar) modalVisualizar.hide();
+
+    // Aguarda a animação de fechamento para abrir o de confirmação
+    setTimeout(() => {
+      $('#btnConfirmarExclusao').data('id', id);
+      new bootstrap.Modal(document.getElementById('modalConfirmarExclusao')).show();
+    }, 300); // tempo de transição padrão do Bootstrap
+  });
+
+  // 🔹 Confirmação final de exclusão
+  $(document).on('click', '#btnConfirmarExclusao', function() {
+    const id = $(this).data('id');
+    if (!id) return;
+
     const deleteAction = `/reservas/${id}`;
     $('#deleteForm').attr('action', deleteAction);
 
-    // Exibe confirmação antes de enviar
-    if (confirm('Deseja realmente excluir esta reserva?')) {
-      $('#deleteForm').submit();
-    }
-  });
+    // Fecha o modal de confirmação
+    const modalExcluir = bootstrap.Modal.getInstance(document.getElementById('modalConfirmarExclusao'));
+    if (modalExcluir) modalExcluir.hide();
 
+    // Envia o formulário
+    $('#deleteForm').submit();
+  });
 
   // Carrega reservas iniciais
   carregarReservasFixas();

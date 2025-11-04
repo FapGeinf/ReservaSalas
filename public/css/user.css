@@ -466,11 +466,11 @@ background-color: #f0be3f;
   background-color: #8d1e19;
 }
 
-.button-blue i,
+/* .button-blue i,
 .button-yellow i,
 .button-red i {
   font-size: 16px;
-}
+} */
 
 .span-warning {
   color: #e5534b;
