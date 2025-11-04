@@ -137,16 +137,16 @@ $(document).ready(function() {
     const id = $(this).data('id');
     if (!id) return;
 
-    const deleteAction = `/reservas/${id}/delete`;
+    // Define a rota correta (Laravel usa DELETE em /reservas/{id})
+    const deleteAction = `/reservas/${id}`;
     $('#deleteForm').attr('action', deleteAction);
 
-    const modalExcluirEl = document.getElementById('modalExcluirReserva');
-    if (modalExcluirEl) {
-      new bootstrap.Modal(modalExcluirEl).show();
-    } else if (confirm('Confirmar exclusão da reserva?')) {
+    // Exibe confirmação antes de enviar
+    if (confirm('Deseja realmente excluir esta reserva?')) {
       $('#deleteForm').submit();
     }
   });
+
 
   // Carrega reservas iniciais
   carregarReservasFixas();

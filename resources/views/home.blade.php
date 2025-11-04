@@ -299,7 +299,7 @@
 <!-- Container onde serão listadas as reservas -->
 <div id="reservasContainer"></div>
 
-<!-- Modal único para visualizar/editar/excluir reserva -->
+<!-- Modal Detalhes de Reservas Feitas do bloco da esquerda -->
 <div class="modal fade" id="modalReservaUnica" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -358,8 +358,6 @@
           <i class="bi bi-trash fs-icon me-1"></i>
           Excluir
         </button>
-
-        {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button> --}}
       </div>
     </div>
   </div>
