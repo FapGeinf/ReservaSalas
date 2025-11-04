@@ -431,17 +431,22 @@
 
 <!-- Modal de Erro - Data Passada -->
 <div class="modal fade" id="modalErroDataPassada" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header bg-danger text-white">
+      <div class="modal-header">
         <h6 class="modal-title">Data inválida</h6>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
-      <div class="modal-body text-center">
-        <p>Não é possível agendar em uma data anterior à atual.</p>
+
+      <div class="modal-body text-center pb-0 fs-14">
+        <p>Não é possível agendar reserva em uma data anterior à atual.</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Entendido</button>
+
+      <div class="modal-footer py-2">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x me-1"></i>
+          Fechar
+        </button>
       </div>
     </div>
   </div>
