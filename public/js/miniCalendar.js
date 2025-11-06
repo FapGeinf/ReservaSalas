@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     height: 'auto',
+    contentHeight: 'auto',
+    aspectRatio: 1.2,
+    windowResize: function(view) {
+      this.updateSize();
+    },
+
     expandRows: true,
     stickyHeaderDates: true,
     dayMaxEvents: false,       // impede o agrupamento

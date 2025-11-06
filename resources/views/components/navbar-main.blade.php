@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="{{ asset('css/navbar-main.css') }}">
 </head>
 
-<nav class="navbar justify-content-center bg-white pt-2 py-2 border-bottom">
+<nav class="navbar justify-content-center bg-white pt-2 py-2 border-bottom d-none">
   {{-- <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
 
     <x-tooltip/>
