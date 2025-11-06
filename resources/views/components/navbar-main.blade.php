@@ -2,8 +2,8 @@
   <link rel="stylesheet" href="{{ asset('css/navbar-main.css') }}">
 </head>
 
-<nav class="navbar justify-content-center bg-white pt-4 py-2 border-bottom">
-  <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
+<nav class="navbar justify-content-center bg-white pt-2 py-2 border-bottom">
+  {{-- <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
 
     <x-tooltip/>
 
@@ -41,7 +41,7 @@
         @endif
       </div>
     @endforeach
-  </div>
+  </div> --}}
 </nav>
 
 <!-- MODAL DE RESERVA -->
