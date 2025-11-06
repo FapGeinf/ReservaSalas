@@ -271,3 +271,23 @@ th {
     padding: 2rem; /* aumenta espaçamento sem cortar */
   }
 }
+
+@media (max-width: 1366px) {
+  .fc .fc-daygrid-day-frame {
+    min-height: 60px !important; /* padrão ~90px */
+  }
+}
+
+@media (max-width: 1024px) {
+  .fc .fc-daygrid-day-frame {
+    min-height: 45px !important;
+  }
+  .fc .fc-toolbar-title {
+    font-size: 1rem !important;
+  }
+}
+
+.fc .fc-daygrid-day-number {
+  font-size: 11px !important;
+  padding: 4px 4px 0px 4px !important;
+}
