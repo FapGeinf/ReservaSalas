@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       return {
         html: `
-          <div class="p-1 rounded-2 shadow-sm border" 
+          <div class="p-0 rounded-2 shadow-sm border" 
             style="background: rgba(255,255,255,0.7);
             backdrop-filter: blur(4px);
             border-left: 4px solid #6c757d;">
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- Estilos para garantir rolagem ---
    calendarEl.style.overflowY = 'auto';
-   calendarEl.style.maxHeight = '400px';
+   calendarEl.style.maxHeight = '600px';
    miniCalendarEl.style.overflowY = 'auto';
    miniCalendarEl.style.maxHeight = '400px';
 });
