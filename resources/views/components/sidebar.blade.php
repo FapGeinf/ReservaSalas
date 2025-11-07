@@ -1,13 +1,4 @@
 <style>
-  body {
-    transition: margin-left 0.3s ease;
-    margin-left: 0;
-  }
-
-  body.shifted {
-    margin-left: 450px; /* mesma largura da sidebar */
-  }
-
   .sidebar {
     width: 400px;
     background-color: #fff;
@@ -21,6 +12,7 @@
     box-sizing: border-box;
     transition: left 0.3s ease;
     z-index: 1000;
+    border-right: 1px solid #dee2e6;
   }
 
   .sidebar.open {
@@ -28,7 +20,6 @@
   }
 
   .sidebar a {
-    color: #fff;
     text-decoration: none;
     padding: 0.6rem 0;
     border-radius: 6px;
@@ -40,18 +31,24 @@
     top: 57px;
     left: 15px;
     transition: all 0.3s ease;
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    z-index: 1100;
   }
 
   .toggle-btn.moved {
-    left: 415px; /* 450px da sidebar + 15px de espaçamento */
+    left: 350px;
   }
 </style>
 
-<button class="toggle-btn button-light-grey" id="toggleSidebar">☰</button>
+<button class="toggle-btn" id="toggleSidebar">☰</button>
 
 <div class="sidebar" id="sidebar">
-  <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column mt-5"
-    style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
+  <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
+    style="background-color: #fff; padding: 1rem; margin-top: 6rem !important;" data-help="pesquisa-reservas">
 
     <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
 
@@ -73,8 +70,7 @@
       </div>
     </div>
 
-    <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto"
-      style="max-height: 450px;">
+    <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto" style="max-height: 450px;">
       <p class="text-center text-muted">
         <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
       </p>
@@ -88,7 +84,7 @@
 
   btn.addEventListener('click', () => {
     const isOpen = sidebar.classList.toggle('open');
-    document.body.classList.toggle('shifted', isOpen);
     btn.classList.toggle('moved', isOpen);
+    btn.textContent = isOpen ? '×' : '☰';
   });
 </script>
