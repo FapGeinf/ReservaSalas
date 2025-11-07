@@ -55,15 +55,15 @@
       Escolha a <span class="fw-semibold" style="color: #374151;">sala</span> e a <span class="fw-semibold" style="color: #374151;">data</span> desejadas para visualizar as reservas já feitas.
     </span>
 
-    <div class="row g-3 mb-3">
-      <div class="col-12 col-sm-7">
+    <div class="row g-2 mb-3">
+      <div class="col-12">
         <label for="salaSelecionada" class="fw-semibold">Sala:</label>
         <select id="salaSelecionada" class="input-custom form-select pointer w-100">
           <option value="">Selecione uma sala</option>
         </select>
       </div>
 
-      <div class="col-12 col-sm-5">
+      <div class="col-12">
         <label for="dataSelecionada" class="fw-semibold">Data:</label>
         <input type="date" id="dataSelecionada" class="input-custom w-100">
       </div>
