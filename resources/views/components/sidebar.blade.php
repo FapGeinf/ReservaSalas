@@ -1,89 +1,167 @@
 <head>
   <style>
+    /* Overlay escurecido */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 900;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Sidebar */
     .sidebar {
-      width: 350px;
+      width: 340px;
       background-color: #fff;
       height: 100vh;
       position: fixed;
       top: 0;
-      left: -350px;
+      left: -340px;
       display: flex;
       flex-direction: column;
-      padding: 1rem;
+      padding: 1.5rem;
       box-sizing: border-box;
       transition: left 0.3s ease;
       z-index: 1000;
       border-right: 1px solid #dee2e6;
+      overflow-y: auto;
     }
 
     .sidebar.open {
       left: 0;
     }
 
-    .sidebar a {
-      text-decoration: none;
-      padding: 0.6rem 0;
-      border-radius: 6px;
-      transition: background 0.2s;
+    /* Cabeçalho */
+    .sidebar h6 {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 0.75rem;
     }
 
+    /* Descrição */
+    .sidebar .desc {
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    /* Seções de filtro */
+    .filter-section {
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-section label {
+      display: block;
+      font-weight: 500;
+      color: #374151;
+      font-size: 14px;
+      margin-bottom: 0.4rem;
+    }
+/* 
+    .filter-section select,
+    .filter-section input[type="date"] {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #374151;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .filter-section select:focus,
+    .filter-section input:focus {
+      border-color: #2a64e7;
+    } */
+
+    /* Lista de resultados */
+    .reservas-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      max-height: 450px;
+    }
+
+    .reservas-container p {
+      text-align: center;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* Botão toggle */
     .toggle-btn {
       position: fixed;
       top: 57px;
       left: 15px;
       transition: all 0.3s ease;
       border: 1px solid #ccc;
+      /* background: #fff; */
+      /* border-radius: 6px; */
+      /* padding: 0.5rem 0.75rem; */
       z-index: 1100;
+      /* cursor: pointer; */
     }
 
     .toggle-btn.moved {
-      left: 305px;
-      box-shadow: none !important;
+      left: 350px;
     }
   </style>
 </head>
 
+<!-- Botão -->
 <button class="toggle-btn button-light-grey" id="toggleSidebar">☰</button>
 
-<div class="sidebar" id="sidebar">
-  <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
-    style="background-color: #fff; padding: 1rem; margin-top: 6rem !important;" data-help="pesquisa-reservas">
+<!-- Overlay -->
+<div id="overlay" class="overlay"></div>
 
-    <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar" style="padding-top: 4rem;">
+  <h6>Filtros de Consulta</h6>
+  <p class="desc">Selecione a sala e a data desejadas para visualizar as reservas existentes.</p>
 
-    <span class="text-muted mb-4 text-center" style="font-size: 13px;">
-      Escolha a <span class="fw-semibold" style="color: #374151;">sala</span> e a <span class="fw-semibold" style="color: #374151;">data</span> desejadas para visualizar as reservas já feitas.
-    </span>
+  <div class="filter-section">
+    <label for="salaSelecionada">Sala:</label>
+    <select id="salaSelecionada" class="input-custom form-select">
+      <option value="">Selecione uma sala</option>
+    </select>
+  </div>
 
-    <div class="row g-2 mb-3">
-      <div class="col-12">
-        <label for="salaSelecionada" class="fw-semibold">Sala:</label>
-        <select id="salaSelecionada" class="input-custom form-select pointer w-100">
-          <option value="">Selecione uma sala</option>
-        </select>
-      </div>
+  <div class="filter-section">
+    <label for="dataSelecionada">Data:</label>
+    <input type="date" id="dataSelecionada" class="input-custom">
+  </div>
 
-      <div class="col-12">
-        <label for="dataSelecionada" class="fw-semibold">Data:</label>
-        <input type="date" id="dataSelecionada" class="input-custom w-100">
-      </div>
-    </div>
-
-    <div id="reservasContainer" class="reservas-container flex-grow-1 overflow-auto" style="max-height: 450px;">
-      <p class="text-center text-muted">
-        <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
-      </p>
-    </div>
+  <div class="reservas-container" id="reservasContainer">
+    <p><i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...</p>
   </div>
 </div>
 
 <script>
   const btn = document.getElementById('toggleSidebar');
   const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
 
-  btn.addEventListener('click', () => {
+  function toggleSidebar() {
     const isOpen = sidebar.classList.toggle('open');
     btn.classList.toggle('moved', isOpen);
     btn.textContent = isOpen ? '×' : '☰';
-  });
+    overlay.classList.toggle('active', isOpen);
+  }
+
+  btn.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', toggleSidebar);
 </script>
