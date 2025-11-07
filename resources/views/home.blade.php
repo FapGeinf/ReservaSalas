@@ -33,6 +33,7 @@
 
 <x-alert-toast/>
 <x-navbar-main :salas="$salas"/>
+<x-sidebar/>
 
 <div class="pagina-container container">
   <div class="row">
@@ -84,7 +85,7 @@
         </div>
       </div>
 
-      <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
+      {{-- <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
         style="background-color: #fff; padding: 1rem;" data-help="pesquisa-reservas">
 
         <h6 class="fw-bold text-center mb-3">Consulta de Reservas</h6>
@@ -113,7 +114,7 @@
             <i class="bi bi-arrow-repeat" style="color: #2a64e7;"></i> Carregando reservas...
           </p>
         </div>
-      </div>
+      </div> --}}
     </div>
 
     <div class="col-12 col-lg-8 px-lg-3">
