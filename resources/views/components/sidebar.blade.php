@@ -1,50 +1,49 @@
-<style>
-  .sidebar {
-    width: 400px;
-    background-color: #fff;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: -400px;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    box-sizing: border-box;
-    transition: left 0.3s ease;
-    z-index: 1000;
-    border-right: 1px solid #dee2e6;
-  }
+<head>
+  <style>
+    .sidebar {
+      width: 350px;
+      background-color: #fff;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -350px;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      box-sizing: border-box;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      border-right: 1px solid #dee2e6;
+    }
 
-  .sidebar.open {
-    left: 0;
-  }
+    .sidebar.open {
+      left: 0;
+    }
 
-  .sidebar a {
-    text-decoration: none;
-    padding: 0.6rem 0;
-    border-radius: 6px;
-    transition: background 0.2s;
-  }
+    .sidebar a {
+      text-decoration: none;
+      padding: 0.6rem 0;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
 
-  .toggle-btn {
-    position: fixed;
-    top: 57px;
-    left: 15px;
-    transition: all 0.3s ease;
-    background: #f8f9fa;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 0.4rem 0.7rem;
-    cursor: pointer;
-    z-index: 1100;
-  }
+    .toggle-btn {
+      position: fixed;
+      top: 57px;
+      left: 15px;
+      transition: all 0.3s ease;
+      border: 1px solid #ccc;
+      z-index: 1100;
+    }
 
-  .toggle-btn.moved {
-    left: 350px;
-  }
-</style>
+    .toggle-btn.moved {
+      left: 305px;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
 
-<button class="toggle-btn" id="toggleSidebar">☰</button>
+<button class="toggle-btn button-light-grey" id="toggleSidebar">☰</button>
 
 <div class="sidebar" id="sidebar">
   <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column"
