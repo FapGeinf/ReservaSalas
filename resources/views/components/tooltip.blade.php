@@ -10,7 +10,7 @@
     </div>
   ">
 
-  <i class="bi bi-exclamation-circle text-secondary" style="cursor: pointer; text-shadow: 0 0 1px;"></i>
+  <i class="bi bi-exclamation-circle text-primary" style="cursor: pointer; text-shadow: 0 0 1px;"></i>
 </span>
 
 <script>
