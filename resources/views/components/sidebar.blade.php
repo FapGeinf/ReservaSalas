@@ -71,7 +71,6 @@
       font-weight: 500;
       color: #374151;
       font-size: 14px;
-      margin-bottom: 0.4rem;
     }
 
     /* Lista de resultados */
