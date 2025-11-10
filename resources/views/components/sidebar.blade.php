@@ -118,7 +118,7 @@
       font-weight: 500;
       color: #374151;
       font-size: 14px;">Sala:</label>
-    <select id="salaSelecionada" class="input-custom form-select">
+    <select id="salaSelecionada" class="input-custom form-select pointer">
       <option value="">Selecione uma sala</option>
     </select>
   </div>
