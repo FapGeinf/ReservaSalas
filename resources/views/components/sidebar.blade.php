@@ -10,10 +10,11 @@
   <p class="desc">Selecione a sala e a data desejadas para visualizar as reservas existentes.</p>
 
   <div class="mb-3">
-    <label for="salaSelecionada" style="
-    font-weight: 500;
-    color: #374151;
-    font-size: 14px;">
+    <label for="salaSelecionada"
+      style="
+      font-weight: 500;
+      color: #374151;
+      font-size: 14px;">
       Sala:
     </label>
 
