@@ -55,7 +55,7 @@
             @endphp
 
             <div class="d-flex align-items-center justify-content-between px-2 py-1 border rounded shadow-sm w-100">
-              <div class="d-flex flex-column bg-light px-2 py-1 rounded">
+              <div class="d-flex flex-column bg-light p-2 rounded">
                 <div class="d-flex align-items-center gap-1 mb-1">
                   <i class="bi bi-building text-secondary" style="font-size: 14px;"></i>
                   <span class="rounded-circle {{ $statusColor }} status-ball"
