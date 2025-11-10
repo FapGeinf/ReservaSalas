@@ -12,11 +12,13 @@
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
       z-index: 900;
+      pointer-events: none;
     }
 
     .overlay.active {
       opacity: 1;
       visibility: visible;
+      pointer-events: auto;
     }
 
     /* Sidebar */
@@ -32,7 +34,7 @@
       padding: 1.5rem;
       box-sizing: border-box;
       transition: left 0.3s ease;
-      z-index: 1000;
+      z-index: 950;
       border-right: 1px solid #dee2e6;
       overflow-y: auto;
     }
@@ -71,23 +73,6 @@
       font-size: 14px;
       margin-bottom: 0.4rem;
     }
-/* 
-    .filter-section select,
-    .filter-section input[type="date"] {
-      width: 100%;
-      padding: 0.5rem 0.6rem;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 14px;
-      color: #374151;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .filter-section select:focus,
-    .filter-section input:focus {
-      border-color: #2a64e7;
-    } */
 
     /* Lista de resultados */
     .reservas-container {
@@ -109,11 +94,7 @@
       left: 15px;
       transition: all 0.3s ease;
       border: 1px solid #ccc;
-      /* background: #fff; */
-      /* border-radius: 6px; */
-      /* padding: 0.5rem 0.75rem; */
-      z-index: 1100;
-      /* cursor: pointer; */
+      z-index: 960;
     }
 
     .toggle-btn.moved {
@@ -160,6 +141,7 @@
     btn.classList.toggle('moved', isOpen);
     btn.textContent = isOpen ? '×' : '☰';
     overlay.classList.toggle('active', isOpen);
+    document.body.classList.toggle('sidebar-open', isOpen);
   }
 
   btn.addEventListener('click', toggleSidebar);
