@@ -114,8 +114,11 @@
   <h6>Filtros de Consulta</h6>
   <p class="desc">Selecione a sala e a data desejadas para visualizar as reservas existentes.</p>
 
-  <div class="filter-section">
-    <label for="salaSelecionada">Sala:</label>
+  <div class="mb-2">
+    <label for="salaSelecionada" style="
+      font-weight: 500;
+      color: #374151;
+      font-size: 14px;">Sala:</label>
     <select id="salaSelecionada" class="input-custom form-select">
       <option value="">Selecione uma sala</option>
     </select>
