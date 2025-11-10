@@ -73,6 +73,11 @@
   font-size: 13px !important;
 }
 
+.fc .fc-daygrid-day-number {
+  font-size: 11px !important;
+  padding: 4px 4px 0px 4px !important;
+}
+
 /* Deixa a cor da hora branca 
 .fc-timegrid-slot-label-cushion {
   color: #fff;
@@ -144,29 +149,8 @@
   border-radius: 8px;
 }
 
-/* .main-calendar {
-  min-height: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-  width: 100%;
-  box-sizing: border-box;
-} */
-
 .fc .fc-daygrid-day-number {
   font-weight: 600 !important;
-}
-
-@media (min-width: 1400px) {
-  .main-calendar {
-    max-height: 75vh;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-calendar {
-    min-height: 400px;
-    max-height: 70vh;
-  }
 }
 
 .titulo-calendario {
@@ -237,15 +221,18 @@ th {
   overflow: hidden;
 }
 
-.main-calendar, .calendar-container {
+.main-calendar,
+.calendar-container {
   width: 100%;
   max-width: 100%;
-  max-height: 650px;       /* altura máxima visível */
-  overflow-y: auto;        /* rolagem vertical */
-  overflow-x: hidden;      /* impede rolagem lateral */
+  height: 80vh; /* ocupa 80% da altura visível */
+  max-height: 100vh; /* nunca ultrapassa o tamanho total da tela */
+  overflow-y: auto;
+  overflow-x: hidden;
   box-sizing: border-box;
   background-color: #fff;
 }
+
 
 /* Para o calendário interno do FullCalendar */
 .fc {
@@ -255,26 +242,13 @@ th {
 /* Tabela e grid de salas */
 .salas-grid {
   width: 100%;
-  gap: 1.25rem; /* mantém espaçamento proporcional */
+  gap: 1.25rem;
   flex-wrap: wrap;
 }
 
 .sala-card {
-  width: 100%; /* para caber em qualquer tela */
+  width: 100%;
   max-width: 100%;
-}
-
-/* Ajustes para telas muito grandes (HD/Full HD) */
-@media (min-width: 1920px) {
-  .pagina-container, .caixa-calendario, .caixa-tabela, .tabela-main-page {
-    padding: 2rem; /* aumenta espaçamento sem cortar */
-  }
-}
-
-@media (max-width: 1366px) {
-  .fc .fc-daygrid-day-frame {
-    min-height: 60px !important; /* padrão ~90px */
-  }
 }
 
 @media (max-width: 1024px) {
@@ -286,14 +260,20 @@ th {
   }
 }
 
-.fc .fc-daygrid-day-number {
-  font-size: 11px !important;
-  padding: 4px 4px 0px 4px !important;
+@media (max-width: 1366px) {
+  .fc .fc-daygrid-day-frame {
+    min-height: 60px !important; /* padrão ~90px */
+  }
 }
 
-/* Para telas de notebook (largura até 1366px, por exemplo) */
-@media (max-width: 1366px) {
+/* @media (max-width: 1366px) {
   .main-calendar, .calendar-container {
     max-height: 510px;
+  }
+} */
+
+@media (min-width: 1920px) {
+  .pagina-container, .caixa-calendario, .caixa-tabela, .tabela-main-page {
+    padding: 2rem;
   }
 }
