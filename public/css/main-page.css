@@ -245,7 +245,6 @@ th {
   overflow-x: hidden;      /* impede rolagem lateral */
   box-sizing: border-box;
   background-color: #fff;
-  /* padding: 8px; */
 }
 
 /* Para o calendário interno do FullCalendar */
@@ -290,4 +289,11 @@ th {
 .fc .fc-daygrid-day-number {
   font-size: 11px !important;
   padding: 4px 4px 0px 4px !important;
+}
+
+/* Para telas de notebook (largura até 1366px, por exemplo) */
+@media (max-width: 1366px) {
+  .main-calendar, .calendar-container {
+    max-height: 515px;
+  }
 }
