@@ -294,6 +294,6 @@ th {
 /* Para telas de notebook (largura até 1366px, por exemplo) */
 @media (max-width: 1366px) {
   .main-calendar, .calendar-container {
-    max-height: 515px;
+    max-height: 510px;
   }
 }
