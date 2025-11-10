@@ -137,7 +137,7 @@
 .caixa-calendario {
   background-color: #fff;
   border: 1px solid #dee2e6 !important;
-  padding: 10px 5px 10px 10px;
+  padding: 10px 10px 10px 15px;
   margin-bottom: 16px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   padding-top: 0;
@@ -270,4 +270,24 @@ th {
   .pagina-container, .caixa-calendario, .caixa-tabela, .tabela-main-page {
     padding: 2rem; /* aumenta espaçamento sem cortar */
   }
+}
+
+@media (max-width: 1366px) {
+  .fc .fc-daygrid-day-frame {
+    min-height: 60px !important; /* padrão ~90px */
+  }
+}
+
+@media (max-width: 1024px) {
+  .fc .fc-daygrid-day-frame {
+    min-height: 45px !important;
+  }
+  .fc .fc-toolbar-title {
+    font-size: 1rem !important;
+  }
+}
+
+.fc .fc-daygrid-day-number {
+  font-size: 11px !important;
+  padding: 4px 4px 0px 4px !important;
 }

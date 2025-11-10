@@ -101,7 +101,10 @@ $(document).ready(function() {
     if (!reserva) return;
 
     $('#reservaSala').text(reserva.sala?.nome || $('#salaSelecionada option:selected').text() || 'Sala desconhecida');
-    $('#reservaData').text(reserva.data_inicio?.split(' ')[0] ?? '??/??/????');
+
+    const dataInicio = reserva.data_inicio ? new Date(reserva.data_inicio) : null;
+    $('#reservaData').text(dataInicio ? dataInicio.toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : '??/??/????');
+
     $('#reservaHoraInicio').text(reserva.data_inicio?.split(' ')[1]?.slice(0,5) ?? '??:??');
     $('#reservaHoraFim').text(reserva.data_fim?.split(' ')[1]?.slice(0,5) ?? '??:??');
     $('#reservaUnidade').text(reserva.user?.unidade?.nome ?? 'Unidade desconhecida');

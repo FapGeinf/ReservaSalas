@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     height: 'auto',
+    contentHeight: 'auto',
+    aspectRatio: 1.2,
+    windowResize: function(view) {
+      this.updateSize();
+    },
+
     expandRows: true,
     stickyHeaderDates: true,
     dayMaxEvents: false,       // impede o agrupamento
@@ -54,17 +60,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
       return {
         html: `
-          <div class="p-1 rounded-2 shadow-sm border" 
+          <div class="p-0 rounded-2 shadow-sm border" 
             style="background: rgba(255,255,255,0.7);
             backdrop-filter: blur(4px);
             border-left: 4px solid #6c757d;">
 
-            <span class="fw-bold text-uppercase d-block" style="font-size: 13px; color: #333;">${nomeSala}</span>
-            <span style="font-size: 12px; color: #555;">
+            <span class="fw-bold text-uppercase d-block" style="font-size: 12px; color: #333;">${nomeSala}</span>
+            <span style="font-size: 11px; color: #555;">
               <i class="bi bi-clock" style="position: relative; top: -1px;"></i> 
               ${horaInicio} - ${horaFim}
             </span><br>
-            <span style="font-size: 12px; color: #666;">${unidade}</span>
+            <!-- <span style="font-size: 12px; color: #666;">${unidade}</span> -->
           </div>
         `
       };
@@ -167,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- Estilos para garantir rolagem ---
    calendarEl.style.overflowY = 'auto';
-   calendarEl.style.maxHeight = '700px';
+   calendarEl.style.maxHeight = '600px';
    miniCalendarEl.style.overflowY = 'auto';
    miniCalendarEl.style.maxHeight = '400px';
 });
