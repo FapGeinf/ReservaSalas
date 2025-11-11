@@ -135,10 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev, next',
       center: 'title',
       // right: 'dayGridMonth,timeGridWeek' Disponível visualização somente em formato de calendário.
-      right: 'dayGridMonth'
+      right: 'today dayGridMonth'
     },
 
     datesSet: function() {
