@@ -47,7 +47,7 @@ $(document).ready(function() {
       success: function(res) {
         reservas = res || [];
         if (!reservas.length) {
-          $reservasContainer.html('<div class="text-center fs-13 text-secondary fw-medium my-2"><i class="bi bi-exclamation-triangle me-1"></i>Nenhuma reunião agendada.</div>');
+          $reservasContainer.html('<div class="text-center fs-13 text-secondary fw-medium my-2"><i class="bi bi-exclamation-triangle me-1"></i>Nenhuma reserva encontrada</div>');
           return;
         }
 
