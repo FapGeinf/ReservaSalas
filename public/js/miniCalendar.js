@@ -41,15 +41,41 @@ document.addEventListener('DOMContentLoaded', function() {
     slotEventOverlap: false,   // força exibição em linhas separadas
     eventOrder: "start",       // garante que eventos com mesma hora sejam empilhados na ordem de início
 
+    // Substitua sua dayCellDidMount atual por esta
     dayCellDidMount: function(info) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const cellDate = new Date(info.date);
-      cellDate.setHours(0, 0, 0, 0);
+      const el = info.el;
+      // pega o fundo atual computado (estado "normal")
+      const computedBg = window.getComputedStyle(el).backgroundColor || 'transparent';
 
-      if (cellDate < today) {
-        info.el.style.backgroundColor = '#f7f7f7'; // cinza claro
-      }
+      // aplica o estado base como inline para manter sempre o mesmo aspecto
+      el.style.background = computedBg;
+      el.style.backgroundImage = 'none';
+      el.style.boxShadow = 'none';
+      el.style.transition = 'none';
+      el.style.cursor = 'default';
+
+      // também aplica na "frame" interna, caso o FullCalendar pinte ali
+      const frame = el.querySelector('.fc-daygrid-day-frame') || el;
+      frame.style.background = computedBg;
+      frame.style.backgroundImage = 'none';
+      frame.style.boxShadow = 'none';
+      frame.style.transition = 'none';
+      frame.style.cursor = 'default';
+
+      // força manter o mesmo fundo enquanto o mouse estiver sobre a célula
+      const keepBg = () => {
+        el.style.background = computedBg;
+        el.style.backgroundImage = 'none';
+        el.style.boxShadow = 'none';
+        frame.style.background = computedBg;
+        frame.style.backgroundImage = 'none';
+        frame.style.boxShadow = 'none';
+      };
+
+      // assegura que qualquer hover aplicado pelo FullCalendar seja sobrescrito
+      el.addEventListener('mouseenter', keepBg);
+      el.addEventListener('mouseover', keepBg);
+      el.addEventListener('mouseleave', keepBg);
     },
 
     eventContent: function(arg) {
@@ -63,7 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="p-0 rounded-2 shadow-sm border" 
             style="background: rgba(255,255,255,0.7);
             backdrop-filter: blur(4px);
-            border-left: 4px solid #6c757d;">
+            border-left: 4px solid #6c757d;
+            cursor: pointer;">
 
             <span class="fw-bold text-uppercase d-block" style="font-size: 12px; color: #333;">${nomeSala}</span>
             <span style="font-size: 11px; color: #555;">
@@ -89,13 +116,21 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       // Efeito hover
+      info.el.style.transition = 'box-shadow 0.25s ease, transform 0.25s ease';
+      info.el.style.willChange = 'box-shadow, transform';
+      info.el.style.backfaceVisibility = 'hidden';
+      info.el.style.transformStyle = 'flat';
+
       info.el.addEventListener('mouseenter', () => {
-        info.el.style.transform = 'scale(1.02)';
-        info.el.style.transition = 'transform 0.15s ease-in-out';
-        info.el.style.zIndex = '5';
+        info.el.style.transform = 'translateY(-3px)';
+        info.el.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.15)';
+        info.el.style.zIndex = '10';
       });
+
       info.el.addEventListener('mouseleave', () => {
-        info.el.style.transform = 'scale(1)';
+        info.el.style.transform = 'translateY(0)';
+        info.el.style.boxShadow = 'none';
+        info.el.style.zIndex = '1';
       });
     },
 
@@ -120,35 +155,38 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     dateClick: function(info) {
-      const dataClicada = new Date(info.dateStr);
-      const hoje = new Date();
+      // DESATIVADO! ESTE BLOCO PERMITE AGENDAR SALA APENAS CLICANDO NO BLOCO DO DIA DESEJADO
+      // ESTÁ ASSIM POR QUE ESSE CALENDARIO SERÁ USADO SOMENTE PRA CONSULTA
 
-      // Normaliza para comparar apenas o dia (ano, mês, dia)
-      const dataClicadaStr = dataClicada.toISOString().split('T')[0];
-      const hojeStr = hoje.toISOString().split('T')[0];
+      // const dataClicada = new Date(info.dateStr);
+      // const hoje = new Date();
 
-      // Calcula "ontem" baseado na data de hoje
-      const ontem = new Date(hoje);
-      ontem.setDate(hoje.getDate() - 1);
-      const ontemStr = ontem.toISOString().split('T')[0];
+      // // Normaliza para comparar apenas o dia (ano, mês, dia)
+      // const dataClicadaStr = dataClicada.toISOString().split('T')[0];
+      // const hojeStr = hoje.toISOString().split('T')[0];
 
-      // Bloqueia datas até ontem
-      if (dataClicadaStr <= ontemStr) {
-        const modalErro = new bootstrap.Modal(document.getElementById('modalErroDataPassada'));
-        modalErro.show();
-        return;
-      }
+      // // Calcula "ontem" baseado na data de hoje
+      // const ontem = new Date(hoje);
+      // ontem.setDate(hoje.getDate() - 1);
+      // const ontemStr = ontem.toISOString().split('T')[0];
 
-      // Abre modal normalmente para hoje ou futuras
-      document.getElementById('data_reserva').value = dataClicadaStr;
-      document.getElementById('hora_inicio').value = info.dateStr.substring(11, 16);
+      // // Bloqueia datas até ontem
+      // if (dataClicadaStr <= ontemStr) {
+      //   const modalErro = new bootstrap.Modal(document.getElementById('modalErroDataPassada'));
+      //   modalErro.show();
+      //   return;
+      // }
 
-      const modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
-      modalReserva.show();
+      // // Abre modal normalmente para hoje ou futuras
+      // document.getElementById('data_reserva').value = dataClicadaStr;
+      // document.getElementById('hora_inicio').value = info.dateStr.substring(11, 16);
 
-      setTimeout(() => {
-        document.getElementById('sala_fk').focus();
-      }, 500);
+      // const modalReserva = new bootstrap.Modal(document.getElementById('modalReserva'));
+      // modalReserva.show();
+
+      // setTimeout(() => {
+      //   document.getElementById('sala_fk').focus();
+      // }, 500);
     },
 
     eventClick: function(info) {
