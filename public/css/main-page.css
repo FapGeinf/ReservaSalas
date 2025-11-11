@@ -225,8 +225,8 @@ th {
 .calendar-container {
   width: 100%;
   max-width: 100%;
-  height: 75vh; /* ocupa 80% da altura visível */
-  max-height: 95vh; /* nunca ultrapassa o tamanho total da tela */
+  height: 78vh; /* ocupa 80% da altura visível */
+  max-height: 90vh; /* nunca ultrapassa o tamanho total da tela */
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
