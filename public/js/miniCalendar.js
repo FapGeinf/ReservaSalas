@@ -137,7 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek'
+      // right: 'dayGridMonth,timeGridWeek' Disponível visualização somente em formato de calendário.
+      right: 'dayGridMonth'
     },
 
     datesSet: function() {
