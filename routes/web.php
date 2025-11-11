@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
 		'index' => 'salas', // Nome personalizado para a rota index
 	]);
 
+	// Rota de pesquisa de reuniões da SideBar
+	Route::get('/reservas/data', [App\Http\Controllers\ReservaController::class, 'getReservasPorData']);
+
 	// Rotas de Reservas (CRUD)
 	Route::prefix('reservas')->group(function () {
 		Route::get('/', [ReservaController::class, 'index'])->name('reservas.index');
@@ -164,9 +167,8 @@ Route::put('/reservas/{reserva}', [ReservaController::class, 'update'])->name('r
 // Rota para exibir o formulário de edição de usuários
     Route::get('/eventos', [ReservaController::class, 'getEventos']);
     Route::get('/reservas', [ReservaController::class, 'listarReunioes'])->name('reservas.index');
-    Route::get('/reservas', [ReservaController::class, 'listarReunioes'])->name('reservas.index');
+    // Route::get('/reservas', [ReservaController::class, 'listarReunioes'])->name('reservas.index');
     Route::delete('/reservas/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
-
 
 
 

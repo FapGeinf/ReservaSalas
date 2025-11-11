@@ -35,15 +35,13 @@ $(document).ready(function() {
     const salaId = $salaSelect.val();
     const data = $dataInput.val();
 
-    if (!salaId) {
-      $reservasContainer.html('<div class="text-center fs-13 fw-medium text-secondary my-2"><i class="bi bi-info-circle me-1"></i>Nenhuma sala selecionada.</div>');
-      return;
-    }
-
     $reservasContainer.html('<div class="text-center fs-13 fw-medium text-secondary my-2"><i class="bi bi-arrow-repeat me-1 text-primary"></i>Carregando reservas...</div>');
 
+    // 🔹 Define a URL com base na seleção
+    const url = salaId ? `/reservas/sala/${salaId}` : `/reservas/data`;
+
     $.ajax({
-      url: `/reservas/sala/${salaId}`,
+      url: url,
       method: 'GET',
       data: { data: data },
       success: function(res) {
@@ -59,8 +57,8 @@ $(document).ready(function() {
           const usuario    = r.user?.name || 'Usuário desconhecido';
           const unidade    = r.user?.unidade?.nome || 'Unidade desconhecida';
 
-          // Usa o nome da sala que já está selecionado no select (repete o nome buscado)
-          const nomeSala = $('#salaSelecionada option:selected').text() || 'Sala desconhecida';
+          // Usa o nome da sala da reserva (ou o nome selecionado se for pesquisa por sala)
+          const nomeSala = r.sala?.nome || $('#salaSelecionada option:selected').text() || 'Sala desconhecida';
 
           return `
             <div class="border rounded shadow-sm p-2 mb-2" style="background-color: #f7f7f7;">

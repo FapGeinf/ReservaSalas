@@ -19,7 +19,7 @@
     </label>
 
     <select id="salaSelecionada" class="input-custom form-select pointer">
-      <option value="">Selecione uma sala</option>
+      <option value="">Mostrar todas as salas</option>
     </select>
   </div>
 

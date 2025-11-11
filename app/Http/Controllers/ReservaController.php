@@ -220,6 +220,27 @@ class ReservaController extends Controller
         return response()->json($reservas);
     }
 
+    /**
+ * Lista todas as reservas de uma data específica (todas as salas).
+ * Rota: GET /reservas/data
+ */
+public function getReservasPorData(Request $request)
+{
+    $data = $request->input('data');
+
+    if (!$data) {
+        return response()->json([], 200);
+    }
+
+    $reservas = \App\Models\Reserva::with(['sala', 'user.unidade'])
+        ->whereDate('data_inicio', $data)
+        ->orderBy('data_inicio', 'asc')
+        ->get();
+
+    return response()->json($reservas);
+}
+
+
     public function getEventos()
     {
         $reservas = Reserva::with(['sala', 'user.unidade'])->get();
