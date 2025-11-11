@@ -40,12 +40,16 @@
     <div class="col-12 col-lg-4 mb-3">
 
       <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column mb-3"
-        style="background-color: #fff; padding: 1rem;">
+        style="background-color: #fff; padding: 1rem 1rem 1.5rem 1rem;">
 
-        <div class="d-flex align-items-center justify-content-center mb-3">
+        <div class="d-flex align-items-center justify-content-center mb-1">
           <x-tooltip/>
-          <h6 class="fw-bold mb-0 ms-1">Reservar Salas</h6>
+          <h6 class="fw-bold mb-0 ms-2">Reservar Salas</h6>
         </div>
+
+        <div class="text-muted text-center mb-3" style="font-size: 13px;">
+          Selecione a sala desejada para realizar a reserva.
+        </div>        
 
         <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
           @foreach($salas as $sala)
@@ -88,16 +92,16 @@
 
     <div class="col-12 col-lg-8 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
-        <div class="area-calendario border-bottom rounded mt-3">
+        <div class="area-calendario border-bottom rounded my-3">
           <div id="calendar" class="calendar-container main-calendar"></div>
         </div>
 
-        <div class="mt-2">
+        {{-- <div class="mt-2">
           <span style="font-size: 12px; color: #374151;">
             <i class="bi bi-lightbulb-fill text-warning"></i>
             Clique em uma data para reservar uma sala ou visualizar agendamentos.
           </span>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>

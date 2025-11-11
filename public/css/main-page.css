@@ -233,10 +233,13 @@ th {
   background-color: #fff;
 }
 
-
 /* Para o calendário interno do FullCalendar */
 .fc {
   width: 100% !important;
+}
+
+.fc-toolbar-chunk {
+  text-align: center !important;
 }
 
 /* Tabela e grid de salas */

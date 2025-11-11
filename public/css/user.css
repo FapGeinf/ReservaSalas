@@ -1,7 +1,3 @@
-body, .container-fluid, .row, .col, .box, .card, .card-body, h2, .alert, .form-control {
-  font-family: sans-serif !important; /* Substitua 'YourCustomFont' pelo nome da sua fonte personalizada */
-}
-
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.5) !important;
 }

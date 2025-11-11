@@ -102,8 +102,21 @@ document.addEventListener('DOMContentLoaded', function() {
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      // right: 'dayGridMonth,timeGridWeek,listWeek ("lista" removida dos botões)'
       right: 'dayGridMonth,timeGridWeek'
+    },
+
+    datesSet: function() {
+      const headerCenter = document.querySelector('.fc-toolbar-title');
+
+      if (headerCenter && !document.querySelector('.fc-title-subtext')) {
+        const subText = document.createElement('div');
+        subText.className = 'fc-title-subtext';
+        subText.innerText = 'Selecione um agendamento para visualizar detalhes';
+        subText.style.fontSize = '13px';
+        subText.style.color = '#212529bf';
+        subText.style.marginTop = '4px';
+        headerCenter.parentNode.appendChild(subText);
+      }
     },
 
     dateClick: function(info) {
