@@ -78,15 +78,46 @@
   color: #6b7280;
 }
 
-.toggle-btn {
+.toggle-btn, .help-btn {
   position: fixed;
-  top: 57px;
   left: 15px;
-  transition: all 0.3s ease;
   border: 1px solid #ccc;
   z-index: 960;
+  transition: all 0.3s ease;
 }
 
-.toggle-btn.moved {
+.toggle-btn { top: 57px; }
+
+.help-btn { top: 100px; }
+
+.toggle-btn.moved, .help-btn.moved {
   left: 350px;
+}
+
+.help-btn {
+  background-color: #f8f9fa;
+  color: #374151;
+  border: 1px solid #ccc;
+  padding: 2px 7px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.help-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.help-btn:active {
+  background-color: #d1d5db;
+}
+
+.help-btn i {
+  font-size: 15px;
 }

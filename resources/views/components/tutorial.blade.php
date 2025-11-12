@@ -1,7 +1,9 @@
 <!-- BOTÃO PARA ABRIR O TUTORIAL -->
-<button class="button-grey" data-bs-toggle="modal" data-bs-target="#modalTutorialReservas">
-  <i class="bi bi-question-circle me-1"></i>
-  Ajuda
+<button 
+  class="help-btn"
+  data-bs-toggle="modal" 
+  data-bs-target="#modalTutorialReservas">
+  <i class="bi bi-question-circle"></i>
 </button>
 
 <!-- MODAL TUTORIAL -->
