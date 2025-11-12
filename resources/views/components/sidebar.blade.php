@@ -3,6 +3,7 @@
 </head>
 
 <button class="toggle-btn button-light-grey" id="toggleSidebar">☰</button>
+
 <div id="overlay" class="overlay"></div>
 
 <div class="sidebar" id="sidebar" style="padding-top: 4rem;">
