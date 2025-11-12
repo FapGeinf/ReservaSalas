@@ -95,13 +95,6 @@
         <div class="area-calendario border-bottom rounded my-3">
           <div id="calendar" class="calendar-container main-calendar"></div>
         </div>
-
-        {{-- <div class="mt-2">
-          <span style="font-size: 12px; color: #374151;">
-            <i class="bi bi-lightbulb-fill text-warning"></i>
-            Clique em uma data para reservar uma sala ou visualizar agendamentos.
-          </span>
-        </div> --}}
       </div>
     </div>
   </div>
@@ -303,15 +296,17 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" id="btnEditar" class="button-blue">
-          <i class="bi bi-pencil-square fs-icon me-1"></i>
-          Editar
-        </button>
+        @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+          <button type="button" id="btnEditar" class="button-blue">
+            <i class="bi bi-pencil-square fs-icon me-1"></i>
+            Editar
+          </button>
 
-        <button type="button" id="btnExcluir" class="button-red">
-          <i class="bi bi-trash fs-icon me-1"></i>
-          Excluir
-        </button>
+          <button type="button" id="btnExcluir" class="button-red">
+            <i class="bi bi-trash fs-icon me-1"></i>
+            Excluir
+          </button>
+        @endif
       </div>
     </div>
   </div>
@@ -370,15 +365,17 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" id="btnEditarReservaUnica" class="button-blue">
-          <i class="bi bi-pencil-square fs-icon me-1"></i>
-          Editar
-        </button>
+        @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+          <button type="button" id="btnEditarReservaUnica" class="button-blue">
+            <i class="bi bi-pencil-square fs-icon me-1"></i>
+            Editar
+          </button>
         
-        <button type="button" id="btnExcluirReservaUnica" class="button-red">
-          <i class="bi bi-trash fs-icon me-1"></i>
-          Excluir
-        </button>
+          <button type="button" id="btnExcluirReservaUnica" class="button-red">
+            <i class="bi bi-trash fs-icon me-1"></i>
+            Excluir
+          </button>
+        @endif
       </div>
     </div>
   </div>
