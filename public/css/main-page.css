@@ -221,6 +221,10 @@ th {
   overflow: hidden;
 }
 
+h6.modal-title {
+  font-size: 14px !important;
+}
+
 .main-calendar,
 .calendar-container {
   width: 100%;
