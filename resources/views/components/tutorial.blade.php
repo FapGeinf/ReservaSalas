@@ -8,7 +8,7 @@
 
 <!-- MODAL TUTORIAL -->
 <div class="modal fade" id="modalTutorialReservas" tabindex="-1" aria-labelledby="tutorialLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="tutorialLabel">Tutorial de Uso — Reservar Salas</h6>
