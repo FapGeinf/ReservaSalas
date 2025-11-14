@@ -2,49 +2,6 @@
   <link rel="stylesheet" href="{{ asset('css/navbar-main.css') }}">
 </head>
 
-<nav class="navbar justify-content-center bg-white pt-2 py-2 border-bottom d-none">
-  {{-- <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
-
-    <x-tooltip/>
-
-    @foreach($salas as $sala)
-      @php
-        $situacao = strtolower(trim($sala->situacao));
-        $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
-      @endphp
-
-      <div class="d-flex align-items-center justify-content-between px-2 py-1 border rounded shadow-sm">
-        <div class="d-flex flex-column bg-light px-2 py-1 rounded">
-          <div class="d-flex align-items-center gap-1 mb-1">
-            <i class="bi bi-building text-secondary" style="font-size: 14px;"></i>
-            <span class="rounded-circle {{ $statusColor }} status-ball"
-              style="width: 7px; height: 7px; display: inline-block;">
-            </span>
-
-            <span class="fw-semibold text-uppercase fs-12">
-              {{ $sala->nome }}
-            </span>
-          </div>
-        </div>
-
-        @if($situacao !== 'inativa')
-          <button 
-            type="button"
-            class="button-blue btn-agendar fs-12 px-2 py-1 ms-2" 
-            data-bs-toggle="modal" 
-            data-bs-target="#modalReserva"
-            data-sala-id="{{ $sala->id }}"
-            data-sala-nome="{{ $sala->nome }}">
-            <i class="bi bi-calendar-plus me-1 fs-11"></i>
-            Reservar
-          </button>
-        @endif
-      </div>
-    @endforeach
-  </div> --}}
-</nav>
-
-<!-- MODAL DE RESERVA -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
