@@ -14,10 +14,11 @@
   <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
   <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
   <title>Agendaí! | Bem-vindo</title>
-
 </head>
 
 <body>
+  <x-alert-toast/>
+
   <div class="container">
     <div class="row">
 
@@ -33,13 +34,6 @@
 
           <form id="form-login" method="POST" action="{{ route('login') }}">
             @csrf
-
-            @if ($errors->has('login'))
-              <div class="alert alert-danger d-flex align-items-center shadow-sm rounded p-1" role="alert">
-                <i class="bi bi-exclamation-circle-fill me-1"></i>
-                <span>{{ $errors->first('login') }}</span>
-              </div>
-            @endif
 
             <div>
               <label class="fw-bold" for="login">Login:</label>
@@ -101,19 +95,6 @@
 
       this.classList.toggle('bi-eye');
       this.classList.toggle('bi-eye-slash');
-    });
-  </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(function () {
-        let alertElement = document.querySelector(".alert-danger");
-        if (alertElement) {
-          alertElement.style.transition = "opacity 0.5s ease-out";
-          alertElement.style.opacity = "0";
-          setTimeout(() => alertElement.remove(), 500);
-        }
-      }, 4000);
     });
   </script>
 
