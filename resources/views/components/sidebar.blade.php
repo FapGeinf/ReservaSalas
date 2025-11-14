@@ -1,9 +1,8 @@
+@vite(['resources/js/flatpickr-data.js'])
+
 <head>
   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 </head>
-
-@vite(['resources/js/flatpickr-data.js'])
-
 
 <!-- Botão para abrir a sidebar -->
 <button class="toggle-btn button-light-grey" id="toggleSidebar">☰</button>
