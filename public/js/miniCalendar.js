@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
       left: 'prev,next',
       center: 'title',
       // right: 'dayGridMonth,timeGridWeek' Disponível visualização somente em formato de calendário.
-      right: 'today,dayGridMonth'
+      right: 'today'
     },
 
     datesSet: function() {
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     dateClick: function(info) {
       // DESATIVADO! ESTE BLOCO PERMITE AGENDAR SALA APENAS CLICANDO NO BLOCO DO DIA DESEJADO
-      // ESTÁ ASSIM POR QUE ESSE CALENDARIO SERÁ USADO SOMENTE PRA CONSULTA
+      // ESTÁ ASSIM PARA QUE ESSE CALENDARIO SEJA USADO SOMENTE PRA CONSULTA
 
       // const dataClicada = new Date(info.dateStr);
       // const hoje = new Date();
