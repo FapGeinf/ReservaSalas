@@ -86,7 +86,6 @@
               @else
                 <x-tool-tip-rooms/>
               @endif
-
             </div>
           @endforeach
         </div>
