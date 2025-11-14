@@ -83,7 +83,10 @@
                   <i class="bi bi-calendar-plus me-1 fs-11"></i>
                   Reservar
                 </button>
+              @else
+                <x-tool-tip-rooms/>
               @endif
+
             </div>
           @endforeach
         </div>
