@@ -66,6 +66,14 @@
   font-size: 14px;
 }
 
+.flatpickr-monthDropdown-months, input.numInput.cur-year {
+  font-size: 14px !important;
+}
+
+/* .flatpickr-current-month .flatpickr-monthDropdown-months {
+  border-radius: 10px;
+} */
+
 .reservas-container {
   flex-grow: 1;
   overflow-y: auto;

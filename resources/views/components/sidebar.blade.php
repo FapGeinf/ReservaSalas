@@ -2,6 +2,9 @@
   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 </head>
 
+@vite(['resources/js/flatpickr-data.js'])
+
+
 <!-- Botão para abrir a sidebar -->
 <button class="toggle-btn button-light-grey" id="toggleSidebar">☰</button>
 
@@ -25,7 +28,12 @@
 
   <div class="filter-section">
     <label for="dataSelecionada">Data:</label>
-    <input type="date" id="dataSelecionada" class="input-custom">
+    <input 
+      type="text" 
+      id="dataSelecionada" 
+      class="input-custom form-select"
+      value="{{ $dataSelecionada ?? date('Y-m-d') }}"
+    >
   </div>
 
   <div class="reservas-container" id="reservasContainer">
