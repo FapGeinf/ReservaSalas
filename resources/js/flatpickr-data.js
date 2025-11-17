@@ -10,14 +10,13 @@ flatpickr("#dataSelecionada", {
 
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("modalReserva");
-  modal.addEventListener("shown.bs.modal", function () {
 
-    // Corrige conflito de foco do Bootstrap com flatpickr
+  modal.addEventListener("shown.bs.modal", function () {
     modal.removeAttribute("tabindex");
 
-    // Aguarda a animação finalizar
     setTimeout(() => {
-      const fpHora = flatpickr("#hora_inicio", {
+
+      flatpickr("#hora_inicio", {
         enableTime: true,
         noCalendar: true,
         time_24hr: true,
@@ -27,7 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
         locale: Portuguese
       });
 
-      fpHora.open();
-    }, 120); // delay pequeno, suficiente para evitar o piscar
+      flatpickr("#hora_termino", {
+        enableTime: true,
+        noCalendar: true,
+        time_24hr: true,
+        dateFormat: "H:i",
+        altInput: true,
+        altFormat: "H:i",
+        locale: Portuguese
+      });
+
+    }, 120);
   });
 });
