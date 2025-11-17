@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (headerCenter && !document.querySelector('.fc-title-subtext')) {
         const subText = document.createElement('div');
         subText.className = 'fc-title-subtext';
-        subText.innerText = 'Selecione um agendamento para visualizar detalhes';
+        subText.innerText = 'Selecione uma reserva para visualizar detalhes';
         subText.style.fontSize = '13px';
         subText.style.color = '#212529bf';
         subText.style.marginTop = '4px';
