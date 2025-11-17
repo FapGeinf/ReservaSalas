@@ -13,17 +13,14 @@ function abrirModalEdicao(id, horaInicio, horaFim, dataInicio, salaId) {
 
   // Preenche o select de salas
   const selectSala = document.getElementById('sala_id');
-  selectSala.innerHTML = ''; // limpa opções anteriores
+  selectSala.innerHTML = '';
 
-  // adiciona o option inicial desabilitado e sempre selecionado
   const optionPadrao = document.createElement('option');
   optionPadrao.value = '';
   optionPadrao.textContent = 'Selecione uma opção';
   optionPadrao.disabled = true;
-  optionPadrao.selected = true;
   selectSala.appendChild(optionPadrao);
 
-  // adiciona as salas disponíveis
   salasDisponiveis.forEach(sala => {
     const option = document.createElement('option');
     option.value = sala.id;
@@ -31,7 +28,9 @@ function abrirModalEdicao(id, horaInicio, horaFim, dataInicio, salaId) {
     selectSala.appendChild(option);
   });
 
+  // <<< AQUI ESTÁ A CORREÇÃO >>>
+  selectSala.value = salaId;
+
   // Abre o modal
-  const modal = new bootstrap.Modal(document.getElementById('modal-editar-reserva'));
-  modal.show();
+  new bootstrap.Modal(document.getElementById('modal-editar-reserva')).show();
 }
