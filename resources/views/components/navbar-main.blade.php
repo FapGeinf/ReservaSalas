@@ -40,12 +40,14 @@
           <div class="row align-items-end mb-3">
             <div class="col-4">
               <label for="hora_inicio" class="fw-semibold">Hora de Início:</label>
-              <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
+              <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom form-select"
+              placeholder="00:00" required>
             </div>
 
             <div class="col-4">
               <label for="hora_termino" class="fw-semibold">Hora de Término:</label>
-              <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
+              <input type="time" name="hora_termino" id="hora_termino" class="input-custom form-select"
+              placeholder="00:00" required>
             </div>
 
             <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
