@@ -40,13 +40,13 @@
           <div class="row align-items-end mb-3">
             <div class="col-4">
               <label for="hora_inicio" class="fw-semibold">Hora de Início:</label>
-              <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom form-select"
+              <input type="text" name="hora_inicio" id="hora_inicio" class="input-custom form-select"
               placeholder="00:00" required>
             </div>
 
             <div class="col-4">
               <label for="hora_termino" class="fw-semibold">Hora de Término:</label>
-              <input type="time" name="hora_termino" id="hora_termino" class="input-custom form-select"
+              <input type="text" name="hora_termino" id="hora_termino" class="input-custom form-select"
               placeholder="00:00" required>
             </div>
 
@@ -61,7 +61,8 @@
           <div class="row">
             <div class="col-8">
               <label for="data_reserva_modal" class="fw-semibold">Data da Reserva:</label>
-              <input type="date" name="data_reserva" id="data_reserva_modal" class="input-custom w-100" required>
+              <input type="date" name="data_reserva" id="data_reserva_modal" class="input-custom w-100 form-select" 
+              placeholder="00/00/0000" required>
             </div>
           </div>
         </form>

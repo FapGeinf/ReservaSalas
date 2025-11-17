@@ -1,21 +1,16 @@
 document.getElementById('diaInteiro').addEventListener('change', function () {
-  const inicio = document.getElementById('hora_inicio');
-  const termino = document.getElementById('hora_termino');
+  const inicio = document.getElementById('hora_inicio')._flatpickr;
+  const termino = document.getElementById('hora_termino')._flatpickr;
 
-    if (this.checked) {
-      // marca com o dia inteiro: define horários e desativa Edição
-      inicio.value = '08:00';
-      termino.value = '20:00';
-      inicio.readOnly = true;
-      termino.readOnly = true;
-      }
-      
-      else {
-      // permite editar novamente
-      inicio.readOnly = false;
-      termino.readOnly = false;
-      inicio.value = '';
-      termino.value = "";
-    }
+  if (this.checked) {
+    inicio.setDate("08:00");
+    termino.setDate("20:00");
+    inicio.input.readOnly = true;
+    termino.input.readOnly = true;
+  } else {
+    inicio.clear();
+    termino.clear();
+    inicio.input.readOnly = false;
+    termino.input.readOnly = false;
   }
-);
+});
