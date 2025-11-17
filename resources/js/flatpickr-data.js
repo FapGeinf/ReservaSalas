@@ -46,3 +46,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 120);
   });
 });
+
+let fpData, fpInicio, fpFim;
+
+document.addEventListener("DOMContentLoaded", function () {
+  const modalEditar = document.getElementById("modal-editar-reserva");
+
+  modalEditar.addEventListener("shown.bs.modal", function () {
+
+    // Data
+    fpData = flatpickr("#data_inicio", {
+      locale: Portuguese,
+      altInput: true,
+      altFormat: "d/m/Y",
+      dateFormat: "Y-m-d"
+    });
+
+    // Hora início
+    fpInicio = flatpickr("#hora_inicio", {
+      enableTime: true,
+      noCalendar: true,
+      time_24hr: true,
+      dateFormat: "H:i",
+      altInput: true,
+      altFormat: "H:i",
+      locale: Portuguese
+    });
+
+    // Hora término
+    fpFim = flatpickr("#data_fim", {
+      enableTime: true,
+      noCalendar: true,
+      time_24hr: true,
+      dateFormat: "H:i",
+      altInput: true,
+      altFormat: "H:i",
+      locale: Portuguese
+    });
+  });
+});

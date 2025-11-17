@@ -45,7 +45,11 @@ $('#deleteForm').on('submit', function(e) {
       Swal.fire({
         title: 'Erro!',
         text: xhr.responseJSON?.message || 'Erro ao excluir reserva',
-        icon: 'error'
+        icon: 'error',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'button-green'
+        }
       });
     },
 

@@ -208,19 +208,19 @@
 
             <div class="col-12 col-sm-5">
               <label for="data_inicio" class="fw-semibold">Data:</label>
-              <input type="date" name="data_inicio" id="data_inicio" class="input-custom pointer" required>
+              <input type="date" name="data_inicio" id="data_inicio" class="input-custom form-select pointer" required>
             </div>
           </div>
 
           <div class="row align-items-end">
             <div class="col-12 col-sm-4">
               <label for="hora_inicio" class="fw-semibold">Hora Início:</label>
-              <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" step="60" required>
+              <input type="text" name="hora_inicio" id="hora_inicio" class="input-custom form-select pointer" step="60" required>
             </div>
 
             <div class="col-12 col-sm-4">
               <label for="data_fim" class="fw-semibold">Hora Término:</label>
-              <input type="time" name="data_fim" id="data_fim" class="input-custom pointer" step="60" required>
+              <input type="text" name="data_fim" id="data_fim" class="input-custom form-select pointer" step="60" required>
             </div>
 
             <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
