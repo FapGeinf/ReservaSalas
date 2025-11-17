@@ -8,6 +8,13 @@ flatpickr("#dataSelecionada", {
   dateFormat: "Y-m-d"
 });
 
+flatpickr("#data_reserva_modal", {
+  locale: Portuguese,
+  altInput: true,
+  altFormat: "d/m/Y",
+  dateFormat: "Y-m-d"
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("modalReserva");
 
