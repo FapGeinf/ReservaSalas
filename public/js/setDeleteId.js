@@ -48,7 +48,7 @@ $('#deleteForm').on('submit', function(e) {
         icon: 'error',
         confirmButtonText: 'OK',
         customClass: {
-          confirmButton: 'button-green'
+          confirmButton: 'button-red'
         }
       });
     },
