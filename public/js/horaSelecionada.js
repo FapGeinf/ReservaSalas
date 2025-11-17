@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
         Swal.fire({
           title: 'Erro!',
           text: 'A data selecionada já passou. Escolha uma data futura.',
-          icon: 'error'
+          icon: 'error',
+          confirmButtonText: 'OK',
+          customClass: {
+          confirmButton: 'button-red'
+          }
         });
       }
     });
