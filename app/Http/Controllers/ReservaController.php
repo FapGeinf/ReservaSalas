@@ -80,6 +80,22 @@ class ReservaController extends Controller
        $dataInicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio)->format('Y-m-d H:i:s');
        $dataFim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino)->format('Y-m-d H:i:s');
 
+       $inicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio);
+        $fim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino);
+
+        if ($fim->lte($inicio)) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A hora de término deve ser maior que a hora de início.'
+                ], 400);
+            }
+
+            return back()->withErrors([
+                'hora_termino' => 'A hora de término deve ser maior que a hora de início.'
+            ])->withInput();
+        }
+
 
         // Verificar conflitos de horário
         $conflito = Reserva::where('sala_fk', $salaId)
