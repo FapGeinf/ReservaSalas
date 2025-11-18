@@ -172,27 +172,37 @@ class ReservaController extends Controller
 
     public function update(Request $request, Reserva $reserva)
     {
-        
-        // Bloqueia se o usuário não for admin e não for o dono da reserva
         if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
             return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
         }
- 
+
         $request->validate([
             'sala_id' => 'required|exists:salas,id',
-            // 'data_inicio' => 'required|date',
             'hora_inicio' => 'required|date_format:H:i',
-            'data_fim' => 'required|date_format:H:i|after:hora_inicio',
+            'data_fim' => 'required|date_format:H:i',
         ]);
 
+        // Monta datas completas
+        $inicio = Carbon::parse($request->data_inicio . ' ' . $request->hora_inicio);
+        $fim    = Carbon::parse($request->data_inicio . ' ' . $request->data_fim);
+
+        // Verificação: término não pode ser menor ou igual ao início
+        if ($fim->lte($inicio)) {
+            return back()->withErrors([
+                'data_fim' => 'A hora de término deve ser maior que a hora de início.'
+            ])->withInput();
+        }
+
+        // Atualiza
         $reserva->update([
             'sala_fk' => $request->input('sala_id'),
-            'data_inicio' => $request->input('data_inicio') . ' ' . $request->input('hora_inicio'),
-            'data_fim' => $request->input('data_inicio') . ' ' . $request->input('data_fim'),
+            'data_inicio' => $inicio,
+            'data_fim' => $fim,
         ]);
 
         return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
     }
+
 
     public function destroy(Reserva $reserva)
     {
