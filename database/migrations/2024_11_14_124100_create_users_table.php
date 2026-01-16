@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('login')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->string('cpf')->unique(); // Adicionando a coluna CPF
+            // $table->string('cpf')->unique(); // Adicionando a coluna CPF
             $table->unsignedBigInteger('unidade_fk')->nullable();
             $table->foreign('unidade_fk')->references('id')->on('unidades')->onDelete('set null');
 

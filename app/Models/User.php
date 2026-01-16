@@ -20,14 +20,17 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'login',
         'email',
         'password',
-        'unidade_fk',
-        'role', // Add role to fillable attributes
-        'image',
         'cpf',
-        'login',
-        'tutorial_exibido'=> 'boolean',
+        'unidade_fk',
+        'guid',
+        'domain',
+        'auth_provider',
+        'is_admin',
+        'tutorial_exibido',
     ];
 
     /**
@@ -49,8 +52,9 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            // 'password' => 'hashed',
             'is_admin' => 'boolean',
+            'tutorial_exibido' => 'boolean'
         ];
     }
 

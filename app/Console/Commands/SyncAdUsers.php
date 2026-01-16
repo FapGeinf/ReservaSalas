@@ -34,11 +34,12 @@ class SyncAdUsers extends Command
 										'login'    => $samAccountName,
 										'username' => $samAccountName,
 										'name'     => $displayName ?? $samAccountName,
-										'password' => bcrypt('123456'), // senha padrão temporária
+										'password' => null, // a senha via ldap deve constar como null
 										'tipo'     => 'usuario',
 										'is_admin' => 0,
 										'domain'   => 'fap.local',
 										'guid'     => $guid,
+										'auth_provider' => 'ldap',
 								]
 						);
 
