@@ -31,23 +31,20 @@ class AuthenticatedSessionController extends Controller
             'login'    => ['required', 'string'],
             'password' => ['required', 'string'],
         ]);
+        
+    
+        $domain = env('LDAP_AUTH_DOMAIN');
 
         $loginInput = $request->login;
+        $passwordInput = $request->password;
 
-        // login interno (sam)
-        $loginSam = str_contains($loginInput, '@')
-            ? explode('@', $loginInput)[0]
-            : $loginInput;
+        $loginSam = trim($loginInput );
+        $ldapLogin =  $loginSam . '@' . $domain;
 
-        // login LDAP (UPN)
-        $ldapLogin = str_contains($loginInput, '@')
-            ? $loginInput
-            : $loginSam . '@fapeam.local';
-        
         try {
             if (!Container::getConnection('default')
                 ->auth()
-                ->attempt($ldapLogin, $request->password)
+                ->attempt($ldapLogin, $passwordInput)
             ) {
                 return back()->withErrors([
                     'login' => 'Usuário ou senha inválidos no AD.',
@@ -67,7 +64,7 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
 
-            
+            $domain = env('LDAP_AUTH_DOMAIN');
             $user = User::updateOrCreate(
                 ['guid' => $ldapUser->getConvertedGuid()],
                 [
@@ -75,7 +72,7 @@ class AuthenticatedSessionController extends Controller
                     'username'      => $loginSam,
                     'name'          => $ldapUser->getFirstAttribute('displayname') ?? $loginSam,
                     'email'         => $ldapUser->getFirstAttribute('mail'),
-                    'domain'        => 'fapeam.local',
+                    'domain'        => $domain,
                     'auth_provider' => 'ldap',
                     'password'      => null,
                 ]
