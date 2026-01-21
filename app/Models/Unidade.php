@@ -10,11 +10,11 @@ class Unidade extends Model
 {
         use HasFactory;
 
-        protected $fillable =['nome', 'sigla'];
+        protected $fillable =['nome', 'sigla','dn','ad_guid','active'];
 
         public function User()
         {
-            return $this->hasMany(User::class, 'user_id', 'id');
+            return $this->hasMany(User::class, 'unidade_fk', 'id');
         }
 
 
