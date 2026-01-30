@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nome');
-            $table->string('sigla', '10');
+            $table->string('sigla', '30');
             // $table->unsignedInteger('gestor_fk');
 
         });
