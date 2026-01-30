@@ -1,7 +1,7 @@
-@vite(['resources/js/flatpickr-data.js'])
+@vite(['resources\js\flatpickr-data.js'])
 
 <head>
-  <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ asset('css\sidebar.css') }}">
 </head>
 
 <!-- Botão para abrir a sidebar -->
