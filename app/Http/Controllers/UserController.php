@@ -26,8 +26,8 @@ class UserController extends Controller
     // Validação dos dados
     $request->validate([
      'name' => 'required|string|max:255',
-     'email' => 'required|string|email|max:255|unique:users',
-     'cpf' => 'nullable|string|max:14|unique:users', // Alterado para nullable
+    //  'email' => 'required|string|email|max:255|unique:users',
+    //  'cpf' => 'nullable|string|max:14|unique:users', // Alterado para nullable
      'unidade_fk' => 'required|exists:unidades,id',
      'login' => 'required|string|max:255|unique:users',
      'password' => 'required|string|min:8|confirmed',
@@ -45,8 +45,8 @@ class UserController extends Controller
     // Cria o usuário
     User::create([
         'name' => $request->name,
-        'email' => $request->email,
-        'cpf' => $request->cpf,
+        // 'email' => $request->email,
+        // 'cpf' => $request->cpf,
         'unidade_fk' => $request->unidade_fk,
         'login' => $request->login,
         'password' => bcrypt($request->password),
@@ -57,9 +57,9 @@ class UserController extends Controller
 }
     public function update(Request $request, $id)
 {
-    $request->validate([
-        'cpf' => 'required|unique:users,cpf,' . $id, // Permite atualizar sem duplicar
-    ]);
+    // $request->validate([
+    //     'cpf' => 'required|unique:users,cpf,' . $id, // Permite atualizar sem duplicar
+    // ]);
 
     $user = User::findOrFail($id);
     $user->cpf = $request->cpf;

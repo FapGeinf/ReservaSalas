@@ -44,11 +44,11 @@ class ProfileController extends Controller
         $user = $request->user();
         $user->fill($request->validated());
     
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
+        // if ($user->isDirty('email')) {
+        //     $user->email_verified_at = null;
+        // }
     
-        $user->cpf = $request->input('cpf');
+        // $user->cpf = $request->input('cpf');
         $user->unidade_fk = $request->input('unidade_fk');
     
         if ($request->filled('password')) {
@@ -87,8 +87,8 @@ class ProfileController extends Controller
      { 
         return [ 
             'name' => 'required|string|max:255', 
-            'email' => 'required|string|email|max:255', 
-            'cpf' => 'required|string|max:14', 
+            // 'email' => 'required|string|email|max:255', 
+            // 'cpf' => 'required|string|max:14', 
             'unidade_fk' => 'required|integer', 
             'password' => 'nullable|string|min:8|confirmed', ];
          }
