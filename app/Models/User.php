@@ -24,7 +24,6 @@ class User extends Authenticatable
         'login',
         'email',
         'password',
-        'cpf',
         'unidade_fk',
         'guid',
         'domain',
