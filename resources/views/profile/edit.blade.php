@@ -24,16 +24,12 @@
       <div class="col-12">
         <label for="name" class="fw-bold">Nome Completo:</label>
         <input type="text" id="name" name="name" class="input-custom" value="{{ old('name', auth()->user()->name) }}" required placeholder="ex: Julliany Souza" autocomplete="name">
-
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
       </div>
 
       <div class="col-12">
         <label for="email" class="fw-bold">Email:</label>
         <input type="email" id="email" name="email" class="input-custom" value="{{ old('email', auth()->user()->email) }}"
-        required placeholder="ex: meuemail@email.com" autocomplete="username">
-
-        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        placeholder="ex: meuemail@email.com" autocomplete="username">
       </div>
 
       <div class="col-12">
@@ -48,7 +44,7 @@
       </div>
     </div>
 
-    <div class="row g-3 mt-1">
+    {{-- <div class="row g-3 mt-1">
       <div class="col-12 col-sm-6">
         <label for="password" class="fw-bold">Senha:</label>
         <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
@@ -60,7 +56,7 @@
         <input type="password" id="password_confirmation" name="password_confirmation" class="input-custom" placeholder="Repita a senha" autocomplete="new-password">
         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
       </div>
-    </div>
+    </div> --}}
   </form>
 </div>
 
