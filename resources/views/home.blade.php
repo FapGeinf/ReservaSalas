@@ -308,6 +308,11 @@
             <i class="bi bi-trash fs-icon me-1"></i>
             Excluir
           </button>
+        @else
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Fechar
+        </button>
         @endif
       </div>
     </div>
@@ -376,6 +381,12 @@
           <button type="button" id="btnExcluirReservaUnica" class="button-red">
             <i class="bi bi-trash fs-icon me-1"></i>
             Excluir
+          </button>
+
+        @else
+          <button type="button" class="button-grey" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg me-1"></i>
+            Fechar
           </button>
         @endif
       </div>
