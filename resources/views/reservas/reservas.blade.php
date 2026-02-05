@@ -311,7 +311,7 @@
         icon: 'success',
         confirmButtonText: 'Fechar',
         customClass: {
-          confirmButton: 'button-red'
+          confirmButton: 'button-green'
         }
       });
     });
