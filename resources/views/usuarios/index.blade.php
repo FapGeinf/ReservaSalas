@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
 <link rel="stylesheet" href="{{ asset('css/table-responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
@@ -30,7 +31,10 @@
           title: 'Sucesso!',
           text: '{{ session('success') }}',
           icon: 'success',
-          confirmButtonText: 'Fechar'
+          confirmButtonText: 'Fechar',
+          customClass: {
+            confirmButton: 'button-red'
+          }
         });
       });
     </script>

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
+<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <script>
@@ -35,7 +36,10 @@
           title: 'Sucesso!',
           text: '{{ session('success') }}',
           icon: 'success',
-          confirmButtonText: 'Fechar'
+          confirmButtonText: 'Fechar',
+          customClass: {
+            confirmButton: 'button-red'
+          }
         });
       });
     </script>

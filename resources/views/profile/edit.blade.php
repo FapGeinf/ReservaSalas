@@ -7,9 +7,24 @@
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
 
-<x-alert-toast/>
+@push('scripts')
+  @if (session('success'))
+    <script>
+      Swal.fire({
+        title: 'Sucesso!',
+        text: @json(session('success')),
+        icon: 'success',
+        confirmButtonText: 'Fechar',
+        buttonsStyling: false,
+        customClass: { confirmButton: 'button-green' }
+      }).then(() => {
+        window.location.href = "{{ route('home') }}";
+      });
+    </script>
+  @endif
+@endpush
 
 <div class="form-custom no-border-bottom form-no-bottom mt-5" style="max-width: 480px;">
   <h5 class="fw-bold text-center text-uppercase">
@@ -43,20 +58,6 @@
         </select>
       </div>
     </div>
-
-    {{-- <div class="row g-3 mt-1">
-      <div class="col-12 col-sm-6">
-        <label for="password" class="fw-bold">Senha:</label>
-        <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
-        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-      </div>
-
-      <div class="col-12 col-sm-6">
-        <label for="password_confirmation" class="fw-bold">Repita a senha:</label>
-        <input type="password" id="password_confirmation" name="password_confirmation" class="input-custom" placeholder="Repita a senha" autocomplete="new-password">
-        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-      </div>
-    </div> --}}
   </form>
 </div>
 
@@ -69,6 +70,5 @@
   </div>
 </div>
 
-@endsection
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+@endsection
