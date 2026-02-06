@@ -49,8 +49,8 @@
             Lista de Reuniões
           </a>
         </li>
-
-        @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+        <!-- Para referencias a admin, utilizar o campo is_admin -->
+        @if(Auth::check() && Auth::user()->is_admin == 1)
           <li class="nav-item">
             <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
               <i class="bi bi-door-open me-1"></i>

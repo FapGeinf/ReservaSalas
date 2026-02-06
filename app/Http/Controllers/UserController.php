@@ -62,7 +62,7 @@ class UserController extends Controller
     // ]);
 
     $user = User::findOrFail($id);
-    $user->cpf = $request->cpf;
+    // $user->cpf = $request->cpf;
     $user->save();
 
     return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
