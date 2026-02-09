@@ -206,17 +206,14 @@ class ReservaController extends Controller
 
     public function destroy(Reserva $reserva)
     {
-        // Permite que apenas administradores ou o próprio usuário excluam a reserva
-        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-             return back()->with('error', 'Você não tem permissão para excluir esta reserva.');
-        }
+        $user = auth()->user();
+        if($user->is_admin || $user->id === $reserva->user_id){
 
-        try {
             $reserva->delete();
-            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-        } catch (\Exception $e) {
-            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+            
+            return back()->with('success', 'Reserva excluída com sucesso');
         }
+        return back()->with('error', 'Este perfil de usuario não tem permissão para excluir esta reserva.');
     }
 
     public function view($id)
