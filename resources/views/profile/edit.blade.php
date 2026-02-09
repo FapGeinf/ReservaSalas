@@ -50,7 +50,7 @@
       <div class="col-12">
         <label for="unidade_fk" class="fw-bold">Unidade:</label>
 
-        <select name="unidade_fk" id="unidade_fk" class="form-control form-select input-custom pointer" required>
+        <select name="unidade_fk" id="unidade_fk" class="form-control form-select input-custom pointer" disabled>
           <option value="" selected disabled>Selecione a unidade</option>
           @foreach($unidades as $unidade)
             <option value="{{ $unidade->id }}" {{ auth()->user()->unidade_fk == $unidade->id ? 'selected' : '' }}>{{ $unidade->nome }}</option>

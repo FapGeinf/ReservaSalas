@@ -136,8 +136,8 @@
               <label for="tipo_reserva" class="fw-semibold">Tipo de Reserva:</label>
               <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
                 <option value="" selected disabled>Selecione uma opção</option>
-                <option value="interno">Uso interno</option>
-                <option value="pesquisador">Pesquisador externo</option>
+                <option value="interno">Reunião interna</option>
+                <option value="pesquisador">Atendimento ao pesquisador</option>
               </select>
             </div>
           </div>
