@@ -157,51 +157,56 @@ class ReservaController extends Controller
     {
         return view('reservas.show', compact('reserva'));
     }
-
+    
     public function edit(Reserva $reserva)
     {
-        // Verifica se o usuário é admin OU se a reserva pertence a ele
-        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('error', 'Você não tem permissão para editar esta reserva.');
-        }
+        $user = auth()->user();
 
+        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+            return back()->with(
+                'error',
+                'Este perfil de usuário não tem permissão para editar esta reserva.'
+            );
+        }
         $salas = Sala::all();
-        $users = User::all();
-        return view('reservas.edit', compact('reserva', 'salas', 'users'));
+        return view('reservas.edit', compact('reserva','salas'));
     }
 
     public function update(Request $request, Reserva $reserva)
     {
-        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
+        $user = auth()->user();
+
+        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+            return back()->with(
+                'error',
+                'Este perfil de usuário não tem permissão para alterar esta reserva.'
+            );
         }
 
         $request->validate([
-            'sala_id' => 'required|exists:salas,id',
+            'sala_id'     => 'required|exists:salas,id',
             'hora_inicio' => 'required|date_format:H:i',
-            'data_fim' => 'required|date_format:H:i',
+            'data_fim'    => 'required|date_format:H:i',
         ]);
 
-        // Monta datas completas
         $inicio = Carbon::parse($request->data_inicio . ' ' . $request->hora_inicio);
         $fim    = Carbon::parse($request->data_inicio . ' ' . $request->data_fim);
 
-        // Verificação: término não pode ser menor ou igual ao início
         if ($fim->lte($inicio)) {
-            return back()->withErrors([
-                'data_fim' => 'A hora de término deve ser maior que a hora de início.'
-            ])->withInput();
+            return back()
+                ->withErrors(['data_fim' => 'A hora de término deve ser maior que a hora de início.'])
+                ->withInput();
         }
 
-        // Atualiza
         $reserva->update([
-            'sala_fk' => $request->input('sala_id'),
+            'sala_fk'     => $request->sala_id,
             'data_inicio' => $inicio,
-            'data_fim' => $fim,
+            'data_fim'    => $fim,
         ]);
 
-        return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
+        return back()->with('success', 'Reserva atualizada com sucesso!');
     }
+
 
 
     public function destroy(Reserva $reserva)
