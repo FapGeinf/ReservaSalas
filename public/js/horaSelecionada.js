@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (dataSelecionada < hoje) {
         Swal.fire({
+          position: 'top',
           title: 'Erro!',
           text: 'A data selecionada já passou. Escolha uma data futura.',
           icon: 'error',

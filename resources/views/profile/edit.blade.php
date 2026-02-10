@@ -13,6 +13,7 @@
   @if (session('success'))
     <script>
       Swal.fire({
+        position: 'top',
         title: 'Sucesso!',
         text: @json(session('success')),
         icon: 'success',

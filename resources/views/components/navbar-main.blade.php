@@ -3,7 +3,7 @@
 </head>
 
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="modalReservaLabel">Nova Reserva</h6>

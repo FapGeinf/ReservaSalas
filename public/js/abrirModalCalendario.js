@@ -25,6 +25,7 @@ $(document).ready(function() {
           $('#modalReserva').modal('hide');
           // Mostra mensagem de sucesso
           Swal.fire({
+            position: 'top',
             title: 'Sucesso!',
             text: 'Reserva realizada com sucesso!',
             icon: 'success',
@@ -42,6 +43,7 @@ $(document).ready(function() {
 
       error: function(xhr) {
         Swal.fire({
+          position: 'top',
           title: 'Desculpe!',
           text: xhr.responseJSON?.message ||
             'Erro ao realizar reserva',

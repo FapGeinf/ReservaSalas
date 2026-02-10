@@ -27,6 +27,7 @@ $('#deleteForm').on('submit', function(e) {
 
       // Mostra mensagem de sucesso
       Swal.fire({
+        position: 'top',
         title: 'Sucesso!',
         text: 'Reserva excluída com sucesso!',
         icon: 'success',
@@ -43,6 +44,7 @@ $('#deleteForm').on('submit', function(e) {
 
     error: function(xhr) {
       Swal.fire({
+        position: 'top',
         title: 'Erro!',
         text: xhr.responseJSON?.message || 'Erro ao excluir reserva',
         icon: 'error',
