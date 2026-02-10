@@ -1,6 +1,6 @@
 .nav-buttons,
 a.nav-buttons {
-  color: #303030;
+  color: #fff;
   border: none;
   font-size: 13px;
   border-radius: 4px;
@@ -10,19 +10,30 @@ a.nav-buttons {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
-  background-color: #f1f1f1;
+  background-color: #7c951a;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
 
 .nav-buttons:hover,
 a.nav-buttons:hover {
-  transition: .3s;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  background-color: #667a1c;
 }
 
-.li-person:hover {
-  background-color: #fff !important;
+.nav-buttons:focus,
+.nav-buttons:active,
+a.nav-buttons:focus,
+a.nav-buttons:active {
+  color: #fff;
 }
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+  color: #fff !important;
+}
+
+/* .li-person:hover {
+  background-color: #fff !important;
+} */
 
 .dropdown-custom {
   position: relative;
