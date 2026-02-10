@@ -2,16 +2,12 @@
 @section('title') {{ 'Lista de Reuniões' }} @endsection
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/user.css') }}">
-<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+<link rel="stylesheet" href="{{ asset('css/table-borders.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
-<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
@@ -19,29 +15,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<style>
-  #reservas {
-    border-collapse: separate;
-    border-spacing: 0;
-  }
-
-  /* TH */
-  #reservas thead th {
-    border-right: 1px solid #ccc;
-  }
-  #reservas thead th:last-child {
-    border-right: none;
-  }
-
-  /* TD */
-  #reservas tbody td {
-    border-right: 1px solid #ccc;
-  }
-  #reservas tbody td:last-child {
-    border-right: none;
-  }
-</style>
 
 <div class="container mt-5">
   <div class="tabela-main-page">
@@ -53,14 +26,14 @@
       <table id="reservas" class="table table-striped border-bottom-0 my-3">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Sala</th>
-            <th>Hora Início</th>
-            <th>Hora Término</th>
-            <th>Reservado Por</th>
-            <th>Unidade</th>
-            <th>Tipo de Reserva</th>
-            <th>Opções</th>
+            <th class="fs-13">Id</th>
+            <th class="fs-13">Sala</th>
+            <th class="fs-13">Hora Início</th>
+            <th class="fs-13 text-nowrap">Hora Término</th>
+            <th class="fs-13">Reservado Por</th>
+            <th class="fs-13">Unidade</th>
+            <th class="fs-13 text-nowrap">Tipo de Reserva</th>
+            <th class="fs-13">Opções</th>
           </tr>
         </thead>
 
@@ -84,7 +57,7 @@
               <td data-th="Tipo Reserva" class="fs-13">{{ ucfirst($reserva->finalidade) ?? '—' }}</td>
               <td data-th="Opções" class="fs-13">
                 <div class="dropdown">
-                  <button class="custom-actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="button-garden" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
 
@@ -228,7 +201,7 @@
         Tem certeza que deseja excluir esta reserva?
       </div>
 
-      <div class="modal-footer" style="background-color: #f1f1f1; border-top: 0px;">
+      <div class="modal-footer bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
         <form id="deleteForm" method="POST">
           @csrf

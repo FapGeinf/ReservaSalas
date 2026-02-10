@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 
     <title>{{ config('', 'Agendaí!') }} | @yield('title')</title>
     <!-- Fonts -->
