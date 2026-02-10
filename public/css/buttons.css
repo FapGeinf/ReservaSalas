@@ -3,7 +3,8 @@
 .button-grey,
 .button-light-grey,
 .button-blue,
-.button-red {
+.button-red,
+.button-garden {
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -20,6 +21,14 @@
 
 .buttons-sm {
   padding: 6px 10px !important;
+}
+
+.button-garden {
+  background-color: #7c9522;
+}
+
+.button-garden:hover {
+  background-color: #667a1c;
 }
 
 .button-blue {
