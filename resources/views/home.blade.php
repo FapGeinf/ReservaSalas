@@ -6,11 +6,17 @@
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
 {{-- <script src="{{ asset('js/tutorial.js') }}"></script> --}}
+
+<style>
+  .fc-dayGridMonth-view {
+    background-color: #F3F7F2;
+  }
+</style>
 
 {{-- Não sei se esse botão é necessário --}}
 <script src="{{ asset('js/toggleDropdown.js') }}"></script>
@@ -75,7 +81,7 @@
               @if($situacao !== 'inativa')
                 <button 
                   type="button"
-                  class="button-blue btn-agendar fs-12 px-2 py-1 ms-2" 
+                  class="button-garden btn-agendar fs-12 px-2 py-1 ms-2" 
                   data-bs-toggle="modal" 
                   data-bs-target="#modalReserva"
                   data-sala-id="{{ $sala->id }}"
@@ -94,7 +100,7 @@
 
     <div class="col-12 col-lg-8 px-lg-3">
       <div class="caixa-calendario" data-help="calendario-principal">
-        <div class="area-calendario border-bottom rounded my-3">
+        <div class="area-calendario rounded my-3">
           <div id="calendar" class="calendar-container main-calendar"></div>
         </div>
       </div>
@@ -104,7 +110,7 @@
 
 <!-- Modal de Reserva -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="modalReservaLabel">Nova Reserva</h6>
@@ -180,7 +186,7 @@
 
 <!-- Modal de Edição de Reserva -->
 <div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="modal-editar-reserva-label">Editar Reserva</h6>
@@ -250,7 +256,7 @@
                    
 <!-- Modal Detalhes da Reserva -->
 <div class="modal fade" id="modalDetalhesReserva" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title">Detalhes da Reserva</h6>
@@ -308,6 +314,7 @@
             <i class="bi bi-trash fs-icon me-1"></i>
             Excluir
           </button>
+
         @else
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>
@@ -324,7 +331,7 @@
 
 <!-- Modal Detalhes de Reservas Feitas do bloco da esquerda -->
 <div class="modal fade" id="modalReservaUnica" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title">Detalhes da Reserva</h6>
@@ -402,7 +409,7 @@
 
 <!-- Modal de Confirmação de Exclusão -->
 <div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title">Confirmar Exclusão</h6>
@@ -426,11 +433,10 @@
   </div>
 </div>
 
-
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h6>
@@ -462,7 +468,7 @@
 
 <!-- Modal de Erro - Data Passada -->
 <div class="modal fade" id="modalErroDataPassada" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title">Data inválida</h6>
