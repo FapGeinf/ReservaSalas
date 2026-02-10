@@ -22,7 +22,7 @@
   </style>
 </head>
 
-<nav class="navbar navbar-expand-lg fixed-top py-0" style="background-color: #2d5857;">
+<nav class="navbar navbar-expand-lg fixed-top py-0" style="background-color: #314b27;">
   <div class="container-fluid">
 
     <a class="navbar-brand" href="{{ route('home') }}">
@@ -70,7 +70,7 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle nav-buttons fs-12" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-gear me-1"></i>
+            {{-- <i class="bi bi-gear me-1"></i> --}}
             Conta
           </a>
 
@@ -84,7 +84,7 @@
               </i>
 
               <div class="text-capitalized">
-                <strong style="color: #394151;">{{ Auth::user()->name }}</strong>
+                <strong style="color: #394151; word-break: break-word">{{ Auth::user()->name }}</strong>
                 <br>
                 <small class="text-muted">
                   <i class="bi bi-building"></i>
