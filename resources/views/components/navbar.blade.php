@@ -1,5 +1,6 @@
 <head>
   <link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
@@ -18,6 +19,35 @@
 
     .navbar .dropdown-menu {
       z-index: 1055;
+    }
+
+    .nav-account {
+      gap: 8px;
+    }
+
+    .nav-user-name {
+      font-size: 12px;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .nav-separator {
+      color: #9ca3af;
+      font-size: 12px;
+    }
+
+    .nav-logout {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 12px;
+      color: #dc2626;
+      cursor: pointer;
+    }
+
+    .nav-logout:hover {
+      color: #b32020;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -67,48 +97,22 @@
         @endif
       </ul>
 
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle nav-buttons fs-12" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{-- <i class="bi bi-gear me-1"></i> --}}
-            Conta
-          </a>
+      <ul class=" ms-auto mb-2 mb-lg-0">
+        <li class="nav-item d-flex align-items-center nav-account">
+          <span class="nav-user-name">
+            {{ Auth::user()->name }}
+            •
+            {{ Auth::user()->unidade ? explode(' ', Auth::user()->unidade->nome)[0] : 'Unidade não encontrada' }}
+          </span>
 
-          <ul class="dropdown-menu dropdown-menu-start-sm">
-            <li class="dropdown-item d-flex align-items-center li-person">
-              <i class="bi bi-person-circle"
-                style="
-                font-size: 2rem;
-                margin-right: 10px; 
-                color: #394151";>
-              </i>
+          <span class="nav-separator">|</span>
 
-              <div class="text-capitalized">
-                <strong style="color: #394151; word-break: break-word">{{ Auth::user()->name }}</strong>
-                <br>
-                <small class="text-muted">
-                  <i class="bi bi-building"></i>
-                  {{ Auth::user()->unidade ? explode(' ', Auth::user()->unidade->nome)[0] : 'Unidade não encontrada' }}
-                </small>
-              </div>
-            </li>
-
-            <li><hr class="dropdown-divider"></li>
-            
-            <li class="fs-13">
-              <a class="dropdown-item nav-buttons-dp" href="{{ route('profile.edit') }}">
-                Editar Perfil
-              </a>
-            </li>
-
-            <li>
-              <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0;">
-                @csrf
-                <button class="dropdown-item fs-13" type="submit">Sair</button>
-              </form>
-            </li>
-          </ul>
-
+          <form method="POST" action="{{ route('logout') }}" class="m-0">
+            @csrf
+            <button type="submit" class="button-garden">
+              Sair
+            </button>
+          </form>
         </li>
       </ul>
 
