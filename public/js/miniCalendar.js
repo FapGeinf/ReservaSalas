@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
+    dayHeaderFormat: { weekday: 'long' },
     allDaySlot: false,
     slotDuration: '00:15:00',
     slotLabelInterval: '00:30:00',
