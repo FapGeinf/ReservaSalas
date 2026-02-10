@@ -192,7 +192,7 @@ th, td {
 }
 
 th {
-  background-color: #2d5857;
+  background-color: #314b27;
 }
 
 .salas-grid {
@@ -229,7 +229,7 @@ h6.modal-title {
 .calendar-container {
   width: 100%;
   max-width: 100%;
-  height: 78vh; /* ocupa 80% da altura visível */
+  /* height: 78vh;  ocupa 80% da altura visível */
   max-height: 90vh; /* nunca ultrapassa o tamanho total da tela */
   overflow-y: auto;
   overflow-x: hidden;

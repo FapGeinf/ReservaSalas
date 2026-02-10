@@ -1,49 +1,4 @@
-.table-reservas {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.table-reservas caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-
-.table-reservas tr {
-  background-color: #fff;
-  border: 1px solid #e1e5e9;
-  padding: .35em;
-  border-radius: 3px;
-}
-
-.table-reservas thead tr:first-child {
-  border: 1px solid #255957;
-}
-
-.table-reservas th,
-.table-reservas td {
-  text-align: center;
-  color: #9da9b9;
-  font-size: 14px;
-}
-
-.table-reservas th {
-  font-size: .85em;
-  /* letter-spacing: .1em; */
-  text-transform: uppercase;
-  background: #255957;
-  color: #FFF;
-}
-
-table.table-reservas.no-footer {
-  border-bottom: 1px solid #cccccc !important;
-}
-
-/*  */
-
-.table-reservas {
+table {
 	border: 1px solid #ccc;
 	border-collapse: collapse;
 	margin: 0;
@@ -51,127 +6,105 @@ table.table-reservas.no-footer {
 	width: 100%;
 }
 
-.table-reservas caption {
+colgroup {
+  display: none;
+}
+
+table caption {
 	font-size: 1.5em;
 	margin: .5em 0 .75em;
 }
 
-.table-reservas tr {
+table tr {
 	background-color: #fff;
 	border: 1px solid #e1e5e9;
 	padding: .35em;
-	border-radius: 3px;
+	border: 1px solid #ccc;
 }
 
-.table-reservas thead tr:first-child {
-  border: 1px solid #255957;
+table.dataTable thead .sorting {
+  color: #fff !important;
+  background-color: #334b28 !important;
 }
 
-.table-reservas th,
-.table-reservas td {
+
+
+table.dataTable thead > tr > th.dt-orderable-asc,
+table.dataTable thead > tr > th.dt-orderable-desc,
+table.dataTable thead > tr > td.dt-orderable-asc,
+table.dataTable thead > tr > td.dt-orderable-desc {
 	text-align: center;
-	color: #9da9b9;
-	font-size: 14px;
 }
 
-.table-reservas th {
-	font-size: .85em;
-	text-transform: uppercase;
-	background: #255957;
-	color: #FFF;
-}
-
-.table-reservas tbody tr td .btn-invoice {
-	background: #3fb293;
-	color: #FFF;
-	font-size: 13px;
-	padding: 10px 20px;
-	border: 0;
-}
-
-.table-reservas.dataTable.no-footer {
-	border-bottom: 1px solid #cccccc !important;
-}
-
-.table-reservas tbody tr:nth-child(even) {
-	background-color: #eee !important;
-}
-
-.table-reservas tbody tr:nth-child(odd) {
-	background-color: #fff !important;
-}
-
-/* Envolva a tabela com uma div que controle o overflow */
-.tabela-wrapper {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.dataTables_wrapper {
-	overflow-x: auto;
-}
-
-/* Tabela responsiva vertical */
-.tabela-detalhes {
-  width: 100%;
-  min-width: 300px; /* evita colapsar demais */
-  border-collapse: collapse;
+.tabelas {
+  padding: 20px;
   font-size: 14px;
   background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  border-radius: 6px;
-  overflow: hidden;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  border-radius: 8px;
 }
 
-.tabela-detalhes tr {
-  display: flex;
-  flex-wrap: wrap; /* permite quebrar em telas menores */
-  justify-content: space-between;
-  padding: 8px 16px;
-  border-bottom: 1px solid #eee;
+h5 {
+  color: #374151;
+  font-weight: 600;
 }
 
-.tabela-detalhes tr:last-child {
-  border-bottom: none;
+.th-color {
+  color: #374151 !important;
 }
 
-.tabela-detalhes td {
-  padding: 8px 0;
-  color: #333;
-  flex: 1;
-  min-width: 120px; /* controla quebra */
+div.dt-container .dt-paging .dt-paging-button {
+  padding: .1em .5em !important;
+  font-size: 14px !important;
 }
 
-.tabela-detalhes td:first-child {
-  font-weight: bold;
-  color: #555;
-  flex: 1.2;
+.dt-info {
+  font-size: 14px !important;
 }
 
-.tabela-detalhes td:last-child {
-  text-align: right;
-  flex: 2;
-  color: #222;
-  font-weight: 500;
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  font-size: 13px;
 }
 
-.tabela-detalhes .acoes {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
+/* O DROPDOWN QUEBRAVA NA SEGUNDA PÁGINA DO DATATABLE POR CAUSA DESSA BENÇÃO QUE ESTAVA EM 'AUTO' */
+.table-responsive {
+  overflow-x: inherit;
 }
 
-.tabela-detalhes .acoes button {
-  background: #f1f1f1;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #444;
+@media(min-width: 769px) {
+	table th,
+	table td {
+		text-align: center;
+	}
+
+  table.dataTable td.dt-type-numeric {
+    text-align: center !important;
+  }
 }
 
-.tabela-detalhes .acoes button:hover {
-  background: #ddd;
+@media(max-width: 768px) {
+	thead {
+		display: none;
+	}
+
+	td {
+		display: grid;
+		gap: .5rem;
+		grid-template-columns: 30ch auto;
+		text-align: left !important;
+	}
+
+	td::before {
+		content: attr(data-th) ": ";
+		font-weight: bold;
+		color: #374151;
+		text-transform: uppercase;
+	}
+
+	.custom-actions-menu {
+		right: unset;
+	}
 }
