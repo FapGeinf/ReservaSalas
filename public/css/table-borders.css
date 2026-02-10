@@ -7,24 +7,29 @@
   color: #fff !important;
 }
 
-#reservas {
+#reservas,
+#tableSalas {
   border-collapse: separate;
   border-spacing: 0;
 }
 
 /* TH */
-#reservas thead th {
+#reservas thead th,
+#tableSalas thead th {
   border-right: 1px solid #ccc;
 }
-#reservas thead th:last-child {
+#reservas thead th:last-child,
+#tableSalas thead th:last-child {
   border-right: none;
 }
 
 /* TD */
-#reservas tbody td {
+#reservas tbody td,
+#tableSalas tbody td {
   border-right: 1px solid #ccc;
 }
 
-#reservas tbody td:last-child {
+#reservas tbody td:last-child,
+#tableSalas tbody td:last-child {
   border-right: none;
 }
