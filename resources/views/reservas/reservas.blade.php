@@ -9,16 +9,17 @@
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 
+<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-<script src="js/custom.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="container mt-5">
   <div class="tabela-main-page">
-    <div class="text-center fw-bold mb-4">
+    <div class="text-center fw-semibold mb-4">
       <span class="title-meetings">Lista de Reuniões</span>
     </div>
 
@@ -57,7 +58,7 @@
               <td data-th="Tipo Reserva" class="fs-13">{{ ucfirst($reserva->finalidade) ?? '—' }}</td>
               <td data-th="Opções" class="fs-13">
                 <div class="dropdown">
-                  <button class="button-garden" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="button-garden" type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
 

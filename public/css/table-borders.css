@@ -8,28 +8,33 @@
 }
 
 #reservas,
-#tableSalas {
+#tableSalas,
+#tableUsers {
   border-collapse: separate;
   border-spacing: 0;
 }
 
 /* TH */
 #reservas thead th,
-#tableSalas thead th {
+#tableSalas thead th,
+#tableUsers thead th {
   border-right: 1px solid #ccc;
 }
 #reservas thead th:last-child,
-#tableSalas thead th:last-child {
+#tableSalas thead th:last-child,
+#tableUsers thead th:last-child {
   border-right: none;
 }
 
 /* TD */
 #reservas tbody td,
-#tableSalas tbody td {
+#tableSalas tbody td,
+#tableUsers tbody td {
   border-right: 1px solid #ccc;
 }
 
 #reservas tbody td:last-child,
-#tableSalas tbody td:last-child {
+#tableSalas tbody td:last-child,
+#tableUsers tbody td:last-child {
   border-right: none;
 }

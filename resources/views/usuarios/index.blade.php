@@ -2,26 +2,14 @@
 @section('title') {{ 'Usuários Cadastrados' }} @endsection
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/user.css') }}">
-<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+<link rel="stylesheet" href="{{ asset('css/table-borders.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dropdown.css') }}">
-<link rel="stylesheet" href="{{ asset('css/table-responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
-<style>
-  .dataTables_wrapper .dataTables_info {
-    font-size: 13px;
-  }
-</style>
 
 @push('scripts')
   @if(session('success'))
@@ -44,49 +32,64 @@
 
 <div class="container mt-5">
   <div class="tabela-main-page">
-    <div class="d-flex justify-content-center fw-bold mb-4 align-items-center gap-2">
-      <span class="title-meetings text-uppercase">Usuários Cadastrados</span>
-      <a href="{{ route('usuarios.create') }}" class="button-blue text-decoration-none d-flex align-items-center justify-content-center" style="padding: 7px 9px;">
-        <i class="fas fa-plus" style="font-size: 10px;"></i>
-      </a>
+    <div class="text-center fw-semibold mb-4">
+      <div class="title-meetings">Usuários Cadastrados</div>
+
+      <div class="pt-1 pb-4">
+        <a href="{{ route('usuarios.create') }}" class="button-orange fw-normal text-decoration-none justify-content-center">
+          <i class="bi bi-plus fs-13"></i>
+          Novo Usuário
+        </a>        
+      </div>
     </div>
 
-    <table class="table table-striped" id="tableUsers">
+    <table id="tableUsers" class="table table-striped border-bottom-0 my-3">
       <thead>
         <tr>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Id</th>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Nome</th>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Login</th>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Email</th>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Unidade</th>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Tipo de Usuário</th>
-          <th class="text-light bg-color-dgreen align-middle fs-12">Opções</th>
+          <th class="fs-13 text-center">Id</th>
+          <th class="fs-13 text-center">Nome</th>
+          <th class="fs-13 text-center">Login</th>
+          <th class="fs-13 text-center">Email</th>
+          <th class="fs-13 text-center">Unidade</th>
+          <th class="fs-13 text-nowrap text-center">Tipo de Usuário</th>
+          <th class="fs-13 text-center">Opções</th>
         </tr>
       </thead>
 
       <tbody>
         @foreach($usuarios as $usuario)
-        <tr>
-          <td class="fs-13" data-th="Id">{{ $usuario->id }}</td>
-          <td class="fs-13" data-th="Nome">{{ $usuario->name }}</td>
-          <td class="fs-13" data-th="Login">{{ $usuario->login }}</td>
-          <td class="fs-13" data-th="Email">{{ $usuario->email }}</td>
-          <td class="fs-13" data-th="Unidade">{{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}</td>
+          <tr>
+            <td data-th="Id" class="fs-13">{{ $usuario->id }}</td>
+            <td data-th="Nome" class="fs-13">{{ $usuario->name }}</td>
+            <td data-th="Login" class="fs-13">{{ $usuario->login }}</td>
+            <td data-th="Email" class="fs-13">{{ $usuario->email }}</td>
+            <td data-th="Unidade" class="fs-13">{{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}</td>
 
-          <td class="fs-13" data-th="Tipo de Usuário">
-            @if(in_array($usuario->unidade_fk, [12, 14]))
-              Administrador
-            @else
-              Comum
-            @endif
-          </td>
+            <td data-th="Tipo de Usuário" class="fs-13">
+              @if(in_array($usuario->unidade_fk, [12, 14]))
+                Administrador
+              @else
+                Comum
+              @endif
+            </td>
 
-          <td class="fs-13" data-th="Opções">
-            <button type="button" class="button-red fs-13" style="padding: 2px 6px;" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
-              <i class="bi bi-trash fs-12 me-1"></i>Excluir
-            </button>
-          </td>
-        </tr>
+            <td data-th="Opções" class="fs-13">
+              <div class="dropdown">
+                <button class="button-garden" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 4px 9px;">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-dark">
+                  <li>
+                    <button type="button" class="dropdown-item fs-13" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
+                      <i class="bi bi-trash fs-12 me-1"></i>
+                      Excluir
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
         @endforeach
       </tbody>
     </table>

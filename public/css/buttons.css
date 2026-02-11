@@ -4,6 +4,7 @@
 .button-light-grey,
 .button-blue,
 .button-red,
+.button-orange,
 .button-garden {
   color: #fff;
   border: none;
@@ -23,6 +24,14 @@
   padding: 6px 10px !important;
 }
 
+.button-orange {
+  background-color: #C44900;
+}
+
+.button-orange:hover {
+  background-color: rgb(177, 68, 0);
+}
+
 .button-garden {
   background-color: #7c9522;
 }
@@ -32,11 +41,11 @@
 }
 
 .button-blue {
-  background-color: #3FA9F5;
+  background-color: #40476D;
 }
 
 .button-blue:hover {
-  background-color: #0284C7;
+  background-color: #2e334e;
 }
 
 .button-green {
