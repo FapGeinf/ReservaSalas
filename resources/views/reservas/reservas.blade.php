@@ -44,7 +44,7 @@
               <td data-th="Id" class="fs-13">{{ $reserva->id }}</td>
               <td data-th="Sala" class="fs-13">
                 <div class="mt-1">
-                  <p class="mb-1 text-uppercase">
+                  <p class="mb-1 text-capitalized">
                     {{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}
                   </p>
                 </div>
@@ -52,7 +52,22 @@
 
               <td data-th="Hora Início" class="fs-13">{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y \à\s H:i') }}</td>
               <td data-th="Hora Término" class="fs-13">{{ \Carbon\Carbon::parse($reserva->data_fim)->format('d/m/Y \à\s H:i') }}</td>
-              <td data-th="Reservado Por" class="fs-13">{{ $reserva->user ? $reserva->user->name : '' }}</td>
+
+              <td data-th="Reservado Por" class="fs-13">
+                @php
+                  $nome = $reserva->user ? $reserva->user->name : '';
+
+                  $nomeFormatado = collect(explode(' ', $nome))
+                    ->map(function ($parte) {
+                      $lower = mb_strtolower($parte, 'UTF-8');
+                      return in_array($lower, ['da', 'do', 'de'], true) ? $lower : $parte;
+                    })
+                    ->implode(' ');
+                @endphp
+
+                {{ $nomeFormatado }}
+              </td>
+
               <td data-th="Unidade" class="fs-13">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</td>
               <!-- <td>{{ ucfirst($reserva->finalidade) ?? 'N/A' }}</td> -->
               <td data-th="Tipo Reserva" class="fs-13">{{ ucfirst($reserva->finalidade) ?? '—' }}</td>
