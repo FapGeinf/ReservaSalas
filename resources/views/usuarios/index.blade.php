@@ -75,7 +75,7 @@
 
             <td data-th="Opções" class="fs-13">
               <div class="dropdown">
-                <button class="button-garden" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 4px 9px;">
+                <button class="button-garden" type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="padding: 4px 9px;">
                   <i class="bi bi-three-dots-vertical"></i>
                 </button>
 
