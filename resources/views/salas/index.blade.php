@@ -148,7 +148,7 @@
 
                         <div class="modal-footer bg-modal-footer">
                           <button type="button" class="button-grey" data-bs-dismiss="modal">
-                            <i class="bi bi-x me-1"></i>
+                            <i class="bi bi-x-lg me-1"></i>
                             Cancelar
                           </button>
 
@@ -215,7 +215,7 @@
 
                     <div class="modal-footer py-2 " style="background-color: #f1f1f1; border-top: 0px !important;">
                       <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">
-                        <i class="bi bi-x me-1"></i>
+                        <i class="bi bi-x-lg me-1"></i>
                         Cancelar
                       </a>
 
@@ -307,7 +307,7 @@
 
         <div class="modal-footer bg-modal-footer">
           <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">
-            <i class="bi bi-x me-1"></i>
+            <i class="bi bi-x-lg me-1"></i>
             Cancelar
           </a>
 

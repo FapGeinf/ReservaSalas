@@ -206,7 +206,7 @@
 
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title fw-medium">Confirmar Exclusão</h6>
@@ -218,7 +218,11 @@
       </div>
 
       <div class="modal-footer bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        </button>
+
         <form id="deleteForm" method="POST">
           @csrf
           @method('DELETE')

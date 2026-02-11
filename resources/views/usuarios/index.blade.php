@@ -111,7 +111,7 @@
 
       <div class="modal-footer py-2 bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x me-1"></i>
+          <i class="bi bi-x-lg me-1"></i>
           Cancelar
         </button>
 

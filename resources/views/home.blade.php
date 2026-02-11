@@ -422,7 +422,7 @@
 
       <div class="modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x me-1"></i>Cancelar
+          <i class="bi bi-x-lg me-1"></i>Cancelar
         </button>
 
         <button type="button" id="btnConfirmarExclusao" class="button-red">
@@ -481,7 +481,7 @@
 
       <div class="modal-footer py-2">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x me-1"></i>
+          <i class="bi bi-x-lg me-1"></i>
           Fechar
         </button>
       </div>
