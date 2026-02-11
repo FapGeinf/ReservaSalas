@@ -50,7 +50,7 @@
 
         <div class="d-flex align-items-center justify-content-center mb-1">
           <x-tooltip/>
-          <h6 class="fw-medium mb-0 ms-2">Reservar Salas</h6>
+          <h6 class="fw-semibold mb-0 ms-2">Reservar Salas</h6>
         </div>
 
         <div class="text-muted text-center mb-3" style="font-size: 13px;">

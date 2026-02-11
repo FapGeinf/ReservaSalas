@@ -97,10 +97,22 @@
         @endif
       </ul>
 
+      @php
+        use Illuminate\Support\Str;
+
+        $nomeFormatado = collect(explode(' ', Auth::user()->name))
+          ->map(function ($parte) {
+            return in_array(Str::lower($parte), ['da', 'do', 'de'])
+            ? Str::lower($parte)
+            : $parte;
+          })
+          ->implode(' ');
+      @endphp
+
       <ul class=" ms-auto mb-2 mb-lg-0">
         <li class="nav-item d-flex align-items-center nav-account">
           <span class="nav-user-name">
-            {{ Auth::user()->name }}
+            {{ $nomeFormatado }}
             •
             {{ Auth::user()->unidade ? explode(' ', Auth::user()->unidade->nome)[0] : 'Unidade não encontrada' }}
           </span>
