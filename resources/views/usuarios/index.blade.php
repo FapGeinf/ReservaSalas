@@ -81,8 +81,8 @@
 
                 <ul class="dropdown-menu dropdown-menu-dark">
                   <li>
-                    <button type="button" class="dropdown-item fs-13" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
-                      <i class="bi bi-trash fs-12 me-1"></i>
+                    <button type="button" class="dropdown-item text-danger fs-13" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
+                      <i class="bi bi-trash me-1"></i>
                       Excluir
                     </button>
                   </li>
@@ -98,7 +98,7 @@
 
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmação de Exclusão</h6>
@@ -109,7 +109,7 @@
         Tem certeza que deseja excluir este usuário?
       </div>
 
-      <div class="modal-footer py-2" style="background-color: #f1f1f1; border-top: 0px;">
+      <div class="modal-footer py-2 bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x me-1"></i>
           Cancelar

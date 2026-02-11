@@ -54,11 +54,11 @@
 
 <div class="container mt-5">
   <div class="tabela-main-page">
-    <div class="text-center fw-bold mb-4">
+    <div class="text-center fw-semibold mb-4">
       <span class="title-meetings">Lista de Salas</span>
 
         <div class="pt-1 pb-4">
-          <a href="#" class="button-blue fw-normal text-decoration-none"
+          <a href="#" class="button-orange fw-normal text-decoration-none"
             data-bs-toggle="modal" data-bs-target="#cadastrarSalaModal">
             <i class="bi bi-plus fs-13 me-1"></i>
             Nova Sala
@@ -184,18 +184,18 @@
                         @method('PUT')
 
                         <div class="form-line mt-4">
-                          <label for="nome{{ $sala->id }}" class="fw-bold fs-13">Sala:</label>
+                          <label for="nome{{ $sala->id }}" class="fw-medium fs-13">Sala:</label>
                           <input type="text" name="nome" id="nome{{ $sala->id }}" class="input-custom" value="{{ $sala->nome }}" required>
                         </div>
 
                         <div class="form-line mt-4">
-                          <label for="descricao{{ $sala->id }}" class="fw-bold fs-13">Descrição/ Localização:</label>
+                          <label for="descricao{{ $sala->id }}" class="fw-medium fs-13">Descrição/ Localização:</label>
                           <input type="text" name="descricao" id="descricao{{ $sala->id }}" class="input-custom" value="{{ $sala->descricao }}" required>
                         </div>
 
                         <div class="row mt-4">
                           <div class="col-12 col-sm-6">
-                            <label class="fw-bold">Situação:</label>
+                            <label class="fw-medium">Situação:</label>
 
                             <select name="situacao" id="situacao{{ $sala->id }}" class="form-select input-custom pointer" required>
                               <option selected disabled>Selecione</option>
@@ -205,7 +205,7 @@
                           </div>
 
                           <div class="col-12 col-sm-6">
-                            <label class="fw-bold">Cor da Sala:</label>
+                            <label class="fw-medium">Cor da Sala:</label>
                             <input type="color" name="cor" id="cor{{ $sala->id }}" class="form-control input-custom pointer"
                               style="height: 38px;" value="{{ $sala->cor ?? '#ffffff' }}">
                           </div>
@@ -213,7 +213,7 @@
                       </form>
                     </div>
 
-                    <div class="modal-footer py-2" style="background-color: #f1f1f1; border-top: 0px !important;">
+                    <div class="modal-footer py-2 " style="background-color: #f1f1f1; border-top: 0px !important;">
                       <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">
                         <i class="bi bi-x me-1"></i>
                         Cancelar

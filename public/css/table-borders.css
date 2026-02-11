@@ -1,6 +1,4 @@
-.fs-13 {
-  font-size: 13px;
-}
+
 
 .th-color {
   background-color: #314b27 !important;
@@ -37,4 +35,8 @@
 #tableSalas tbody td:last-child,
 #tableUsers tbody td:last-child {
   border-right: none;
+}
+
+.table-responsive {
+  overflow-x: inherit !important;
 }
