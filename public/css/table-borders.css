@@ -17,7 +17,9 @@
 #tableSalas thead th,
 #tableUsers thead th {
   border-right: 1px solid #ccc;
+  font-weight: 500;
 }
+
 #reservas thead th:last-child,
 #tableSalas thead th:last-child,
 #tableUsers thead th:last-child {

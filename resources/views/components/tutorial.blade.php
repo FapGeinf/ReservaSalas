@@ -18,7 +18,7 @@
       <div class="modal-body p-4">
         <!-- PASSOS -->
         <div id="tutorialStep1" class="tutorial-step fs-13" style="color: #374151;">
-          <p class="fw-bold mb-2">1. Acesse o painel lateral</p>
+          <p class="fw-medium mb-2">1. Acesse o painel lateral</p>
 
           <p>No lado esquerdo da tela, localize o painel <span class="fw-semibold">“Reservar Salas”</span>. 
           Ele mostra todas as salas e seus status:</p>
@@ -42,7 +42,7 @@
         </div>
 
         <div id="tutorialStep2" class="tutorial-step d-none fs-13" style="color: #374151;">
-          <p class="fw-bold mb-2">2. Escolha a sala</p>
+          <p class="fw-medium mb-2">2. Escolha a sala</p>
 
           <p>Cada sala aparece em um bloco com nome e ícone <i class="bi bi-building text-secondary"></i>. 
           Clique em <span class="fw-semibold">“Reservar”</span> para iniciar a reserva.</p>
@@ -54,21 +54,21 @@
         </div>
 
         <div id="tutorialStep3" class="tutorial-step d-none fs-13" style="color: #374151;">
-          <p class="fw-bold mb-2">3. Abrir o modal de reserva</p>
+          <p class="fw-medium mb-2">3. Abrir o modal de reserva</p>
 
           <p>Ao clicar em <span class="fw-semibold">“Reservar”</span>, será aberta a janela <span class="fw-semibold">“Nova Reserva”</span>. 
           Preencha os dados e clique em <span class="fw-semibold">“Salvar Reserva”</span>.</p>
         </div>
 
         <div id="tutorialStep4" class="tutorial-step d-none fs-13" style="color: #374151;">
-          <p class="fw-bold mb-2">4. Visualizar no calendário</p>
+          <p class="fw-medium mb-2">4. Visualizar no calendário</p>
 
           <p>No lado direito está o <span class="fw-semibold">calendário principal</span> para consulta. 
           Após salvar, a reserva aparecerá automaticamente com nome e horário.</p>
         </div>
 
         <div id="tutorialStep5" class="tutorial-step d-none fs-13" style="color: #374151;">
-          <p class="fw-bold mb-2">5. Consultar ou cancelar</p>
+          <p class="fw-medium mb-2">5. Consultar ou cancelar</p>
 
           <p>Clique em qualquer evento do calendário para abrir os detalhes da reserva. 
           Lá é possível ver informações completas ou excluir a reserva.</p>

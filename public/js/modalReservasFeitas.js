@@ -63,17 +63,17 @@ $(document).ready(function() {
           return `
             <div class="border rounded shadow-sm p-2 mb-2" style="background-color: #f7f7f7;">
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
-                <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Sala:</span>
+                <span class="fw-medium fs-13" style="color: #374151; width: 100px;">Sala:</span>
                 <span class="fs-13" style="color: #374151;"><i class="bi bi-door-closed"></i> ${nomeSala}</span>
               </div>
 
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
-                <span class="fw-bold fs-13" style="color: #374151; width: 100px;">Horário:</span>
+                <span class="fw-medium fs-13" style="color: #374151; width: 100px;">Horário:</span>
                 <span class="fs-13" style="color: #374151;"><i class="bi bi-clock"></i> ${horaInicio} - ${horaFim}</span>
               </div>
 
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
-                <span class="fw-bold fs-13" style="color: #374151; width: 100px; white-space: nowrap;">Reservado por:</span>
+                <span class="fw-medium fs-13" style="color: #374151; width: 100px; white-space: nowrap;">Reservado por:</span>
                 <span class="fs-13" style="color: #374151;"><i class="bi bi-person"></i> ${usuario}</span>
               </div>
 

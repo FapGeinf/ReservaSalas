@@ -36,12 +36,12 @@
             @csrf
 
             <div>
-              <label class="fw-bold" for="login">Login:</label>
+              <label class="fw-medium" for="login">Login:</label>
               <input type="text" class="input-custom" id="login" name="login" required>
             </div>
 
             <div class="mt-3 position-relative">
-              <label for="password" class="fw-bold">Senha:</label>
+              <label for="password" class="fw-medium">Senha:</label>
 
               <input type="password" id="password" name="password" class="input-custom" placeholder="Mínimo de 8 caracteres" required autocomplete="current-password">
 

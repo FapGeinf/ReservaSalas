@@ -40,34 +40,34 @@
               @endif
 
               <div class="mt-3">
-                <label for="name" class="fw-bold">Nome Completo:</label>
+                <label for="name" class="fw-medium">Nome Completo:</label>
                 <input type="text" id="name" name="name" class="input-custom" :value="old('name')" required autofocus autocomplete="name">
 
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
               </div>
 
               <div class="mt-3">
-                <label for="login" class="fw-bold">Login:</label>
+                <label for="login" class="fw-medium">Login:</label>
                 <input type="text" id="login" name="login" class="input-custom" value="{{ old('login') }}" required placeholder="ex: julliany.souza" autocomplete="username">
 
                 <x-input-error :messages="$errors->get('login')" class="mt-2" />
               </div>
 
               <div class="mt-3">
-                <label for="email" class="fw-bold">Email:</label>
+                <label for="email" class="fw-medium">Email:</label>
                 <input type="email" id="email" name="email" class="input-custom" :value="old('email')" required placeholder="meuemail@email.com" autocomplete="username">
               
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
               </div>
             
               <div class="mt-3">
-                <label for="cpf" class="fw-bold">CPF:</label>
+                <label for="cpf" class="fw-medium">CPF:</label>
                 <!-- <input type="text" id="cpf" name="cpf" class="input-custom" required placeholder="000.000.000-00"> -->
                 <input type="text" id="cpf" name="cpf" class="input-custom" placeholder="000.000.000-00">
               </div>
 
               <div class="mt-3">
-                <label for="unidade_fk" class="fw-bold">Unidade:</label>
+                <label for="unidade_fk" class="fw-medium">Unidade:</label>
                 <select name="unidade_fk" id="unidade_fk" class="input-custom form-select pointer" required>
                   <option value="">Selecione a unidade </option>
                   @foreach($unidades as $unidade)
@@ -79,14 +79,14 @@
               <div class="mt-3">
                 <div class="form-line gap-2">
                   <div class="form-line-vertical">
-                    <label for="password" class="fw-bold mb-0">Nova Senha:</label>
+                    <label for="password" class="fw-medium mb-0">Nova Senha:</label>
                     <input type="password" id="password" name="password" class="input-custom" required placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                   </div>
 
                   <div class="form-line-vertical">
-                    <label for="password_confirmation" class="fw-bold mb-0">Repita a senha:</label>
+                    <label for="password_confirmation" class="fw-medium mb-0">Repita a senha:</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" class="input-custom" required placeholder="Repita a senha" autocomplete="new-password">
 
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

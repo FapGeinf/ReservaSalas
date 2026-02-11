@@ -21,7 +21,7 @@
       <li class="menuItem">
         <a href="{{ route('home') }}" class="menuOption">
           <i class="fa-solid fa-house"></i>
-          <h6 class="menuText fw-bold">Home</h6>
+          <h6 class="menuText fw-medium">Home</h6>
         </a>
       </li>
      
@@ -29,7 +29,7 @@
        @if(Auth::user()->is_admin)
         <a href="{{ route('salas') }}" class="menuOption">
             <i class="fa-solid fa-cube"></i>
-            <h6 class="menuText fw-bold">Salas</h6>
+            <h6 class="menuText fw-medium">Salas</h6>
         </a>
     @endif
 </li>
@@ -38,14 +38,14 @@
       <!-- <li class="menuItem">
         <button class="menuOption">
           <i class="fa-solid fa-calendar-alt"></i>
-          <h6 class="menuText fw-bold">Reservas</h6>
+          <h6 class="menuText fw-medium">Reservas</h6>
         </button>
       </li>
 
       <li class="menuItem">
         <button class="menuOption">
           <i class="fa-solid fa-history"></i>
-          <h6 class="menuText fw-bold">Histórico</h6>
+          <h6 class="menuText fw-medium">Histórico</h6>
         </button>
       </li> -->
 

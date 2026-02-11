@@ -24,7 +24,7 @@
 @section('title') {{ 'Editar Reserva' }} @endsection
 
 <div class="form-custom no-border-bottom form-no-bottom mt-5">
-  <h5 class="fw-bold text-center text-uppercase pb-3">
+  <h5 class="fw-medium text-center text-uppercase pb-3">
     Editar Reserva
   </h5>
 
@@ -33,7 +33,7 @@
     @method('PUT')
 
     <div class="form-line mt-4">
-      <label for="sala_id" class="fw-bold">Sala:</label>
+      <label for="sala_id" class="fw-medium">Sala:</label>
         <select name="sala_id" id="sala_id" class="form-select text-uppercase pointer" required>
         @foreach($salas as $sala)
           <option class="text-uppercase pointer" value="{{ $sala->id }}" @if($sala->id == $reserva->sala_fk) selected @endif>
@@ -44,12 +44,12 @@
     </div>
 
     <div class="form-line mt-4">
-      <label for="data_inicio" class="fw-bold">Data:</label>
+      <label for="data_inicio" class="fw-medium">Data:</label>
       <input type="date" name="data_inicio" id="data_inicio" class="input-custom pointer" value="{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('Y-m-d') }}" required>
     </div>
 
     <div class="form-line mt-4">
-      <label class="fw-bold">Hora Início/ Término:</label>
+      <label class="fw-medium">Hora Início/ Término:</label>
 
       <div class="form-line-split">
         <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom pointer" value="{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i') }}" required>

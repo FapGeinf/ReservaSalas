@@ -50,7 +50,7 @@
 
         <div class="d-flex align-items-center justify-content-center mb-1">
           <x-tooltip/>
-          <h6 class="fw-bold mb-0 ms-2">Reservar Salas</h6>
+          <h6 class="fw-medium mb-0 ms-2">Reservar Salas</h6>
         </div>
 
         <div class="text-muted text-center mb-3" style="font-size: 13px;">
@@ -278,12 +278,12 @@
 
         <div class="row g-3 mt-1 mb-3">
           <div class="col-12 col-sm-4">
-            <label class="fw-bold d-block">Hora início:</label>
+            <label class="fw-medium d-block">Hora início:</label>
             <span id="detalheHoraInicio" class="input-custom-disabled"></span>
           </div>
 
           <div class="col-12 col-sm-4">
-            <label class="fw-bold d-block">Hora término:</label>
+            <label class="fw-medium d-block">Hora término:</label>
             <span id="detalheHoraFim" class="input-custom-disabled"></span>
           </div>
         </div>

@@ -48,7 +48,7 @@
 @endpush
 
 <div class="form-custom no-border-bottom form-no-bottom mt-5" style="max-width: 480px;">
-  <h5 class="fw-bold text-center text-uppercase mb-3">
+  <h5 class="fw-medium text-center text-uppercase mb-3">
     Novo Usuário
   </h5>
 
@@ -57,17 +57,17 @@
 
     <div class="row g-3 mt-3">
       <div class="col-12 col-sm-7">
-        <label for="name" class="fw-bold">Nome:</label>
+        <label for="name" class="fw-medium">Nome:</label>
         <input type="text" class="input-custom" id="name" name="name" required>        
       </div>
 
       <div class="col-12 col-sm-5">
-        <label class="fw-bold">Login:</label>
+        <label class="fw-medium">Login:</label>
         <input type="text" class="input-custom" id="login" name="login" required>        
       </div>
 
       <div class="col-12 col-sm-7">
-        <label class="fw-bold">Tipo de Usuário:</label>
+        <label class="fw-medium">Tipo de Usuário:</label>
         <select class="form-select pointer" id="role" name="role" required>
           <option value="user">Usuário Comum</option>
           <option value="admin">Administrador</option>
@@ -75,12 +75,12 @@
       </div>
 
       <div class="col-12">
-        <label for="email" class="fw-bold">Email:</label>
+        <label for="email" class="fw-medium">Email:</label>
         <input type="email" class="input-custom" id="email" name="email" required>        
       </div>
 
       <div class="col-12">
-        <label for="unidade_fk" class="fw-bold">Unidade:</label>
+        <label for="unidade_fk" class="fw-medium">Unidade:</label>
         <select class="form-select pointer" id="unidade_fk" name="unidade_fk" required>
           <option value="">Selecione a unidade</option>
 
@@ -93,7 +93,7 @@
 
     <div class="row g-3 mt-1">
       <div class="col-12 col-sm-6">
-        <label class="fw-bold">Crie uma senha:</label>
+        <label class="fw-medium">Crie uma senha:</label>
 
         <div style="position: relative;">
           <input type="password" class="input-custom" id="password" name="password" required>
@@ -111,7 +111,7 @@
       </div>
 
       <div class="col-12 col-sm-6">
-        <label class="fw-bold">Repita a senha:</label>
+        <label class="fw-medium">Repita a senha:</label>
 
         <div style="position: relative;">
           <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>

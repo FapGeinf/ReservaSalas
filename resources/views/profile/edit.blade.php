@@ -28,7 +28,7 @@
 @endpush
 
 <div class="form-custom no-border-bottom form-no-bottom mt-5" style="max-width: 480px;">
-  <h5 class="fw-bold text-center text-uppercase">
+  <h5 class="fw-medium text-center text-uppercase">
     Editar Perfil
   </h5>
 
@@ -38,18 +38,18 @@
 
     <div class="row g-3 mt-3">
       <div class="col-12">
-        <label for="name" class="fw-bold">Nome Completo:</label>
+        <label for="name" class="fw-medium">Nome Completo:</label>
         <input type="text" id="name" name="name" class="input-custom" value="{{ old('name', auth()->user()->name) }}" required placeholder="ex: Julliany Souza" autocomplete="name">
       </div>
 
       <div class="col-12">
-        <label for="email" class="fw-bold">Email:</label>
+        <label for="email" class="fw-medium">Email:</label>
         <input type="email" id="email" name="email" class="input-custom" value="{{ old('email', auth()->user()->email) }}"
         placeholder="ex: meuemail@email.com" autocomplete="username">
       </div>
 
       <div class="col-12">
-        <label for="unidade_fk" class="fw-bold">Unidade:</label>
+        <label for="unidade_fk" class="fw-medium">Unidade:</label>
 
         <select name="unidade_fk" id="unidade_fk" class="form-control form-select input-custom pointer" disabled>
           <option value="" selected disabled>Selecione a unidade</option>

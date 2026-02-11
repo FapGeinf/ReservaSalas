@@ -11,7 +11,7 @@
 @section('title') {{ 'Detalhes da Reserva' }} @endsection
 
 <div class="form-custom no-border-bottom form-no-bottom mt-5">
-  <h5 class="fw-bold text-center text-uppercase">
+  <h5 class="fw-medium text-center text-uppercase">
     Detalhes da Reserva
   </h5>
 
@@ -20,28 +20,28 @@
   </div> --}}
 
   <div class="form-line mt-4">
-    <label class="fw-bold">Nome:</label>
+    <label class="fw-medium">Nome:</label>
     <span class="input-custom-disabled">
       {{ $reserva->user->name ?? 'Usuário não encontrado' }}
     </span>
   </div>
 
   <div class="form-line mt-4">
-    <label class="fw-bold">Unidade:</label>
+    <label class="fw-medium">Unidade:</label>
     <span class="input-custom-disabled">
       {{ $reserva->user->unidade->nome ?? 'Unidade não encontrada' }}
     </span>
   </div>
 
   <div class="form-line mt-4">
-    <label class="fw-bold">Sala:</label>
+    <label class="fw-medium">Sala:</label>
     <span class="input-custom-disabled">
       {{ $reserva->sala->nome ?? 'Sala não encontrada' }}
     </span>
   </div>
 
   <div class="form-line mt-4">
-    <label class="fw-bold">Data da Reserva:</label>
+    <label class="fw-medium">Data da Reserva:</label>
 
     <span class="input-custom-disabled">
       {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y') }}
@@ -49,7 +49,7 @@
   </div>
 
   <div class="form-line mt-4">
-    <label class="fw-bold">Hora Início / Término:</label>
+    <label class="fw-medium">Hora Início / Término:</label>
     
     <div class="form-line-split">
       <div class="input-custom-disabled">

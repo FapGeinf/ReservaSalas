@@ -32,7 +32,7 @@
 
 <div class="container mt-5">
   <div class="tabela-main-page">
-    <div class="text-center fw-semibold mb-4">
+    <div class="text-center fw-medium mb-4">
       <div class="title-meetings">Usuários Cadastrados</div>
 
       <div class="pt-1 pb-4">

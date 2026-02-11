@@ -75,8 +75,8 @@ div.dt-container .dt-paging .dt-paging-button {
 }
 
 .bg-modal-footer {
-  background-color: #f1f1f1;
-  border-top: 0px;
+  background-color: #f1f1f1 !important;
+  border-top: 0px !important;
 }
 
 /* O DROPDOWN QUEBRAVA NA SEGUNDA PÁGINA DO DATATABLE POR CAUSA DESSA BENÇÃO QUE ESTAVA EM 'AUTO' */
@@ -109,7 +109,7 @@ div.dt-container .dt-paging .dt-paging-button {
 
 	td::before {
 		content: attr(data-th) ": ";
-		font-weight: bold;
+		font-weight: 500;
 		color: #374151;
 		text-transform: capitalize;
 	}
