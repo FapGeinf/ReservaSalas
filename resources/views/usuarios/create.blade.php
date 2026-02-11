@@ -27,6 +27,8 @@
           customClass: {
             confirmButton: 'button-green'
           }
+        }).then(() => {
+          window.location.href = "{{ route('home') }}";
         });
       });
     </script>
@@ -34,7 +36,7 @@
 @endpush
 
 <div class="container pt-5" style="max-width: 480px;">
-  <div class="box">
+  <div class="box-page">
     <div class="text-center fw-semibold mb-4">
       <span class="title-meetings">Novo Usuário</span>
     </div>
