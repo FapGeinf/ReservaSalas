@@ -93,12 +93,11 @@ document.addEventListener('DOMContentLoaded', function() {
             border-left: 4px solid #6c757d;
             cursor: pointer;">
 
-            <span class="fw-medium text-uppercase d-block" style="font-size: 12px; color: #333;">${nomeSala}</span>
-            <span style="font-size: 11px; color: #555;">
-              <i class="bi bi-clock" style="position: relative; top: -1px;"></i> 
+            <span class="fw-semibold text-captalized d-block" style="font-size: 12px; color: #394151;">${nomeSala}</span>
+            <span style="font-size: 11px; color: #394151;">
+              <i class="bi bi-clock" style="position: relative;"></i> 
               ${horaInicio} - ${horaFim}
-            </span><br>
-            <!-- <span style="font-size: 12px; color: #666;">${unidade}</span> -->
+            </span>
           </div>
         `
       };

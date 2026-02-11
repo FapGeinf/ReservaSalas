@@ -18,7 +18,7 @@
 
           <div class="row mb-3">
             <div class="col-6">
-              <label for="sala_fk" class="fw-semibold">Sala:</label>
+              <label for="sala_fk" class="fw-medium">Sala:</label>
               <select name="sala_fk" id="sala_fk" class="form-select input-custom pointer" required>
                 <option value="" disabled selected>Selecione uma sala</option>
                 @foreach($salas as $sala)
@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-6">
-              <label for="tipo_reserva" class="fw-semibold">Tipo de Reserva:</label>
+              <label for="tipo_reserva" class="fw-medium">Tipo de Reserva:</label>
               <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
                 <option value="" selected disabled>Selecione uma opção</option>
                 <option value="interno">Reunião Interna</option>
@@ -39,13 +39,13 @@
 
           <div class="row align-items-end mb-3">
             <div class="col-4">
-              <label for="hora_inicio" class="fw-semibold">Hora de Início:</label>
+              <label for="hora_inicio" class="fw-medium">Hora de Início:</label>
               <input type="text" name="hora_inicio" id="hora_inicio" class="input-custom form-select"
               placeholder="00:00" required>
             </div>
 
             <div class="col-4">
-              <label for="hora_termino" class="fw-semibold">Hora de Término:</label>
+              <label for="hora_termino" class="fw-medium">Hora de Término:</label>
               <input type="text" name="hora_termino" id="hora_termino" class="input-custom form-select"
               placeholder="00:00" required>
             </div>
@@ -53,14 +53,14 @@
             <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
+                <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
               </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-8">
-              <label for="data_reserva_modal" class="fw-semibold">Data da Reserva:</label>
+              <label for="data_reserva_modal" class="fw-medium">Data da Reserva:</label>
               <input type="date" name="data_reserva" id="data_reserva_modal" class="input-custom w-100 form-select" 
               placeholder="00/00/0000" required>
             </div>

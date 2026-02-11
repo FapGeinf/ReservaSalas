@@ -72,7 +72,7 @@
                     style="width: 7px; height: 7px; display: inline-block;">
                   </span>
 
-                  <span class="fw-semibold text-uppercase fs-12">
+                  <span class="fw-semibold text-captalized fs-13">
                     {{ $sala->nome }}
                   </span>
                 </div>
@@ -81,7 +81,7 @@
               @if($situacao !== 'inativa')
                 <button 
                   type="button"
-                  class="button-garden btn-agendar fs-12 px-2 py-1 ms-2" 
+                  class="button-garden btn-agendar fs-13 px-2 py-1 ms-2" 
                   data-bs-toggle="modal" 
                   data-bs-target="#modalReserva"
                   data-sala-id="{{ $sala->id }}"
@@ -126,7 +126,7 @@
 
           <div class="row mb-3">
             <div class="col-12 col-sm-8">
-              <label for="sala_fk" class="fw-semibold">Sala:</label>
+              <label for="sala_fk" class="fw-medium">Sala:</label>
               <select name="sala_fk" id="sala_fk" class="form-select input-custom pointer" required>
                 <option value="" disabled selected>Selecione uma sala</option>
 
@@ -139,7 +139,7 @@
 
           <div class="row mb-3">
             <div class="col-12 col-sm-8">
-              <label for="tipo_reserva" class="fw-semibold">Tipo de Reserva:</label>
+              <label for="tipo_reserva" class="fw-medium">Tipo de Reserva:</label>
               <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
                 <option value="" selected disabled>Selecione uma opção</option>
                 <option value="interno">Reunião interna</option>
@@ -150,19 +150,19 @@
 
           <div class="row align-items-end">
             <div class="col-12 col-sm-4">
-              <label for="hora_inicio" class="fw-semibold">Hora de Início:</label>
+              <label for="hora_inicio" class="fw-medium">Hora de Início:</label>
               <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
             </div>
 
             <div class="col-12 col-sm-4">
-              <label for="hora_termino" class="fw-semibold">Hora de Término:</label>
+              <label for="hora_termino" class="fw-medium">Hora de Término:</label>
               <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
             </div>
 
             <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
+                <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
               </div>
             </div>
           </div>
@@ -201,38 +201,38 @@
 
           <div class="text-center">
             <!-- Inserido d-none, remover em caso de bug -->
-            <span id="reserva-numero" class="fw-semibold d-none" style="color: #374151;"></span>
+            <span id="reserva-numero" class="fw-medium d-none" style="color: #374151;"></span>
           </div>
 
           <div class="row mb-4">
             <div class="col-12 col-sm-7">
-              <label for="sala_id" class="fw-semibold">Sala:</label>
+              <label for="sala_id" class="fw-medium">Sala:</label>
               <select name="sala_id" id="sala_id" class="form-select pointer" required>
                 <!-- opções preenchidas via JavaScript -->
               </select>
             </div>
 
             <div class="col-12 col-sm-5">
-              <label for="data_inicio" class="fw-semibold">Data:</label>
+              <label for="data_inicio" class="fw-medium">Data:</label>
               <input type="date" name="data_inicio" id="data_inicio" class="input-custom form-select pointer" required>
             </div>
           </div>
 
           <div class="row align-items-end">
             <div class="col-12 col-sm-4">
-              <label for="hora_inicio" class="fw-semibold">Hora Início:</label>
+              <label for="hora_inicio" class="fw-medium">Hora Início:</label>
               <input type="text" name="hora_inicio" id="hora_inicio" class="input-custom form-select pointer" step="60" required>
             </div>
 
             <div class="col-12 col-sm-4">
-              <label for="data_fim" class="fw-semibold">Hora Término:</label>
+              <label for="data_fim" class="fw-medium">Hora Término:</label>
               <input type="text" name="data_fim" id="data_fim" class="input-custom form-select pointer" step="60" required>
             </div>
 
             <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-semibold" for="diaInteiro">Dia inteiro</label>
+                <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
               </div>
             </div>
           </div>
@@ -266,12 +266,12 @@
       <div class="modal-body">
         <div class="row g-3">
           <div class="col-12 col-sm-6">
-            <label class="fw-semibold d-block">Sala:</label>
+            <label class="fw-medium d-block">Sala:</label>
             <span id="detalheSala" class="input-custom-disabled"></span>
           </div>
       
           <div class="col-12 col-sm-4">
-            <label class="fw-semibold d-block">Data da reserva:</label>
+            <label class="fw-medium d-block">Data da reserva:</label>
             <span id="detalheData" class="input-custom-disabled"></span>
           </div>
         </div>
@@ -290,14 +290,14 @@
 
         <div class="row g-3">
           <div class="col-12 col-sm-8">
-            <label class="fw-semibold">Unidade responsável:</label>
+            <label class="fw-medium">Unidade responsável:</label>
             <span id="detalheUnidade" class="input-custom-disabled"></span>
           </div>
         </div>
 
         <div class="row g-3 mt-1">
           <div class="col-12 col-sm-7">
-            <label class="fw-semibold">Pessoa responsável:</label>
+            <label class="fw-medium">Pessoa responsável:</label>
             <span id="detalheResponsavel" class="input-custom-disabled"></span> 
           </div>
         </div>
@@ -341,38 +341,38 @@
       <div class="modal-body">
         <div class="row g-3">
           <div class="col-12 col-sm-6">
-            <label for="" class="fw-semibold">Sala:</label>
+            <label for="" class="fw-medium">Sala:</label>
             <span id="reservaSala" class="input-custom-disabled"></span>
           </div>
 
           <div class="col-12 col-sm-4">
-            <label for="" class="fw-semibold">Data da reserva:</label>
+            <label for="" class="fw-medium">Data da reserva:</label>
             <span id="reservaData" class="input-custom-disabled"></span>
           </div>
         </div>
 
         <div class="row g-3 mt-1">
           <div class="col-12 col-sm-4">
-            <label for="" class="fw-semibold">Hora início:</label>
+            <label for="" class="fw-medium">Hora início:</label>
             <span id="reservaHoraInicio" class="input-custom-disabled"></span>
           </div>
 
           <div class="col-12 col-sm-4">
-            <label for="" class="fw-semibold">Hora término:</label>
+            <label for="" class="fw-medium">Hora término:</label>
             <span id="reservaHoraFim" class="input-custom-disabled"></span>
           </div>
         </div>
 
         <div class="row g-3 mt-1">
           <div class="col-12 col-sm-8">
-            <label for="" class="fw-semibold">Unidade responsável:</label>
+            <label for="" class="fw-medium">Unidade responsável:</label>
             <span id="reservaUnidade" class="input-custom-disabled"></span>
           </div>
         </div>
 
         <div class="row g-3 mt-1">
           <div class="col-12 col-sm-7">
-            <label for="" class="fw-semibold">Pessoa responsável:</label>
+            <label for="" class="fw-medium">Pessoa responsável:</label>
             <span id="reservaResponsavel" class="input-custom-disabled"></span>
           </div>
         </div>

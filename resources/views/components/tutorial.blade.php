@@ -20,11 +20,11 @@
         <div id="tutorialStep1" class="tutorial-step fs-13" style="color: #374151;">
           <p class="fw-medium mb-2">1. Acesse o painel lateral</p>
 
-          <p>No lado esquerdo da tela, localize o painel <span class="fw-semibold">“Reservar Salas”</span>. 
+          <p>No lado esquerdo da tela, localize o painel <span class="fw-medium">“Reservar Salas”</span>. 
           Ele mostra todas as salas e seus status:</p>
           <ul class="list-unstyled">
             <li>
-              <span class="text-danger fw-semibold">
+              <span class="text-danger fw-medium">
                 <span class="rounded-circle bg-danger status-ball" style="width: 7px; height: 7px; display: inline-block;"></span>
                 Vermelho
               </span>
@@ -32,7 +32,7 @@
             </li>
 
             <li>
-              <span class="text-success fw-semibold">
+              <span class="text-success fw-medium">
                 <span class="rounded-circle bg-success status-ball" style="width: 7px; height: 7px;"></span> 
                 Verde
               </span>
@@ -45,7 +45,7 @@
           <p class="fw-medium mb-2">2. Escolha a sala</p>
 
           <p>Cada sala aparece em um bloco com nome e ícone <i class="bi bi-building text-secondary"></i>. 
-          Clique em <span class="fw-semibold">“Reservar”</span> para iniciar a reserva.</p>
+          Clique em <span class="fw-medium">“Reservar”</span> para iniciar a reserva.</p>
 
           <p class="text-muted">
             <i class="bi bi-lightbulb-fill text-warning"></i>
@@ -56,14 +56,14 @@
         <div id="tutorialStep3" class="tutorial-step d-none fs-13" style="color: #374151;">
           <p class="fw-medium mb-2">3. Abrir o modal de reserva</p>
 
-          <p>Ao clicar em <span class="fw-semibold">“Reservar”</span>, será aberta a janela <span class="fw-semibold">“Nova Reserva”</span>. 
-          Preencha os dados e clique em <span class="fw-semibold">“Salvar Reserva”</span>.</p>
+          <p>Ao clicar em <span class="fw-medium">“Reservar”</span>, será aberta a janela <span class="fw-medium">“Nova Reserva”</span>. 
+          Preencha os dados e clique em <span class="fw-medium">“Salvar Reserva”</span>.</p>
         </div>
 
         <div id="tutorialStep4" class="tutorial-step d-none fs-13" style="color: #374151;">
           <p class="fw-medium mb-2">4. Visualizar no calendário</p>
 
-          <p>No lado direito está o <span class="fw-semibold">calendário principal</span> para consulta. 
+          <p>No lado direito está o <span class="fw-medium">calendário principal</span> para consulta. 
           Após salvar, a reserva aparecerá automaticamente com nome e horário.</p>
         </div>
 
