@@ -1,56 +1,7 @@
-<head>
-  <link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
-
-  <style>
-    body {
-      padding-top: 40px;
-    }
-
-    .navbar {
-      overflow: visible !important;
-    }
-
-    .container-fluid {
-      overflow: visible !important;
-    }
-
-    .navbar .dropdown-menu {
-      z-index: 1055;
-    }
-
-    .nav-account {
-      gap: 8px;
-    }
-
-    .nav-user-name {
-      font-size: 12px;
-      color: #fff;
-      white-space: nowrap;
-    }
-
-    .nav-separator {
-      color: #9ca3af;
-      font-size: 12px;
-    }
-
-    .nav-logout {
-      background: none;
-      border: none;
-      padding: 0;
-      font-size: 12px;
-      color: #dc2626;
-      cursor: pointer;
-    }
-
-    .nav-logout:hover {
-      color: #b32020;
-      text-decoration: underline;
-    }
-  </style>
-</head>
+<link rel="stylesheet" href="{{ asset('css/nav-buttons.css') }}">
+<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
 <nav class="navbar navbar-expand-lg fixed-top py-0" style="background-color: #314b27;">
   <div class="container-fluid">
