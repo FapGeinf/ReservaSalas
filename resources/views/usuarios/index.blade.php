@@ -32,8 +32,8 @@
 
 <div class="container mt-5">
   <div class="tabela-main-page">
-    <div class="text-center fw-medium mb-4">
-      <div class="title-meetings">Usuários Cadastrados</div>
+    <div class="text-center fw-semibold mb-4">
+      <span class="title-meetings">Usuários Cadastrados</span>
 
       <div class="pt-1 pb-4">
         <a href="{{ route('usuarios.create') }}" class="button-orange fw-normal text-decoration-none justify-content-center">
