@@ -5,7 +5,6 @@
 
 <nav class="navbar navbar-expand-lg fixed-top py-0" style="background-color: #314b27;">
   <div class="container-fluid">
-
     <a class="navbar-brand" href="{{ route('home') }}">
       <img src="{{ asset('/img/logo-letras-white-light.png') }}" alt="Logo" height="30">
     </a>
@@ -30,7 +29,7 @@
             Lista de Reuniões
           </a>
         </li>
-        <!-- Para referencias a admin, utilizar o campo is_admin -->
+
         @if(Auth::check() && Auth::user()->is_admin == 1)
           <li class="nav-item">
             <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
@@ -57,7 +56,8 @@
             ? Str::lower($parte)
             : $parte;
           })
-          ->implode(' ');
+
+        ->implode(' ');
       @endphp
 
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -78,8 +78,6 @@
           </form>
         </li>
       </ul>
-
-
     </div>
   </div>
 </nav>
