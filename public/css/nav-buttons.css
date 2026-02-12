@@ -191,7 +191,7 @@ a.nav-buttons:active {
   filter: invert(1);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .navbar-nav {
     gap: 8px;
     align-items: center;
