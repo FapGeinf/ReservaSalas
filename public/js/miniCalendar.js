@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border-left: 4px solid #6c757d;
             cursor: pointer;">
 
-            <span class="fw-semibold text-capitalized d-block" style="font-size: 12px; color: #394151;">${nomeSala}</span>
+            <span class="fw-semibold text-capitalize d-block" style="font-size: 12px; color: #394151;">${nomeSala}</span>
             <span style="font-size: 11px; color: #394151;">
               <i class="bi bi-clock" style="position: relative;"></i> 
               ${horaInicio} - ${horaFim}

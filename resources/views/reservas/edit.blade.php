@@ -46,7 +46,7 @@
         <div class="col-12">
           <label for="sala_id" class="fw-medium">Sala:</label>
 
-          <select name="sala_id" id="sala_id" class="form-select text-capitalized pointer" required>
+          <select name="sala_id" id="sala_id" class="form-select text-capitalize pointer" required>
             @foreach($salas as $sala)
               <option class="text-uppercase pointer" value="{{ $sala->id }}" @if($sala->id == $reserva->sala_fk) selected @endif>
                 {{ $sala->nome }}

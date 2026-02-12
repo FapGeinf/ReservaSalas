@@ -72,7 +72,7 @@
                     style="width: 7px; height: 7px; display: inline-block;">
                   </span>
 
-                  <span class="fw-semibold text-capitalized fs-13">
+                  <span class="fw-semibold text-capitalize fs-13" style="color: #374151">
                     {{ $sala->nome }}
                   </span>
                 </div>

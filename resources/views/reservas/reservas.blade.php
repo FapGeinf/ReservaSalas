@@ -44,7 +44,7 @@
               <td data-th="Id" class="fs-13">{{ $reserva->id }}</td>
               <td data-th="Sala" class="fs-13">
                 <div class="mt-1">
-                  <p class="mb-1 text-capitalized">
+                  <p class="mb-1 text-capitalize">
                     {{ $reserva->sala ? $reserva->sala->nome : 'Sala não encontrada' }}
                   </p>
                 </div>
