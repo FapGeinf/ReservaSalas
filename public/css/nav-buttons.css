@@ -188,7 +188,6 @@ a.nav-buttons:active {
   filter: invert(1);
 }
 
-/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   /* empilha e alinha à esquerda */
   .navbar-nav {
@@ -213,7 +212,7 @@ a.nav-buttons:active {
     display: none;
   }
 
-  .button-garden {
+  .button-garden-nav {
     width: 100%;
   }
 }

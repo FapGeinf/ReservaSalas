@@ -72,7 +72,7 @@
 
           <form method="POST" action="{{ route('logout') }}" class="m-0">
             @csrf
-            <button type="submit" class="button-garden" style="padding: 4px 9px;">
+            <button type="submit" class="button-garden-nav" style="padding: 4px 9px;">
               Sair
             </button>
           </form>
