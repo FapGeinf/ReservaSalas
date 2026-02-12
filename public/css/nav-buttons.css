@@ -43,6 +43,13 @@ body {
   text-decoration: underline;
 }
 
+.navbar-toggler {
+  font-size: 15px !important;
+  border: none !important;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
 .nav-buttons,
 a.nav-buttons {
   color: #fff;
@@ -163,24 +170,20 @@ a.nav-buttons:active {
   }
 }
 
-/* evita “estouro” horizontal geral */
 .navbar .container-fluid {
   flex-wrap: wrap;
 }
 
-/* desktop: mantém tudo alinhado sem quebrar */
 .nav-account {
   gap: 8px;
 }
 
-/* permite o nome quebrar se precisar (sem estourar a tela) */
 .nav-user-name {
-  white-space: normal;          /* antes estava nowrap */
+  white-space: normal;
   overflow-wrap: anywhere;
   line-height: 1.1;
 }
 
-/* melhora o botão do toggler em navbar escura */
 .navbar-toggler {
   border-color: rgba(255,255,255,.35);
 }
@@ -189,30 +192,32 @@ a.nav-buttons:active {
 }
 
 @media (max-width: 768px) {
-  /* empilha e alinha à esquerda */
   .navbar-nav {
     gap: 8px;
+    align-items: center;
   }
 
   .nav-buttons,
   a.nav-buttons {
-    width: 100%;
+    width: 40%;
     justify-content: center;
   }
 
   .nav-account {
     width: 100%;
-    align-items: flex-start;
+    align-items: flex-center;
     flex-direction: column;
     gap: 6px;
     padding-top: 8px;
   }
 
-  .nav-separator {
-    display: none;
+    .navbar-nav .nav-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
-  .button-garden-nav {
-    width: 100%;
+  .nav-separator {
+    display: none;
   }
 }
