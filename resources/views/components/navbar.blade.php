@@ -60,7 +60,7 @@
           ->implode(' ');
       @endphp
 
-      <ul class=" ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item d-flex align-items-center nav-account">
           <span class="nav-user-name">
             {{ $nomeFormatado }}
@@ -72,12 +72,13 @@
 
           <form method="POST" action="{{ route('logout') }}" class="m-0">
             @csrf
-            <button type="submit" class="button-garden">
+            <button type="submit" class="button-garden" style="padding: 4px 9px;">
               Sair
             </button>
           </form>
         </li>
       </ul>
+
 
     </div>
   </div>

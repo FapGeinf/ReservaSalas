@@ -76,10 +76,6 @@ a.nav-buttons:active {
   color: #fff !important;
 }
 
-/* .li-person:hover {
-  background-color: #fff !important;
-} */
-
 .dropdown-custom {
   position: relative;
   display: inline-block;
@@ -164,5 +160,60 @@ a.nav-buttons:active {
     right: auto !important;
     margin-top: 5px;
     z-index: 1050;
+  }
+}
+
+/* evita “estouro” horizontal geral */
+.navbar .container-fluid {
+  flex-wrap: wrap;
+}
+
+/* desktop: mantém tudo alinhado sem quebrar */
+.nav-account {
+  gap: 8px;
+}
+
+/* permite o nome quebrar se precisar (sem estourar a tela) */
+.nav-user-name {
+  white-space: normal;          /* antes estava nowrap */
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+
+/* melhora o botão do toggler em navbar escura */
+.navbar-toggler {
+  border-color: rgba(255,255,255,.35);
+}
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  /* empilha e alinha à esquerda */
+  .navbar-nav {
+    gap: 8px;
+  }
+
+  .nav-buttons,
+  a.nav-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-account {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 8px;
+  }
+
+  .nav-separator {
+    display: none;
+  }
+
+  .button-garden {
+    width: 100%;
   }
 }
