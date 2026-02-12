@@ -64,21 +64,33 @@ $(document).ready(function() {
             <div class="border rounded shadow-sm p-2 mb-2" style="background-color: #f7f7f7;">
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
                 <span class="fw-medium fs-13" style="color: #374151; width: 100px;">Sala:</span>
-                <span class="fs-13" style="color: #374151;"><i class="bi bi-door-closed"></i> ${nomeSala}</span>
+                <span class="fs-13" style="color: #374151;">
+                  <i class="bi bi-door-closed"></i> 
+                  ${nomeSala}
+                </span>
               </div>
 
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
                 <span class="fw-medium fs-13" style="color: #374151; width: 100px;">Horário:</span>
-                <span class="fs-13" style="color: #374151;"><i class="bi bi-clock"></i> ${horaInicio} - ${horaFim}</span>
+                <span class="fs-13" style="color: #374151;">
+                  <i class="bi bi-clock"></i>
+                  ${horaInicio} - ${horaFim}
+                </span>
               </div>
 
               <div class="d-flex align-items-start px-1 mb-1" style="gap: 30px;">
-                <span class="fw-medium fs-13" style="color: #374151; width: 100px; white-space: nowrap;">Reservado por:</span>
-                <span class="fs-13" style="color: #374151;"><i class="bi bi-person"></i> ${usuario}</span>
+                <span class="fw-medium text-nowrap fs-13" style="color: #374151; width: 100px;">Reservado por:</span>
+                <span class="fs-13" style="color: #374151;">
+                  <i class="bi bi-person"></i>
+                  ${usuario}
+                </span>
               </div>
 
-              <div class="px-1 mt-2">
-                <button class="button-blue btn-view-reserva fs-12" style="padding: 4px 9px;" data-id="${r.id}"><i class="bi bi-plus fs-13 me-1"></i>Detalhes</button>
+              <div class="px-1 mt-2 text-end">
+                <button class="button-blue btn-view-reserva fs-12" style="padding: 4px 9px; width: 140px;" data-id="${r.id}">
+                  <i class="bi bi-plus fs-13 me-1"></i>
+                  Detalhes
+                </button>
               </div>
             </div>
           `;
@@ -86,6 +98,7 @@ $(document).ready(function() {
 
         $reservasContainer.html(reservasHtml);
       },
+      
       error: function() {
         $reservasContainer.html('<p class="text-center text-danger">Erro ao carregar reservas.</p>');
       }
