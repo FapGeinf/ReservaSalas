@@ -68,7 +68,7 @@
         </form>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>
           Cancelar

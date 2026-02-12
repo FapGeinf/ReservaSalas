@@ -213,7 +213,7 @@
                       </form>
                     </div>
 
-                    <div class="modal-footer py-2 " style="background-color: #f1f1f1; border-top: 0px !important;">
+                    <div class="modal-footer bg-modal-footer py-2 " style="background-color: #f1f1f1; border-top: 0px !important;">
                       <a href="#" class="button-grey text-decoration-none" data-bs-dismiss="modal">
                         <i class="bi bi-x-lg me-1"></i>
                         Cancelar

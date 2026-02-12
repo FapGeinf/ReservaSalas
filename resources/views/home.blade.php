@@ -169,7 +169,7 @@
         </form>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>
           Cancelar
@@ -239,7 +239,7 @@
         </form>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>
           Cancelar
@@ -303,7 +303,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
           <button type="button" id="btnEditar" class="button-blue">
             <i class="bi bi-pencil-square fs-icon me-1"></i>
@@ -378,7 +378,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
           <button type="button" id="btnEditarReservaUnica" class="button-blue">
             <i class="bi bi-pencil-square fs-icon me-1"></i>
@@ -420,7 +420,7 @@
         <p class="mb-0 fs-14">Tem certeza de que deseja excluir esta reserva? Essa ação não poderá ser desfeita.</p>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>Cancelar
         </button>
@@ -447,7 +447,7 @@
         <p>Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.</p>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer bg-modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>
           Cancelar
@@ -479,7 +479,7 @@
         <p>Não é possível agendar reserva em uma data anterior à atual.</p>
       </div>
 
-      <div class="modal-footer py-2">
+      <div class="modal-footer bg-modal-footer py-2">
         <button type="button" class="button-grey" data-bs-dismiss="modal">
           <i class="bi bi-x-lg me-1"></i>
           Fechar

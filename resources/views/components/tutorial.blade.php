@@ -76,7 +76,7 @@
       </div>
 
       {{-- <div class="modal-footer d-flex justify-content-between py-2"> --}}
-      <div class="modal-footer d-flex py-2">
+      <div class="modal-footer bg-modal-footer d-flex py-2">
         {{-- <button type="button" class="button-grey" data-bs-dismiss="modal">Fechar</button> --}}
 
         <div class="justify-content-end">
