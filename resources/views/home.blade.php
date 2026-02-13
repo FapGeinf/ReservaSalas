@@ -303,8 +303,8 @@
         </div>
       </div>
 
-      <div class="modal-footer bg-modal-footer">
-        @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+      <div class="modal-footer">
+        @if(Auth::user()->is_admin)
           <button type="button" id="btnEditar" class="button-blue">
             <i class="bi bi-pencil-square fs-icon me-1"></i>
             Editar
@@ -379,7 +379,7 @@
       </div>
 
       <div class="modal-footer bg-modal-footer">
-        @if(Auth::check() && in_array(Auth::user()->unidade_fk, [12, 14]))
+        @if(Auth::user()->is_admin)
           <button type="button" id="btnEditarReservaUnica" class="button-blue">
             <i class="bi bi-pencil-square fs-icon me-1"></i>
             Editar

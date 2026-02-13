@@ -168,6 +168,9 @@ class ReservaController extends Controller
                 'Este perfil de usuário não tem permissão para editar esta reserva.'
             );
         }
+        if(!session()->has('return_url')){
+            session(['return_url' => url()->previous()]);
+        }
         $salas = Sala::all();
         return view('reservas.edit', compact('reserva','salas'));
     }
@@ -175,36 +178,41 @@ class ReservaController extends Controller
     public function update(Request $request, Reserva $reserva)
     {
         $user = auth()->user();
-
         if (!($user->is_admin || $user->id === $reserva->user_id)) {
             return back()->with(
                 'error',
                 'Este perfil de usuário não tem permissão para alterar esta reserva.'
             );
         }
+        try{
+            $request->validate([
+                'sala_id'     => 'required|exists:salas,id',
+                'hora_inicio' => 'required|date_format:H:i',
+                'data_fim'    => 'required|date_format:H:i',
+            ]);
 
-        $request->validate([
-            'sala_id'     => 'required|exists:salas,id',
-            'hora_inicio' => 'required|date_format:H:i',
-            'data_fim'    => 'required|date_format:H:i',
-        ]);
+            $inicio = Carbon::parse($request->data_inicio . ' ' . $request->hora_inicio);
+            $fim    = Carbon::parse($request->data_inicio . ' ' . $request->data_fim);
 
-        $inicio = Carbon::parse($request->data_inicio . ' ' . $request->hora_inicio);
-        $fim    = Carbon::parse($request->data_inicio . ' ' . $request->data_fim);
+            if ($fim->lte($inicio)) {
+                return back()
+                    ->withErrors(['data_fim' => 'A hora de término deve ser maior que a hora de início.'])
+                    ->withInput();
+            }
 
-        if ($fim->lte($inicio)) {
-            return back()
-                ->withErrors(['data_fim' => 'A hora de término deve ser maior que a hora de início.'])
-                ->withInput();
+            $reserva->update([
+                'sala_fk'     => $request->sala_id,
+                'data_inicio' => $inicio,
+                'data_fim'    => $fim,
+            ]);
+
+            $returnUrl = session()->pull('return_url', route('reservas.index'));
+
+            return redirect($returnUrl)->with('success', 'Reserva atualizada com sucesso!');
+        }catch(\Exception $e){
+            return back()->with('error', 'Desculpe, não foi possível atualizar a reserva: '. $e->getMessage());
         }
-
-        $reserva->update([
-            'sala_fk'     => $request->sala_id,
-            'data_inicio' => $inicio,
-            'data_fim'    => $fim,
-        ]);
-
-        return back()->with('success', 'Reserva atualizada com sucesso!');
+        
     }
 
 
