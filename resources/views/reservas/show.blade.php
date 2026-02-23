@@ -48,7 +48,7 @@
       <div class="col-12">
         <label class="fw-medium">Unidade:</label>
         <span class="input-custom-disabled">
-          {{ $reserva->user->unidade->nome ?? 'Unidade não encontrada' }}
+          {{ $reserva->unidade->nome ?? 'Unidade não encontrada' }}
         </span>
       </div>
 

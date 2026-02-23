@@ -37,6 +37,22 @@
             </div>
           </div>
 
+          @if(auth()->user()->is_admin)
+            <div class="mb-3 row">
+                <div class="col-12">
+                    <label class="fw-medium">Unidade:</label>
+                    <select name="unidade_fk" class="form-select pointer" required>
+                        <option value="" disabled selected>Selecione a unidade</option>
+                        @foreach($unidades as $unidade)
+                            <option value="{{ $unidade->id }}">
+                                {{ $unidade->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+          @endif
+
           <div class="row align-items-end mb-3">
             <div class="col-4">
               <label for="hora_inicio" class="fw-medium">Hora de Início:</label>

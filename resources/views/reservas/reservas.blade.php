@@ -68,7 +68,7 @@
                 {{ $nomeFormatado }}
               </td>
 
-              <td data-th="Unidade" class="fs-13">{{ $reserva->user && $reserva->user->unidade ? $reserva->user->unidade->nome : '' }}</td>
+              <td data-th="Unidade" class="fs-13">{{ $reserva->unidade?->nome ?? '—' }}</td>
               <!-- <td>{{ ucfirst($reserva->finalidade) ?? 'N/A' }}</td> -->
               <td data-th="Tipo Reserva" class="fs-13">{{ ucfirst($reserva->finalidade) ?? '—' }}</td>
               <td data-th="Opções" class="fs-13">

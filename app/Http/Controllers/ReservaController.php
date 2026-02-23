@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Sala;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -15,11 +16,12 @@ class ReservaController extends Controller
     public function index()
     {
         $users = User::all();
+        $unidades = Unidade::all();
         $reservas = Reserva::with('sala', 'user.unidade')
-        ->orderBy('data_inicio', 'desc') // Ordena corretamente
+        ->orderBy('data_inicio', 'desc') 
         ->get();
         $salas = Sala::all();
-        return view('home', compact('reservas', 'salas', 'users'));
+        return view('home', compact('reservas','unidades', 'salas', 'users'));
     }
 
 
@@ -128,16 +130,18 @@ class ReservaController extends Controller
         //     }
         // }
 
-        // Criar a reserva
+        // Criar a reserva 
+        
+        $user = auth()->user();
+        $unidadeId = $user->is_admin == 1 ? $request->input('unidade_fk') : $user->unidade_fk;
         $reserva = Reserva::create([
             'sala_fk' => $salaId,
             'data_inicio' => $dataInicio,
             'data_fim' => $dataFim,
             'user_id' => auth()->id(),
-            'unidade_fk' => auth()->user()->unidade_fk,
-            'finalidade' => $request->input('tipo_reserva'), // <- Aqui!
+            'unidade_fk' => $unidadeId,
+            'finalidade' => $request->input('tipo_reserva'), 
         ]);
-
 
         // Resposta para requisições AJAX
         if ($request->ajax()) {

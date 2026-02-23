@@ -147,6 +147,22 @@
               </select>
             </div>
           </div>
+          
+          @if(auth()->user()->is_admin == 1)
+            <div class="row mb-3">
+              <div class="col-12 col-sm-8">
+                <label class="fw-medium">Unidade:</label>
+                <select name="unidade_fk" class="form-select pointer" required>
+                  <option value="" disabled selected>Selecione a unidade</option>
+                  @foreach($unidades as $unidade)
+                    <option value="{{ $unidade->id }}">
+                      {{ $unidade->nome }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          @endif
 
           <div class="row align-items-end">
             <div class="col-12 col-sm-4">
