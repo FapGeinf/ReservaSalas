@@ -165,6 +165,7 @@ class ReservaController extends Controller
     public function edit(Reserva $reserva)
     {
         $user = auth()->user();
+        $unidades = Unidade::all();
 
         if (!($user->is_admin || $user->id === $reserva->user_id)) {
             return back()->with(
@@ -176,7 +177,7 @@ class ReservaController extends Controller
             session(['return_url' => url()->previous()]);
         }
         $salas = Sala::all();
-        return view('reservas.edit', compact('reserva','salas'));
+        return view('reservas.edit', compact('reserva','salas','unidades'));
     }
 
     public function update(Request $request, Reserva $reserva)
@@ -194,6 +195,12 @@ class ReservaController extends Controller
                 'hora_inicio' => 'required|date_format:H:i',
                 'data_fim'    => 'required|date_format:H:i',
             ]);
+            
+            if ($user->is_admin) {
+                $request->validate([
+                    'unidade_fk' => 'required|exists:unidades,id'
+                ]);
+            }
 
             $inicio = Carbon::parse($request->data_inicio . ' ' . $request->hora_inicio);
             $fim    = Carbon::parse($request->data_inicio . ' ' . $request->data_fim);
@@ -203,11 +210,12 @@ class ReservaController extends Controller
                     ->withErrors(['data_fim' => 'A hora de término deve ser maior que a hora de início.'])
                     ->withInput();
             }
-
+            $unidadeId = $user->is_admin ? $request->unidade_fk: $user->unidade_fk;
             $reserva->update([
                 'sala_fk'     => $request->sala_id,
                 'data_inicio' => $inicio,
                 'data_fim'    => $fim,
+                'unidade_fk'  => $unidadeId
             ]);
 
             $returnUrl = session()->pull('return_url', route('reservas.index'));
