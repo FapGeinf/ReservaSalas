@@ -306,7 +306,7 @@ public function getReservasPorData(Request $request)
                     'borderColor' => $borderColor,
                     'textColor' => $textColor,
                     'extendedProps' => [
-                        'unidade' => $reserva->user->unidade->sigla ?? 'nome da unidade',
+                        'unidade' => $reserva->unidade->sigla ?? 'nome da unidade',
                         'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
                         'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
                         'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),

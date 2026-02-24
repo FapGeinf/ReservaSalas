@@ -118,7 +118,7 @@ $(document).ready(function() {
 
     $('#reservaHoraInicio').text(reserva.data_inicio?.split(' ')[1]?.slice(0,5) ?? '??:??');
     $('#reservaHoraFim').text(reserva.data_fim?.split(' ')[1]?.slice(0,5) ?? '??:??');
-    $('#reservaUnidade').text(reserva.user?.unidade?.nome ?? 'Unidade desconhecida');
+    $('#reservaUnidade').text(reserva.unidade?.nome ?? 'Unidade desconhecida');
     $('#reservaResponsavel').text(reserva.user?.name ?? 'Usuário desconhecido');
 
     $('#btnEditarReservaUnica').data('id', reserva.id);
