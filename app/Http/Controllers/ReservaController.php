@@ -83,18 +83,18 @@ class ReservaController extends Controller
        $dataFim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino)->format('Y-m-d H:i:s');
 
        $inicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio);
-        $fim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino);
+       $fim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino);
 
         if ($fim->lte($inicio)) {
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'A hora de término deve ser maior que a hora de início.'
+                    'message' => 'A hora de término deve ser após a hora de início.'
                 ], 400);
             }
 
             return back()->withErrors([
-                'hora_termino' => 'A hora de término deve ser maior que a hora de início.'
+                'hora_termino' => 'A hora de término deve ser após a hora de início.'
             ])->withInput();
         }
 

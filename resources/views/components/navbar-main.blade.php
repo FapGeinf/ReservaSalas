@@ -1,3 +1,14 @@
+@php
+    $horarios = [];
+    for ($h = 8; $h <= 20; $h++) {
+        for ($m = 0; $m < 60; $m += 30) {
+            if ($h == 20 && $m == 30) continue;
+            $horario = sprintf('%02d:%02d', $h, $m);
+            $horarios[] = $horario;
+        }
+    }
+@endphp
+
 <head>
   <link rel="stylesheet" href="{{ asset('css/navbar-main.css') }}">
 </head>
@@ -56,14 +67,22 @@
           <div class="row align-items-end mb-3">
             <div class="col-4">
               <label for="hora_inicio" class="fw-medium">Hora de Início:</label>
-              <input type="text" name="hora_inicio" id="hora_inicio" class="input-custom form-select"
-              placeholder="00:00" required>
+              <select name="hora_inicio" id="hora_inicio" class="form-select input-custom pointer" required>
+                <option value="" disabled selected>Selecione</option>
+                @foreach($horarios as $horario)
+                  <option value="{{ $horario }}">{{ $horario }}</option>
+                @endforeach
+              </select>
             </div>
 
             <div class="col-4">
               <label for="hora_termino" class="fw-medium">Hora de Término:</label>
-              <input type="text" name="hora_termino" id="hora_termino" class="input-custom form-select"
-              placeholder="00:00" required>
+              <select name="hora_termino" id="hora_termino" class="form-select input-custom pointer" required>
+                <option value="" disabled selected>Selecione</option>
+                @foreach($horarios as $horario)
+                  <option value="{{ $horario }}">{{ $horario }}</option>
+                @endforeach
+              </select>
             </div>
 
             <div class="col-4 d-flex align-items-center" style="margin-bottom: 20px;">
