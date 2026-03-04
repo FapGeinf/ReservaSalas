@@ -320,8 +320,9 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button-warning" data-bs-toggle="modal" data-bs-target="#modalEncerramento">
-          Encerrar Reunião
+        <button type="button" class="button-blue" data-bs-toggle="modal" data-bs-target="#modalEncerramento">
+          <i class="bi bi-check-circle me-1"></i>
+          Finalizar
         </button>
         @if(Auth::user()->is_admin)
           <button type="button" id="btnEditar" class="button-blue">
@@ -525,11 +526,10 @@
           <i class="bi bi-x-lg me-1"></i>
           Cancelar
         </button>
-        
         <form id="formEncerrar" method="POST" style="display: inline;">
           @csrf
           @method('PUT')
-          <button type="submit" class="button-warning">
+          <button type="submit" class="button-blue">
             <i class="bi bi-check-lg me-1"></i>
             Sim, encerrar
           </button>
