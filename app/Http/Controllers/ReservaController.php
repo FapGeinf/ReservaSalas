@@ -227,6 +227,26 @@ class ReservaController extends Controller
         
     }
 
+    public function encerrar(Reserva $reserva){
+        $user = auth()->user();
+        if(!($user->is_admin || $user->id === $reserva->user_id)){
+            return back()->with('error', 'Desculpe, este perfil de usuário não tem permissão para encerrar esta reserva.');
+        }
+        try{
+            $now = Carbon::now();
+            
+            // Só verifica se já passou do fim
+            if (Carbon::parse($reserva->data_fim)->lt($now)) {
+                return back()->with('error', 'Esta reserva já foi encerrada.');
+            }
+            
+            $reserva->update(['data_fim' => $now]);
+            return back()->with('success', 'Reserva finalizada');
+            
+        }catch(\Exception $e){
+            return back()->with('error', 'Erro: ' . $e->getMessage());
+        }
+    }
 
 
     public function destroy(Reserva $reserva)

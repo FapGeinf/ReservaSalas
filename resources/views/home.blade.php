@@ -320,6 +320,9 @@
       </div>
 
       <div class="modal-footer">
+        <button type="button" class="button-warning" data-bs-toggle="modal" data-bs-target="#modalEncerramento">
+          Encerrar Reunião
+        </button>
         @if(Auth::user()->is_admin)
           <button type="button" id="btnEditar" class="button-blue">
             <i class="bi bi-pencil-square fs-icon me-1"></i>
@@ -500,6 +503,37 @@
           <i class="bi bi-x-lg me-1"></i>
           Fechar
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Encerramento -->
+<div class="modal fade" id="modalEncerramento" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">Confirmar Encerramento</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0 fs-14">Tem certeza que deseja encerrar esta reunião agora?</p>
+        <p class="text-muted small mt-2">O horário de término será registrado como o momento atual.</p>
+      </div>
+      <div class="modal-footer bg-modal-footer">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Cancelar
+        </button>
+        
+        <form id="formEncerrar" method="POST" style="display: inline;">
+          @csrf
+          @method('PUT')
+          <button type="submit" class="button-warning">
+            <i class="bi bi-check-lg me-1"></i>
+            Sim, encerrar
+          </button>
+        </form>
       </div>
     </div>
   </div>

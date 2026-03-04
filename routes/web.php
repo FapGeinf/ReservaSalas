@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 		Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
 		Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
 		Route::delete('/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
+	    Route::put('/{reserva}/encerrar', [ReservaController::class, 'encerrar'])->name('reservas.encerrar');
 	});
 
 	// Rota raiz redireciona para "home"

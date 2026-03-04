@@ -18,6 +18,11 @@ function abrirModalDetalhes(event) {
     : '';
   if (detalheData) detalheData.innerText = dataReserva;
 
+  const formEncerrar = document.getElementById('formEncerrar');
+  if (formEncerrar) {
+    formEncerrar.action = `/reservas/${event.id}/encerrar`;
+  }
+
   // Botões (podem não existir para usuários sem permissão)
   const btnEditar = document.getElementById('btnEditar');
   if (btnEditar) {
