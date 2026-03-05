@@ -29,7 +29,6 @@ class ReservaService
         $dataInicio = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_inicio']);
         $dataFim    = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
 
-       
         $this->validarHorario($dataInicio, $dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim)) {
@@ -37,7 +36,6 @@ class ReservaService
         }
         
         $user = Auth::user();
-      
         $unidadeId = ($user->is_admin == 1) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
 
         return Reserva::create([
@@ -78,11 +76,11 @@ class ReservaService
         ]);
     }
 
-
     public function encerrarReserva(Reserva $reserva)
     {
         $user = Auth::user();
         $agora = Carbon::now();
+        $inicio = Carbon::parse($reserva->data_inicio);
 
         if (!($user->is_admin || $user->id === $reserva->user_id)) {
             throw new Exception('Sem permissão para encerrar esta reserva.');
@@ -92,8 +90,12 @@ class ReservaService
             throw new Exception('Esta reserva já foi finalizada ou o horário já expirou.');
         }
 
-        if ($agora->lt(Carbon::parse($reserva->data_inicio))) {
+        if ($agora->lt($inicio)) {
             throw new Exception('Não é possível encerrar uma reserva que ainda não começou.');
+        }
+
+        if ($agora->equalTo($inicio)) {
+            $agora->addMinute();
         }
 
         return $reserva->update([
@@ -238,8 +240,10 @@ class ReservaService
             throw new Exception('A hora de término deve ser após a hora de início.');
         }
 
-        if ($inicio->isPast() && !$inicio->isToday()) {
-            throw new Exception('Não é possível realizar ou editar reservas para datas passadas.');
+        if ($inicio->isPast()) {
+            if (!$inicio->isToday() || $inicio->lt(Carbon::now()->subMinutes(5))) {
+                throw new Exception('Não é possível realizar ou editar reservas para horários que já passaram.');
+            }
         }
     }
 }
