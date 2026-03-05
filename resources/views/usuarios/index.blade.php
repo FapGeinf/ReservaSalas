@@ -1,172 +1,181 @@
 @extends('layouts.app')
-@section('title') {{ 'Usuários Cadastrados' }} @endsection
+
+@section('title', 'Usuários Cadastrados')
+
 @section('content')
+  <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/table-borders.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
-<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/table-borders.css') }}">
-<link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <div class="container mt-5">
 
-@push('scripts')
-  @if(session('success'))
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        Swal.fire({
-          position: 'top',
-          title: 'Sucesso!',
-          text: '{{ session('success') }}',
-          icon: 'success',
-          confirmButtonText: 'Fechar',
-          customClass: {
-            confirmButton: 'button-green'
-          }
-        });
-      });
-    </script>
-  @endif
-@endpush
-
-<div class="container mt-5">
-  <div class="tabela-main-page">
-    <div class="text-center fw-semibold mb-4">
-      <span class="title-meetings">Usuários Cadastrados</span>
-
-      <div class="pt-1 pb-4">
-        <a href="{{ route('usuarios.create') }}" class="button-orange fw-normal text-decoration-none justify-content-center">
-          <i class="bi bi-plus fs-13"></i>
-          Novo Usuário
-        </a>        
-      </div>
+    <div id="flash-messages" data-success="{{ session('success') }}"
+      data-error="{{ session('error') ?: session('cpf_error') ?: $errors->first() }}">
     </div>
 
-    <table id="tableUsers" class="table table-striped border-bottom-0 my-3">
-      <thead>
-        <tr>
-          <th class="fs-13 text-center">Id</th>
-          <th class="fs-13 text-center">Nome</th>
-          <th class="fs-13 text-center">Login</th>
-          <th class="fs-13 text-center">Email</th>
-          <th class="fs-13 text-center">Unidade</th>
-          <th class="fs-13 text-nowrap text-center">Tipo de Usuário</th>
-          <th class="fs-13 text-center">Opções</th>
-        </tr>
-      </thead>
+    <div class="tabela-main-page">
+      <div class="text-center fw-semibold mb-4">
+        <span class="title-meetings">Usuários Cadastrados</span>
 
-      <tbody>
-        @foreach($usuarios as $usuario)
+        <div class="pt-1 pb-4">
+          <a href="{{ route('usuarios.create') }}"
+            class="button-orange fw-normal text-decoration-none d-inline-flex align-items-center justify-content-center">
+            <i class="bi bi-plus fs-4"></i>
+            Novo Usuário
+          </a>
+        </div>
+      </div>
+
+      <table id="tableUsers" class="table table-striped border-bottom-0 my-3">
+        <thead>
           <tr>
-            <td data-th="Id" class="fs-13">{{ $usuario->id }}</td>
-            <td data-th="Nome" class="fs-13">{{ $usuario->name }}</td>
-            <td data-th="Login" class="fs-13">{{ $usuario->login }}</td>
-            <td data-th="Email" class="fs-13">{{ $usuario->email }}</td>
-            <td data-th="Unidade" class="fs-13">{{ $usuario->unidade ? $usuario->unidade->nome : 'Unidade não encontrada' }}</td>
-
-            <td data-th="Tipo de Usuário" class="fs-13">
-              @if(in_array($usuario->unidade_fk, [12, 14]))
-                Administrador
-              @else
-                Comum
-              @endif
-            </td>
-
-            <td data-th="Opções" class="fs-13">
-              <div class="dropdown">
-                <button class="button-garden" type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" style="padding: 4px 9px;">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
-
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <button type="button" class="dropdown-item text-danger fs-13" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
-                      <i class="bi bi-trash me-1"></i>
-                      Excluir
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </td>
+            <th class="fs-13 text-center">Id</th>
+            <th class="fs-13 text-center">Nome</th>
+            <th class="fs-13 text-center">Login</th>
+            <th class="fs-13 text-center">Unidade</th>
+            <th class="fs-13 text-nowrap text-center">Tipo</th>
+            <th class="fs-13 text-center">Opções</th>
           </tr>
-        @endforeach
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          @foreach($usuarios as $usuario)
+            <tr>
+              <td class="fs-13 text-center">{{ $usuario->id }}</td>
+              <td class="fs-13">{{ $usuario->name }}</td>
+              <td class="fs-13">{{ $usuario->login }}</td>
+              <td class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>
+              <td class="fs-13 text-center">
+                {{-- Ajustado para refletir o is_admin do seu model --}}
+                <span class="badge {{ $usuario->is_admin ? 'bg-danger' : 'bg-secondary' }}">
+                  {{ $usuario->is_admin ? 'Admin' : 'Comum' }}
+                </span>
+              </td>
+
+              <td class="fs-13 text-center">
+                <div class="dropdown">
+                  <button class="button-garden" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    style="padding: 4px 9px;">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <button type="button" class="dropdown-item fs-13 btn-edit-user" data-user-id="{{ $usuario->id }}">
+                        <i class="bi bi-pencil me-1"></i> Editar
+                      </button>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                      <button type="button" class="dropdown-item text-danger fs-13" data-bs-toggle="modal"
+                        data-bs-target="#confirmDeleteModal" data-user-id="{{ $usuario->id }}">
+                        <i class="bi bi-trash me-1"></i>
+                        Excluir
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmação de Exclusão</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+  {{-- Modal de Exclusão --}}
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Confirmação de Exclusão</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body fs-14">
+          Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.
+        </div>
+        <div class="modal-footer py-2 bg-modal-footer">
+          <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+          <form id="deleteForm" action="" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="button-red">Excluir</button>
+          </form>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div class="modal-body fs-14">
-        Tem certeza que deseja excluir este usuário?
-      </div>
-
-      <div class="modal-footer py-2 bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Cancelar
-        </button>
-
-        <form id="deleteForm" action="" method="POST">
+  {{-- Modal de Edição --}}
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Editar Usuário</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        
+        <form id="editUserForm" method="POST">
           @csrf
-          @method('DELETE')
-          <button type="submit" class="button-red">
-            <i class="bi bi-trash fs-12 me-1"></i>
-            Excluir
-          </button>
+          @method('PUT')
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Nome Completo</label>
+                <input type="text" name="name" id="edit_name" class="form-control fs-13" required>
+              </div>
+              
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Login do Sistema</label>
+                <input type="text" name="login" id="edit_login" class="form-control fs-13" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Unidade</label>
+                <select name="unidade_fk" id="edit_unidade" class="form-select fs-13" required>
+                  {{-- Populado via JS --}}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Tipo de Acesso</label>
+                {{-- Alterado 'role' para 'is_admin' para bater com seu Model --}}
+                <select name="is_admin" id="edit_is_admin" class="form-select fs-13" required>
+                  <option value="0">Usuário Comum</option>
+                  <option value="1">Administrador</option>
+                </select>
+              </div>
+
+              <div class="col-md-12">
+                <label class="fs-13 fw-semibold">Nova Senha</label>
+                <input type="password" name="password" class="form-control fs-13" placeholder="Deixe em branco para manter a atual">
+                <small class="text-muted fs-11 mt-1">Mínimo de 8 caracteres.</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-footer py-2 bg-modal-footer">
+            <button type="button" class="button-grey" data-bs-dismiss="modal">
+              <i class="bi bi-x-lg me-1"></i> Cancelar
+            </button>
+            <button type="submit" class="button-orange">
+              <i class="bi bi-check-lg me-1"></i> Salvar Alterações
+            </button>
+          </div>
         </form>
       </div>
     </div>
   </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $('#tableUsers').DataTable({
-      language: {
-      url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-      search: "Procurar:",
-      lengthMenu: "Paginação: _MENU_",
-      info: 'Mostrando página _PAGE_ de _PAGES_',
-      infoEmpty: 'Sem relatórios de risco disponíveis no momento',
-      infoFiltered: '(Filtrados do total de _MAX_ relatórios)',
-      zeroRecords: 'Nada encontrado. Se achar que isso é um erro, contate o suporte.',
-      paginate: {
-          next: "Próximo",
-          previous: "Anterior"
-        }
-      },
-      // scrollY: '200px',
-      scrollCollapse: true,
-      paging: true
-    });
-  });
-</script>
-
-<!-- Script para passar o ID do usuário ao modal -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var confirmDeleteModal = document.getElementById('confirmDeleteModal');
-    confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
-      var button = event.relatedTarget; // Botão que acionou o modal
-      var userId = button.getAttribute('data-user-id'); // Obtém o ID do usuário
-      var form = document.getElementById('deleteForm');
-      form.action = '/usuarios/' + userId; // Atualiza a ação do formulário
-    });
-  });
-</script>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('js/usuarios/index.js') }}"></script>
 
 @endsection

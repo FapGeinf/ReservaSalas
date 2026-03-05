@@ -1,81 +1,85 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Unidade;
 use App\Models\User;
-
-
+use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function index()
+    {
+
+        $usuarios = User::with('unidade')->get();
+        return view('usuarios.index', compact('usuarios'));
+    }
 
     public function create()
-{
-    $unidades = Unidade::all(); // Busca todas as unidades para o dropdown
-    return view('usuarios.create', compact('unidades'));
-}
-
-    public function store(Request $request)
-{
-    $messages = [
-        'cpf.unique' => 'O CPF informado já está cadastrado.',
-
-    ];
-    // Validação dos dados
-    $request->validate([
-     'name' => 'required|string|max:255',
-    //  'email' => 'required|string|email|max:255|unique:users',
-    //  'cpf' => 'nullable|string|max:14|unique:users', // Alterado para nullable
-     'unidade_fk' => 'required|exists:unidades,id',
-     'login' => 'required|string|max:255|unique:users',
-     'password' => 'required|string|min:8|confirmed',
-     'role' => 'required|in:user,admin', // Adicionando validação para o tipo de usuário
-  ], $messages);
- 
-    // Verificar se o CPF já está cadastrado
-    if (!empty($request->cpf)) { // Verifica se o CPF foi preenchido
-    $existingUser = User::where('cpf', $request->cpf)->first();
-    if ($existingUser) {
-        return redirect()->back()->with('cpf_error', 'O CPF informado já está cadastrado para o usuário: ' . $existingUser->name);
+    {
+        $unidades = Unidade::all();
+        return view('usuarios.create', compact('unidades'));
     }
-}
 
-    // Cria o usuário
-    User::create([
-        'name' => $request->name,
-        // 'email' => $request->email,
-        // 'cpf' => $request->cpf,
-        'unidade_fk' => $request->unidade_fk,
-        'login' => $request->login,
-        'password' => bcrypt($request->password),
-        'role' => $request->role, // Salva o tipo de usuário
-    ]);
+    public function store(StoreUserRequest $request)
+    {
+        $result = $this->userService->createUser($request->validated());
 
-    return redirect()->route('usuarios.create')->with('success', 'Usuário cadastrado com sucesso!');
-}
-    public function update(Request $request, $id)
-{
-    // $request->validate([
-    //     'cpf' => 'required|unique:users,cpf,' . $id, // Permite atualizar sem duplicar
-    // ]);
+        if (!$result['success']) {
+            return redirect()->back()->withInput()->with('error', $result['message']);
+        }
 
-    $user = User::findOrFail($id);
-    // $user->cpf = $request->cpf;
-    $user->save();
+        return redirect()->route('usuarios.index')->with('success', 'Usuário cadastrado!');
+    }
 
-    return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
-}
+    
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $unidades = Unidade::all();
 
-public function marcarTutorial(Request $request)
-{
-    $user = auth()->user();
-    $user->tutorial_exibido = true;
-    $user->save();
+        return response()->json([
+            'user' => $user,
+            'unidades' => $unidades
+        ]);
+    }
 
-    return response()->json(['status' => 'ok']);
-}
+    public function update(UpdateUserRequest $request, $id)
+    {
+        $result = $this->userService->updateUser($id, $request->validated());
 
+        if (!$result['success']) {
+            return redirect()->back()->withInput()->with('error', $result['message']);
+        }
 
+        return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
+    }
+
+   
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->route('usuarios.index')->with('success', 'Usuário removido com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('usuarios.index')->with('error', 'Erro ao excluir usuário.');
+        }
+    }
+
+    public function marcarTutorial(Request $request)
+    {
+        $this->userService->updateTutorialStatus(auth()->user());
+        return response()->json(['status' => 'ok']);
+    }
 }

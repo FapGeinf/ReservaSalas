@@ -28,7 +28,6 @@
   .input-custom-disabled { display: block; padding: 0.5rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; min-height: 38px; }
 </style>
 
-{{-- 2. SCRIPTS DE DEPENDÊNCIA (Ordem correta para evitar conflitos) --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
