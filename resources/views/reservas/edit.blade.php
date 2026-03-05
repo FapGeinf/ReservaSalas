@@ -1,15 +1,7 @@
 @extends('layouts.app')
-@section('title') {{ 'Editar Reserva' }} @endsection
-@section('content')
+@section('title', 'Editar Reserva')
 
-<link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
-<link rel="stylesheet" href="{{ asset('css/boxes.css') }}">
-<link rel="stylesheet" href="{{ asset('css/salas.css') }}">
-<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
-<link rel="stylesheet" href="{{ asset('css/bg.css') }}">
-<link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
-<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+@section('content')
 
 @php
     $horarios = [];
@@ -22,223 +14,138 @@
     }
 @endphp
 
-@push('scripts')
-  @if(session('success'))
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        Swal.fire({
-          position: 'top',
-          title: 'Sucesso!',
-          text: '{{ session('success') }}',
-          icon: 'success',
-          confirmButtonText: 'Fechar',
-          customClass: {
-            confirmButton: 'button-green'
-          }
-        }).then(() => {
-          window.location.href = "{{ session('return_url', route('home')) }}";
-        });
-      });
-    </script>
-  @endif
+<link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
+<link rel="stylesheet" href="{{ asset('css/boxes.css') }}">
+<link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
+<link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
+<link rel="stylesheet" href="{{ asset('css/reservas/edit.css') }}">
 
-  @if(session('error'))
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        Swal.fire({
-          position: 'top',
-          title: 'Erro!',
-          text: '{{ session('error') }}',
-          icon: 'error',
-          confirmButtonText: 'Fechar',
-          customClass: {
-            confirmButton: 'button-red'
-          }
-        });
-      });
-    </script>
-  @endif
-
-  @if($errors->any())
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        let errorMessage = '';
-        @foreach($errors->all() as $error)
-          errorMessage += '• {{ $error }}\n';
-        @endforeach
-        
-        Swal.fire({
-          position: 'top',
-          title: 'Ops! Verifique os campos',
-          text: errorMessage,
-          icon: 'warning',
-          confirmButtonText: 'Entendi',
-          customClass: {
-            confirmButton: 'button-blue'
-          }
-        });
-      });
-    </script>
-  @endif
-
-  <script>
-    $(document).ready(function() {
-      function validarHorarios() {
-        const horaInicio = $('#hora_inicio').val();
-        const horaFim = $('#data_fim').val();
-        const dataInicio = $('#data_inicio').val();
-        
-        if (horaInicio && horaFim && dataInicio) {
-          const dataHoraInicio = new Date(dataInicio + 'T' + horaInicio + ':00');
-          const dataHoraFim = new Date(dataInicio + 'T' + horaFim + ':00');
-          
-          if (dataHoraFim <= dataHoraInicio) {
-            $('#hora_alert').removeClass('d-none');
-            $('#submit-btn').prop('disabled', true);
-          } else {
-            $('#hora_alert').addClass('d-none');
-            $('#submit-btn').prop('disabled', false);
-          }
-        }
-      }
-
-      $('#hora_inicio, #data_fim, #data_inicio').on('change', validarHorarios);
-      validarHorarios();
-    });
-  </script>
-@endpush
-
-<div class="container pt-5" style="max-width: 480px;">
-  <div class="box-page">
-    <div class="text-center fw-semibold mb-4">
-      <span class="title-meetings">Alterar Reserva Cód: {{ $reserva->id }}</span>
-    </div>
-
-    <form id="form-edit" action="{{ route('reservas.update', $reserva->id) }}" method="POST">
-      @csrf
-      @method('PUT')
-
-      <div class="row g-3">
-        <div class="col-12">
-          <label for="sala_id" class="fw-medium">Sala <span class="text-danger">*</span></label>
-          <select name="sala_id" id="sala_id" class="form-select text-capitalize pointer @error('sala_id') is-invalid @enderror" required>
-            <option value="" disabled>Selecione uma sala</option>
-            @foreach($salas as $sala)
-              <option class="text-uppercase pointer" value="{{ $sala->id }}" 
-                {{ old('sala_id', $reserva->sala_fk) == $sala->id ? 'selected' : '' }}>
-                {{ $sala->nome }}
-              </option>
-            @endforeach
-          </select>
-          @error('sala_id')
-            <div class="invalid-feedback d-block">{{ $message }}</div>
-          @enderror
-        </div>
-
-        @if(auth()->user()->is_admin)
-          <div class="col-12">
-            <label class="fw-medium">Unidade Responsável <span class="text-danger">*</span></label>
-            <select name="unidade_fk" class="form-select pointer @error('unidade_fk') is-invalid @enderror" required>
-              <option value="" disabled>Selecione a unidade</option>
-              @foreach($unidades as $unidade)
-                <option value="{{ $unidade->id }}" 
-                  {{ old('unidade_fk', $reserva->unidade_fk) == $unidade->id ? 'selected' : '' }}>
-                  {{ $unidade->nome }}
-                </option>
-              @endforeach
-            </select>
-            @error('unidade_fk')
-              <div class="invalid-feedback d-block">{{ $message }}</div>
-            @enderror
-          </div>
-        @else          
-          <div class="col-12">
-            <label class="fw-medium">Unidade Responsável</label>
-            <input type="hidden" name="unidade_fk" value="{{ $reserva->unidade_fk }}">
-            <div class="form-control bg-light" style="cursor: not-allowed; background-color: #f5f5f5;">
-              <i class="bi bi-building me-2"></i>
-              {{ $reserva->unidade->nome ?? 'Unidade não definida' }}
-            </div>
-          </div>
-        @endif
-
-        <div class="col-12">
-          <label for="data_inicio" class="fw-medium">Data <span class="text-danger">*</span></label>
-          <input type="date" 
-                 name="data_inicio" 
-                 id="data_inicio" 
-                 class="input-custom pointer @error('data_inicio') is-invalid @enderror" 
-                 value="{{ old('data_inicio', \Carbon\Carbon::parse($reserva->data_inicio)->format('Y-m-d')) }}" 
-                 required>
-          @error('data_inicio')
-            <div class="invalid-feedback d-block">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="col-12 col-sm-6">
-          <label class="fw-medium">Hora Início <span class="text-danger">*</span></label>
-          <select name="hora_inicio" id="hora_inicio" class="form-select pointer @error('hora_inicio') is-invalid @enderror" required>
-            <option value="" disabled>Selecione a hora</option>
-            @foreach($horarios as $horario)
-              <option value="{{ $horario }}" 
-                {{ old('hora_inicio', \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i')) == $horario ? 'selected' : '' }}>
-                {{ $horario }}
-              </option>
-            @endforeach
-          </select>
-          @error('hora_inicio')
-            <div class="invalid-feedback d-block">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="col-12 col-sm-6">
-          <label class="fw-medium">Hora Fim <span class="text-danger">*</span></label>
-          <select name="data_fim" id="data_fim" class="form-select pointer @error('data_fim') is-invalid @enderror" required>
-            <option value="" disabled>Selecione a hora</option>
-            @foreach($horarios as $horario)
-              <option value="{{ $horario }}" 
-                {{ old('data_fim', \Carbon\Carbon::parse($reserva->data_fim)->format('H:i')) == $horario ? 'selected' : '' }}>
-                {{ $horario }}
-              </option>
-            @endforeach
-          </select>
-          @error('data_fim')
-            <div class="invalid-feedback d-block">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="col-12">
-          <div id="hora_alert" class="alert alert-warning py-2 d-none">
-            <i class="bi bi-exclamation-triangle me-2"></i>
-            A hora de término deve ser maior que a hora de início
-          </div>
-        </div>
-
-        <div class="col-12 mt-2">
-          <div class="border-top pt-3">
-            <small class="text-muted d-block">
-              <i class="bi bi-person-circle me-1"></i>
-              Criado por: <span class="fw-medium">{{ $reserva->user->name ?? 'Usuário desconhecido' }}</span>
-            </small>
-            <small class="text-muted d-block">
-              <i class="bi bi-calendar-check me-1"></i>
-              Data da criação: <span class="fw-medium">{{ $reserva->created_at ? $reserva->created_at->format('d/m/Y H:i') : '—' }}</span>
-            </small>
-          </div>
-        </div>
-      </div>
-    </form>
-
-    <div class="d-flex justify-content-between pt-4">
-      <a href="{{ session('return_url', route('home')) }}" class="button-grey">
-        <i class="bi bi-arrow-left me-1"></i>
-        Cancelar
-      </a>
-      <button type="submit" id="submit-btn" form="form-edit" class="button-green">
-        <i class="bi bi-save me-1"></i>
-        Salvar Alterações
-      </button>
-    </div>
-  </div>
+<div id="flash-messages" 
+     data-success="{{ session('success') }}" 
+     data-error="{{ session('error') }}"
+     data-errors-list="{{ $errors->any() ? implode(' • ', $errors->all()) : '' }}">
 </div>
+
+<div class="container pt-5 mb-5" style="max-width: 500px;">
+    <div class="box-edit shadow-sm">
+        <div class="text-center mb-4">
+            <h4 class="fw-bold text-dark mb-1">Alterar Reserva</h4>
+            <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill border border-warning-subtle">
+                CÓDIGO #{{ $reserva->id }}
+            </span>
+        </div>
+
+        <form id="form-edit" action="{{ route('reservas.update', $reserva->id) }}" method="POST">
+            @csrf 
+            @method('PUT')
+
+            <div class="row g-3">
+                
+                <div class="col-12">
+                    <label class="form-label-custom">Sala <span class="text-danger">*</span></label>
+                    <select name="sala_fk" id="sala_fk" class="form-select input-custom @error('sala_fk') is-invalid @enderror" required>
+                        @foreach($salas as $sala)
+                            <option value="{{ $sala->id }}" {{ old('sala_fk', $reserva->sala_fk) == $sala->id ? 'selected' : '' }}>
+                                {{ $sala->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('sala_fk') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label-custom">Unidade Responsável</label>
+                    @if(auth()->user()->is_admin)
+                        <select name="unidade_fk" class="form-select input-custom @error('unidade_fk') is-invalid @enderror" required>
+                            @foreach($unidades as $unidade)
+                                <option value="{{ $unidade->id }}" {{ old('unidade_fk', $reserva->unidade_fk) == $unidade->id ? 'selected' : '' }}>
+                                    {{ $unidade->nome }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <input type="hidden" name="unidade_fk" value="{{ $reserva->unidade_fk }}">
+                        <div class="info-readonly bg-light p-2 rounded border">
+                            <i class="bi bi-building me-2 text-muted"></i>
+                            {{ $reserva->unidade->nome ?? 'Unidade não definida' }}
+                        </div>
+                    @endif
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label-custom">Tipo de Reserva <span class="text-danger">*</span></label>
+                    <select name="tipo_reserva" id="tipo_reserva" class="form-select input-custom" required>
+                        <option value="interno" {{ old('tipo_reserva', $reserva->finalidade) == 'interno' ? 'selected' : '' }}>
+                            Reunião Interna
+                        </option>
+                        <option value="pesquisador" {{ old('tipo_reserva', $reserva->finalidade) == 'pesquisador' ? 'selected' : '' }}>
+                            Atendimento ao Pesquisador
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label-custom">Data <span class="text-danger">*</span></label>
+                    <input type="date" name="data_reserva" id="data_inicio" 
+                           class="form-control input-custom @error('data_reserva') is-invalid @enderror" 
+                           value="{{ old('data_reserva', \Carbon\Carbon::parse($reserva->data_inicio)->format('Y-m-d')) }}" required>
+                    @error('data_reserva') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+
+                <div class="col-6">
+                    <label class="form-label-custom">Início <span class="text-danger">*</span></label>
+                    <select name="hora_inicio" id="hora_inicio" class="form-select input-custom" required>
+                        @foreach($horarios as $horario)
+                            @php $hora_atual = \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i'); @endphp
+                            <option value="{{ $horario }}" {{ old('hora_inicio', $hora_atual) == $horario ? 'selected' : '' }}>
+                                {{ $horario }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-6">
+                    <label class="form-label-custom">Fim <span class="text-danger">*</span></label>
+                    <select name="hora_termino" id="data_fim" class="form-select input-custom" required>
+                        @foreach($horarios as $horario)
+                            @php $hora_fim_atual = \Carbon\Carbon::parse($reserva->data_fim)->format('H:i'); @endphp
+                            <option value="{{ $horario }}" {{ old('hora_termino', $hora_fim_atual) == $horario ? 'selected' : '' }}>
+                                {{ $horario }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <div id="hora_alert" class="alert alert-danger py-2 d-none shadow-sm border-0" style="font-size: 13px;">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+                        O término deve ser maior que o início.
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3 pt-3 border-top">
+                    <div class="d-flex justify-content-between align-items-center opacity-75" style="font-size: 11px;">
+                        <span><i class="bi bi-person-fill"></i> {{ $reserva->user->name ?? 'Usuário' }}</span>
+                        <span><i class="bi bi-clock-history"></i> {{ $reserva->created_at->format('d/m/Y H:i') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 pt-4">
+                <a href="{{ session('return_url', route('reservas.index')) }}" class="btn btn-light border flex-fill py-2 fw-bold text-secondary">
+                    CANCELAR
+                </a>
+                <button type="submit" id="submit-btn" class="button-green flex-fill py-2 shadow-sm">
+                    <i class="bi bi-save2 me-1"></i> SALVAR
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('js/messages/alert.js') }}"></script>
+<script src="{{ asset('js/reservas/edit-validation.js') }}"></script>
+
 @endsection

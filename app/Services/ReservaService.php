@@ -78,6 +78,130 @@ class ReservaService
         ]);
     }
 
+
+    public function encerrarReserva(Reserva $reserva)
+    {
+        $user = Auth::user();
+
+        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+            throw new Exception('Sem permissão para encerrar esta reserva.');
+        }
+
+        if (Carbon::parse($reserva->data_fim)->isPast()) {
+            throw new Exception('Esta reserva já foi encerrada.');
+        }
+
+        return $reserva->update(['data_fim' => Carbon::now()]);
+    }
+
+    public function deletarReserva(Reserva $reserva)
+    {
+        $user = Auth::user();
+
+        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+            throw new Exception('Sem permissão para deletar esta reserva.');
+        }
+
+        return $reserva->delete();
+    }
+
+    public function buscarReserva($id)
+    {
+        return Reserva::findOrFail($id);
+    }
+
+    public function cancelarReserva($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        $reserva->delete();
+
+        return true;
+    }
+
+    public function getReservasPorSalaEData($salaId, $data)
+    {
+        return Reserva::where('sala_fk', $salaId)
+            ->whereDate('data_inicio', $data)
+            ->with(['user', 'user.unidade'])
+            ->get();
+    }
+
+    public function getReservasPorData($data)
+    {
+        if (!$data) {
+            return [];
+        }
+
+        return Reserva::with(['sala', 'user.unidade'])
+            ->whereDate('data_inicio', $data)
+            ->orderBy('data_inicio', 'asc')
+            ->get();
+    }
+
+    public function getEventos()
+    {
+        $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+        $now = Carbon::now();
+
+        $events = [];
+
+        foreach ($reservas as $reserva) {
+
+            $isPast = Carbon::parse($reserva->data_fim)->lt($now);
+
+            $color = $reserva->sala->cor ?? '#3788d8';
+
+            $backgroundColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
+            $borderColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
+            $textColor = $isPast ? '#333333' : '#ffffff';
+
+            $events[] = [
+                'id' => $reserva->id,
+                'title' => $reserva->sala?->nome,
+                'start' => Carbon::parse($reserva->data_inicio)->format('Y-m-d\TH:i:s'),
+                'end' => Carbon::parse($reserva->data_fim)->format('Y-m-d\TH:i:s'),
+                'backgroundColor' => $backgroundColor,
+                'borderColor' => $borderColor,
+                'textColor' => $textColor,
+                'extendedProps' => [
+                    'unidade' => $reserva->user->unidade->sigla ?? '',
+                    'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
+                    'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
+                    'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),
+                    'sala_fk' => $reserva->sala_fk,
+                    'unidade_fk' => $reserva->unidade_fk,
+                    'responsavel' => $reserva->user->name,
+                    'finalidade' => $reserva->finalidade
+                ]
+            ];
+        }
+
+        return $events;
+    }
+
+    public function listarReunioes()
+    {
+        return Reserva::with('sala', 'user.unidade')->get();
+    }
+
+    private function hexToRgba($hex, $opacity = 1.0)
+    {
+        $hex = str_replace('#', '', $hex);
+
+        if (strlen($hex) === 3) {
+            $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
+            $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
+            $b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+        } else {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        }
+
+        return "rgba($r, $g, $b, $opacity)";
+    }
+
+
     private function existeConflito($salaId, $inicio, $fim, $idIgnorar = null)
     {
         $query = Reserva::where('sala_fk', $salaId)
