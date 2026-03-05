@@ -2,159 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReservaRequest;
+use App\Http\Requests\UpdateReservaRequest;
 use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Sala;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
-
+use App\Services\ReservaService;
+use App\Services\UserService;
+use App\Services\SalaService;
+use App\Services\UnidadeService;
 use Carbon\Carbon;
-
+use Exception;
 
 class ReservaController extends Controller
 {
+    protected $reservaService, $userService, $salaService, $unidadeService;
+
+    public function __construct(ReservaService $reservaService, UserService $userService, SalaService $salaService, UnidadeService $unidadeService)
+    {
+        $this->reservaService = $reservaService;
+        $this->userService = $userService;
+        $this->salaService = $salaService;
+        $this->unidadeService = $unidadeService;
+    }
+
     public function index()
     {
-        $users = User::all();
-        $unidades = Unidade::all();
-        $reservas = Reserva::with('sala', 'user.unidade')
-        ->orderBy('data_inicio', 'desc') 
-        ->get();
+        $users = $this->userService->getUsers();
+        $unidades = $this->unidadeService->getUnidades();
+        $reservas = $this->reservaService->getReservasOrderByData();
         $salas = Sala::all();
         return view('home', compact('reservas','unidades', 'salas', 'users'));
     }
 
-
-
     public function create()
     {
-        $salas = Sala::all();
-        $users = User::all();
-        $reservas = Reserva::with('sala')->get(); // Carrega as reservas e suas relações com as salas
+        $salas = $this->salaService->getSalas();
+        $users = $this->userService->getUsers();
+        $reservas = $this->reservaService->getReservas();
         return view('reservas.create', compact('salas', 'reservas', 'users'));
     }
 
 
-    public function store(Request $request)
+    public function store(StoreReservaRequest $request)
     {
-        $dataSelecionada = Carbon::parse($request->input('data_reserva'));
-        $request->validate([
-            'sala_fk' => 'required|exists:salas,id',
-            'data_reserva' => [
-                'required',
-                'date',
-                function ($attribute, $value, $fail) {
-                    if (Carbon::parse($value)->lt(Carbon::today())) {
-                        $fail('A data escolhida deve ser hoje ou uma futura.');
-                    }
-                },
-            ],
-            // 'data_reserva' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_termino' => 'required|date_format:H:i|after:hora_inicio ',
-        ], [
-            'sala_fk.required' => 'Selecione uma sala.',
-            'sala_fk.exists' => 'Sala não encontrada.',
-            'data_reserva.required' => 'Informe a data da reserva.',
-            'data_reserva.after_or_equal' => 'A data escolhida deve ser hoje ou uma futura.',
-            'hora_inicio.required' => 'Informe a hora de início.',
-            'hora_termino.after' => 'A hora de término deve ser após a hora de início.',
-        ]);
+        try {
+            $reserva = $this->reservaService->criarReserva($request->validated());
 
-
-        // Verificar se a sala está ativa
-        $sala = Sala::findOrFail($request->input('sala_fk'));
-        if (strtolower(trim($sala->situacao)) !== 'ativa') {
             if ($request->ajax()) {
                 return response()->json([
-                    'success' => false,
-                    'message' => 'A sala está em manutenção e não pode ser reservada.'
-                ], 400);
+                    'success' => true,
+                    'reserva' => $reserva,
+                    'redirect' => route('home'),
+                    'message' => 'Reserva realizada com sucesso!'
+                ]);
             }
-            return back()->with('Desculpe!', 'A sala está em manutenção e não pode ser reservada.');
-        }
 
+            return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
 
-        $salaId = $request->input('sala_fk');
-        // $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
-        // $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
-
-       $dataInicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio)->format('Y-m-d H:i:s');
-       $dataFim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino)->format('Y-m-d H:i:s');
-
-       $inicio = Carbon::parse($request->data_reserva . ' ' . $request->hora_inicio);
-       $fim    = Carbon::parse($request->data_reserva . ' ' . $request->hora_termino);
-
-        if ($fim->lte($inicio)) {
+        } catch (Exception $e) {
             if ($request->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'A hora de término deve ser após a hora de início.'
-                ], 400);
+                return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
             }
 
-            return back()->withErrors([
-                'hora_termino' => 'A hora de término deve ser após a hora de início.'
-            ])->withInput();
+            return back()->with('Desculpe!', $e->getMessage())->withInput();
         }
-
-
-        // Verificar conflitos de horário
-        $conflito = Reserva::where('sala_fk', $salaId)
-            ->where(function ($query) use ($dataInicio, $dataFim) {
-                $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
-                    ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
-                    ->orWhere(function ($query) use ($dataInicio, $dataFim) {
-                        $query->where('data_inicio', '<=', $dataInicio)
-                            ->where('data_fim', '>=', $dataFim);
-                    });
-            })
-            ->exists();
-
-
-        if ($conflito) {
-            if ($request->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'A sala já está reservada neste horário.'
-                ], 400);
-            }
-            return back()->with('Desculpe!', 'A sala já está reservada neste horário.');
-        }
-
-        // Protege a sala Aquário (O retorno do erro deve aparecer na tela)
-        // if (str_contains(strtolower($sala->nome), 'aquário')) {
-        //     // Verifica se o usuário logado NÃO é admin
-        //     if (auth()->user()->role !== 'admin') {
-        //         return back()->with('error', 'A sala Aquário só pode ser reservada por administradores para uso de pesquisadores.');
-        //     }
-        // }
-
-        // Criar a reserva 
-        
-        $user = auth()->user();
-        $unidadeId = $user->is_admin == 1 ? $request->input('unidade_fk') : $user->unidade_fk;
-        $reserva = Reserva::create([
-            'sala_fk' => $salaId,
-            'data_inicio' => $dataInicio,
-            'data_fim' => $dataFim,
-            'user_id' => auth()->id(),
-            'unidade_fk' => $unidadeId,
-            'finalidade' => $request->input('tipo_reserva'), 
-        ]);
-
-        // Resposta para requisições AJAX
-        if ($request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'reserva' => $reserva,
-                'redirect' => route('home'),
-                'message' => 'Reserva realizada com sucesso!'
-            ]);
-        }
-
-        // Resposta para requisições normais
-        return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
     }
 
     public function show(Reserva $reserva)
@@ -165,7 +79,7 @@ class ReservaController extends Controller
     public function edit(Reserva $reserva)
     {
         $user = auth()->user();
-        $unidades = Unidade::all();
+        $unidades = $this->unidadeService->getUnidades();
 
         if (!($user->is_admin || $user->id === $reserva->user_id)) {
             return back()->with(
@@ -176,55 +90,24 @@ class ReservaController extends Controller
         if(!session()->has('return_url')){
             session(['return_url' => url()->previous()]);
         }
-        $salas = Sala::all();
+        $salas = $this->salaService->getSalas();
         return view('reservas.edit', compact('reserva','salas','unidades'));
     }
 
-    public function update(Request $request, Reserva $reserva)
+    public function update(UpdateReservaRequest $request, Reserva $reserva)
     {
-        $user = auth()->user();
-        if (!($user->is_admin || $user->id === $reserva->user_id)) {
-            return back()->with(
-                'error',
-                'Este perfil de usuário não tem permissão para alterar esta reserva.'
-            );
-        }
-        try{
-            $request->validate([
-                'sala_id'     => 'required|exists:salas,id',
-                'hora_inicio' => 'required|date_format:H:i',
-                'data_fim'    => 'required|date_format:H:i',
-            ]);
-            
-            if ($user->is_admin) {
-                $request->validate([
-                    'unidade_fk' => 'required|exists:unidades,id'
-                ]);
-            }
-
-            $inicio = Carbon::parse($request->data_inicio . ' ' . $request->hora_inicio);
-            $fim    = Carbon::parse($request->data_inicio . ' ' . $request->data_fim);
-
-            if ($fim->lte($inicio)) {
-                return back()
-                    ->withErrors(['data_fim' => 'A hora de término deve ser maior que a hora de início.'])
-                    ->withInput();
-            }
-            $unidadeId = $user->is_admin ? $request->unidade_fk: $user->unidade_fk;
-            $reserva->update([
-                'sala_fk'     => $request->sala_id,
-                'data_inicio' => $inicio,
-                'data_fim'    => $fim,
-                'unidade_fk'  => $unidadeId
-            ]);
+        try {
+            $this->reservaService->atualizarReserva($reserva, $request->validated());
 
             $returnUrl = session()->pull('return_url', route('reservas.index'));
 
             return redirect($returnUrl)->with('success', 'Reserva atualizada com sucesso!');
-        }catch(\Exception $e){
-            return back()->with('error', 'Desculpe, não foi possível atualizar a reserva: '. $e->getMessage());
+
+        } catch (\Exception $e) {
+            return back()
+                ->with('error', 'Erro ao atualizar: ' . $e->getMessage())
+                ->withInput();
         }
-        
     }
 
     public function encerrar(Reserva $reserva){
@@ -338,9 +221,10 @@ public function getReservasPorData(Request $request)
                         'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
                         'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
                         'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),
-                        'sala_id' => $reserva->sala_fk,
-                        'responsavel' => $reserva->user->name
-
+                        'sala_fk' => $reserva->sala_fk,
+                        'unidade_fk' => $reserva->unidade_fk,
+                        'responsavel' => $reserva->user->name,
+                        'finalidade' => $reserva->finalidade
                     ]
                 ]
             ];

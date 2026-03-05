@@ -32,7 +32,9 @@ function abrirModalDetalhes(event) {
         event.extendedProps?.hora_inicio,
         event.extendedProps?.hora_fim,
         event.extendedProps?.data_inicio,
-        event.extendedProps?.sala_id
+        event.extendedProps?.sala_fk,
+        event.extendedProps?.unidade_fk,
+        event.extendedProps?.finalidade
       );
 
       const instance = bootstrap.Modal.getInstance(document.getElementById('modalDetalhesReserva'));

@@ -200,76 +200,93 @@
   </div>
 </div>
 
-<!-- Modal de Edição de Reserva -->
-<div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="modal-editar-reserva-label">Editar Reserva</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body pb-4">
-        <form method="POST" id="form-editar-reserva">
-          @csrf
-
-          <input type="hidden" name="_method" value="PUT">
-
-          <div class="text-center">
-            <!-- Inserido d-none, remover em caso de bug -->
-            <span id="reserva-numero" class="fw-medium d-none" style="color: #374151;"></span>
-          </div>
-
-          <div class="row mb-4">
-            <div class="col-12 col-sm-7">
-              <label for="sala_id" class="fw-medium">Sala:</label>
-              <select name="sala_id" id="sala_id" class="form-select pointer" required>
-                <!-- opções preenchidas via JavaScript -->
-              </select>
+<div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-labelledby="modal-editar-reserva-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-editar-reserva-label">Editar Reserva</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
 
-            <div class="col-12 col-sm-5">
-              <label for="data_inicio" class="fw-medium">Data:</label>
-              <input type="date" name="data_inicio" id="data_inicio" class="input-custom form-select pointer" required>
+            <div class="modal-body pb-4">
+                <form method="POST" id="form-editar-reserva">
+                    @csrf
+                    @method('PUT')
+
+          
+                    <input type="hidden" name="data_reserva" id="data_reserva_edit">
+
+                    <div class="row mb-3">
+                        <div class="col-12 @if(auth()->user()->is_admin) col-sm-6 @endif">
+                            <label for="sala_fk_edit" class="fw-medium">Sala:</label>
+                            <select name="sala_fk" id="sala_fk_edit" class="form-select input-custom pointer" required>
+                                <option value="" disabled selected>Selecione uma sala</option>
+                                @foreach($salas as $sala)
+                                    <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        @if(auth()->user()->is_admin)
+                        <div class="col-12 col-sm-6">
+                            <label for="unidade_fk_edit" class="fw-medium">Unidade Responsável:</label>
+                            <select name="unidade_fk" id="unidade_fk_edit" class="form-select pointer" required>
+                                <option value="" disabled selected>Selecione a unidade</option>
+                                @foreach($unidades as $unidade)
+                                    <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12 col-sm-8">
+                            <label for="tipo_reserva_edit" class="fw-medium">Tipo de Reserva:</label>
+                            <select name="tipo_reserva" id="tipo_reserva_edit" class="form-select pointer" required>
+                                <option value="" selected disabled>Selecione uma opção</option>
+                                <option value="interno">Reunião interna</option>
+                                <option value="pesquisador">Atendimento ao pesquisador</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="text-secondary opacity-25 my-4">
+
+                    <div class="row align-items-end">
+                        <div class="col-12 col-sm-4">
+                            <label for="data_visual_edit" class="fw-medium">Data:</label>
+                            <input type="date" id="data_visual_edit" class="form-control input-custom pointer" required>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                            <label for="hora_inicio_edit" class="fw-medium">Hora de Início:</label>
+                            {{-- Adicionei a classe time-picker e removi form-select --}}
+                            <input type="text" name="hora_inicio" id="hora_inicio_edit" class="input-custom time-picker pointer" placeholder="00:00" required>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                            <label for="hora_termino_edit" class="fw-medium">Hora de Término:</label>
+                            {{-- Adicionei a classe time-picker e removi form-select --}}
+                            <input type="text" name="hora_termino" id="hora_termino_edit" class="input-custom time-picker pointer" placeholder="00:00" required>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
 
-          <div class="row align-items-end">
-            <div class="col-12 col-sm-4">
-              <label for="hora_inicio" class="fw-medium">Hora Início:</label>
-              <input type="text" name="hora_inicio" id="hora_inicio" class="input-custom form-select pointer" step="60" required>
+            <div class="modal-footer bg-modal-footer">
+                <button type="button" class="button-grey" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i> Cancelar
+                </button>
+
+                <button type="submit" form="form-editar-reserva" class="button-green">
+                    <i class="bi bi-save me-1"></i> Salvar Alterações
+                </button>
             </div>
-
-            <div class="col-12 col-sm-4">
-              <label for="data_fim" class="fw-medium">Hora Término:</label>
-              <input type="text" name="data_fim" id="data_fim" class="input-custom form-select pointer" step="60" required>
-            </div>
-
-            <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="modal-footer bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Cancelar
-        </button>
-
-        <button type="submit" form="form-editar-reserva" class="button-green">
-          <i class="bi bi-save me-1"></i>
-          Salvar Alterações
-        </button>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
-                   
+
 <!-- Modal Detalhes da Reserva -->
 <div class="modal fade" id="modalDetalhesReserva" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
   <div class="modal-dialog">

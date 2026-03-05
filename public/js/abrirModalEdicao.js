@@ -1,82 +1,68 @@
-function abrirModalEdicao(id, horaInicio, horaFim, dataInicio, salaId) {
-  if (!id) {
-    alert('Erro: ID da reserva ausente!');
-    return;
-  }
+function abrirModalEdicao(id, horaInicio, horaFim, dataInicioFull, salaFk, unidadeFk, finalidade) {
+    if (!id) return;
 
-  const modalEl = document.getElementById('modal-editar-reserva');
-  const form = document.getElementById('form-editar-reserva');
-  const selectSala = document.getElementById('sala_id');
+    const modalEl = document.getElementById('modal-editar-reserva');
+    const form = document.getElementById('form-editar-reserva');
+    form.action = `/reservas/${id}`;
 
-  // limpa e popula options
-  selectSala.innerHTML = '';
-  const optionPadrao = document.createElement('option');
-  optionPadrao.value = '';
-  optionPadrao.textContent = 'Selecione uma opção';
-  optionPadrao.disabled = true;
-  selectSala.appendChild(optionPadrao);
+    const dataVisual = document.getElementById('data_visual_edit');
+    const dataHidden = document.getElementById('data_reserva_edit');
+    const hInicioInput = document.getElementById('hora_inicio_edit');
+    const hTerminoInput = document.getElementById('hora_termino_edit');
+    const selectSala = document.getElementById('sala_fk_edit');
+    const selectUnidade = document.getElementById('unidade_fk_edit');
+    const selectTipo = document.getElementById('tipo_reserva_edit');
 
-  salasDisponiveis.forEach(sala => {
-    const option = document.createElement('option');
-    option.value = String(sala.id); // force string
-    option.textContent = sala.nome;
-    selectSala.appendChild(option);
-  });
+    const apenasData = dataInicioFull ? dataInicioFull.split(' ')[0] : '';
 
-  // atualiza action do form e número da reserva
-  document.getElementById('reserva-numero').textContent = `Reserva ${id}`;
-  form.action = `/reservas/${id}`;
-
-  // cria e abre modal
-  const modal = new bootstrap.Modal(modalEl);
-  modal.show();
-
-  // quando modal estiver totalmente visível, aplicar valores (evita override do flatpickr)
-  const onShown = function () {
-    // remove listener para não executar múltiplas vezes
-    modalEl.removeEventListener('shown.bs.modal', onShown);
-
-    // set select (força string)
-    if (salaId !== undefined && salaId !== null) {
-      selectSala.value = String(salaId);
-      // se precisar garantir que a opção exista:
-      if (!selectSala.value) {
-        // seleciona a opção correspondente manualmente
-        const opt = Array.from(selectSala.options).find(o => o.value == salaId);
-        if (opt) selectSala.value = opt.value;
-      }
+    
+    if (dataVisual && !dataVisual._flatpickr) {
+        flatpickr(dataVisual, {
+            dateFormat: "Y-m-d", 
+            altInput: true,      
+            altFormat: "d/m/Y",  
+            allowInput: true,
+            onChange: function(selectedDates, dateStr) {
+                if (dataHidden) dataHidden.value = dateStr;
+            }
+        });
     }
 
-    // inputs (escreve direto nos inputs)
-    const dataInput = modalEl.querySelector('#data_inicio');
-    const horaInicioInput = modalEl.querySelector('#hora_inicio');
-    const horaFimInput = modalEl.querySelector('#data_fim');
+    const configHora = {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        allowInput: true
+    };
 
-    if (dataInput) dataInput.value = dataInicio || '';
-    if (horaInicioInput) horaInicioInput.value = horaInicio || '';
-    if (horaFimInput) horaFimInput.value = horaFim || '';
+    if (hInicioInput && !hInicioInput._flatpickr) flatpickr(hInicioInput, configHora);
+    if (hTerminoInput && !hTerminoInput._flatpickr) flatpickr(hTerminoInput, configHora);
 
-    // se o flatpickr já tiver sido inicializado sobre esses inputs, use setDate
-    try {
-      const fpData = dataInput && dataInput._flatpickr;
-      const fpHoraInicio = horaInicioInput && horaInicioInput._flatpickr;
-      const fpHoraFim = horaFimInput && horaFimInput._flatpickr;
+    if (selectSala) selectSala.value = String(salaFk);
+    if (selectUnidade && unidadeFk) selectUnidade.value = String(unidadeFk);
+    if (selectTipo && finalidade) selectTipo.value = finalidade;
 
-      if (fpData && dataInicio) {
-        // data no formato Y-m-d esperado pelo seu fp
-        fpData.setDate(dataInicio, true, "Y-m-d");
-      }
-      if (fpHoraInicio && horaInicio) {
-        fpHoraInicio.setDate(horaInicio, true, "H:i");
-      }
-      if (fpHoraFim && horaFim) {
-        fpHoraFim.setDate(horaFim, true, "H:i");
-      }
-    } catch (e) {
-      // não interrompe execução em caso de erro; valores já foram escritos nos inputs
-      // console.warn(e);
-    }
-  };
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.show();
 
-  modalEl.addEventListener('shown.bs.modal', onShown);
+    const onShown = function () {
+        modalEl.removeEventListener('shown.bs.modal', onShown);
+
+        if (dataVisual?._flatpickr) {
+            dataVisual._flatpickr.setDate(apenasData, false);
+        } else if (dataVisual) {
+            dataVisual.value = apenasData;
+        }
+        if (dataHidden) dataHidden.value = apenasData;
+
+        if (hInicioInput?._flatpickr) {
+            hInicioInput._flatpickr.setDate(horaInicio, false);
+        }
+        if (hTerminoInput?._flatpickr) {
+            hTerminoInput._flatpickr.setDate(horaFim, false);
+        }
+    };
+
+    modalEl.addEventListener('shown.bs.modal', onShown);
 }

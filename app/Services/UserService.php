@@ -7,6 +7,6 @@ class UserService{
 
       public function getUsers()
       {
-             return User::with('unidades')->orderBy('name')->get();
+             return User::orderBy('name')->get();
       }
 }
