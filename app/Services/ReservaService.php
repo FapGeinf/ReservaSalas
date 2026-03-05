@@ -82,16 +82,23 @@ class ReservaService
     public function encerrarReserva(Reserva $reserva)
     {
         $user = Auth::user();
+        $agora = Carbon::now();
 
         if (!($user->is_admin || $user->id === $reserva->user_id)) {
             throw new Exception('Sem permissão para encerrar esta reserva.');
         }
 
         if (Carbon::parse($reserva->data_fim)->isPast()) {
-            throw new Exception('Esta reserva já foi encerrada.');
+            throw new Exception('Esta reserva já foi finalizada ou o horário já expirou.');
         }
 
-        return $reserva->update(['data_fim' => Carbon::now()]);
+        if ($agora->lt(Carbon::parse($reserva->data_inicio))) {
+            throw new Exception('Não é possível encerrar uma reserva que ainda não começou.');
+        }
+
+        return $reserva->update([
+            'data_fim' => $agora
+        ]);
     }
 
     public function deletarReserva(Reserva $reserva)
