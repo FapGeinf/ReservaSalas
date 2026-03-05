@@ -25,7 +25,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link nav-buttons fs-12" href="{{ route('reservas.index') }}">
+          <a class="nav-link nav-buttons fs-12" href="{{ route('reservas.lista-reunioes') }}">
             <i class="bi bi-calendar-check fs-12 me-1"></i>
             Lista de Reuniões
           </a>

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         Route::prefix('reservas')->name('reservas.')->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/lista-reunioes','listarReunioes')->name('lista-reunioes');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
             Route::get('/{reserva}', 'show')->name('show');
