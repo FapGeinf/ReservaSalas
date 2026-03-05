@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+import bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 
 import flatpickr from "flatpickr";
 window.flatpickr = flatpickr;

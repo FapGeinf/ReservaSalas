@@ -2,100 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SalaRequest;
 use App\Models\Sala;
-use App\Models\User;
-use App\Models\Reserva;
-
+use App\Services\ReservaService;
+use App\Services\SalaService;
+use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class SalaController extends Controller
 {
+    protected $salaService;
 
+    protected $reservaService;
 
-	// Método para listar todas as salas
+    protected $userService;
 
+    public function __construct(SalaService $salaService, ReservaService $reservaService, UserService $userService)
+    {
+        $this->salaService = $salaService;
+        $this->reservaService = $reservaService;
+        $this->userService = $userService;
+    }
 
-	public function index()
-	{
-		$salas = Sala::all();
-		$reservas = Reserva::with('sala', 'user')->get(); // Carregue as relações sala e user
-		return view('salas.index', compact('salas', 'reservas'));
-	}
+    public function index()
+    {
+        $salas = $this->salaService->getSalas();
+        $reservas = $this->reservaService->getReservas();
 
+        return view('salas.index', compact('salas', 'reservas'));
+    }
 
-	//Método para exibir o formulário de criação de sala
-	public function create()
-	{
-		$salas = Sala::all();
-		$users = User::all();
-		return view('reservas.create', compact('salas', 'users'));
-	}
+    public function create()
+    {
+        $salas = $this->salaService->getSalas();
+        $users = $this->userService->getUsers();
+        return view('reservas.create', compact('salas', 'users'));
+    }
 
+    public function store(SalaRequest $request)
+    {
 
+        $this->salaService->createSala($request->validated());
+        return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
+    }
 
-	public function store(Request $request)
-	{
-		// Validação dos dados
-		$request->validate([
-			'nome' => 'required|string|max:255',
-			'descricao' => 'required|string|max:255',
-			'situacao' => 'required|in:ativa,inativa',
-			'imagem' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-			'cor' => 'nullable|string',
-		]);
+    public function show(Sala $sala)
+    {
+        return view('salas.show', compact('sala'));
+    }
 
-		// Upload da imagem (se houver)
-		$imageName = null;
-		if ($request->hasFile('imagem')) {
-			$imagem = $request->file('imagem');
-			$imageName = time() . '.' . $imagem->getClientOriginalExtension();
-			$imagem->move(public_path('img/salas'), $imageName);
-		}
+    public function edit(Sala $sala)
+    {
+        return view('salas.edit', compact('sala'));
+    }
 
-		// Criação da sala com todos os campos
-		Sala::create([
-			'nome' => $request->nome,
-			'descricao' => $request->descricao,
-			'situacao' => $request->situacao,
-			'imagem' => $imageName,
-			'cor' => $request->cor, // Agora vai salvar corretamente!
-		]);
+    public function update(SalaRequest $request, Sala $sala)
+    {
+        $this->salaService->updateSala($sala, $request->validated());
+        return redirect()->back()->with('success', 'Sala atualizada com sucesso!');
+    }
 
-		return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
-	}
-
-	// Método para exibir uma sala específica
-	public function show(Sala $sala)
-	{
-		return view('salas.show', compact('sala'));
-	}
-
-
-	// Método para exibir o formulário de edição de sala
-	public function edit(Sala $sala)
-	{
-		return view('salas.edit', compact('sala'));
-	}
-
-	// Método para atualizar uma sala existente
-	public function update(Request $request, Sala $sala)
-	{
-		$sala->nome = $request->nome;
-		$sala->descricao = $request->descricao;
-		$sala->situacao = $request->situacao;
-		$sala->cor = $request->cor; // Atualizando a cor
-		$sala->save();
-
-		return redirect()->route('salas')->with('success', 'Sala atualizada com sucesso!');
-	}
-
-
-	// Método para excluir uma sala
-	public function destroy(Sala $sala)
-	{
-		$sala->delete();
-		return redirect()->route('salas', 'salas.index')->with('success', 'Sala excluída com sucesso!');
-	}
-
-
+    public function destroy(Sala $sala)
+    {
+        $this->salaService->deleteSala($sala);
+        return redirect()->back()->with('success', 'Sala excluída com sucesso!');
+    }
 }
