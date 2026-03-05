@@ -103,7 +103,7 @@ class ReservaController extends Controller
 
             return redirect($returnUrl)->with('success', 'Reserva atualizada com sucesso!');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return back()
                 ->with('error', 'Erro ao atualizar: ' . $e->getMessage())
                 ->withInput();
@@ -115,7 +115,7 @@ class ReservaController extends Controller
             $this->reservaService->encerrarReserva($reserva);
             return back()->with('success', 'Reserva finalizada');
             
-        }catch(\Exception $e){
+        }catch(Exception $e){
             return back()->with('error', 'Erro: ' . $e->getMessage());
         }
     }
