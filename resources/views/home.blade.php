@@ -1,41 +1,46 @@
 @extends('layouts.app')
-@section('content')
+
 @section('title') {{ 'Início' }} @endsection
 
+@section('content')
+
+{{-- 1. ESTILOS (CSS) --}}
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 <link rel="stylesheet" href="{{ asset('css/bg.css') }}">
 <link rel="stylesheet" href="{{ asset('css/input-text.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-page.css') }}">
-{{-- <link rel="stylesheet" href="{{ asset('css/table-main-page.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
-{{-- <script src="{{ asset('js/tutorial.js') }}"></script> --}}
+
+{{-- CDN CSS --}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 <style>
-  .fc-dayGridMonth-view {
-    background-color: #F3F7F2;
-  }
+  .fc-dayGridMonth-view { background-color: #F3F7F2; }
+  .fs-11 { font-size: 11px; }
+  .fs-13 { font-size: 13px; }
+  .fs-14 { font-size: 14px; }
+  .input-custom-disabled { display: block; padding: 0.5rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; min-height: 38px; }
 </style>
 
-{{-- Não sei se esse botão é necessário --}}
-<script src="{{ asset('js/toggleDropdown.js') }}"></script>
-<script src="{{ asset('js/miniCalendar.js') }}"></script>
-<script src="{{ asset('js/abrirModalEdicao.js') }}"></script>
-<script src="{{ asset('js/abrirModalDetalhes.js') }}"></script>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+{{-- 2. SCRIPTS DE DEPENDÊNCIA (Ordem correta para evitar conflitos) --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script> const homeUrl = "{{ route('home') }}"; </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+<script>
+    const homeUrl = "{{ route('home') }}";
+    const salasDisponiveis = @json($salas);
+</script>
 
 <x-alert-toast/>
 <x-navbar-main :salas="$salas"/>
@@ -44,50 +49,31 @@
 <div class="pagina-container container">
   <div class="row">
     <div class="col-12 col-lg-4 mb-3">
-
-      <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column mb-3"
-        style="background-color: #fff; padding: 1rem 1rem 1.5rem 1rem;">
-
+      <div class="ver-reservas-container border rounded shadow-sm d-flex flex-column mb-3" style="background-color: #fff; padding: 1rem 1rem 1.5rem 1rem;">
         <div class="d-flex align-items-center justify-content-center mb-1">
           <x-tooltip/>
           <h6 class="fw-semibold mb-0 ms-2">Reservar Salas</h6>
         </div>
-
-        <div class="text-muted text-center mb-3" style="font-size: 13px;">
-          Selecione a sala desejada para realizar a reserva.
-        </div>        
-
+        <div class="text-muted text-center mb-3 fs-13">Selecione a sala desejada para realizar a reserva.</div>
         <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
           @foreach($salas as $sala)
             @php
               $situacao = strtolower(trim($sala->situacao));
               $statusColor = $situacao === 'inativa' ? 'bg-danger' : 'bg-success';
             @endphp
-
             <div class="d-flex align-items-center justify-content-between px-2 py-1 border rounded shadow-sm w-100">
               <div class="d-flex flex-column bg-light p-2 rounded">
                 <div class="d-flex align-items-center gap-1 mb-1">
-                  <i class="bi bi-building text-secondary" style="font-size: 14px;"></i>
-                  <span class="rounded-circle {{ $statusColor }} status-ball"
-                    style="width: 7px; height: 7px; display: inline-block;">
-                  </span>
-
-                  <span class="fw-semibold text-capitalize fs-13" style="color: #374151">
-                    {{ $sala->nome }}
-                  </span>
+                  <i class="bi bi-building text-secondary fs-14"></i>
+                  <span class="rounded-circle {{ $statusColor }}" style="width: 7px; height: 7px; display: inline-block;"></span>
+                  <span class="fw-semibold text-capitalize fs-13" style="color: #374151">{{ $sala->nome }}</span>
                 </div>
               </div>
-
               @if($situacao !== 'inativa')
-                <button 
-                  type="button"
-                  class="button-garden btn-agendar fs-13 px-2 py-1 ms-2" 
-                  data-bs-toggle="modal" 
-                  data-bs-target="#modalReserva"
-                  data-sala-id="{{ $sala->id }}"
-                  data-sala-nome="{{ $sala->nome }}">
-                  <i class="bi bi-calendar-plus me-1 fs-11"></i>
-                  Reservar
+                <button type="button" class="button-garden btn-agendar fs-13 px-2 py-1 ms-2" 
+                        data-bs-toggle="modal" data-bs-target="#modalReserva"
+                        data-sala-id="{{ $sala->id }}" data-sala-nome="{{ $sala->nome }}">
+                  <i class="bi bi-calendar-plus me-1 fs-11"></i> Reservar
                 </button>
               @else
                 <x-tool-tip-rooms/>
@@ -99,7 +85,7 @@
     </div>
 
     <div class="col-12 col-lg-8 px-lg-3">
-      <div class="caixa-calendario" data-help="calendario-principal">
+      <div class="caixa-calendario">
         <div class="area-calendario rounded my-3">
           <div id="calendar" class="calendar-container main-calendar"></div>
         </div>
@@ -108,465 +94,168 @@
   </div>
 </div>
 
-<!-- Modal de Reserva -->
-<div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
+
+<div class="modal fade" id="modalReserva" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h6 class="modal-title" id="modalReservaLabel">Nova Reserva</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <h6 class="modal-title">Nova Reserva</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-
       <div class="modal-body">
-        <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm" class="mb-3">
+        <form action="{{ route('reservas.store') }}" method="POST" id="reservaForm">
           @csrf
-
           <input type="hidden" name="data_reserva" id="data_reserva">
-          <input type="hidden" id="sala_fk_hidden">
-
-          <div class="row mb-3">
-            <div class="col-12 col-sm-8">
-              <label for="sala_fk" class="fw-medium">Sala:</label>
-              <select name="sala_fk" id="sala_fk" class="form-select input-custom pointer" required>
-                <option value="" disabled selected>Selecione uma sala</option>
-
-                @foreach($salas as $sala)
-                  <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-                @endforeach
-              </select>
-            </div>
+          <div class="mb-3">
+            <label class="fw-medium">Sala:</label>
+            <select name="sala_fk" id="sala_fk" class="form-select pointer" required>
+              <option value="" disabled selected>Selecione uma sala</option>
+              @foreach($salas as $sala)
+                <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
+              @endforeach
+            </select>
           </div>
-
-          <div class="row mb-3">
-            <div class="col-12 col-sm-8">
-              <label for="tipo_reserva" class="fw-medium">Tipo de Reserva:</label>
-              <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
-                <option value="" selected disabled>Selecione uma opção</option>
-                <option value="interno">Reunião interna</option>
-                <option value="pesquisador">Atendimento ao pesquisador</option>
-              </select>
-            </div>
+          <div class="mb-3">
+            <label class="fw-medium">Tipo de Reserva:</label>
+            <select name="tipo_reserva" id="tipo_reserva" class="form-select pointer" required>
+              <option value="" selected disabled>Selecione uma opção</option>
+              <option value="interno">Reunião interna</option>
+              <option value="pesquisador">Atendimento ao pesquisador</option>
+            </select>
           </div>
-          
           @if(auth()->user()->is_admin == 1)
-            <div class="row mb-3">
-              <div class="col-12 col-sm-8">
-                <label class="fw-medium">Unidade:</label>
-                <select name="unidade_fk" class="form-select pointer" required>
-                  <option value="" disabled selected>Selecione a unidade</option>
-                  @foreach($unidades as $unidade)
-                    <option value="{{ $unidade->id }}">
-                      {{ $unidade->nome }}
-                    </option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
+          <div class="mb-3">
+            <label class="fw-medium">Unidade:</label>
+            <select name="unidade_fk" class="form-select pointer" required>
+              <option value="" disabled selected>Selecione a unidade</option>
+              @foreach($unidades as $unidade)
+                <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+              @endforeach
+            </select>
+          </div>
           @endif
-
-          <div class="row align-items-end">
-            <div class="col-12 col-sm-4">
-              <label for="hora_inicio" class="fw-medium">Hora de Início:</label>
-              <input type="time" name="hora_inicio" id="hora_inicio" class="input-custom" required>
-            </div>
-
-            <div class="col-12 col-sm-4">
-              <label for="hora_termino" class="fw-medium">Hora de Término:</label>
-              <input type="time" name="hora_termino" id="hora_termino" class="input-custom" required>
-            </div>
-
-            <div class="col-12 col-sm-4 d-flex align-items-center" style="margin-bottom: 20px;">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="diaInteiro">
-                <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
-              </div>
+          <div class="row g-2">
+            <div class="col-6"><label class="fw-medium">Início:</label><input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required></div>
+            <div class="col-6"><label class="fw-medium">Término:</label><input type="time" name="hora_termino" id="hora_termino" class="form-control" required></div>
+          </div>
+          <div class="mt-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="diaInteiro">
+              <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
             </div>
           </div>
         </form>
       </div>
-
-      <div class="modal-footer bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Cancelar
-        </button>
-
-        <button type="submit" form="reservaForm" class="button-green">
-          <i class="bi bi-save me-1"></i>
-          Salvar Reserva
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-labelledby="modal-editar-reserva-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="modal-editar-reserva-label">Editar Reserva</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-
-            <div class="modal-body pb-4">
-                <form method="POST" id="form-editar-reserva">
-                    @csrf
-                    @method('PUT')
-
-          
-                    <input type="hidden" name="data_reserva" id="data_reserva_edit">
-
-                    <div class="row mb-3">
-                        <div class="col-12 @if(auth()->user()->is_admin) col-sm-6 @endif">
-                            <label for="sala_fk_edit" class="fw-medium">Sala:</label>
-                            <select name="sala_fk" id="sala_fk_edit" class="form-select input-custom pointer" required>
-                                <option value="" disabled selected>Selecione uma sala</option>
-                                @foreach($salas as $sala)
-                                    <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        @if(auth()->user()->is_admin)
-                        <div class="col-12 col-sm-6">
-                            <label for="unidade_fk_edit" class="fw-medium">Unidade Responsável:</label>
-                            <select name="unidade_fk" id="unidade_fk_edit" class="form-select pointer" required>
-                                <option value="" disabled selected>Selecione a unidade</option>
-                                @foreach($unidades as $unidade)
-                                    <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @endif
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-12 col-sm-8">
-                            <label for="tipo_reserva_edit" class="fw-medium">Tipo de Reserva:</label>
-                            <select name="tipo_reserva" id="tipo_reserva_edit" class="form-select pointer" required>
-                                <option value="" selected disabled>Selecione uma opção</option>
-                                <option value="interno">Reunião interna</option>
-                                <option value="pesquisador">Atendimento ao pesquisador</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <hr class="text-secondary opacity-25 my-4">
-
-                    <div class="row align-items-end">
-                        <div class="col-12 col-sm-4">
-                            <label for="data_visual_edit" class="fw-medium">Data:</label>
-                            <input type="date" id="data_visual_edit" class="form-control input-custom pointer" required>
-                        </div>
-
-                        <div class="col-12 col-sm-4">
-                            <label for="hora_inicio_edit" class="fw-medium">Hora de Início:</label>
-                            {{-- Adicionei a classe time-picker e removi form-select --}}
-                            <input type="text" name="hora_inicio" id="hora_inicio_edit" class="input-custom time-picker pointer" placeholder="00:00" required>
-                        </div>
-
-                        <div class="col-12 col-sm-4">
-                            <label for="hora_termino_edit" class="fw-medium">Hora de Término:</label>
-                            {{-- Adicionei a classe time-picker e removi form-select --}}
-                            <input type="text" name="hora_termino" id="hora_termino_edit" class="input-custom time-picker pointer" placeholder="00:00" required>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer bg-modal-footer">
-                <button type="button" class="button-grey" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg me-1"></i> Cancelar
-                </button>
-
-                <button type="submit" form="form-editar-reserva" class="button-green">
-                    <i class="bi bi-save me-1"></i> Salvar Alterações
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Detalhes da Reserva -->
-<div class="modal fade" id="modalDetalhesReserva" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title">Detalhes da Reserva</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="row g-3">
-          <div class="col-12 col-sm-6">
-            <label class="fw-medium d-block">Sala:</label>
-            <span id="detalheSala" class="input-custom-disabled"></span>
-          </div>
-      
-          <div class="col-12 col-sm-4">
-            <label class="fw-medium d-block">Data da reserva:</label>
-            <span id="detalheData" class="input-custom-disabled"></span>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1 mb-3">
-          <div class="col-12 col-sm-4">
-            <label class="fw-medium d-block">Hora início:</label>
-            <span id="detalheHoraInicio" class="input-custom-disabled"></span>
-          </div>
-
-          <div class="col-12 col-sm-4">
-            <label class="fw-medium d-block">Hora término:</label>
-            <span id="detalheHoraFim" class="input-custom-disabled"></span>
-          </div>
-        </div>
-
-        <div class="row g-3">
-          <div class="col-12 col-sm-8">
-            <label class="fw-medium">Unidade responsável:</label>
-            <span id="detalheUnidade" class="input-custom-disabled"></span>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-12 col-sm-7">
-            <label class="fw-medium">Pessoa responsável:</label>
-            <span id="detalheResponsavel" class="input-custom-disabled"></span> 
-          </div>
-        </div>
-      </div>
-
       <div class="modal-footer">
-        <button type="button" class="button-blue" data-bs-toggle="modal" data-bs-target="#modalEncerramento">
-          <i class="bi bi-check-circle me-1"></i>
-          Finalizar
-        </button>
-        @if(Auth::user()->is_admin)
-          <button type="button" id="btnEditar" class="button-blue">
-            <i class="bi bi-pencil-square fs-icon me-1"></i>
-            Editar
-          </button>
-
-          <button type="button" id="btnExcluir" class="button-red">
-            <i class="bi bi-trash fs-icon me-1"></i>
-            Excluir
-          </button>
-
-        @else
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Fechar
-        </button>
-        @endif
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Container onde serão listadas as reservas -->
-<div id="reservasContainer"></div>
-
-<!-- Modal Detalhes de Reservas Feitas do bloco da esquerda -->
-<div class="modal fade" id="modalReservaUnica" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modalDetalhesReserva" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title">Detalhes da Reserva</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
+      <div class="modal-header"><h6>Detalhes da Reserva</h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <div class="row g-3">
-          <div class="col-12 col-sm-6">
-            <label for="" class="fw-medium">Sala:</label>
-            <span id="reservaSala" class="input-custom-disabled"></span>
-          </div>
-
-          <div class="col-12 col-sm-4">
-            <label for="" class="fw-medium">Data da reserva:</label>
-            <span id="reservaData" class="input-custom-disabled"></span>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-12 col-sm-4">
-            <label for="" class="fw-medium">Hora início:</label>
-            <span id="reservaHoraInicio" class="input-custom-disabled"></span>
-          </div>
-
-          <div class="col-12 col-sm-4">
-            <label for="" class="fw-medium">Hora término:</label>
-            <span id="reservaHoraFim" class="input-custom-disabled"></span>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-12 col-sm-8">
-            <label for="" class="fw-medium">Unidade responsável:</label>
-            <span id="reservaUnidade" class="input-custom-disabled"></span>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-12 col-sm-7">
-            <label for="" class="fw-medium">Pessoa responsável:</label>
-            <span id="reservaResponsavel" class="input-custom-disabled"></span>
-          </div>
+          <div class="col-6"><label class="fw-medium">Sala:</label><span id="detalheSala" class="input-custom-disabled"></span></div>
+          <div class="col-6"><label class="fw-medium">Data:</label><span id="detalheData" class="input-custom-disabled"></span></div>
+          <div class="col-6"><label class="fw-medium">Início:</label><span id="detalheHoraInicio" class="input-custom-disabled"></span></div>
+          <div class="col-6"><label class="fw-medium">Fim:</label><span id="detalheHoraFim" class="input-custom-disabled"></span></div>
+          <div class="col-12"><label class="fw-medium">Unidade:</label><span id="detalheUnidade" class="input-custom-disabled"></span></div>
+          <div class="col-12"><label class="fw-medium">Responsável:</label><span id="detalheResponsavel" class="input-custom-disabled"></span></div>
         </div>
       </div>
-
-      <div class="modal-footer bg-modal-footer">
+      <div class="modal-footer">
+        <button type="button" class="button-blue" data-bs-toggle="modal" data-bs-target="#modalEncerramento"><i class="bi bi-check-circle me-1"></i> Finalizar</button>
         @if(Auth::user()->is_admin)
-          <button type="button" id="btnEditarReservaUnica" class="button-blue">
-            <i class="bi bi-pencil-square fs-icon me-1"></i>
-            Editar
-          </button>
-        
-          <button type="button" id="btnExcluirReservaUnica" class="button-red">
-            <i class="bi bi-trash fs-icon me-1"></i>
-            Excluir
-          </button>
-
-        @else
-          <button type="button" class="button-grey" data-bs-dismiss="modal">
-            <i class="bi bi-x-lg me-1"></i>
-            Fechar
-          </button>
+          <button type="button" id="btnEditar" class="button-blue">Editar</button>
+          <button type="button" id="btnExcluir" class="button-red">Excluir</button>
         @endif
       </div>
     </div>
   </div>
 </div>
 
-<!-- Formulário para exclusão (pode estar oculto) -->
-<form id="deleteForm" method="POST" style="display:none;">
-  @csrf
-  @method('DELETE')
-</form>
-
-<!-- Modal de Confirmação de Exclusão -->
-<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title">Confirmar Exclusão</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
+      <div class="modal-header"><h6>Editar Reserva</h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
-        <p class="mb-0 fs-14">Tem certeza de que deseja excluir esta reserva? Essa ação não poderá ser desfeita.</p>
-      </div>
-
-      <div class="modal-footer bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>Cancelar
-        </button>
-
-        <button type="button" id="btnConfirmarExclusao" class="button-red">
-          <i class="bi bi-trash me-1"></i>Excluir
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body fs-14">
-        <p>Tem certeza de que deseja excluir esta reserva? Essa ação não pode ser desfeita.</p>
-      </div>
-
-      <div class="modal-footer bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Cancelar
-        </button>
-
-        <form id="deleteForm" method="POST">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="button-red">
-            <i class="bi bi-trash fs-icon me-1"></i>
-            Excluir
-          </button>
+        <form method="POST" id="form-editar-reserva">
+          @csrf @method('PUT')
+          <input type="hidden" name="data_reserva" id="data_reserva_edit">
+          <div class="row mb-3">
+            <div class="col-6"><label>Sala:</label><select name="sala_fk" id="sala_fk_edit" class="form-select">@foreach($salas as $sala)<option value="{{ $sala->id }}">{{ $sala->nome }}</option>@endforeach</select></div>
+            @if(auth()->user()->is_admin)<div class="col-6"><label>Unidade:</label><select name="unidade_fk" id="unidade_fk_edit" class="form-select">@foreach($unidades as $u)<option value="{{ $u->id }}">{{ $u->nome }}</option>@endforeach</select></div>@endif
+          </div>
+          <div class="mb-3"><label>Tipo:</label><select name="tipo_reserva" id="tipo_reserva_edit" class="form-select"><option value="interno">Reunião interna</option><option value="pesquisador">Atendimento ao pesquisador</option></select></div>
+          <div class="row g-2">
+            <div class="col-4"><label>Data:</label><input type="date" id="data_visual_edit" class="form-control"></div>
+            <div class="col-4"><label>Início:</label><input type="text" name="hora_inicio" id="hora_inicio_edit" class="form-control time-picker"></div>
+            <div class="col-4"><label>Fim:</label><input type="text" name="hora_termino" id="hora_termino_edit" class="form-control time-picker"></div>
+          </div>
         </form>
       </div>
+      <div class="modal-footer"><button type="submit" form="form-editar-reserva" class="button-green">Salvar Alterações</button></div>
     </div>
   </div>
 </div>
 
-<!-- Modal de Erro - Data Passada -->
-<div class="modal fade" id="modalErroDataPassada" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title">Data inválida</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body text-center pb-0 fs-14">
-        <p>Não é possível agendar reserva em uma data anterior à atual.</p>
-      </div>
-
-      <div class="modal-footer bg-modal-footer py-2">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Fechar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal de Confirmação de Encerramento -->
 <div class="modal fade" id="modalEncerramento" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title">Confirmar Encerramento</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
+      <div class="modal-header"><h6>Confirmar Encerramento</h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
         <p class="mb-0 fs-14">Tem certeza que deseja encerrar esta reunião agora?</p>
         <p class="text-muted small mt-2">O horário de término será registrado como o momento atual.</p>
       </div>
-      <div class="modal-footer bg-modal-footer">
-        <button type="button" class="button-grey" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
-          Cancelar
-        </button>
+      <div class="modal-footer">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
         <form id="formEncerrar" method="POST" style="display: inline;">
-          @csrf
-          @method('PUT')
-          <button type="submit" class="button-blue">
-            <i class="bi bi-check-lg me-1"></i>
-            Sim, encerrar
-          </button>
+          @csrf @method('PUT')
+          <button type="submit" class="button-blue">Sim, encerrar</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 
-<script>const salasDisponiveis = @json($salas);</script>
+<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h6>Confirmar Exclusão</h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><p class="fs-14">Tem certeza de que deseja excluir esta reserva?</p></div>
+      <div class="modal-footer">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="btnConfirmarExclusao" class="button-red">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalErroDataPassada" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h6>Data inválida</h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body text-center"><p class="fs-14">Não é possível agendar reserva em uma data anterior à atual.</p></div>
+      <div class="modal-footer"><button type="button" class="button-grey" data-bs-dismiss="modal">Fechar</button></div>
+    </div>
+  </div>
+</div>
+
+<form id="deleteForm" method="POST" style="display:none;">@csrf @method('DELETE')</form>
+
+<script src="{{ asset('js/toggleDropdown.js') }}"></script>
+<script src="{{ asset('js/miniCalendar.js') }}"></script>
+<script src="{{ asset('js/abrirModalEdicao.js') }}"></script>
+<script src="{{ asset('js/abrirModalDetalhes.js') }}"></script>
 <script src="{{ asset('js/horaSelecionada.js') }}"></script>
 <script src="{{ asset('js/diaInteiro.js') }}"></script>
 <script src="{{ asset('js/setDeleteId.js') }}"></script>
 <script src="{{ asset('js/abrirModalCalendario.js') }}"></script>
 <script src="{{ asset('js/modalReservasFeitas.js') }}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 @endsection
