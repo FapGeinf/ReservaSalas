@@ -8,6 +8,7 @@ use App\Services\ReservaService;
 use App\Services\SalaService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SalaController extends Controller
 {
@@ -26,45 +27,99 @@ class SalaController extends Controller
 
     public function index()
     {
-        $salas = $this->salaService->getSalas();
-        $reservas = $this->reservaService->getReservas();
+        try {
+            $salas = $this->salaService->getSalas();
+            $reservas = $this->reservaService->getReservas();
 
-        return view('salas.index', compact('salas', 'reservas'));
+            return view('salas.index', compact('salas', 'reservas'));
+        } catch (\Exception $e) {
+            Log::error('Erro ao listar salas e reservas: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a listagem de salas e reservas.');
+        }
     }
 
     public function create()
     {
-        $salas = $this->salaService->getSalas();
-        $users = $this->userService->getUsers();
-        return view('reservas.create', compact('salas', 'users'));
+        try {
+            $salas = $this->salaService->getSalas();
+            $users = $this->userService->getUsers();
+            return view('reservas.create', compact('salas', 'users'));
+        } catch (\Exception $e) {
+            Log::error('Erro ao carregar tela de cadastro de reserva/sala: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->route('salas')->with('error', 'Erro ao carregar o formulário.');
+        }
     }
 
     public function store(SalaRequest $request)
     {
-
-        $this->salaService->createSala($request->validated());
-        return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
+        try {
+            $this->salaService->createSala($request->validated());
+            return redirect()->route('salas')->with('success', 'Sala criada com sucesso!');
+        } catch (\Exception $e) {
+            Log::error('Erro ao criar sala: ' . $e->getMessage(), [
+                'exception' => $e,
+                'data' => $request->validated()
+            ]);
+            return redirect()->back()->withInput()->with('error', 'Ocorreu um erro ao criar a sala.');
+        }
     }
 
     public function show(Sala $sala)
     {
-        return view('salas.show', compact('sala'));
+        try {
+            return view('salas.show', compact('sala'));
+        } catch (\Exception $e) {
+            Log::error('Erro ao exibir sala ID ' . $sala->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'sala_id' => $sala->id
+            ]);
+            return redirect()->route('salas')->with('error', 'Erro ao carregar os detalhes da sala.');
+        }
     }
 
     public function edit(Sala $sala)
     {
-        return view('salas.edit', compact('sala'));
+        try {
+            return view('salas.edit', compact('sala'));
+        } catch (\Exception $e) {
+            Log::error('Erro ao carregar edição da sala ID ' . $sala->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'sala_id' => $sala->id
+            ]);
+            return redirect()->route('salas')->with('error', 'Erro ao carregar o formulário de edição da sala.');
+        }
     }
 
     public function update(SalaRequest $request, Sala $sala)
     {
-        $this->salaService->updateSala($sala, $request->validated());
-        return redirect()->back()->with('success', 'Sala atualizada com sucesso!');
+        try {
+            $this->salaService->updateSala($sala, $request->validated());
+            return redirect()->back()->with('success', 'Sala atualizada com sucesso!');
+        } catch (\Exception $e) {
+            Log::error('Erro ao atualizar sala ID ' . $sala->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'sala_id' => $sala->id,
+                'data' => $request->validated()
+            ]);
+            return redirect()->back()->withInput()->with('error', 'Ocorreu um erro ao atualizar a sala.');
+        }
     }
 
     public function destroy(Sala $sala)
     {
-        $this->salaService->deleteSala($sala);
-        return redirect()->back()->with('success', 'Sala excluída com sucesso!');
+        try {
+            $this->salaService->deleteSala($sala);
+            return redirect()->back()->with('success', 'Sala excluída com sucesso!');
+        } catch (\Exception $e) {
+            Log::error('Erro ao excluir sala ID ' . $sala->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'sala_id' => $sala->id
+            ]);
+            return redirect()->back()->with('error', 'Erro ao excluir a sala.');
+        }
     }
 }
