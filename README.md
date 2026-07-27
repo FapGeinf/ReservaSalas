@@ -1,7 +1,7 @@
 
 ### 🏢 Agendaí — FAPEAM
 
-Sistema interno para gestão e agendamento de salas de reunião com autenticação integrada ao Active Directory da FAPEAM (`fapeam.local`).
+Sistema interno para gestão e agendamento de salas de reunião com autenticação integrada ao Active Directory da FAPEAM
 
 ---
 
@@ -9,7 +9,7 @@ Sistema interno para gestão e agendamento de salas de reunião com autenticaç�
 
 * **PHP** 8.2+ | **Laravel** 11.x | **Laragon** (MySQL)
 * **Pacote LDAP**: `directorytree/ldaprecord-laravel` (v3.x)
-* **Servidor AD**: `172.16.1.199`
+* **Servidor AD**
 
 ---
 
@@ -36,19 +36,19 @@ Ajuste as chaves de banco de dados e conexão AD:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=reserva_salas
-DB_USERNAME=root
-DB_PASSWORD=
+DB_DATABASE=nome_do_banco
+DB_USERNAME=seu_usuario_db
+DB_PASSWORD=sua_senha_db
 
 # Active Directory
 LDAP_LOGGING=true
 LDAP_CONNECTION=default
-LDAP_HOST=172.16.1.199
-LDAP_USERNAME="CN=Seu Usuario,OU=Usuarios,DC=fapeam,DC=local"
-LDAP_PASSWORD="SuaSenhaDoAD"
+LDAP_HOST=192.168.1.100
+LDAP_USERNAME="CN=Administrador,OU=TI,DC=empresa,DC=local"
+LDAP_PASSWORD="sua_senha_do_ad"
 LDAP_PORT=389
-LDAP_BASE_DN="DC=fapeam,DC=local"
-LDAP_UNIDADES_BASE_DN="OU=FAPEAM,DC=fapeam,DC=local"
+LDAP_BASE_DN="DC=empresa,DC=local"
+LDAP_UNIDADES_BASE_DN="OU=Matriz,DC=empresa,DC=local"
 
 ```
 
