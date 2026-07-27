@@ -1,11 +1,11 @@
 
-## 🏢 Agendaí — FAPEAM
+### 🏢 Agendaí — FAPEAM
 
 Sistema interno para gestão e agendamento de salas de reunião com autenticação integrada ao Active Directory da FAPEAM (`fapeam.local`).
 
 ---
 
-## 🛠️ Stack & Requisitos
+### 🛠️ Stack & Requisitos
 
 * **PHP** 8.2+ | **Laravel** 11.x | **Laragon** (MySQL)
 * **Pacote LDAP**: `directorytree/ldaprecord-laravel` (v3.x)
@@ -13,7 +13,7 @@ Sistema interno para gestão e agendamento de salas de reunião com autenticaç�
 
 ---
 
-## 🚀 Instalação Rápida
+### 🚀 Instalação Rápida
 
 ### 1. Projeto e Dependências
 
