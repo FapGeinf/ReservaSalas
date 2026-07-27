@@ -34,9 +34,7 @@ class SalaController extends Controller
 
     public function create()
     {
-        $salas = $this->salaService->getSalas();
-        $users = $this->userService->getUsers();
-        return view('reservas.create', compact('salas', 'users'));
+        return view('salas.create');
     }
 
     public function store(SalaRequest $request)

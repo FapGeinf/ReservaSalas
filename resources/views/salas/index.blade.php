@@ -15,12 +15,12 @@
 <style>
     .table-responsive, .tabela-main-page { overflow: visible !important; }
     .dropdown-menu { z-index: 1050 !important; }
-    
+
     .color-pill {
         display: inline-block;
         width: 35px;
         height: 18px;
-        border-radius: 50px; 
+        border-radius: 50px;
         border: 1px solid rgba(0,0,0,0.1);
         vertical-align: middle;
     }
@@ -124,7 +124,7 @@
                 <h6 class="modal-title fw-bold">Cadastrar Nova Sala</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('salas.store') }}" method="POST">
                 @csrf
                 <div class="modal-body p-4">
                     <div class="mb-3">
@@ -134,10 +134,6 @@
                     <div class="mb-3">
                         <label class="fw-medium fs-13 mb-1"><span class="text-danger">*</span> Descrição/Localização</label>
                         <input type="text" name="descricao" class="form-control input-custom" placeholder="Ex: Bloco B, 2º Andar" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="fw-medium fs-13 mb-1"><span class="text-danger">*</span> Imagem de Referência</label>
-                        <input type="file" name="imagem" class="form-control input-custom" required>
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
@@ -223,7 +219,35 @@
         </div>
     </div>
 @endforeach
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('js/salas/index.js') }}"></script>
+
+@if ($errors->any())
+    <!-- Importando o SweetAlert2 via CDN para garantir que vai funcionar -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            // Monta a lista de erros em HTML
+            let errorHtml = '<ul style="text-align: left; margin-bottom: 0; font-size: 14px;">';
+            @foreach ($errors->all() as $error)
+                errorHtml += '<li>{{ $error }}</li>';
+            @endforeach
+            errorHtml += '</ul>';
+
+            // Dispara o Pop-up
+            Swal.fire({
+                icon: 'error',
+                title: 'Não foi possível salvar!',
+                html: errorHtml,
+                confirmButtonColor: '#198754', // Verde padrão do Bootstrap
+                confirmButtonText: 'Entendi'
+            }).then(() => {
+                // Reabre o modal automaticamente após fechar o erro
+                $('#cadastrarSalaModal').modal('show');
+            });
+        });
+    </script>
+@endif
 @endsection

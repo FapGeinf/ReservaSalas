@@ -12,14 +12,14 @@ class Sala extends Model
 
     protected $fillable = ['nome', 'descricao', 'situacao', 'imagem', 'cor'];
 
-    protected $table = 'salas'; 
-    protected $primaryKey = 'id'; 
+    protected $table = 'salas';
+    protected $primaryKey = 'id';
 
     // Accessor para formatar a situação
-    public function getSituacaoAttribute($value)
-    {
-        return $value === 'ativa' ? 'Ativa' : 'Inativa';
-    }
+    // public function getSituacaoAttribute($value)
+    // {
+    //     return $value === 'ativa' ? 'Ativa' : 'Inativa';
+    // }
 
     // Mutator para garantir que o valor seja sempre 'ativa' ou 'inativa'
     public function setSituacaoAttribute($value)
