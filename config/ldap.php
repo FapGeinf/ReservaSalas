@@ -29,7 +29,7 @@ return [
     'connections' => [
 
         'default' => [
-            'hosts' => [env('LDAP_HOST', '127.0.0.1')],
+            'hosts' => [env('LDAP_HOSTS', '127.0.0.1')], 
             'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
             'password' => env('LDAP_PASSWORD', 'secret'),
             'port' => env('LDAP_PORT', 389),
@@ -40,6 +40,11 @@ return [
             'use_sasl' => env('LDAP_SASL', false),
             'sasl_options' => [
                 // 'mech' => 'GSSAPI',
+            ],
+
+            'version' => 3,
+            'options' => [
+                LDAP_OPT_REFERRALS => 0,
             ],
         ],
 

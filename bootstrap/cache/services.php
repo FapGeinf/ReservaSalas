@@ -35,6 +35,8 @@
     31 => 'Termwind\\Laravel\\TermwindServiceProvider',
     32 => 'Pest\\Laravel\\PestServiceProvider',
     33 => 'App\\Providers\\AppServiceProvider',
+    34 => 'LdapRecord\\Laravel\\LdapServiceProvider',
+    35 => 'LdapRecord\\Laravel\\LdapAuthServiceProvider',
   ),
   'eager' => 
   array (
@@ -56,6 +58,8 @@
     15 => 'Termwind\\Laravel\\TermwindServiceProvider',
     16 => 'Pest\\Laravel\\PestServiceProvider',
     17 => 'App\\Providers\\AppServiceProvider',
+    18 => 'LdapRecord\\Laravel\\LdapServiceProvider',
+    19 => 'LdapRecord\\Laravel\\LdapAuthServiceProvider',
   ),
   'deferred' => 
   array (

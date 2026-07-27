@@ -22,10 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            // UnidadeSeeder::class,
-            SalasTableSeeder::class,
-            // AdminSeeder::class,
-            
+            UnidadeSeeder::class,
+            SalasTableSeeder::class,  
         ]);
     }
 }
