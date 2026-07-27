@@ -1,5 +1,5 @@
 
-# 🏢 Agendaí — FAPEAM
+## 🏢 Agendaí — FAPEAM
 
 Sistema interno para gestão e agendamento de salas de reunião com autenticação integrada ao Active Directory da FAPEAM (`fapeam.local`).
 
