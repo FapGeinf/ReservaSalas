@@ -15,10 +15,11 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name'       => 'required|string|max:255',
-            'unidade_fk' => 'required|exists:unidades,id',
+            'username'   => 'nullable|string|max:255',
             'login'      => 'required|string|max:255|unique:users,login',
+            'unidade_fk' => 'required|exists:unidades,id',
             'password'   => 'required|string|min:8|confirmed',
-            'role'       => 'required|in:user,admin',
+            'is_admin'   => 'nullable|boolean',
             'cpf'        => 'nullable|string|max:14',
         ];
     }

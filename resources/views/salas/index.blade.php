@@ -44,6 +44,29 @@
 </style>
 
 <div class="container mt-5">
+    
+    <!-- Alertas de Sucesso e Erro -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> Verifique os campos abaixo antes de continuar.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="tabela-main-page shadow-sm rounded-4 p-4 bg-white">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
@@ -79,10 +102,10 @@
                                 <td class="fs-13 fw-semibold text-center">{{ $sala->nome }}</td>
                                 <td class="fs-13 text-center text-muted">{{ $sala->descricao }}</td>
                                 <td class="text-center">
-                                    @if($sala->situacao == 'ativa')
-                                        <span class="badge-status bg-success-subtle text-success">Ativa</span>
+                                    @if(strtolower($sala->situacao) == 'ativa')
+                                        <span class="badge-status bg-success-subtle text-success">{{ $sala->situacao }}</span>
                                     @else
-                                        <span class="badge-status bg-secondary-subtle text-secondary">Inativa</span>
+                                        <span class="badge-status bg-secondary-subtle text-secondary">{{ $sala->situacao }}</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -185,8 +208,8 @@
                             <div class="col-6">
                                 <label class="fw-medium fs-13 mb-1">Situação:</label>
                                 <select name="situacao" class="form-select input-custom">
-                                    <option value="ativa" {{ $sala->situacao == 'ativa' ? 'selected' : '' }}>Ativa</option>
-                                    <option value="inativa" {{ $sala->situacao == 'inativa' ? 'selected' : '' }}>Inativa</option>
+                                    <option value="ativa" {{ strtolower($sala->getRawOriginal('situacao')) == 'ativa' ? 'selected' : '' }}>Ativa</option>
+                                    <option value="inativa" {{ strtolower($sala->getRawOriginal('situacao')) == 'inativa' ? 'selected' : '' }}>Inativa</option>
                                 </select>
                             </div>
                             <div class="col-6">

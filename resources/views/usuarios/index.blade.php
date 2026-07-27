@@ -50,7 +50,6 @@
               <td class="fs-13">{{ $usuario->login }}</td>
               <td class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>
               <td class="fs-13 text-center">
-                {{-- Ajustado para refletir o is_admin do seu model --}}
                 <span class="badge {{ $usuario->is_admin ? 'bg-danger' : 'bg-secondary' }}">
                   {{ $usuario->is_admin ? 'Admin' : 'Comum' }}
                 </span>
@@ -145,17 +144,21 @@
 
               <div class="col-md-6">
                 <label class="fs-13 fw-semibold">Tipo de Acesso</label>
-                {{-- Alterado 'role' para 'is_admin' para bater com seu Model --}}
                 <select name="is_admin" id="edit_is_admin" class="form-select fs-13" required>
                   <option value="0">Usuário Comum</option>
                   <option value="1">Administrador</option>
                 </select>
               </div>
 
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <label class="fs-13 fw-semibold">Nova Senha</label>
                 <input type="password" name="password" class="form-control fs-13" placeholder="Deixe em branco para manter a atual">
                 <small class="text-muted fs-11 mt-1">Mínimo de 8 caracteres.</small>
+              </div>
+
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Confirmar Nova Senha</label>
+                <input type="password" name="password_confirmation" class="form-control fs-13" placeholder="Confirme a nova senha">
               </div>
             </div>
           </div>

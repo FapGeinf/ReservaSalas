@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-
       public function getUsers()
       {
             return User::orderBy('name')->get();
@@ -26,12 +26,13 @@ class UserService
             }
 
             $user = User::create([
-                  'name' => $data['name'],
+                  'name'       => $data['name'],
+                  'username'   => $data['username'] ?? null,
                   'unidade_fk' => $data['unidade_fk'],
-                  'login' => $data['login'],
-                  'cpf' => $data['cpf'] ?? null,
-                  'password' => Hash::make($data['password']),
-                  'role' => $data['role'],
+                  'login'      => $data['login'],
+                  'cpf'        => $data['cpf'] ?? null,
+                  'password'   => Hash::make($data['password']),
+                  'is_admin'   => $data['is_admin'] ?? false,
             ]);
 
             return [
@@ -58,11 +59,12 @@ class UserService
             }
 
             $updateData = [
-                  'name' => $data['name'],
+                  'name'       => $data['name'],
+                  'username'   => $data['username'] ?? $user->username,
                   'unidade_fk' => $data['unidade_fk'],
-                  'login' => $data['login'],
-                  'role' => $data['role'],
-                  'cpf' => $data['cpf'] ?? $user->cpf,
+                  'login'      => $data['login'],
+                  'is_admin'   => $data['is_admin'] ?? $user->is_admin,
+                  'cpf'        => $data['cpf'] ?? $user->cpf,
             ];
 
             if (!empty($data['password'])) {
