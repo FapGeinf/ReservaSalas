@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $salas = Sala::where('situacao','ativa')->get();
+        $salas = Sala::where('situacao','!=','inativa')->get();
         $today = \Carbon\Carbon::today();
         
         $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
@@ -24,7 +24,7 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        $salas = Sala::where('situacao','ativa')->get();
+        $salas = Sala::where('situacao','!=','inativa')->get();
         $today = \Carbon\Carbon::today();
         
         $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
@@ -37,7 +37,7 @@ class HomeController extends Controller
 
     public function userHome()
     {
-        $salas = Sala::where('situacao','ativa')->get();
+        $salas = Sala::where('situacao','!=','inativa')->get();
         $today = \Carbon\Carbon::today();
         
         $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
