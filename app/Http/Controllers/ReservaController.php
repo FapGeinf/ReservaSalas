@@ -2,218 +2,272 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReservaRequest;
+use App\Http\Requests\UpdateReservaRequest;
 use App\Models\Reserva;
 use App\Models\User;
 use App\Models\Sala;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
-
+use App\Services\ReservaService;
+use App\Services\UserService;
+use App\Services\SalaService;
+use App\Services\UnidadeService;
 use Carbon\Carbon;
-
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ReservaController extends Controller
 {
+    protected $reservaService, $userService, $salaService, $unidadeService;
+
+    public function __construct(ReservaService $reservaService, UserService $userService, SalaService $salaService, UnidadeService $unidadeService)
+    {
+        $this->reservaService = $reservaService;
+        $this->userService = $userService;
+        $this->salaService = $salaService;
+        $this->unidadeService = $unidadeService;
+    }
+
     public function index()
     {
-        $users = User::all(); // Uso do modelo User
-        $reservas = Reserva::with('sala', 'user.unidade')->get(); // Carrega as reservas com suas salas
-        $salas = Sala::all(); // Carrega as salas para o formulário
-        return view('home', compact('reservas', 'salas', 'users'));
+        try {
+            $users = $this->userService->getUsers();
+            $unidades = $this->unidadeService->getUnidades();
+            $reservas = $this->reservaService->getReservasOrderByData();
+            $salas = Sala::all();
+            return view('home', compact('reservas','unidades', 'salas', 'users'));
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar a página inicial (index de reservas): ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar o painel de reservas.');
+        }
     }
 
     public function create()
     {
-        $salas = Sala::all();
-        $users = User::all();
-        $reservas = Reserva::with('sala')->get(); // Carrega as reservas e suas relações com as salas
-        return view('reservas.create', compact('salas', 'reservas', 'users'));
+        try {
+            $salas = $this->salaService->getSalas();
+            $users = $this->userService->getUsers();
+            $reservas = $this->reservaService->getReservas();
+            return view('reservas.create', compact('salas', 'reservas', 'users'));
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar tela de criação de reserva: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->route('home')->with('error', 'Erro ao carregar o formulário de reserva.');
+        }
     }
 
-   
-    public function store(Request $request)
+    public function store(StoreReservaRequest $request)
     {
-        $request->validate([
-            'sala_fk' => 'required|exists:salas,id',
-            'data_reserva' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-        ]);
-    
-        $salaId = $request->input('sala_fk');
-        $dataInicio = $request->input('data_reserva') . ' ' . $request->input('hora_inicio');
-        $dataFim = $request->input('data_reserva') . ' ' . $request->input('hora_termino');
-    
-        // Verificar conflitos de horário
-        $conflito = Reserva::where('sala_fk', $salaId)
-            ->where(function ($query) use ($dataInicio, $dataFim) {
-                $query->whereBetween('data_inicio', [$dataInicio, $dataFim])
-                      ->orWhereBetween('data_fim', [$dataInicio, $dataFim])
-                      ->orWhere(function ($query) use ($dataInicio, $dataFim) {
-                          $query->where('data_inicio', '<=', $dataInicio)
-                                ->where('data_fim', '>=', $dataFim);
-                      });
-            })
-            ->exists();
-    
-        if ($conflito) {
+        try {
+            $reserva = $this->reservaService->criarReserva($request->validated());
+
             if ($request->ajax()) {
                 return response()->json([
-                    'success' => false, 
-                    'message' => 'A sala já está reservada neste horário.'
-                ], 400);
+                    'success' => true,
+                    'reserva' => $reserva,
+                    'redirect' => route('home'),
+                    'message' => 'Reserva realizada com sucesso!'
+                ]);
             }
-            return back()->with('error', 'A sala já está reservada neste horário.');
-        }
-    
-        // Criar a reserva
-        $reserva = Reserva::create([
-            'sala_fk' => $salaId,
-            'data_inicio' => $dataInicio,
-            'data_fim' => $dataFim,
-            'user_id' => auth()->id(),
-            'unidade_fk' => auth()->user()->unidade_fk,
-        ]);
-    
-        // Resposta para requisições AJAX
-        if ($request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'reserva' => $reserva,
-                'redirect' => route('home'),
-                'message' => 'Reserva realizada com sucesso!'
-            ]);
-        }
-    
-        // Resposta para requisições normais
-        return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
-    }
 
+            return redirect()->route('home')->with('success', 'Reserva realizada com sucesso!');
+
+        } catch (Exception $e) {
+            Log::warning('Falha ao criar reserva: ' . $e->getMessage(), [
+                'exception' => $e,
+                'data' => $request->all()
+            ]);
+
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
+            }
+
+            return back()->with('Erro ao inserir uma nova reserva!', $e->getMessage())->withInput();
+        }
+    }
 
     public function show(Reserva $reserva)
     {
-        return view('reservas.show', compact('reserva'));
+        try {
+            return view('reservas.show', compact('reserva'));
+        } catch (Exception $e) {
+            Log::error('Erro ao exibir detalhes da reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $reserva->id
+            ]);
+            return redirect()->route('home')->with('error', 'Erro ao carregar detalhes da reserva.');
+        }
     }
-
-
-
+    
     public function edit(Reserva $reserva)
     {
-        // Verifica se o usuário é admin OU se a reserva pertence a ele
-        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('error', 'Você não tem permissão para editar esta reserva.');
+        try {
+            $user = auth()->user();
+            $unidades = $this->unidadeService->getUnidades();
+
+            if (!($user->is_admin || $user->id === $reserva->user_id)) {
+                Log::warning('Tentativa não autorizada de editar a reserva ID ' . $reserva->id . ' pelo usuário ID ' . $user->id);
+                return back()->with(
+                    'error',
+                    'Este perfil de usuário não tem permissão para editar esta reserva.'
+                );
+            }
+            if(!session()->has('return_url')){
+                session(['return_url' => url()->previous()]);
+            }
+            $salas = $this->salaService->getSalas();
+            return view('reservas.edit', compact('reserva','salas','unidades'));
+        } catch (Exception $e) {
+            Log::error('Erro ao carregar edição da reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $reserva->id
+            ]);
+            return redirect()->route('home')->with('error', 'Erro ao carregar o formulário de edição.');
         }
-    
-        $salas = Sala::all(); 
-        $users = User::all(); 
-        return view('reservas.edit', compact('reserva', 'salas', 'users'));
     }
-    
-    public function update(Request $request, Reserva $reserva)
+
+    public function update(UpdateReservaRequest $request, Reserva $reserva)
     {
-        // Bloqueia se o usuário não for admin e não for o dono da reserva
-        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('error', 'Você não tem permissão para alterar esta reserva.');
+        try {
+            $this->reservaService->atualizarReserva($reserva, $request->validated());
+
+            $returnUrl = session()->pull('return_url', route('reservas.index'));
+
+            return redirect($returnUrl)->with('success', 'Reserva atualizada com sucesso!');
+
+        } catch (Exception $e) {
+            Log::error('Erro ao atualizar reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $reserva->id,
+                'data' => $request->validated()
+            ]);
+            return back()
+                ->with('error', 'Erro ao atualizar: ' . $e->getMessage())
+                ->withInput();
         }
-    
-        $request->validate([
-            'sala_id' => 'required|exists:salas,id',
-            'data_inicio' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
-            'data_fim' => 'required|date_format:H:i|after:hora_inicio',
-        ]);
-    
-        $reserva->update([
-            'sala_fk' => $request->input('sala_id'),
-            'data_inicio' => $request->input('data_inicio') . ' ' . $request->input('hora_inicio'),
-            'data_fim' => $request->input('data_inicio') . ' ' . $request->input('data_fim'),
-        ]);
-    
-        return redirect()->route('home')->with('success', 'Reserva atualizada com sucesso!');
     }
-    
+
+    public function encerrar(Reserva $reserva){
+        try{
+            $this->reservaService->encerrarReserva($reserva);
+            return back()->with('success', 'Reserva finalizada');
+            
+        }catch(Exception $e){
+            Log::error('Erro ao encerrar reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $reserva->id
+            ]);
+            return back()->with('error', 'Erro: ' . $e->getMessage());
+        }
+    }
+
     public function destroy(Reserva $reserva)
     {
-        // Permite que apenas administradores ou o próprio usuário excluam a reserva
-        if (auth()->user()->role !== 'admin' && auth()->user()->id !== $reserva->user_id) {
-            return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta reserva.');
+        try{
+            $this->reservaService->deletarReserva($reserva);
+            return back()->with('success', 'Reserva excluída com sucesso.');
+        }catch(Exception $e){
+            Log::error('Erro ao excluir reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $reserva->id
+            ]);
+            return back()->with('error', 'Este perfil de usuario não tem permissão para excluir esta reserva.');
         }
-    
+    }
+
+    public function view($id)
+    {
         try {
-            $reserva->delete();
-            return redirect()->route('home')->with('success', 'Reserva excluída com sucesso!');
-        } catch (\Exception $e) {
-            return redirect()->route('home')->with('error', 'Erro ao excluir a reserva.');
+            $reserva = $this->reservaService->buscarReserva($id);
+            return view('reservas.view', compact('reserva'));
+        } catch (Exception $e) {
+            Log::error('Erro ao visualizar reserva ID ' . $id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $id
+            ]);
+            return redirect()->route('home')->with('error', 'Erro ao visualizar a reserva.');
         }
     }
 
+    public function cancel($id)
+    {
+        try {
+            $this->reservaService->cancelarReserva($id);
 
-    public function view($id) 
-    { 
-        $reserva = Reserva::findOrFail($id); 
-        return view('reservas.view', compact('reserva')); 
-    } 
-    
-    // Método personalizado para cancelar uma reserva específica 
-    public function cancel($id) 
-    { 
-        $reserva = Reserva::findOrFail($id); 
-        $reserva->delete(); 
-        return redirect()->route('reservas.index')->with('status', 'Reserva cancelada com sucesso!'); 
-    } 
-
-
-// public function getReservasPorSalaEData($salaId, Request $request)
-// {
-//     $data = $request->query('data'); // Obtém a data da requisição
-
-//     // Busca as reservas da sala para a data especificada
-//     $reservas = Reserva::where('sala_fk', $salaId)
-//         ->whereDate('data_inicio', $data)
-//         ->with(['user', 'user.unidade'])
-//         ->get();
-
-//     return response()->json($reservas);
-// }
-
-
-public function getReservasPorSalaEData($salaId, Request $request)
-{
-    $data = $request->query('data'); // Obtém a data da requisição
-
-    // Busca as reservas da sala para a data especificada
-    $reservas = Reserva::where('sala_fk', $salaId)
-        ->whereDate('data_inicio', $data)
-        ->with(['user', 'user.unidade'])
-        ->get();
-
-    return response()->json($reservas);
-}
-
-
-public function eventos()
-{
-    $reservas = Reserva::with(['sala', 'user.unidade'])->get();
-    
-    $events = [];
-    foreach ($reservas as $reserva) {
-        $events[] = [
-            'title' => $reserva->sala->nome,
-            'start' => $reserva->data_inicio,
-            'end' => $reserva->data_fim,
-            'extendedProps' => [
-                'unidade' => $reserva->user->unidade->nome ?? 'Sem unidade',
-                'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
-                'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
-                'responsavel' => $reserva->user->name
-            ],
-            'color' => '#3788d8', // Cor opcional para o evento
-            'textColor' => '#ffffff' // Cor do texto
-        ];
+            return redirect()
+                ->route('reservas.index')
+                ->with('status', 'Reserva cancelada com sucesso!');
+        } catch (Exception $e) {
+            Log::error('Erro ao cancelar reserva ID ' . $id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'reserva_id' => $id
+            ]);
+            return redirect()->route('reservas.index')->with('error', 'Erro ao cancelar a reserva.');
+        }
     }
-    
-    return response()->json($events);
+
+    public function getReservasPorSalaEData($salaId, Request $request)
+    {
+        try {
+            $reservas = $this->reservaService
+                ->getReservasPorSalaEData($salaId, $request->query('data'));
+
+            return response()->json($reservas);
+        } catch (Exception $e) {
+            Log::error('Erro ao buscar reservas por sala e data (Sala ID: ' . $salaId . '): ' . $e->getMessage(), [
+                'exception' => $e,
+                'sala_id' => $salaId,
+                'data' => $request->query('data')
+            ]);
+            return response()->json(['error' => 'Erro ao buscar reservas.'], 500);
+        }
+    }
+
+    public function getReservasPorData(Request $request)
+    {
+        try {
+            $reservas = $this->reservaService
+                ->getReservasPorData($request->input('data'));
+
+            return response()->json($reservas);
+        } catch (Exception $e) {
+            Log::error('Erro ao buscar reservas por data: ' . $e->getMessage(), [
+                'exception' => $e,
+                'data' => $request->input('data')
+            ]);
+            return response()->json(['error' => 'Erro ao buscar reservas.'], 500);
+        }
+    }
+
+    public function getEventos()
+    {
+        try {
+            $events = $this->reservaService->getEventos();
+
+            return response()->json($events);
+        } catch (Exception $e) {
+            Log::error('Erro ao buscar eventos: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return response()->json(['error' => 'Erro ao carregar eventos.'], 500);
+        }
+    }
+
+    public function listarReunioes()
+    {
+        try {
+            $reservas = $this->reservaService->listarReunioes();
+
+            return view('reservas.reservas', compact('reservas'));
+        } catch (Exception $e) {
+            Log::error('Erro ao listar reuniões: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->route('home')->with('error', 'Erro ao listar reuniões.');
+        }
+    }
 }
-
-
-
-}
-

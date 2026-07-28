@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-Use App\Models\Sala;
+use App\Models\Sala;
 class Reserva extends Model
 {
     use HasFactory;
@@ -17,7 +17,8 @@ class Reserva extends Model
         'sala_fk',
         'user_id',
         'unidade_fk',
-         ];
+        'finalidade', // Tipo de reserva: interno ou pesquisador
+    ];
 
     public function sala()
     {

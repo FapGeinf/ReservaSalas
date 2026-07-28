@@ -1,8 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importa o CSS do Bootstrap
-import 'bootstrap'; // Importa o JavaScript do Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+import bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
+
+import flatpickr from "flatpickr";
+window.flatpickr = flatpickr;
 
 import Alpine from 'alpinejs';
-
 window.Alpine = Alpine;
-
 Alpine.start();

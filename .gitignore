@@ -20,3 +20,6 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+.timetracker
+public/img/salas/
+package-lock.json

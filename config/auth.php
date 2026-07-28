@@ -55,22 +55,27 @@ return [
     | providers to represent the model / table. These providers may then
     | be assigned to any extra authentication guards you have defined.
     |
-    | Supported: "database", "eloquent"
+    | Supported: "database", "eloquent", "ldap"
     |
     */
-
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'driver' => 'ldap',
+
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => false,
+                'sync_attributes' => [
+                    'name' => 'cn',
+                    'username' => 'samaccountname', 
+                    'login' => 'samaccountname', 
+                    'email' => 'userprincipalname',
+                ],
+            ],
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords

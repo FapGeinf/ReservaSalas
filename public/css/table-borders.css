@@ -1,0 +1,44 @@
+
+
+.th-color {
+  background-color: #314b27 !important;
+  color: #fff !important;
+}
+
+#reservas,
+#tableSalas,
+#tableUsers {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* TH */
+#reservas thead th,
+#tableSalas thead th,
+#tableUsers thead th {
+  border-right: 1px solid #ccc;
+  font-weight: 500;
+}
+
+#reservas thead th:last-child,
+#tableSalas thead th:last-child,
+#tableUsers thead th:last-child {
+  border-right: none;
+}
+
+/* TD */
+#reservas tbody td,
+#tableSalas tbody td,
+#tableUsers tbody td {
+  border-right: 1px solid #ccc;
+}
+
+#reservas tbody td:last-child,
+#tableSalas tbody td:last-child,
+#tableUsers tbody td:last-child {
+  border-right: none;
+}
+
+.table-responsive {
+  overflow-x: inherit !important;
+}

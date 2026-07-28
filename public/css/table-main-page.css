@@ -1,0 +1,120 @@
+table {
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+colgroup {
+  display: none;
+}
+
+table caption {
+	font-size: 1.5em;
+	margin: .5em 0 .75em;
+}
+
+table tr {
+	/* background-color: #fff; */
+	border: 1px solid #e1e5e9;
+	padding: .35em;
+	border: 1px solid #ccc;
+}
+
+table.dataTable thead .sorting {
+  color: #fff !important;
+  background-color: #334b28 !important;
+}
+
+
+
+table.dataTable thead > tr > th.dt-orderable-asc,
+table.dataTable thead > tr > th.dt-orderable-desc,
+table.dataTable thead > tr > td.dt-orderable-asc,
+table.dataTable thead > tr > td.dt-orderable-desc {
+	text-align: center;
+}
+
+.tabelas {
+  padding: 20px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+h5 {
+  color: #374151;
+  font-weight: 600;
+}
+
+.th-color {
+  color: #374151 !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+  padding: .1em .5em !important;
+  font-size: 14px !important;
+}
+
+.dt-info {
+  font-size: 14px !important;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  font-size: 13px;
+  padding: 3px 4px !important;
+}
+
+.dataTables_wrapper .dataTables_length {
+	padding-bottom: 10px;
+}
+
+.bg-modal-footer {
+  background-color: #f1f1f1 !important;
+  border-top: 1px solid #dee2e6 !important;
+}
+
+/* O DROPDOWN QUEBRAVA NA SEGUNDA PÁGINA DO DATATABLE POR CAUSA DESSA BENÇÃO QUE ESTAVA EM 'AUTO' */
+.table-responsive {
+  overflow-x: inherit;
+}
+
+@media(min-width: 769px) {
+	table th,
+	table td {
+		text-align: center;
+	}
+
+  table.dataTable td.dt-type-numeric {
+    text-align: center !important;
+  }
+}
+
+@media(max-width: 768px) {
+	thead {
+		display: none;
+	}
+
+	td {
+		display: grid;
+		gap: .5rem;
+		grid-template-columns: 30ch auto;
+		text-align: left !important;
+	}
+
+	td::before {
+		content: attr(data-th) ": ";
+		font-weight: 500;
+		color: #374151;
+		text-transform: capitalize;
+	}
+
+	.custom-actions-menu {
+		right: unset;
+	}
+}

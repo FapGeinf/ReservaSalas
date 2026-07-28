@@ -1,97 +1,75 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReservaController;
-use App\Http\Controllers\SalaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\{
+    ProfileController,
+    HomeController,
+    ReservaController,
+    SalaController,
+    UserController,
+    Auth\RegisteredUserController
+};
 
-Route::middleware('auth')->group(function () {
-    // Página "Home"
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-
-   // Rotas acessíveis por todos os usuários autenticados
-    Route::middleware(['auth'])->group(function () {
-      Route::get('/home', [HomeController::class, 'index'])->name('home');
-      Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
-});
-
-// Rotas exclusivas para administradores
-    Route::middleware(['auth', 'admin'])->group(function () {
-       Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-});
-    // Dashboard (redireciona para a raiz)
-    Route::get('/dashboard', function () {
-        return redirect('home');
-    })->middleware('verified')->name('dashboard');
-
-    // Rotas de perfil
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Rotas de Salas (CRUD)
-    Route::resource('salas', SalaController::class)->names([
-        'index' => 'salas', // Nome personalizado para a rota index
-    ]);
-
-    
-
-    // Rotas de Reservas (CRUD)
-    Route::prefix('reservas')->group(function () {
-        Route::get('/', [ReservaController::class, 'index'])->name('reservas.index');
-        Route::get('/create', [ReservaController::class, 'create'])->name('reservas.create');
-        Route::post('/', [ReservaController::class, 'store'])->name('reservas.store');
-        Route::get('/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
-        Route::get('/{reserva}/edit', [ReservaController::class, 'edit'])->name('reservas.edit');
-        Route::put('/{reserva}', [ReservaController::class, 'update'])->name('reservas.update');
-        Route::delete('/{reserva}', [ReservaController::class, 'destroy'])->name('reservas.destroy');
-    });
-});
-
-// Rota raiz redireciona para "home"
 Route::get('/', function () {
     return redirect()->route('home');
 });
 
-// Rotas de registro
-Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); 
-Route::post('register', [RegisteredUserController::class, 'store']);
+Route::middleware(['auth', 'verified'])->group(function () {
 
-// Rota de logout
-Route::post('/logout', function () {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-    return redirect('/login'); // Redirecione para a página de login ou outra página desejada
-})->name('logout');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', fn() => redirect()->route('home'))->name('dashboard');
+    Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
 
-Route::get('/reservas/dia/{sala}', [ReservaController::class, 'getReservasDoDia']);
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
 
-Route::get('/reservas/sala/{salaId}', [ReservaController::class, 'getReservasPorSalaEData']);
+    Route::resource('salas', SalaController::class)->names(['index' => 'salas']);
 
+    Route::controller(ReservaController::class)->group(function () {
+        Route::get('/reservas/data', 'getReservasPorData');
+        Route::get('/reservas/dia/{sala}', 'getReservasDoDia');
+        Route::get('/reservas/sala/{salaId}', 'getReservasPorSalaEData');
+        Route::get('/eventos', 'getEventos');
+        
+        Route::prefix('reservas')->name('reservas.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/lista-reunioes','listarReunioes')->name('lista-reunioes');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{reserva}', 'show')->name('show');
+            Route::get('/{reserva}/edit', 'edit')->name('edit');
+            Route::put('/{reserva}', 'update')->name('update');
+            Route::delete('/{reserva}', 'destroy')->name('destroy');
+            Route::put('/{reserva}/encerrar', 'encerrar')->name('encerrar');
+        });
+    });
 
-
-// Rotas de usuários
-
-    Route::get('/usuarios', [RegisteredUserController::class, 'index'])->name('usuarios.index');
-    Route::get('/usuarios/{id}/edit', [RegisteredUserController::class, 'edit'])->name('usuarios.edit');
-    Route::patch('/usuarios/{id}', [RegisteredUserController::class, 'update'])->name('usuarios.update');
-    Route::delete('/usuarios/{id}', [RegisteredUserController::class, 'destroy'])->name('usuarios.destroy');
-    // Rota para exibir o formulário de cadastro de usuários
-    Route::get('/usuarios/create', [UserController::class, 'create'])->name('usuarios.create'); 
-    // Rota para processar o cadastro de usuários
-    Route::post('/usuarios', [UserController::class, 'store'])->name('usuarios.store');
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/usuarios', 'index')->name('usuarios.index');
+        Route::get('/usuarios/create', 'create')->name('usuarios.create');
+        Route::post('/usuarios', 'store')->name('usuarios.store');
   
- 
-    
+        Route::get('/usuarios/{id}/edit', 'edit')->name('usuarios.edit'); 
+        Route::put('/usuarios/{id}', 'update')->name('usuarios.update');
+        
+        Route::delete('/usuarios/{id}', 'destroy')->name('usuarios.destroy');
+        Route::post('/usuario/marcar-tutorial', 'marcarTutorial')->name('usuario.marcarTutorial');
+    });
 
-    Route::get('/eventos', [ReservaController::class, 'eventos']);
-    
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    });
 
+    Route::post('/logout', function () {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/login');
+    })->name('logout');
+});
 
-// Inclusão das rotas de autenticação
 require __DIR__ . '/auth.php';

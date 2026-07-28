@@ -163,12 +163,10 @@ table.dataTable thead th {
   border-bottom: none !important;
 }
 
-
 .alert-container {
   display: flex;
   justify-content: center; 
   align-items: center;    
- 
 }
 
 .alert {
@@ -177,12 +175,10 @@ table.dataTable thead th {
   text-align: center;     
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   padding: 20px;          
-  /* border-radius: 8px;      */
 }
 
 /* Estiliza o modal */
 .custom-modal {
-  /* border-radius: 15px;  */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   background: #fff;
 }
@@ -264,8 +260,6 @@ table.dataTable thead th {
   color: #333;
 }
 
-
-
  /* modal de ver reservas  */
 .reservas-grid {
   display: flex;
@@ -291,4 +285,18 @@ table.dataTable thead th {
   margin-bottom: 5px;
 }
 
-  
+/* Ajusta a largura e altura do calendário */
+#calendar {
+  max-width: 400px; /* Define a largura máxima */
+  height: 200px; /* Define a altura */
+  margin: 0 auto; /* Centraliza o calendário */
+}
+
+/* Ajusta o tamanho do texto e dos eventos no calendário */
+.fc-event-title {
+  font-size: 10px; /* Diminui o tamanho do texto dos eventos */
+}
+
+.fc-toolbar-title {
+  font-size: 16px; /* Ajusta o tamanho do título do calendário */
+}

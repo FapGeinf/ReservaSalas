@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
             'login' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'cpf' => 'required|string|max:14|unique:users', // Validação do CPF
+            'cpf' => 'nullable|string|max:14|unique:users', // Validação do CPF, opcional
             'unidade_fk' => 'required|exists:unidades,id'
         ]);
 
@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
     {
         $usuario = User::find($id); // Busca o usuário pelo ID
 
-        // // Verifica se o usuário existe
+        // Verifica se o usuário existe
         // if (!$usuario) {
         //     return redirect()->route('usuarios.index')->with('error', 'Usuário não encontrado.');
         // }

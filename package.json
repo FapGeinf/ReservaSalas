@@ -21,7 +21,9 @@
         "@fullcalendar/timegrid": "^6.1.15",
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.3",
+        "esbuild": "^0.27.0",
         "example-package": "^0.0.1",
+        "flatpickr": "^4.6.13",
         "laravel-vite-plugin": "^1.2.0",
         "vite": "^6.1.1"
     }

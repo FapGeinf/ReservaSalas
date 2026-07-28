@@ -1,70 +1,146 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Unidade;
 use App\Models\User;
-
-
+use App\Services\UserService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    
+    protected $userService;
 
-    public function create()
-{
-    $unidades = Unidade::all(); // Busca todas as unidades para o dropdown
-    return view('usuarios.create', compact('unidades'));
-}
-
-    public function store(Request $request)
-{
-    $messages = [
-        'cpf.required' => 'O CPF informado já está cadastrado.',
-
-    ];
-
-    // Validação dos dados
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'cpf' => 'required|string|max:14|unique:users',
-        'unidade_fk' => 'required|exists:unidades,id',
-        'login' => 'required|string|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-    ], $messages);
-    // Verifica se o CPF já está cadastrado
-
-    $existingUser = User::where('cpf', $request->cpf)->first();
-    if ($existingUser) {
-        return redirect()->back()->withErrors('cpf_error','O CPF informado já está cadastrado.'. $existingUser->name);
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
     }
 
-    // Cria o usuário
-    User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'cpf' => $request->cpf,
-        'unidade_fk' => $request->unidade_fk,
-        'login' => $request->login,
-        'password' => bcrypt($request->password),
-    ]);
+    public function index()
+    {
+        try {
+            $usuarios = User::with('unidade')->get();
+            return view('usuarios.index', compact('usuarios'));
+        } catch (\Exception $e) {
+            Log::error('Erro ao listar usuários: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->back()->with('error', 'Erro ao carregar a lista de usuários.');
+        }
+    }
 
-    return redirect()->route('usuarios.index')->with('success', 'Usuário cadastrado com sucesso!');
-}
-    public function update(Request $request, $id)
-{
-    $request->validate([
-        'cpf' => 'required|unique:users,cpf,' . $id, // Permite atualizar sem duplicar
-    ]);
+    public function create()
+    {
+        try {
+            $unidades = Unidade::all();
+            return view('usuarios.create', compact('unidades'));
+        } catch (\Exception $e) {
+            Log::error('Erro ao carregar tela de cadastro de usuário: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+            return redirect()->route('usuarios.index')->with('error', 'Erro ao carregar o formulário de cadastro.');
+        }
+    }
 
-    $user = User::findOrFail($id);
-    $user->cpf = $request->cpf;
-    $user->save();
+    public function store(StoreUserRequest $request)
+    {
+        try {
+            $result = $this->userService->createUser($request->validated());
 
-    return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
-}
+            if (!$result['success']) {
+                Log::warning('Falha ao cadastrar usuário: ' . ($result['message'] ?? 'Motivo desconhecido'), [
+                    'data' => $request->except(['password', 'password_confirmation'])
+                ]);
+                return redirect()->back()->withInput()->with('error', $result['message']);
+            }
 
+            return redirect()->route('usuarios.index')->with('success', 'Usuário cadastrado!');
+        } catch (\Exception $e) {
+            Log::error('Erro inesperado ao cadastrar usuário: ' . $e->getMessage(), [
+                'exception' => $e,
+                'data' => $request->except(['password', 'password_confirmation'])
+            ]);
+            return redirect()->back()->withInput()->with('error', 'Ocorreu um erro inesperado ao cadastrar o usuário.');
+        }
+    }
 
+    public function edit($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $unidades = Unidade::all();
 
+            return response()->json([
+                'user' => $user,
+                'unidades' => $unidades
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erro ao buscar dados para edição do usuário ID ' . $id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => $id
+            ]);
+            return response()->json([
+                'error' => 'Não foi possível carregar os dados do usuário.'
+            ], 500);
+        }
+    }
+
+    public function update(UpdateUserRequest $request, $id)
+    {
+        try {
+            $result = $this->userService->updateUser($id, $request->validated());
+
+            if (!$result['success']) {
+                Log::warning('Falha ao atualizar usuário ID ' . $id . ': ' . ($result['message'] ?? 'Motivo desconhecido'), [
+                    'user_id' => $id,
+                    'data' => $request->except(['password', 'password_confirmation'])
+                ]);
+                return redirect()->back()->withInput()->with('error', $result['message']);
+            }
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
+        } catch (\Exception $e) {
+            Log::error('Erro inesperado ao atualizar usuário ID ' . $id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => $id,
+                'data' => $request->except(['password', 'password_confirmation'])
+            ]);
+            return redirect()->back()->withInput()->with('error', 'Ocorreu um erro inesperado ao atualizar o usuário.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->route('usuarios.index')->with('success', 'Usuário removido com sucesso!');
+        } catch (\Exception $e) {
+            Log::error('Erro ao excluir usuário ID ' . $id . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => $id
+            ]);
+            return redirect()->route('usuarios.index')->with('error', 'Erro ao excluir usuário.');
+        }
+    }
+
+    public function marcarTutorial(Request $request)
+    {
+        try {
+            $this->userService->updateTutorialStatus(auth()->user());
+            return response()->json(['status' => 'ok']);
+        } catch (\Exception $e) {
+            Log::error('Erro ao marcar status do tutorial para o usuário ID ' . auth()->id() . ': ' . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => auth()->id()
+            ]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Erro ao atualizar status do tutorial.'
+            ], 500);
+        }
+    }
 }
