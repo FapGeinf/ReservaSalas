@@ -45,6 +45,14 @@
               Usuários
             </a>
           </li>
+
+          <!-- Novo Link de Logs (Visível apenas para administradores) -->
+          <li class="nav-item">
+            <a class="nav-link nav-buttons fs-12" href="{{ url('/log-viewer') }}" target="_blank">
+              <i class="bi bi-journal-text me-1"></i>
+              Logs do Sistema
+            </a>
+          </li>
         @endif
       </ul>
 
@@ -57,7 +65,6 @@
             ? Str::lower($parte)
             : $parte;
           })
-
         ->implode(' ');
       @endphp
 
@@ -99,6 +106,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
