@@ -11,36 +11,40 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $salas = Sala::all();
-				$today = \Carbon\Carbon::today();
-        $reservas = Reserva::with('sala')
-					->whereDate('data_inicio','>=', $today)
-					->orderBy('data_inicio', 'asc')
-					->get();
+        $salas = Sala::where('situacao','ativa')->get();
+        $today = \Carbon\Carbon::today();
+        
+        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
+         ->whereDate('data_inicio','>=', $today)
+         ->orderBy('data_inicio', 'asc')
+         ->get();
+         
         return view('home', compact('salas', 'reservas'));
     }
 
     public function adminHome()
     {
-        $salas = Sala::all();
-				$today = \Carbon\Carbon::today();
-        $reservas = Reserva::with('sala')
-					->whereDate('data_inicio','>=', $today)
-					->orderBy('data_inicio', 'asc')
-					->get();
+        $salas = Sala::where('situacao','ativa')->get();
+        $today = \Carbon\Carbon::today();
+        
+        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
+         ->whereDate('data_inicio','>=', $today)
+         ->orderBy('data_inicio', 'asc')
+         ->get();
+         
         return view('home', compact('salas', 'reservas'));
     }
 
     public function userHome()
     {
-        $salas = Sala::all();
-				$today = \Carbon\Carbon::today();
-        $reservas = Reserva::with('sala')
-					->whereDate('data_inicio','>=', $today)
-					->orderBy('data_inicio', 'asc')
-					->get();
+        $salas = Sala::where('situacao','ativa')->get();
+        $today = \Carbon\Carbon::today();
+        
+        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
+         ->whereDate('data_inicio','>=', $today)
+         ->orderBy('data_inicio', 'asc')
+         ->get();
 
         return view('home.user', compact('salas', 'reservas'));
     }
 }
-
