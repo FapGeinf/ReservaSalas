@@ -23,7 +23,7 @@ class SalasTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'cor' => '#FF5733', // Vermelho
-                'situacao' => 'ativo',
+                'situacao' => 'ativa',
             ],
 
             [
@@ -33,7 +33,7 @@ class SalasTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'cor' => '#33FF57', // Verde
-                'situacao' => 'ativo',
+                'situacao' => 'ativa',
             ],
 
             [
@@ -43,7 +43,7 @@ class SalasTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'cor' => '#3357FF', // Azul
-                'situacao' => 'ativo',
+                'situacao' => 'ativa',
             ],
 
             [
@@ -53,7 +53,7 @@ class SalasTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'cor' => '#FF33A1', // Rosa
-                'situacao' => 'ativo',
+                'situacao' => 'ativa',
             ],
            
         ]);
