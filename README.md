@@ -95,6 +95,9 @@ php artisan ldap:import users
 # 2º: Vincula a unidade_fk dos usuários recém-importados via atributos do AD (Department / OU)
 php artisan ad:link-users-unidades
 
+# 3º: Promove todos os usuarios da geinf como admin, pq são os responsaveis por gerenciar o sistema
+php artisan users:promote-geinf-admins
+
 ```
 
 ---
