@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\{
@@ -27,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 
-    Route::resource('salas', SalaController::class)->names(['index' => 'salas']);
+    Route::resource('salas', SalaController::class);
 
     Route::controller(ReservaController::class)->group(function () {
         Route::get('/reservas/data', 'getReservasPorData');
@@ -60,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/usuario/marcar-tutorial', 'marcarTutorial')->name('usuario.marcarTutorial');
     });
 
-    Route::middleware(['admin'])->group(function () {
+    Route::middleware(AdminMiddleware::class)->group(function () {
         Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     });
 
