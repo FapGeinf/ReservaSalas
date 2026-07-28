@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Reserva;
 use App\Models\Sala;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Exception;
 
@@ -18,7 +19,7 @@ class ReservaService
     public function getReservasOrderByData()
     {
         return Reserva::with('sala', 'user.unidade')
-            ->orderBy('data_inicio', 'desc') 
+            ->orderBy('data_inicio', 'desc')
             ->get();
     }
 
@@ -32,9 +33,10 @@ class ReservaService
         $this->validarHorario($dataInicio, $dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim)) {
+            Log::warning("Tentativa de criar reserva conflitante: sala {$dados['sala_fk']} de {$dataInicio} a {$dataFim}");
             throw new Exception('A sala já está reservada neste horário.');
         }
-        
+
         $user = Auth::user();
         $unidadeId = ($user->is_admin == 1) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
 
@@ -62,6 +64,7 @@ class ReservaService
         $this->validarHorario($dataInicio, $dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim, $reserva->id)) {
+            Log::warning("Tentativa de atualizar reserva conflitante: sala {$dados['sala_fk']} de {$dataInicio} a {$dataFim}, ignorando ID {$reserva->id}");
             throw new Exception('A sala já está reservada neste horário por outra pessoa.');
         }
 
@@ -193,6 +196,9 @@ class ReservaService
         return Reserva::with('sala', 'user.unidade')->get();
     }
 
+    /**
+     * Converte cor hexadecimal para RGBA com opacidade.
+     */
     private function hexToRgba($hex, $opacity = 1.0)
     {
         $hex = str_replace('#', '', $hex);
@@ -210,7 +216,10 @@ class ReservaService
         return "rgba($r, $g, $b, $opacity)";
     }
 
-
+    /**
+     * Verifica se há conflito de horário na mesma sala.
+     * Usa < e > para que reservas que terminam exatamente no início de outra não conflitem.
+     */
     private function existeConflito($salaId, $inicio, $fim, $idIgnorar = null)
     {
         $query = Reserva::where('sala_fk', $salaId)
@@ -223,9 +232,18 @@ class ReservaService
             $query->where('id', '!=', $idIgnorar);
         }
 
-        return $query->exists();
+        $existe = $query->exists();
+
+        if ($existe) {
+            Log::debug("Conflito encontrado na sala {$salaId} para o período {$inicio} - {$fim}");
+        }
+
+        return $existe;
     }
 
+    /**
+     * Valida se a sala está com situação 'ativa'.
+     */
     private function validarSalaAtiva($salaId)
     {
         $sala = Sala::findOrFail($salaId);
@@ -234,16 +252,24 @@ class ReservaService
         }
     }
 
+    /**
+     * Valida se o horário é válido (início < fim) e se não está no passado.
+     * Permite reservas para hoje desde que o início seja >= agora (com 5 min de tolerância).
+     */
     private function validarHorario(Carbon $inicio, Carbon $fim)
     {
         if ($fim->lte($inicio)) {
-            throw new Exception('A hora de término deve ser após a hora de início.');
+            throw new Exception("O horário de término ({$fim->format('H:i')}) deve ser após o início ({$inicio->format('H:i')}).");
         }
 
-        if ($inicio->isPast()) {
-            if (!$inicio->isToday() || $inicio->lt(Carbon::now()->subMinutes(5))) {
-                throw new Exception('Não é possível realizar ou editar reservas para horários que já passaram.');
-            }
+        $agora = Carbon::now();
+
+        if ($inicio->lt($agora->copy()->startOfDay())) {
+            throw new Exception("Não é possível reservar para uma data anterior a hoje ({$inicio->format('d/m/Y')}).");
+        }
+
+        if ($inicio->isToday() && $inicio->lt($agora->copy()->subMinutes(5))) {
+            throw new Exception("Não é possível reservar para um horário que já passou. O início ({$inicio->format('H:i')}) é anterior a " . $agora->copy()->addMinutes(5)->format('H:i') . ".");
         }
     }
 }
