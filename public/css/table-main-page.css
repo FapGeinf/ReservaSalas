@@ -16,10 +16,7 @@ table caption {
 }
 
 table tr {
-	/* background-color: #fff; */
-	border: 1px solid #e1e5e9;
 	padding: .35em;
-	border: 1px solid #ccc;
 }
 
 table.dataTable thead .sorting {
@@ -40,7 +37,7 @@ table.dataTable thead > tr > td.dt-orderable-desc {
   padding: 20px;
   font-size: 14px;
   background-color: #fff;
-  border: 1px solid #dee2e6;
+  /* border: 1px solid #dee2e6; */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
   border-radius: 8px;
