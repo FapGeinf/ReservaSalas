@@ -2,48 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Sala;
-use App\Models\Reserva;
+use App\Services\ReservaService;
+use App\Services\SalaService;
 
 class HomeController extends Controller
 {
+    protected $salaService, $reservaService;
+
+    public function __construct(SalaService $salaService, ReservaService $reservaService)
+    {
+        $this->salaService = $salaService;
+        $this->reservaService = $reservaService;
+    }
+
     public function index()
     {
-        $salas = Sala::where('situacao','!=','inativa')->get();
-        $today = \Carbon\Carbon::today();
-        
-        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
-         ->whereDate('data_inicio','>=', $today)
-         ->orderBy('data_inicio', 'asc')
-         ->get();
-         
+        $salas = $this->salaService->getSalasWhereIsActive();
+        $reservas = $this->reservaService->getReservasFuturas();
+
         return view('home', compact('salas', 'reservas'));
     }
 
     public function adminHome()
     {
-        $salas = Sala::where('situacao','!=','inativa')->get();
-        $today = \Carbon\Carbon::today();
-        
-        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
-         ->whereDate('data_inicio','>=', $today)
-         ->orderBy('data_inicio', 'asc')
-         ->get();
-         
+        $salas = $this->salaService->getSalasWhereIsActive();
+        $reservas = $this->reservaService->getReservasFuturas();
+
         return view('home', compact('salas', 'reservas'));
     }
 
     public function userHome()
     {
-        $salas = Sala::where('situacao','!=','inativa')->get();
-        $today = \Carbon\Carbon::today();
-        
-        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
-         ->whereDate('data_inicio','>=', $today)
-         ->orderBy('data_inicio', 'asc')
-         ->get();
+        $salas = $this->salaService->getSalasWhereIsActive();
+        $reservas = $this->reservaService->getReservasFuturas();
 
         return view('home.user', compact('salas', 'reservas'));
     }

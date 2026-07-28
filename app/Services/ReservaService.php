@@ -22,6 +22,16 @@ class ReservaService
             ->get();
     }
 
+    public function getReservasFuturas()
+    {
+        $today = Carbon::today();
+
+        return Reserva::with(['sala', 'unidade', 'user.unidade'])
+            ->whereDate('data_inicio', '>=', $today)
+            ->orderBy('data_inicio', 'asc')
+            ->get();
+    }
+
     public function criarReserva(array $dados)
     {
         $this->validarSalaAtiva($dados['sala_fk']);

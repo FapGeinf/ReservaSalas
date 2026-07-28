@@ -35,7 +35,7 @@ class ReservaController extends Controller
             $users = $this->userService->getUsers();
             $unidades = $this->unidadeService->getUnidades();
             $reservas = $this->reservaService->getReservasOrderByData();
-            $salas = Sala::all();
+            $salas = $this->salaService->getSalasWhereIsActive();
             return view('home', compact('reservas','unidades', 'salas', 'users'));
         } catch (Exception $e) {
             Log::error('Erro ao carregar a página inicial (index de reservas): ' . $e->getMessage(), [
@@ -48,7 +48,7 @@ class ReservaController extends Controller
     public function create()
     {
         try {
-            $salas = $this->salaService->getSalas();
+            $salas = $this->salaService->getSalasWhereIsActive();
             $users = $this->userService->getUsers();
             $reservas = $this->reservaService->getReservas();
             return view('reservas.create', compact('salas', 'reservas', 'users'));
@@ -119,7 +119,7 @@ class ReservaController extends Controller
             if(!session()->has('return_url')){
                 session(['return_url' => url()->previous()]);
             }
-            $salas = $this->salaService->getSalas();
+            $salas = $this->salaService->getSalasWhereIsActive();
             return view('reservas.edit', compact('reserva','salas','unidades'));
         } catch (Exception $e) {
             Log::error('Erro ao carregar edição da reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [

@@ -13,6 +13,11 @@ class SalaService
         return Sala::orderBy('nome')->get();
     }
 
+    public function getSalasWhereIsActive()
+    {
+           return Sala::where('situacao','ativa')->get();
+    }
+
     public function createSala(array $data)
     {
         if (isset($data['imagem']) && $data['imagem'] instanceof UploadedFile) {
