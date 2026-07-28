@@ -149,7 +149,7 @@ class ReservaService
 
     public function getEventos()
     {
-        $reservas = Reserva::with(['sala', 'user.unidade'])->get();
+        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])->get();
         $now = Carbon::now();
 
         $events = [];
@@ -173,7 +173,7 @@ class ReservaService
                 'borderColor' => $borderColor,
                 'textColor' => $textColor,
                 'extendedProps' => [
-                    'unidade' => $reserva->user->unidade->sigla ?? '',
+                    'unidade' => $reserva->unidade->sigla ?? '',
                     'hora_inicio' => Carbon::parse($reserva->data_inicio)->format('H:i'),
                     'hora_fim' => Carbon::parse($reserva->data_fim)->format('H:i'),
                     'data_inicio' => Carbon::parse($reserva->data_inicio)->format('Y-m-d'),
