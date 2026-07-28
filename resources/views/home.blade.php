@@ -43,7 +43,7 @@
 
 <x-alert-toast/>
 <x-navbar-main :salas="$salas"/>
-<x-sidebar/>
+<x-sidebar :salas="$salas" :reservas="$reservas" />
 
 <div class="pagina-container container">
   <div class="row">
