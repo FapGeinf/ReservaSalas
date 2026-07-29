@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
     const table = $('#tableUsers').DataTable({
-        paging: true, 
-        pageLength: 10, 
+        paging: true,
+        pageLength: 10,
         language: {
+            url: '/lang/pt-BR.json',
             search: "Procurar:",
             lengthMenu: "Paginação: _MENU_",
             info: 'Mostrando página _PAGE_ de _PAGES_',
@@ -74,8 +75,11 @@ $(document).ready(function () {
                 const user = data.user;
                 const unidades = data.unidades;
 
+
                 $('#edit_name').val(user.name);
                 $('#edit_login').val(user.login);
+
+
                 $('#edit_is_admin').val(user.is_admin ? "1" : "0");
                 $('#editUserForm').attr('action', `/usuarios/${userId}`);
 
@@ -102,5 +106,4 @@ $(document).ready(function () {
             }
         });
     });
-
 });
