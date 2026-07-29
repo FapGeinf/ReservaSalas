@@ -79,7 +79,7 @@
 
               <td data-th="Ações" class="fs-13">
                 <div class="dropdown">
-                  <button class="nav-buttons" type="button" data-bs-toggle="dropdown" style="padding: 4px 7px;">
+                  <button class="nav-buttons" type="button" data-bs-toggle="dropdown" style="padding: 0px 7px;">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
                   

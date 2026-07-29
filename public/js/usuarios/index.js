@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
     const table = $('#tableUsers').DataTable({
+        paging: true,
+        pageLength: 10,
         language: {
             url: '/lang/pt-BR.json',
             search: "Procurar:",
@@ -14,11 +16,10 @@ $(document).ready(function () {
                 previous: "Anterior"
             }
         },
-        scrollCollapse: true,
-        paging: true,
         order: [[0, 'desc']]
     });
 
+    // 2. Configuração do Modal de Exclusão
     const confirmDeleteModal = document.getElementById('confirmDeleteModal');
     if (confirmDeleteModal) {
         confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
@@ -29,6 +30,7 @@ $(document).ready(function () {
         });
     }
 
+    // 3. Exibição de Alertas (SweetAlert2) para Mensagens Flash
     const flash = document.getElementById("flash-messages");
     if (flash) {
         const success = flash.dataset.success;
@@ -57,6 +59,7 @@ $(document).ready(function () {
         }
     }
 
+    // 4. Abertura e Preenchimento do Modal de Edição via AJAX
     $(document).on('click', '.btn-edit-user', function () {
         const userId = $(this).data('user-id');
         const modalElement = document.getElementById('editUserModal');
@@ -78,7 +81,6 @@ $(document).ready(function () {
 
 
                 $('#edit_is_admin').val(user.is_admin ? "1" : "0");
-
                 $('#editUserForm').attr('action', `/usuarios/${userId}`);
 
                 let options = '';
@@ -89,6 +91,7 @@ $(document).ready(function () {
                 $('#edit_unidade').html(options);
 
                 $('input[name="password"]').val('');
+                $('input[name="password_confirmation"]').val('');
 
                 modal.show();
             },
