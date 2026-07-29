@@ -44,11 +44,4 @@ class UpdateUserRequest extends FormRequest
             'unidade_fk.exists' => 'A unidade selecionada é inválida.',
         ];
     }
-
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'is_admin' => $this->has('is_admin') ? true : false,
-        ]);
-    }
 }
