@@ -281,6 +281,6 @@ h6.modal-title {
 
 @media (min-width: 1920px) {
   .pagina-container, .caixa-calendario, .caixa-tabela, .tabela-main-page {
-    padding: 2rem;
+    padding: 1rem;
   }
 }
