@@ -18,8 +18,8 @@
   }
 </style>
 
-<div id="flash-messages" 
-  data-success="{{ session('success') }}" 
+<div id="flash-messages"
+  data-success="{{ session('success') }}"
   data-error="{{ session('error') }}">
 </div>
 
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div>
       <table id="reservas" class="table table-striped align-middle my-3">
         <thead class="table-light">
           <tr>
@@ -56,8 +56,8 @@
                 <div>
                   <div>{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y') }}</div>
                   <small class="text-muted">
-                    {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i') }} 
-                    às 
+                    {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i') }}
+                    às
                     {{ \Carbon\Carbon::parse($reserva->data_fim)->format('H:i') }}
                   </small>
                 </div>
@@ -82,7 +82,7 @@
                   <button class="nav-buttons" type="button" data-bs-toggle="dropdown" style="padding: 0px 7px;">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
-                  
+
                   <ul class="dropdown-menu shadow">
                     <li>
                       <a href="{{ route('reservas.show', $reserva->id) }}" class="dropdown-item fs-13 py-2">
@@ -101,9 +101,9 @@
                     <li><hr class="dropdown-divider"></li>
 
                     <li>
-                      <button class="dropdown-item text-danger fs-13 py-2" 
-                          data-bs-toggle="modal" 
-                          data-bs-target="#confirmDeleteModal" 
+                      <button class="dropdown-item text-danger fs-13 py-2"
+                          data-bs-toggle="modal"
+                          data-bs-target="#confirmDeleteModal"
                           onclick="setDeleteId({{ $reserva->id }})">
                         <i class="bi bi-trash me-1"></i>
                         Excluir
@@ -137,7 +137,7 @@
           <i class="bi bi-x-lg me-1"></i>
           Cancelar
         </button>
-        
+
         <form id="deleteForm" method="POST">
           @csrf @method('DELETE')
           <button type="submit" class="button-red">
