@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
 <link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="{{ asset('js/scripts/datatables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/reservas/lista-reservas.css') }}">
 
 <style>
@@ -151,9 +151,9 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('js/scripts/jquery-3.7.1.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('js/scripts/datatables.min.js') }}"></script>
 
 <script src="{{ asset('js/reservas/table-reservas.js') }}"></script>
 <script src="{{ asset('js/reservas/reserva-delete.js') }}"></script>

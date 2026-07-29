@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/calendar-page.css') }}">
     <link rel="stylesheet" href="{{ asset('css/swal-alert.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('js/scripts/datatables.min.css') }}">
 
     <style>
         .table-responsive,
@@ -275,7 +275,7 @@
             </div>
         </div>
     @endforeach
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('js/scripts/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('js/scripts/datatables.min.js') }}"></script>
     <script src="{{ asset('js/salas/index.js') }}"></script>
 @endsection
