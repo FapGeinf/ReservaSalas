@@ -53,11 +53,11 @@
               </span>
             </td>
 
-            <td class="fs-13 text-center">
-              <div class="dropdown">
-                <button class="nav-buttons" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px 7px;">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
+              <td class="fs-13 text-center">
+                <div class="dropdown">
+                  <button class="nav-buttons" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px 7px;">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
 
                 <ul class="dropdown-menu">
                   <li>
@@ -116,28 +116,29 @@
   </div>
 </div>
 
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title">Editar Usuário</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-      
-      <form id="editUserForm" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="fs-13 fw-semibold">Nome Completo:</label>
-              <input type="text" name="name" id="edit_name" class="input-custom fs-13" required>
-            </div>
-            
-            <div class="col-md-6">
-              <label class="fs-13 fw-semibold">Login do Sistema:</label>
-              <input type="text" name="login" id="edit_login" class="input-custom fs-13" required>
-            </div>
+  {{-- Modal de Edição --}}
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Editar Usuário</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        
+        <form id="editUserForm" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Nome Completo</label>
+                <input type="text" name="name" id="edit_name" class="form-control fs-13" required>
+              </div>
+              
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Login do Sistema</label>
+                <input type="text" name="login" id="edit_login" class="form-control fs-13" required>
+              </div>
 
             <div class="col-md-6">
               <label class="fs-13 fw-semibold">Unidade:</label>
@@ -154,38 +155,35 @@
               </select>
             </div>
 
-            <div class="col-md-6">
-              <label class="fs-13 fw-semibold">Nova Senha:</label>
-              <input type="password" name="password" class="input-custom fs-13" placeholder="Deixe em branco para manter a atual">
-              <small class="text-muted fs-11 mt-1">Mínimo de 8 caracteres.</small>
-            </div>
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Nova Senha</label>
+                <input type="password" name="password" class="form-control fs-13" placeholder="Deixe em branco para manter a atual">
+                <small class="text-muted fs-11 mt-1">Mínimo de 8 caracteres.</small>
+              </div>
 
-            <div class="col-md-6">
-              <label class="fs-13 fw-semibold">Confirmar Nova Senha:</label>
-              <input type="password" name="password_confirmation" class="input-custom fs-13" placeholder="Confirme a nova senha">
+              <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Confirmar Nova Senha</label>
+                <input type="password" name="password_confirmation" class="form-control fs-13" placeholder="Confirme a nova senha">
+              </div>
             </div>
           </div>
-        </div>
-        
-        <div class="modal-footer py-2 bg-modal-footer">
-          <button type="button" class="button-grey" data-bs-dismiss="modal">
-            <i class="bi bi-x-lg me-1"></i>
-            Cancelar
-          </button>
-
-          <button type="submit" class="button-green">
-            <i class="bi bi-check-circle me-1"></i>
-            Salvar Alterações
-          </button>
-        </div>
-      </form>
+          
+          <div class="modal-footer py-2 bg-modal-footer">
+            <button type="button" class="button-grey" data-bs-dismiss="modal">
+              <i class="bi bi-x-lg me-1"></i> Cancelar
+            </button>
+            <button type="submit" class="button-orange">
+              <i class="bi bi-check-lg me-1"></i> Salvar Alterações
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('js/usuarios/index.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('js/usuarios/index.js') }}"></script>
 
 @endsection

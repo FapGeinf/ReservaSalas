@@ -3,8 +3,8 @@ $(document).ready(function() {
         pageLength: 10,
         lengthMenu: [10, 25, 50, 100],
         ordering: true,
-        language: { 
-            url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/pt-BR.json' 
+        language: {
+            url: '/lang/pt-BR.json',
         }
     });
     const successMsg = $('#success-message').data('message');

@@ -36,11 +36,11 @@ $(function () {
         order: [[0, 'desc']],
 
         columnDefs: [
-            {
-                targets: [2, 3],
-                type: 'date-euro'
-            }
-        ],
+    {
+        targets: [2],
+        type: 'date-euro'
+    }
+                    ],
 
         language: {
             decimal: "",
