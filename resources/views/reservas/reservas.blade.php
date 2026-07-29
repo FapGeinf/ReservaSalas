@@ -121,21 +121,32 @@
 </div>
 
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-top modal-sm">
-    <div class="modal-content border-0 shadow">
-      <div class="modal-body text-center p-4">
-        <i class="bi bi-exclamation-triangle text-danger fs-1 mb-3"></i>
-        <h6 class="fw-bold">Excluir Reserva?</h6>
-        <p class="text-muted small">Esta ação não pode ser revertida.</p>
-          
-        <div class="d-flex justify-content-center gap-2 mt-4">
-          <button class="btn btn-light fs-13 border px-3" data-bs-dismiss="modal">Voltar</button>
-          <form id="deleteForm" method="POST">
-            @csrf @method('DELETE')
-            <button type="submit" class="btn btn-danger fs-13 px-3 shadow-sm">Confirmar</button>
-          </form>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">Confirmação de Exclusão</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
+
+      <div class="modal-body fs-14">
+        Tem certeza que deseja excluir esta reunião? Esta ação não pode ser desfeita.
+      </div>
+
+      <div class="modal-footer py-2 bg-modal-footer">
+        <button type="button" class="button-grey" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Cancelar
+        </button>
+        
+        <form id="deleteForm" method="POST">
+          @csrf @method('DELETE')
+          <button type="submit" class="button-red">
+            <i class="bi bi-trash me-1"></i>
+            Excluir
+          </button>
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
