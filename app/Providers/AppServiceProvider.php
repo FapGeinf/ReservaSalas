@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Login;
 use App\Models\Unidade;
+use App\Models\User; 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +28,44 @@ class AppServiceProvider extends ServiceProvider
         } catch (\Exception $e) {
             $unidades = null;
         }
-        view()->share('unidades',$unidades);
+        view()->share('unidades', $unidades);
+
+        Event::listen(Login::class, function (Login $event) {
+            /** @var User $user */
+            $user = $event->user;
+
+            if (empty($user->unidade_fk)) {
+                $nomeUnidadeAd = null;
+                
+                if (method_exists($user, 'firstLdapMessage') || property_exists($user, 'guid')) {
+                    $ldapUser = $user->ldap()->first();
+                    
+                    if ($ldapUser) {
+                        // 1. Tenta pegar pelo atributo department do AD
+                        $nomeUnidadeAd = $ldapUser->getFirstAttribute('department');
+
+                        // 2. FALLBACK: Se o department estiver vazio, extrai a primeira OU do Distinguished Name
+                        if (empty($nomeUnidadeAd)) {
+                            $dn = $ldapUser->getFirstAttribute('distinguishedname');
+                            
+                            if ($dn) {
+                                if (preg_match('/OU=([^,]+)/i', $dn, $match)) {
+                                    $nomeUnidadeAd = $match[1]; // Ex: DEAC, GEINF, DAF, etc.
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($nomeUnidadeAd) {
+                    $unidade = Unidade::where('nome', 'LIKE', "%{$nomeUnidadeAd}%")->first();
+
+                    if ($unidade) {
+                        $user->unidade_fk = $unidade->id;
+                        $user->save();
+                    }
+                }
+            }
+        });
     }
 }
