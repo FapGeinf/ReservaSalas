@@ -26,13 +26,13 @@ class UserService
             }
 
             $user = User::create([
-                  'name'       => $data['name'],
-                  'username'   => $data['username'] ?? null,
+                  'name' => $data['name'],
+                  'username' => $data['username'] ?? null,
                   'unidade_fk' => $data['unidade_fk'],
-                  'login'      => $data['login'],
-                  'cpf'        => $data['cpf'] ?? null,
-                  'password'   => Hash::make($data['password']),
-                  'is_admin'   => $data['is_admin'] ?? false,
+                  'login' => $data['login'],
+                  'cpf' => $data['cpf'] ?? null,
+                  'password' => Hash::make($data['password']),
+                  'is_admin' => $data['is_admin'] ?? false,
             ]);
 
             return [
@@ -59,12 +59,12 @@ class UserService
             }
 
             $updateData = [
-                  'name'       => $data['name'],
-                  'username'   => $data['username'] ?? $user->username,
+                  'name' => $data['name'],
+                  'username' => $data['username'] ?? $user->username,
                   'unidade_fk' => $data['unidade_fk'],
-                  'login'      => $data['login'],
-                  'is_admin'   => $data['is_admin'] ?? $user->is_admin,
-                  'cpf'        => $data['cpf'] ?? $user->cpf,
+                  'login' => $data['login'],
+                  'is_admin' => isset($data['is_admin']) ? (int) $data['is_admin'] : $user->is_admin,
+                  'cpf' => $data['cpf'] ?? $user->cpf,
             ];
 
             if (!empty($data['password'])) {
@@ -82,14 +82,14 @@ class UserService
             return $user->save();
       }
 
-      public function getUserById(int $id) : User 
+      public function getUserById(int $id): User
       {
-             return User::findOrFail($id);
+            return User::findOrFail($id);
       }
 
-      public function deleteUser(int $id) : bool 
+      public function deleteUser(int $id): bool
       {
-             $user = $this->getUserById($id);
-             return $user->delete();
+            $user = $this->getUserById($id);
+            return $user->delete();
       }
 }
