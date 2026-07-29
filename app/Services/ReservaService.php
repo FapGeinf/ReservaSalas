@@ -10,26 +10,40 @@ use Exception;
 
 class ReservaService
 {
-    public function getReservas()
+   public function getActiveReservas(bool $applyPermission = true)
     {
-        return Reserva::with('sala', 'user.unidade')->get();
-    }
-
-    public function getReservasOrderByData()
-    {
-        return Reserva::with('sala', 'user.unidade')
-            ->orderBy('data_inicio', 'desc') 
-            ->get();
-    }
-
-    public function getReservasFuturas()
-    {
+        $user = Auth::user();
         $today = Carbon::today();
 
-        return Reserva::with(['sala', 'unidade', 'user.unidade'])
+        $query = Reserva::with(['sala', 'unidade', 'user.unidade'])
             ->whereDate('data_inicio', '>=', $today)
-            ->orderBy('data_inicio', 'asc')
-            ->get();
+            ->where('is_active', 1);
+
+        if ($applyPermission && !$user->is_admin) {
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                  ->orWhere('unidade_fk', $user->unidade_fk);
+            });
+        }
+
+        return $query->orderBy('data_inicio', 'asc')->get();
+    }
+
+   
+    public function getAllReservas(bool $applyPermission = true)
+    {
+        $user = Auth::user();
+
+        $query = Reserva::with(['sala', 'unidade', 'user.unidade']);
+
+        if ($applyPermission && !$user->is_admin) {
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                  ->orWhere('unidade_fk', $user->unidade_fk);
+            });
+        }
+
+        return $query->orderBy('data_inicio', 'desc')->get();
     }
 
     public function criarReserva(array $dados)
@@ -37,24 +51,24 @@ class ReservaService
         $this->validarSalaAtiva($dados['sala_fk']);
 
         $dataInicio = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_inicio']);
-        $dataFim    = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
+        $dataFim = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
 
         $this->validarHorario($dataInicio, $dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim)) {
             throw new Exception('A sala já está reservada neste horário.');
         }
-        
+
         $user = Auth::user();
         $unidadeId = ($user->is_admin == 1) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
 
         return Reserva::create([
-            'sala_fk'     => $dados['sala_fk'],
+            'sala_fk' => $dados['sala_fk'],
             'data_inicio' => $dataInicio,
-            'data_fim'    => $dataFim,
-            'user_id'     => $user->id,
-            'unidade_fk'  => $unidadeId,
-            'finalidade'  => $dados['tipo_reserva'],
+            'data_fim' => $dataFim,
+            'user_id' => $user->id,
+            'unidade_fk' => $unidadeId,
+            'finalidade' => $dados['tipo_reserva'],
         ]);
     }
 
@@ -67,7 +81,7 @@ class ReservaService
         }
 
         $dataInicio = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_inicio']);
-        $dataFim    = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
+        $dataFim = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
 
         $this->validarHorario($dataInicio, $dataFim);
 
@@ -78,38 +92,23 @@ class ReservaService
         $unidadeId = $user->is_admin ? ($dados['unidade_fk'] ?? $reserva->unidade_fk) : $user->unidade_fk;
 
         return $reserva->update([
-            'sala_fk'     => $dados['sala_fk'],
+            'sala_fk' => $dados['sala_fk'],
             'data_inicio' => $dataInicio,
-            'data_fim'    => $dataFim,
-            'unidade_fk'  => $unidadeId,
-            'finalidade'  => $dados['tipo_reserva'] ?? $reserva->finalidade,
+            'data_fim' => $dataFim,
+            'unidade_fk' => $unidadeId,
+            'finalidade' => $dados['tipo_reserva'] ?? $reserva->finalidade,
         ]);
     }
 
     public function encerrarReserva(Reserva $reserva)
     {
         $user = Auth::user();
-        $agora = Carbon::now();
-        $inicio = Carbon::parse($reserva->data_inicio);
 
         if (!($user->is_admin || $user->id === $reserva->user_id)) {
             throw new Exception('Sem permissão para encerrar esta reserva.');
         }
-
-        // if (Carbon::parse($reserva->data_fim)->isPast()) {
-        //     throw new Exception('Esta reserva já foi finalizada ou o horário já expirou.');
-        // }
-
-        // if ($agora->lt($inicio)) {
-        //     throw new Exception('Não é possível encerrar uma reserva que ainda não começou.');
-        // }
-
-        // if ($agora->equalTo($inicio)) {
-        //     $agora->addMinute();
-        // }
-
         return $reserva->update([
-            'data_fim' => $agora
+            'is_active' => 0,
         ]);
     }
 
@@ -159,7 +158,9 @@ class ReservaService
 
     public function getEventos()
     {
-        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])->get();
+        $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
+            ->where('is_active', 1)
+            ->get();
         $now = Carbon::now();
 
         $events = [];
@@ -226,7 +227,7 @@ class ReservaService
         $query = Reserva::where('sala_fk', $salaId)
             ->where(function ($q) use ($inicio, $fim) {
                 $q->where('data_inicio', '<', $fim)
-                  ->where('data_fim', '>', $inicio);
+                    ->where('data_fim', '>', $inicio);
             });
 
         if ($idIgnorar) {

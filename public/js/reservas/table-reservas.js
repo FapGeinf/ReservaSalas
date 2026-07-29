@@ -1,47 +1,42 @@
 $(function () {
     jQuery.extend(jQuery.fn.dataTableExt.oSort, {
         "date-euro-pre": function (a) {
+            if ($.trim(a) === '') return 0;
 
-            if ($.trim(a) !== '') {
+            var parts = a.split(' às ');
+            var datePart = parts[0];
+            var timePart = parts.length > 1 ? parts[1] : '00:00'; 
 
-                const parts = a.split(' às ')
-                const dateParts = parts[0].split('/')
-                const timeParts = parts[1].split(':')
+            var dateParts = datePart.split('/');
+            if (dateParts.length !== 3) return 0; 
 
-                return new Date(
-                    dateParts[2],
-                    dateParts[1] - 1,
-                    dateParts[0],
-                    timeParts[0],
-                    timeParts[1]
-                ).getTime()
+            var timeParts = timePart.split(':');
+            var hour = parseInt(timeParts[0], 10) || 0;
+            var minute = parseInt(timeParts[1], 10) || 0;
 
-            }
-
-            return 0
+            return new Date(
+                parseInt(dateParts[2], 10),      
+                parseInt(dateParts[1], 10) - 1,  
+                parseInt(dateParts[0], 10),       
+                hour,
+                minute
+            ).getTime();
         },
 
         "date-euro-asc": function (a, b) {
-            return a - b
+            return a - b;
         },
 
         "date-euro-desc": function (a, b) {
-            return b - a
+            return b - a;
         }
-    })
-
+    });
 
     $('#reservas').DataTable({
-
-        order: [[0, 'desc']],
-
+        order: [[2, 'asc']], 
         columnDefs: [
-    {
-        targets: [2],
-        type: 'date-euro'
-    }
-                    ],
-
+            { targets: [2], type: 'date-euro' }
+        ],
         language: {
             decimal: "",
             emptyTable: "Nenhum registro disponível",
@@ -54,58 +49,49 @@ $(function () {
             processing: "Processando...",
             search: "Procurar:",
             zeroRecords: "Nenhum registro encontrado",
-
             paginate: {
                 first: "Primeira",
                 last: "Última",
                 next: "Próximo",
                 previous: "Anterior"
             },
-
             aria: {
                 sortAscending: ": ativar para ordenar coluna ascendente",
                 sortDescending: ": ativar para ordenar coluna descendente"
             }
         },
-
         scrollCollapse: true,
         responsive: true,
         paging: true,
         searching: true,
         lengthChange: true
+    });
 
-    })
-
-
+   
     $('.btn-delete').on('click', function () {
-
-        const deleteUrl = $(this).data('url')
-        $('#deleteForm').attr('action', deleteUrl)
-
-    })
-
+        var deleteUrl = $(this).data('url');
+        $('#deleteForm').attr('action', deleteUrl);
+    });
 
     $('#dataSelecionada').on('change', function () {
-
-        const salaId = $('#verReservasModal').data('sala-id')
-        carregarReservas(salaId)
-
-    })
+        var salaId = $('#verReservasModal').data('sala-id');
+        if (salaId && typeof carregarReservas === 'function') {
+            carregarReservas(salaId);
+        }
+    });
 
 
     $('#verReservasModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var salaId = button.data('sala-id');
 
-        const button = $(event.relatedTarget)
-        const salaId = button.data('sala-id')
+        $('#verReservasModal').data('sala-id', salaId);
 
-        $('#verReservasModal').data('sala-id', salaId)
+        var hoje = new Date().toISOString().split('T')[0];
+        $('#dataSelecionada').val(hoje);
 
-        const hoje = new Date().toISOString().split('T')[0]
-
-        $('#dataSelecionada').val(hoje)
-
-        carregarReservas(salaId)
-
-    })
-
-})
+        if (salaId && typeof carregarReservas === 'function') {
+            carregarReservas(salaId);
+        }
+    });
+});
