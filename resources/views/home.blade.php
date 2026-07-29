@@ -133,12 +133,12 @@
             <div class="col-6"><label class="fw-medium">Início:</label><input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required></div>
             <div class="col-6"><label class="fw-medium">Término:</label><input type="time" name="hora_termino" id="hora_termino" class="form-control" required></div>
           </div>
-          <div class="mt-3">
+          {{-- <div class="mt-3">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="diaInteiro">
               <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
             </div>
-          </div>
+          </div> --}}
         </form>
       </div>
       <div class="modal-footer">
@@ -229,7 +229,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header"><h6>Confirmar Exclusão</h6><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body"><p class="fs-14">Tem certeza de que deseja excluir esta reserva?</p></div>
+      <div class="modal-body"><p class="fs-14 mb-0">Tem certeza de que deseja excluir esta reserva?</p></div>
       <div class="modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal"><i class="bi bi-x-lg me-1"></i>Cancelar</button>
         <button type="button" id="btnConfirmarExclusao" class="button-red"><i class="bi bi-trash me-1"></i>Excluir</button>
