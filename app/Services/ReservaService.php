@@ -96,17 +96,17 @@ class ReservaService
             throw new Exception('Sem permissão para encerrar esta reserva.');
         }
 
-        if (Carbon::parse($reserva->data_fim)->isPast()) {
-            throw new Exception('Esta reserva já foi finalizada ou o horário já expirou.');
-        }
+        // if (Carbon::parse($reserva->data_fim)->isPast()) {
+        //     throw new Exception('Esta reserva já foi finalizada ou o horário já expirou.');
+        // }
 
-        if ($agora->lt($inicio)) {
-            throw new Exception('Não é possível encerrar uma reserva que ainda não começou.');
-        }
+        // if ($agora->lt($inicio)) {
+        //     throw new Exception('Não é possível encerrar uma reserva que ainda não começou.');
+        // }
 
-        if ($agora->equalTo($inicio)) {
-            $agora->addMinute();
-        }
+        // if ($agora->equalTo($inicio)) {
+        //     $agora->addMinute();
+        // }
 
         return $reserva->update([
             'data_fim' => $agora
