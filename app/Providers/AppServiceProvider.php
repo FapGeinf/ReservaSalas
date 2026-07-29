@@ -41,10 +41,8 @@ class AppServiceProvider extends ServiceProvider
                     $ldapUser = $user->ldap()->first();
                     
                     if ($ldapUser) {
-                        // 1. Tenta pegar pelo atributo department do AD
                         $nomeUnidadeAd = $ldapUser->getFirstAttribute('department');
 
-                        // 2. FALLBACK: Se o department estiver vazio, extrai a primeira OU do Distinguished Name
                         if (empty($nomeUnidadeAd)) {
                             $dn = $ldapUser->getFirstAttribute('distinguishedname');
                             
