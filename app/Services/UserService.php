@@ -81,4 +81,15 @@ class UserService
             $user->tutorial_exibido = true;
             return $user->save();
       }
+
+      public function getUserById(int $id) : User 
+      {
+             return User::findOrFail($id);
+      }
+
+      public function deleteUser(int $id) : bool 
+      {
+             $user = $this->getUserById($id);
+             return $user->delete();
+      }
 }

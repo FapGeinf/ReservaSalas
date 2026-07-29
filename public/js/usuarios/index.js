@@ -16,7 +16,7 @@ $(document).ready(function () {
                 previous: "Anterior"
             }
         },
-        order: [[0, 'desc']]
+        order: [[1, 'asc']]
     });
 
     // 2. Configuração do Modal de Exclusão

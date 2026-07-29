@@ -31,7 +31,6 @@
     <table id="tableUsers" class="table table-striped border-bottom-0 my-3">
       <thead>
         <tr>
-          <th class="fs-13 text-center">Id</th>
           <th class="fs-13 text-center">Nome</th>
           <th class="fs-13 text-center">Login</th>
           <th class="fs-13 text-center">Unidade</th>
@@ -43,7 +42,6 @@
       <tbody>
         @foreach($usuarios as $usuario)
           <tr>
-            <td class="fs-13 text-center">{{ $usuario->id }}</td>
             <td class="fs-13">{{ $usuario->name }}</td>
             <td class="fs-13">{{ $usuario->login }}</td>
             <td class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>

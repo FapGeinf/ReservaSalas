@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\Unidade;
-use App\Models\User;
+use App\Services\UnidadeService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    protected $userService;
+    protected $userService, $unidadeService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, UnidadeService $unidadeService)
     {
         $this->userService = $userService;
+        $this->unidadeService = $unidadeService;
     }
 
     public function index()
     {
         try {
-            $usuarios = User::with('unidade')->get();
+            $usuarios = $this->userService->getUsers();
             return view('usuarios.index', compact('usuarios'));
         } catch (\Exception $e) {
             Log::error('Erro ao listar usuários: ' . $e->getMessage(), [
@@ -35,7 +35,7 @@ class UserController extends Controller
     public function create()
     {
         try {
-            $unidades = Unidade::all();
+            $unidades = $this->unidadeService->getUnidades();
             return view('usuarios.create', compact('unidades'));
         } catch (\Exception $e) {
             Log::error('Erro ao carregar tela de cadastro de usuário: ' . $e->getMessage(), [
@@ -70,8 +70,8 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $user = User::findOrFail($id);
-            $unidades = Unidade::all();
+            $user = $this->userService->getUserById($id);
+            $unidades = $this->unidadeService->getUnidades();
 
             return response()->json([
                 'user' => $user,
@@ -115,8 +115,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::findOrFail($id);
-            $user->delete();
+            $this->userService->deleteUser($id);
             return redirect()->route('usuarios.index')->with('success', 'Usuário removido com sucesso!');
         } catch (\Exception $e) {
             Log::error('Erro ao excluir usuário ID ' . $id . ': ' . $e->getMessage(), [
