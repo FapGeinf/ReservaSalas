@@ -14,6 +14,7 @@ class UpdateUserRequest extends FormRequest
 
     public function rules(): array
     {
+        // Pega o parâmetro 'id' ou 'user' da rota explicitamente
         $userId = $this->route('user') ?? $this->route('id');
 
         return [
@@ -26,7 +27,7 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique('users', 'login')->ignore($userId),
             ],
             'unidade_fk' => 'required|exists:unidades,id',
-            'is_admin' => 'required|in:0,1',
+            'is_admin' => 'nullable|boolean',
             'password' => 'nullable|string|min:8|confirmed',
             'cpf' => 'nullable|string|max:14',
         ];
@@ -44,4 +45,10 @@ class UpdateUserRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'is_admin' => $this->has('is_admin') ? true : false,
+        ]);
+    }
 }
