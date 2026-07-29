@@ -50,19 +50,18 @@
               <td class="fs-13">{{ $usuario->login }}</td>
               <td class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>
               <td class="fs-13 text-center">
-                <span class="badge {{ $usuario->is_admin ? 'bg-danger' : 'bg-secondary' }}">
+                <span class="badge {{ $usuario->is_admin ? 'bg-success' : 'bg-secondary' }}">
                   {{ $usuario->is_admin ? 'Admin' : 'Comum' }}
                 </span>
               </td>
 
               <td class="fs-13 text-center">
                 <div class="dropdown">
-                  <button class="button-garden" type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    style="padding: 4px 9px;">
+                  <button class="nav-buttons" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px 7px;">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
 
-                  <ul class="dropdown-menu dropdown-menu-dark">
+                  <ul class="dropdown-menu">
                     <li>
                       <button type="button" class="dropdown-item fs-13 btn-edit-user" data-user-id="{{ $usuario->id }}">
                         <i class="bi bi-pencil me-1"></i> Editar
