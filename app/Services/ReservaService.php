@@ -64,8 +64,6 @@ class ReservaService
         $user = Auth::user();
         $unidadeId = ($user->is_admin == 1) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
 
-
-
         return Reserva::create([
             'sala_fk' => $dados['sala_fk'],
             'data_inicio' => $dataInicio,
@@ -264,10 +262,18 @@ class ReservaService
         }
     }
 
-    private function validarDataReserva(Carbon $data_reserva)
+    private function validarDataReserva($data_reserva)
     {
+        if (!$data_reserva instanceof Carbon) {
+            $data_reserva = Carbon::parse($data_reserva);
+        }
+
         if ($data_reserva->isWeekend()) {
             throw new Exception('Não é possível marcar uma reserva durante o fim de semana.');
+        }
+
+        if ($data_reserva->copy()->startOfDay()->lt(Carbon::today())) {
+            throw new Exception('Não é possível marcar uma reserva em uma data retroativa.');
         }
     }
 }
