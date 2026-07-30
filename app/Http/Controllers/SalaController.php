@@ -29,9 +29,7 @@ class SalaController extends Controller
     {
         try {
             $salas = $this->salaService->getSalas();
-            $reservas = $this->reservaService->getActiveReservas();
-
-            return view('salas.index', compact('salas', 'reservas'));
+            return view('salas.index', compact('salas'));
         } catch (\Exception $e) {
             Log::error('Erro ao listar salas e reservas: ' . $e->getMessage(), [
                 'exception' => $e
