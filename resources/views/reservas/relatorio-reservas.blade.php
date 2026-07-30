@@ -16,7 +16,6 @@
             line-height: 1.4;
         }
 
-        /* Cabeçalho */
         .header {
             width: 100%;
             border-bottom: 2px solid #0284c7;
@@ -46,7 +45,6 @@
             color: #64748b;
         }
 
-        /* Tabela de Dados */
         .table-reservas {
             width: 100%;
             border-collapse: collapse;
@@ -72,7 +70,6 @@
             background-color: #f8fafc;
         }
 
-        /* Status Badges */
         .badge {
             padding: 3px 6px;
             border-radius: 4px;
@@ -96,7 +93,6 @@
             color: #b91c1c;
         }
 
-        /* Rodapé com paginação automática */
         .footer {
             position: fixed;
             bottom: 0;
@@ -117,8 +113,6 @@
 </head>
 
 <body>
-
-    <!-- Cabeçalho do Relatório -->
     <div class="header">
         <table>
             <tr>
@@ -133,7 +127,6 @@
         </table>
     </div>
 
-    <!-- Tabela de Reservas -->
     <table class="table-reservas">
         <thead>
             <tr>
@@ -150,15 +143,12 @@
                 <tr>
                     <td>#{{ $reserva->id }}</td>
                     <td>
-                        <!-- Relacionamento com User -->
                         <strong>{{ $reserva->user->name ?? 'N/A' }}</strong><br>
-                        <!-- Campo finalidade (interno ou pesquisador) -->
                         <span style="font-size: 10px; color: #64748b;">
                             Tipo: {{ ucfirst($reserva->finalidade ?? 'Não informado') }}
                         </span>
                     </td>
                     <td>
-                        <!-- Relacionamento com Sala e Unidade -->
                         <strong>{{ $reserva->sala->nome ?? 'Sala não informada' }}</strong><br>
                         <span style="font-size: 10px; color: #64748b;">
                             Bloco/Unid: {{ $reserva->unidade->nome ?? 'N/A' }}
@@ -166,12 +156,10 @@
                     </td>
                     <td>{{ \Carbon\Carbon::parse($reserva->data_inicio)->format('d/m/Y') }}</td>
                     <td>
-                        <!-- Exibe o intervalo exato de horas da reserva -->
                         {{ \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i') }} às
                         {{ \Carbon\Carbon::parse($reserva->data_fim)->format('H:i') }}
                     </td>
                     <td>
-                        <!-- Status baseado no campo is_active -->
                         @if($reserva->is_active)
                             <span class="badge badge-confirmada">Ativa</span>
                         @else
