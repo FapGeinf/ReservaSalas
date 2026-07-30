@@ -269,9 +269,5 @@ class ReservaService
         if ($data_reserva->isWeekend()) {
             throw new Exception('Não é possível marcar uma reserva durante o fim de semana.');
         }
-
-        if ($data_reserva->startOfDay()->isLessThan(Carbon::today())) {
-            throw new Exception('Não é possível marcar uma reserva em uma data retroativa.');
-        }
     }
 }
