@@ -205,7 +205,15 @@ class ReservaService
 
     public function listarReunioes()
     {
-        return Reserva::with('sala', 'user.unidade')->get();
+        $user = auth()->user();
+
+        $query = Reserva::with(['sala', 'user.unidade']);
+
+        if (!$user->is_admin) {
+            $query->where('user_id', $user->id);
+        }
+
+        return $query->get();
     }
 
     private function hexToRgba($hex, $opacity = 1.0)
