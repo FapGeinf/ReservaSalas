@@ -29,7 +29,7 @@ class SalaController extends Controller
     {
         try {
             $salas = $this->salaService->getSalas();
-            $reservas = $this->reservaService->getReservas();
+            $reservas = $this->reservaService->getActiveReservas();
 
             return view('salas.index', compact('salas', 'reservas'));
         } catch (\Exception $e) {
