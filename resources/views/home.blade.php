@@ -90,7 +90,6 @@
 </div>
 
 
-<!-- MODAL NOVA RESERVA (sem unidade) -->
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -119,11 +118,27 @@
               <option value="pesquisador">Atendimento ao pesquisador</option>
             </select>
           </div>
-          <!-- CAMPO UNIDADE REMOVIDO COMPLETAMENTE -->
+          @if(auth()->user()->is_admin == 1)
+          <div class="mb-3">
+            <label class="fw-medium">Unidade:</label>
+            <select name="unidade_fk" class="form-select pointer" required>
+              <option value="" disabled selected>Selecione a unidade</option>
+              @foreach($unidades as $unidade)
+                <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+              @endforeach
+            </select>
+          </div>
+          @endif
           <div class="row g-2">
             <div class="col-6"><label class="fw-medium">Início:</label><input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required></div>
             <div class="col-6"><label class="fw-medium">Término:</label><input type="time" name="hora_termino" id="hora_termino" class="form-control" required></div>
           </div>
+          {{-- <div class="mt-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="diaInteiro">
+              <label class="form-check-label fw-medium" for="diaInteiro">Dia inteiro</label>
+            </div>
+          </div> --}}
         </form>
       </div>
       <div class="modal-footer">
@@ -134,7 +149,6 @@
   </div>
 </div>
 
-<!-- MODAL DETALHES (mantém exibição de unidade, mas somente leitura) -->
 <div class="modal fade" id="modalDetalhesReserva" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -161,7 +175,6 @@
   </div>
 </div>
 
-<!-- MODAL EDITAR RESERVA (sem unidade) -->
 <div class="modal fade" id="modal-editar-reserva" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -171,16 +184,10 @@
           @csrf @method('PUT')
           <input type="hidden" name="data_reserva" id="data_reserva_edit">
           <div class="row mb-3">
-            <div class="col-12">
-              <label>Sala:</label>
-              <select name="sala_fk" id="sala_fk_edit" class="form-select">
-                @foreach($salas as $sala)
-                  <option value="{{ $sala->id }}">{{ $sala->nome }}</option>
-                @endforeach
-              </select>
-            </div>
+            <div class="col-6"><label>Sala:</label><select name="sala_fk" id="sala_fk_edit" class="form-select">@foreach($salas as $sala)<option value="{{ $sala->id }}">{{ $sala->nome }}</option>@endforeach</select></div>
+            @if(auth()->user()->is_admin)<div class="col-6"><label>Unidade:</label><select name="unidade_fk" id="unidade_fk_edit" class="form-select">@foreach($unidades as $u)<option value="{{ $u->id }}">{{ $u->nome }}</option>@endforeach</select></div>@endif
           </div>
-          <!-- CAMPO UNIDADE REMOVIDO COMPLETAMENTE -->
+          
           <div class="mb-3"><label>Tipo:</label><select name="tipo_reserva" id="tipo_reserva_edit" class="form-select"><option value="interno">Reunião interna</option><option value="pesquisador">Atendimento ao pesquisador</option></select></div>
           <div class="row g-2">
             <div class="col-4"><label>Data:</label><input type="date" id="data_visual_edit" class="form-select"></div>
@@ -198,7 +205,6 @@
   </div>
 </div>
 
-<!-- MODAIS DE CONFIRMAÇÃO (sem alterações) -->
 <div class="modal fade" id="modalEncerramento" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
