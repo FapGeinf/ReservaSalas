@@ -21,7 +21,7 @@
 
       <div class="pt-1 pb-4">
         <a href="{{ route('usuarios.create') }}" style="padding: 0px 9px"
-          class="button-orange fw-normal text-decoration-none d-inline-flex align-items-center justify-content-center">
+          class="nav-buttons fw-normal text-decoration-none d-inline-flex align-items-center justify-content-center">
           <i class="bi bi-plus fs-4"></i>
           Novo Usuário
         </a>
@@ -31,29 +31,29 @@
     <table id="tableUsers" class="table table-striped border-bottom-0 my-3">
       <thead>
         <tr>
-          <th class="fs-13 text-center">Nome</th>
-          <th class="fs-13 text-center">Login</th>
-          <th class="fs-13 text-center">Unidade</th>
-          <th class="fs-13 text-nowrap text-center">Tipo</th>
-          <th class="fs-13 text-center">Opções</th>
+          <th class="fs-13 bg-th-table">Nome</th>
+          <th class="fs-13 bg-th-table">Login</th>
+          <th class="fs-13 bg-th-table">Unidade</th>
+          <th class="fs-13 bg-th-table">Tipo</th>
+          <th class="fs-13 bg-th-table">Opções</th>
         </tr>
       </thead>
 
       <tbody>
         @foreach($usuarios as $usuario)
           <tr>
-            <td class="fs-13">{{ $usuario->name }}</td>
-            <td class="fs-13">{{ $usuario->login }}</td>
-            <td class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>
-            <td class="fs-13 text-center">
+            <td data-th="Nome" class="fs-13">{{ $usuario->name }}</td>
+            <td data-th="Login" class="fs-13">{{ $usuario->login }}</td>
+            <td data-th="Unidade" class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>
+            <td data-th="Tipo" class="fs-13">
               <span class="badge {{ $usuario->is_admin ? 'bg-success' : 'bg-secondary' }}">
                 {{ $usuario->is_admin ? 'Admin' : 'Comum' }}
               </span>
             </td>
 
-              <td class="fs-13 text-center">
+              <td data-th="Opções" class="fs-13">
                 <div class="dropdown">
-                  <button class="nav-buttons" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px 7px;">
+                  <button class="button-grey" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px 7px;">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
 
@@ -116,7 +116,7 @@
 
   {{-- Modal de Edição --}}
   <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h6 class="modal-title">Editar Usuário</h6>
@@ -129,13 +129,13 @@
           <div class="modal-body">
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="fs-13 fw-semibold">Nome Completo</label>
-                <input type="text" name="name" id="edit_name" class="form-control fs-13" required>
+                <label class="fs-13 fw-semibold">Nome Completo:</label>
+                <input type="text" name="name" id="edit_name" class="input-custom fs-13" required>
               </div>
               
               <div class="col-md-6">
-                <label class="fs-13 fw-semibold">Login do Sistema</label>
-                <input type="text" name="login" id="edit_login" class="form-control fs-13" required>
+                <label class="fs-13 fw-semibold">Login do Sistema:</label>
+                <input type="text" name="login" id="edit_login" class="input-custom fs-13" required>
               </div>
 
             <div class="col-md-6">
@@ -154,24 +154,27 @@
             </div>
 
               <div class="col-md-6">
-                <label class="fs-13 fw-semibold">Nova Senha</label>
-                <input type="password" name="password" class="form-control fs-13" placeholder="Deixe em branco para manter a atual">
+                <label class="fs-13 fw-semibold">Nova Senha:</label>
+                <input type="password" name="password" class="input-custom fs-13" placeholder="Deixe em branco para manter a atual">
                 <small class="text-muted fs-11 mt-1">Mínimo de 8 caracteres.</small>
               </div>
 
               <div class="col-md-6">
-                <label class="fs-13 fw-semibold">Confirmar Nova Senha</label>
-                <input type="password" name="password_confirmation" class="form-control fs-13" placeholder="Confirme a nova senha">
+                <label class="fs-13 fw-semibold">Confirmar Nova Senha:</label>
+                <input type="password" name="password_confirmation" class="input-custom fs-13" placeholder="Confirme a nova senha">
               </div>
             </div>
           </div>
           
           <div class="modal-footer py-2 bg-modal-footer">
             <button type="button" class="button-grey" data-bs-dismiss="modal">
-              <i class="bi bi-x-lg me-1"></i> Cancelar
+              <i class="bi bi-x-lg me-1"></i>
+              Cancelar
             </button>
-            <button type="submit" class="button-orange">
-              <i class="bi bi-check-lg me-1"></i> Salvar Alterações
+
+            <button type="submit" class="button-green">
+              <i class="bi bi-check-circle me-1"></i>
+              Salvar Alterações
             </button>
           </div>
         </form>

@@ -33,16 +33,16 @@
     </div>
 
     <div>
-      <table id="reservas" class="table table-striped align-middle my-3">
+      <table id="reservas" class="table table-striped table-hover my-3">
         <thead class="table-light">
           <tr>
-            <th class="fs-13 text-center">ID</th>
-            <th class="fs-13">Sala</th>
-            <th class="fs-13 text-center">Período</th>
-            <th class="fs-13">Reservado Por</th>
-            <th class="fs-13">Unidade</th>
-            <th class="fs-13 text-center">Tipo</th>
-            <th class="fs-13 text-center" style="width: 50px;">Ações</th>
+            <th class="fs-13 bg-th-table">ID</th>
+            <th class="fs-13 bg-th-table">Sala</th>
+            <th class="fs-13 bg-th-table">Período</th>
+            <th class="fs-13 bg-th-table">Reservado Por</th>
+            <th class="fs-13 bg-th-table">Unidade</th>
+            <th class="fs-13 bg-th-table">Tipo</th>
+            <th class="fs-13 bg-th-table">Ações</th>
           </tr>
         </thead>
 
@@ -79,7 +79,7 @@
 
               <td data-th="Ações" class="fs-13">
                 <div class="dropdown">
-                  <button class="nav-buttons" type="button" data-bs-toggle="dropdown" style="padding: 0px 7px;">
+                  <button class="button-grey" type="button" data-bs-toggle="dropdown" style="padding: 0px 7px;">
                     <i class="bi bi-three-dots-vertical"></i>
                   </button>
 

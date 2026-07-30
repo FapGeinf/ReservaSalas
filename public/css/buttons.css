@@ -99,3 +99,8 @@ background-color: #e0b139;
 .fs-icon {
   font-size: 12px !important;
 }
+
+.bg-th-table {
+  color: #fff !important;
+  background-color: #314b27 !important;
+}

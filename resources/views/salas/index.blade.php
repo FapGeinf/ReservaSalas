@@ -13,15 +13,6 @@
     <link rel="stylesheet" href="{{ asset('js/scripts/datatables.min.css') }}">
 
     <style>
-        .table-responsive,
-        .tabela-main-page {
-            overflow: visible !important;
-        }
-
-        .dropdown-menu {
-            z-index: 1050 !important;
-        }
-
         .color-pill {
             display: inline-block;
             width: 35px;
@@ -38,21 +29,13 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-
-        .align-middle-custom td {
-            vertical-align: middle !important;
-        }
-
-        #tableSalas tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.02);
-            transition: 0.2s;
-        }
     </style>
+
+    <x-alert-toast/>
 
     <div class="container mt-5">
 
-        <!-- Alertas de Sucesso e Erro -->
-        @if(session('success'))
+        {{-- @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-4 mb-4" role="alert">
                 <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -71,7 +54,7 @@
                 <i class="bi bi-exclamation-triangle-fill me-2"></i> Verifique os campos abaixo antes de continuar.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+        @endif --}}
 
         <div class="tabela-main-page shadow-sm rounded-4 p-4 bg-white">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -79,9 +62,10 @@
                     <h4 class="title-meetings mb-0">Lista de Salas</h4>
                     <p class="text-muted small mb-0">Gerencie os espaços e locais de reunião</p>
                 </div>
-                <a href="#" class="button-orange fw-normal text-decoration-none shadow-sm" data-bs-toggle="modal"
+                <a href="#" class="nav-buttons fw-normal text-decoration-none shadow-sm" data-bs-toggle="modal"
                     data-bs-target="#cadastrarSalaModal">
-                    <i class="bi bi-plus-lg me-1"></i> Nova Sala
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Nova Sala
                 </a>
             </div>
 
@@ -92,47 +76,50 @@
                 </div>
             @else
                 <div class="table-responsive">
-                    <table id="tableSalas" class="table table-hover border-bottom-0 my-3 align-middle-custom">
+                    <table id="tableSalas" class="table table-striped table-hover">
                         <thead class="table-light">
                             <tr>
-                                <th class="fs-13 text-center">Sala</th>
-                                <th class="fs-13 text-center">Descrição/Localização</th>
-                                <th class="fs-13 text-center">Situação</th>
-                                <th class="fs-13 text-center">Cor</th>
-                                <th class="fs-13 text-center" style="width: 80px;">Ações</th>
+                                <th class="fs-13 bg-th-table">Sala</th>
+                                <th class="fs-13 bg-th-table">Descrição/Localização</th>
+                                <th class="fs-13 bg-th-table">Situação</th>
+                                <th class="fs-13 bg-th-table">Cor</th>
+                                <th class="fs-13 bg-th-table">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($salas as $sala)
                                 <tr>
-                                    <td class="fs-13 fw-semibold text-center">{{ $sala->nome }}</td>
-                                    <td class="fs-13 text-center text-muted">{{ $sala->descricao }}</td>
-                                    <td class="text-center">
+                                    <td data-th="Sala" class="fs-13">{{ $sala->nome }}</td>
+                                    <td data-th="Descrição" class="fs-13">{{ $sala->descricao }}</td>
+                                    <td data-th="Situação" class="fs-13">
                                         @if(strtolower($sala->situacao) == 'ativa')
                                             <span class="badge-status bg-success-subtle text-success">{{ $sala->situacao }}</span>
                                         @else
                                             <span class="badge-status bg-secondary-subtle text-secondary">{{ $sala->situacao }}</span>
                                         @endif
                                     </td>
-                                    <td class="text-center">
+
+                                    <td data-th="Cor" class="fs-13">
                                         <span class="color-pill shadow-sm"
                                             style="background-color: {{ $sala->cor ?? '#ccc' }};"></span>
                                     </td>
-                                    <td class="text-center">
+
+                                    <td data-th="Ações" class="">
                                         <div class="dropdown">
-                                            <button class="btn btn-sm btn-light border dropdown-toggle" type="button"
+                                            <button class="button-grey" type="button" style="padding: 0px 7px;"
                                                 data-bs-toggle="dropdown">
-                                                <i class="bi bi-three-dots"></i>
+                                                <i class="bi bi-three-dots-vertical"></i>
                                             </button>
-                                            <ul class="dropdown-menu dropdown-menu-dark shadow">
+                                            <ul class="dropdown-menu">
                                                 <li>
                                                     <a href="#" class="dropdown-item fs-13 py-2" data-bs-toggle="modal"
                                                         data-bs-target="#editarSalaModal{{ $sala->id }}">
-                                                        <i class="bi bi-pencil-square me-2 text-warning"></i> Editar
+                                                        <i class="bi bi-pencil-square me-2"></i>
+                                                        Editar
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <hr class="dropdown-divider opacity-10">
+                                                    <hr class="dropdown-divider">
                                                 </li>
                                                 <li>
                                                     <a href="#" class="dropdown-item text-danger fs-13 py-2" data-bs-toggle="modal"
@@ -153,23 +140,23 @@
     </div>
 
     <div class="modal fade" id="cadastrarSalaModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content border-0 shadow">
                 <div class="modal-header bg-light">
-                    <h6 class="modal-title fw-bold">Cadastrar Nova Sala</h6>
+                    <h6 class="modal-title">Cadastrar Nova Sala</h6>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form action="{{ route('salas.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body p-4">
                         <div class="mb-3">
-                            <label class="fw-medium fs-13 mb-1"><span class="text-danger">*</span> Nome da Sala</label>
+                            <label class="fw-medium fs-13 mb-1"><span class="text-danger">*</span> Nome da Sala:</label>
                             <input type="text" name="nome" class="form-control input-custom"
                                 placeholder="Ex: Sala de Conferência A" required>
                         </div>
                         <div class="mb-3">
                             <label class="fw-medium fs-13 mb-1"><span class="text-danger">*</span>
-                                Descrição/Localização</label>
+                                Descrição/Localização:</label>
                             <input type="text" name="descricao" class="form-control input-custom"
                                 placeholder="Ex: Bloco B, 2º Andar" required>
                         </div>
@@ -179,23 +166,28 @@
                         </div> -->
                         <div class="row g-3">
                             <div class="col-6">
-                                <label class="fw-medium fs-13 mb-1">Situação</label>
+                                <label class="fw-medium fs-13 mb-1">Situação:</label>
                                 <select name="situacao" class="form-select input-custom" required>
                                     <option value="ativa" selected>Ativa</option>
                                     <option value="inativa">Inativa</option>
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="fw-medium fs-13 mb-1">Cor no Calendário</label>
-                                <input type="color" name="cor" class="form-control form-control-color w-100"
+                                <label class="fw-medium fs-13 mb-1">Cor no Calendário:</label>
+                                <input type="color" name="cor" class="input-custom form-control-color w-100"
                                     style="height: 38px;" value="#3788d8">
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer bg-light border-0">
-                        <button type="button" class="btn btn-link text-muted text-decoration-none fs-13"
-                            data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="button-green px-4 shadow-sm">Gravar Sala</button>
+                    <div class="modal-footer bg-modal-footer">
+                        <button type="button" class="button-grey fs-13"
+                            data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg me-1"></i>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="button-green shadow-sm">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Salvar Alterações</button>
                     </div>
                 </form>
             </div>
@@ -204,10 +196,10 @@
 
     @foreach($salas as $sala)
         <div class="modal fade" id="editarSalaModal{{ $sala->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
                 <div class="modal-content border-0 shadow">
-                    <div class="modal-header bg-light">
-                        <h6 class="modal-title fw-bold">Editar: {{ $sala->nome }}</h6>
+                    <div class="modal-header">
+                        <h6 class="modal-title">Editando a sala: {{ $sala->nome }}</h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form action="{{ route('salas.update', $sala) }}" method="POST">
@@ -239,15 +231,22 @@
                                 </div>
                                 <div class="col-6">
                                     <label class="fw-medium fs-13 mb-1">Cor:</label>
-                                    <input type="color" name="cor" class="form-control form-control-color w-100"
+                                    <input type="color" name="cor" class="input-custom form-control-color w-100"
                                         style="height: 38px;" value="{{ old('cor', $sala->cor) }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer bg-light border-0">
-                            <button type="button" class="btn btn-link text-muted text-decoration-none fs-13"
-                                data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="button-green px-4 shadow-sm">Atualizar Dados</button>
+                        <div class="modal-footer bg-modal-footer">
+                            <button type="button" class="button-grey fs-13"
+                                data-bs-dismiss="modal">
+                                <i class="bi bi-x-lg me-1"></i>
+                                Cancelar
+                            </button>
+
+                            <button type="submit" class="button-green">
+                                <i class="bi bi-check-circle me-1"></i>
+                                Atualizar Dados
+                            </button>
                         </div>
                     </form>
                 </div>
