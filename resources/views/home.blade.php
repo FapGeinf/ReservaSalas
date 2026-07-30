@@ -129,10 +129,12 @@
             </select>
           </div>
           @endif --}}
+
           <div class="row g-2">
-            <div class="col-6"><label class="fw-medium">Início:</label><input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required></div>
-            <div class="col-6"><label class="fw-medium">Término:</label><input type="time" name="hora_termino" id="hora_termino" class="form-control" required></div>
+            <div class="col-6"><label class="fw-medium">Início:</label><input type="time" name="hora_inicio" id="hora_inicio" class="input-enabled" required></div>
+            <div class="col-6"><label class="fw-medium">Término:</label><input type="time" name="hora_termino" id="hora_termino" class="input-enabled" required></div>
           </div>
+
           {{-- <div class="mt-3">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="diaInteiro">
@@ -141,6 +143,7 @@
           </div> --}}
         </form>
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
         <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>

@@ -31,7 +31,7 @@
         <div>
           <button type="button" class="button-grey d-flex align-items-center gap-2" data-bs-toggle="modal"
             data-bs-target="#reportModal">
-            <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
+            <i class="bi bi-file-earmark-pdf-fill"></i>
             Gerar Relatório
           </button>
         </div>
@@ -139,7 +139,7 @@
 
             <div class="row g-3">
               <div class="col-6">
-                <label for="mes" class="form-label font-weight-bold">Mês</label>
+                <label for="mes" class="fw-semibold">Mês:</label>
                 <select name="mes" id="mes" class="form-select fs-13">
                   @php
                     $meses = [
@@ -167,7 +167,7 @@
               </div>
 
               <div class="col-6">
-                <label for="ano" class="form-label font-weight-bold">Ano</label>
+                <label for="ano" class="fw-semibold">Ano:</label>
                 <select name="ano" id="ano" class="form-select fs-13">
                   @for ($y = now()->year; $y >= now()->year - 5; $y--)
                     <option value="{{ $y }}" {{ $y == now()->year ? 'selected' : '' }}>
@@ -184,8 +184,7 @@
               <i class="bi bi-x-lg me-1"></i>
               Cancelar
             </button>
-            <button type="submit" class="button-blue"
-              style="background-color: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 6px;">
+            <button type="submit" class="button-blue">
               <i class="bi bi-download me-1"></i>
               Baixar PDF
             </button>

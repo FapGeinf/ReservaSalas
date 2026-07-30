@@ -29,8 +29,8 @@
 <div class="container pt-5 mb-5" style="max-width: 500px;">
     <div class="box-edit shadow-sm">
         <div class="text-center mb-4">
-            <h4 class="fw-bold text-dark mb-1">Alterar Reserva</h4>
-            <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill border border-warning-subtle">
+            <h5 class="fw-bold mb-1">Alterar Reserva</h5>
+            <span class="badge bg-warning-subtle text-warning px-2 py-1 rounded-pill border border-warning-subtle">
                 CÓDIGO #{{ $reserva->id }}
             </span>
         </div>
@@ -42,7 +42,8 @@
             <div class="row g-3">
                 
                 <div class="col-12">
-                    <label class="form-label-custom">Sala <span class="text-danger">*</span></label>
+                    <span class="text-danger">*</span>
+                    <label class="fw-semibold">Sala:</label>
                     <select name="sala_fk" id="sala_fk" class="form-select input-custom @error('sala_fk') is-invalid @enderror" required>
                         @foreach($salas as $sala)
                             <option value="{{ $sala->id }}" {{ old('sala_fk', $reserva->sala_fk) == $sala->id ? 'selected' : '' }}>
@@ -54,7 +55,7 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label-custom">Unidade Responsável</label>
+                    <label class="fw-semibold">Unidade Responsável:</label>
                     @if(auth()->user()->is_admin)
                         <select name="unidade_fk" class="form-select input-custom @error('unidade_fk') is-invalid @enderror" required>
                             @foreach($unidades as $unidade)
@@ -73,8 +74,9 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label-custom">Tipo de Reserva <span class="text-danger">*</span></label>
-                    <select name="tipo_reserva" id="tipo_reserva" class="form-select input-custom" required>
+                    <span class="text-danger">*</span>
+                    <label class="fw-semibold">Tipo de Reserva:</label>
+                    <select name="tipo_reserva" id="tipo_reserva" class="form-select" required>
                         <option value="interno" {{ old('tipo_reserva', $reserva->finalidade) == 'interno' ? 'selected' : '' }}>
                             Reunião Interna
                         </option>
@@ -85,15 +87,17 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label-custom">Data <span class="text-danger">*</span></label>
+                    <span class="text-danger">*</span>
+                    <label class="fw-semibold">Data:</label>
                     <input type="date" name="data_reserva" id="data_inicio" 
-                           class="form-control input-custom @error('data_reserva') is-invalid @enderror" 
+                           class="input-custom @error('data_reserva') is-invalid @enderror" 
                            value="{{ old('data_reserva', \Carbon\Carbon::parse($reserva->data_inicio)->format('Y-m-d')) }}" required>
                     @error('data_reserva') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label-custom">Início <span class="text-danger">*</span></label>
+                    <span class="text-danger">*</span>
+                    <label class="fw-semibold">Início:</label>
                     <select name="hora_inicio" id="hora_inicio" class="form-select input-custom" required>
                         @foreach($horarios as $horario)
                             @php $hora_atual = \Carbon\Carbon::parse($reserva->data_inicio)->format('H:i'); @endphp
@@ -105,8 +109,9 @@
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label-custom">Fim <span class="text-danger">*</span></label>
-                    <select name="hora_termino" id="data_fim" class="form-select input-custom" required>
+                    <span class="text-danger">*</span>
+                    <label class="fw-semibold">Fim:</label>
+                    <select name="hora_termino" id="data_fim" class="form-select" required>
                         @foreach($horarios as $horario)
                             @php $hora_fim_atual = \Carbon\Carbon::parse($reserva->data_fim)->format('H:i'); @endphp
                             <option value="{{ $horario }}" {{ old('hora_termino', $hora_fim_atual) == $horario ? 'selected' : '' }}>
@@ -131,12 +136,15 @@
                 </div>
             </div>
 
-            <div class="d-flex gap-2 pt-4">
-                <a href="{{ session('return_url', route('reservas.index')) }}" class="btn btn-light border flex-fill py-2 fw-bold text-secondary">
-                    CANCELAR
+            <div class="d-flex justify-content-end gap-2 pt-4">
+                <a href="{{ session('return_url', route('reservas.index')) }}" class="button-grey text-decoration-none">
+                    <i class="bi bi-x-lg me-1"></i>
+                    Cancelar
                 </a>
-                <button type="submit" id="submit-btn" class="button-green flex-fill py-2 shadow-sm">
-                    <i class="bi bi-save2 me-1"></i> SALVAR
+
+                <button type="submit" id="submit-btn" class="button-green">
+                    <i class="bi bi-save2 me-1"></i>
+                    Salvar
                 </button>
             </div>
         </form>
