@@ -118,7 +118,7 @@
               <option value="pesquisador">Atendimento ao pesquisador</option>
             </select>
           </div>
-          @if(auth()->user()->is_admin == 1)
+          {{-- @if(auth()->user()->is_admin == 1)
           <div class="mb-3">
             <label class="fw-medium">Unidade:</label>
             <select name="unidade_fk" class="form-select pointer" required>
@@ -128,7 +128,7 @@
               @endforeach
             </select>
           </div>
-          @endif
+          @endif --}}
           <div class="row g-2">
             <div class="col-6"><label class="fw-medium">Início:</label><input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required></div>
             <div class="col-6"><label class="fw-medium">Término:</label><input type="time" name="hora_termino" id="hora_termino" class="form-control" required></div>
