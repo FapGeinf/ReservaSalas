@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/lista-reunioes','listarReunioes')->name('lista-reunioes');
             Route::get('/create', 'create')->name('create');
+            Route::get('/relatorio/mensal', 'gerarPdfReservasPorMes')->name('relatorio.mensal');
             Route::post('/', 'store')->name('store');
             Route::get('/{reserva}', 'show')->name('show');
             Route::get('/{reserva}/edit', 'edit')->name('edit');

@@ -310,4 +310,21 @@ class ReservaController extends Controller
             return redirect()->route('home')->with('error', 'Erro ao listar reuniões.');
         }
     }
+
+    public function gerarPdfReservasPorMes(Request $request)
+    {
+        try {
+            $mes = $request->query('mes', now()->month);
+            $ano = $request->query('ano', now()->year);
+
+            $pdf = $this->reservaService->getPdfReservasPorMes($mes, $ano);
+
+            return $pdf->download("relatorio-reservas-{$mes}-{$ano}.pdf");
+
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Erro ao gerar o relatório em PDF: ' . $e->getMessage());
+        }
+    }
 }

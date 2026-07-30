@@ -10,6 +10,14 @@ use Exception;
 
 class ReservaService
 {
+
+    protected $pdfService;
+
+    public function __construct(PdfService $pdfService)
+    {
+        $this->pdfService = $pdfService;
+    }
+
     public function getActiveReservas(bool $applyPermission = true)
     {
         $user = Auth::user();
@@ -283,5 +291,30 @@ class ReservaService
         if ($data_reserva->copy()->startOfDay()->lt(Carbon::today())) {
             throw new Exception('Não é possível marcar uma reserva em uma data retroativa.');
         }
+    }
+
+    /**
+     * Gera o PDF com as reservas de um mês específico.
+     * 
+     * @param int|null $mes (Opcional - padrão é o mês atual)
+     * @param int|null $ano (Opcional - padrão é o ano atual)
+     */
+    public function getPdfReservasPorMes(?int $mes = null, ?int $ano = null)
+    {
+        $mes = $mes ?? Carbon::now()->month;
+        $ano = $ano ?? Carbon::now()->year;
+
+        $reservas = Reserva::whereMonth('data_inicio', $mes)
+            ->whereYear('data_inicio', $ano)
+            ->get();
+
+        $nomeMes = Carbon::createFromDate($ano, $mes, 1)->translatedFormat('F/Y');
+
+        $dados = [
+            'reservas' => $reservas,
+            'periodo' => $nomeMes
+        ];
+
+        return $this->pdfService->gerarDeView('reservas.relatorio-reservas', $dados, 'a4', 'landscape');
     }
 }
