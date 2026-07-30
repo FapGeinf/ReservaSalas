@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Login;
 use App\Models\Unidade;
 use App\Models\User;
 use Throwable;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -63,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
                                 } elseif (property_exists($ldapUser, 'distinguishedname')) {
                                     $dn = $ldapUser->distinguishedname; // fallback para propriedade direta
                                 }
-                                
+
                                 Log::info("Atributo 'distinguishedname' retornado pelo AD: " . ($dn ?: 'Vazio'));
 
                                 if ($dn) {
@@ -109,6 +110,10 @@ class AppServiceProvider extends ServiceProvider
             }
 
             Log::info("=== FIM DA VERIFICAÇÃO DE UNIDADE ===");
+        });
+
+        Gate::define('viewLogViewer', function ($user = null) {
+            return $user && $user->is_admin == 1;
         });
     }
 }
