@@ -10,7 +10,7 @@ use Exception;
 
 class ReservaService
 {
-   public function getActiveReservas(bool $applyPermission = true)
+    public function getActiveReservas(bool $applyPermission = true)
     {
         $user = Auth::user();
         $today = Carbon::today();
@@ -22,14 +22,14 @@ class ReservaService
         if ($applyPermission && !$user->is_admin) {
             $query->where(function ($q) use ($user) {
                 $q->where('user_id', $user->id)
-                  ->orWhere('unidade_fk', $user->unidade_fk);
+                    ->orWhere('unidade_fk', $user->unidade_fk);
             });
         }
 
         return $query->orderBy('data_inicio', 'asc')->get();
     }
 
-   
+
     public function getAllReservas(bool $applyPermission = true)
     {
         $user = Auth::user();
@@ -39,7 +39,7 @@ class ReservaService
         if ($applyPermission && !$user->is_admin) {
             $query->where(function ($q) use ($user) {
                 $q->where('user_id', $user->id)
-                  ->orWhere('unidade_fk', $user->unidade_fk);
+                    ->orWhere('unidade_fk', $user->unidade_fk);
             });
         }
 
@@ -54,6 +54,8 @@ class ReservaService
         $dataFim = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
 
         $this->validarHorario($dataInicio, $dataFim);
+        $this->validarDataReserva($dataInicio);
+        $this->validarDataReserva($dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim)) {
             throw new Exception('A sala já está reservada neste horário.');
@@ -61,6 +63,8 @@ class ReservaService
 
         $user = Auth::user();
         $unidadeId = ($user->is_admin == 1) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
+
+
 
         return Reserva::create([
             'sala_fk' => $dados['sala_fk'],
@@ -84,6 +88,8 @@ class ReservaService
         $dataFim = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
 
         $this->validarHorario($dataInicio, $dataFim);
+        $this->validarDataReserva($dataInicio);
+        $this->validarDataReserva($dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim, $reserva->id)) {
             throw new Exception('A sala já está reservada neste horário por outra pessoa.');
@@ -255,6 +261,17 @@ class ReservaService
             if (!$inicio->isToday() || $inicio->lt(Carbon::now()->subMinutes(5))) {
                 throw new Exception('Não é possível realizar ou editar reservas para horários que já passaram.');
             }
+        }
+    }
+
+    private function validarDataReserva(Carbon $data_reserva)
+    {
+        if ($data_reserva->isWeekend()) {
+            throw new Exception('Não é possível marcar uma reserva durante o fim de semana.');
+        }
+
+        if ($data_reserva->startOfDay()->isLessThan(Carbon::today())) {
+            throw new Exception('Não é possível marcar uma reserva em uma data retroativa.');
         }
     }
 }
