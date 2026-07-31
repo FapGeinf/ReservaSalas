@@ -68,7 +68,7 @@
                 @if(strtolower(trim($sala->nome)) === 'presidência' || strtolower(trim($sala->nome)) === 'presidencia')
                   <button type="button" class="button-garden btn-agendar fs-13 px-2 py-1 ms-2"
                           data-bs-toggle="modal" data-bs-target="#modalAvisoPresidencia">
-                    <i class="bi bi-info-circle me-1 fs-11"></i> Info
+                    <i class="bi bi-calendar-plus me-1 fs-11"></i> Reservar
                   </button>
                 @else
                   <button type="button" class="button-garden btn-agendar fs-13 px-2 py-1 ms-2"
