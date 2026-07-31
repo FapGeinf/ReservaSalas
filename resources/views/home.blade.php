@@ -270,7 +270,7 @@
         <p class="fs-14 mb-0">A reserva desta sala é feita exclusivamente entrando em contato com o <strong>GABINETE</strong>.</p>
         <p class="fs-14 mt-2">Ramal: <strong>4013</strong></p>
       </div>
-      <div class="modal-footer justify-content-center border-0 pb-4">
+      <div class="modal-footer justify-content-center bg-modalfooter">
         <button type="button" class="button-grey px-4" data-bs-dismiss="modal">Entendido</button>
       </div>
     </div>
