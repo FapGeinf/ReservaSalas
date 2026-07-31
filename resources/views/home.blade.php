@@ -65,11 +65,18 @@
                 </div>
               </div>
               @if($situacao !== 'inativa')
-                <button type="button" class="button-garden btn-agendar fs-13 px-2 py-1 ms-2" 
-                        data-bs-toggle="modal" data-bs-target="#modalReserva"
-                        data-sala-id="{{ $sala->id }}" data-sala-nome="{{ $sala->nome }}">
-                  <i class="bi bi-calendar-plus me-1 fs-11"></i> Reservar
-                </button>
+                @if(strtolower(trim($sala->nome)) === 'presidência' || strtolower(trim($sala->nome)) === 'presidencia')
+                  <button type="button" class="button-garden btn-agendar fs-13 px-2 py-1 ms-2"
+                          data-bs-toggle="modal" data-bs-target="#modalAvisoPresidencia">
+                    <i class="bi bi-info-circle me-1 fs-11"></i> Info
+                  </button>
+                @else
+                  <button type="button" class="button-garden btn-agendar fs-13 px-2 py-1 ms-2"
+                          data-bs-toggle="modal" data-bs-target="#modalReserva"
+                          data-sala-id="{{ $sala->id }}" data-sala-nome="{{ $sala->nome }}">
+                    <i class="bi bi-calendar-plus me-1 fs-11"></i> Reservar
+                  </button>
+                @endif
               @else
                 <x-tool-tip-rooms/>
               @endif
@@ -143,7 +150,7 @@
           </div> --}}
         </form>
       </div>
-      
+
       <div class="modal-footer">
         <button type="button" class="button-grey" data-bs-dismiss="modal">Cancelar</button>
         <button type="submit" form="reservaForm" class="button-green">Salvar Reserva</button>
@@ -166,7 +173,7 @@
           <div class="col-12"><label class="fw-medium">Responsável:</label><span id="detalheResponsavel" class="input-custom-disabled"></span></div>
         </div>
       </div>
-      
+
       <div class="modal-footer">
         <button type="button" class="button-green" data-bs-toggle="modal" data-bs-target="#modalEncerramento"><i class="bi bi-check-circle me-1"></i> Finalizar</button>
         @if(Auth::user()->is_admin)
@@ -190,7 +197,7 @@
             <div class="col-6"><label>Sala:</label><select name="sala_fk" id="sala_fk_edit" class="form-select">@foreach($salas as $sala)<option value="{{ $sala->id }}">{{ $sala->nome }}</option>@endforeach</select></div>
             @if(auth()->user()->is_admin)<div class="col-6"><label>Unidade:</label><select name="unidade_fk" id="unidade_fk_edit" class="form-select">@foreach($unidades as $u)<option value="{{ $u->id }}">{{ $u->nome }}</option>@endforeach</select></div>@endif
           </div>
-          
+
           <div class="mb-3"><label>Tipo:</label><select name="tipo_reserva" id="tipo_reserva_edit" class="form-select"><option value="interno">Reunião interna</option><option value="pesquisador">Atendimento ao pesquisador</option></select></div>
           <div class="row g-2">
             <div class="col-4"><label>Data:</label><input type="date" id="data_visual_edit" class="form-select"></div>
@@ -251,6 +258,25 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalAvisoPresidencia" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h6 class="modal-title" style="color: #0b5ed7;"><i class="bi bi-info-circle me-2"></i>Aviso: Sala da Presidência</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <h5 class="fw-semibold mb-3">Reserva Restrita</h5>
+        <p class="fs-14 mb-0">A reserva desta sala é feita exclusivamente entrando em contato com o <strong>GABINETE</strong>.</p>
+        <p class="fs-14 mt-2">Ramal: <strong>4013</strong></p>
+      </div>
+      <div class="modal-footer justify-content-center border-0 pb-4">
+        <button type="button" class="button-grey px-4" data-bs-dismiss="modal">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <form id="deleteForm" method="POST" style="display:none;">@csrf @method('DELETE')</form>
 
 <script src="{{ asset('js/toggleDropdown.js') }}"></script>
@@ -262,5 +288,31 @@
 <script src="{{ asset('js/setDeleteId.js') }}"></script>
 <script src="{{ asset('js/abrirModalCalendario.js') }}"></script>
 <script src="{{ asset('js/modalReservasFeitas.js') }}"></script>
+
+@push('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectSala = document.getElementById('sala_fk');
+    const modalAviso = new bootstrap.Modal(document.getElementById('modalAvisoPresidencia'));
+
+    if (selectSala) {
+      selectSala.addEventListener('change', function () {
+        const opcaoSelecionada = this.options[this.selectedIndex];
+        const nomeSala = opcaoSelecionada.text.trim().toLowerCase();
+
+        if (nomeSala === 'presidencia' || nomeSala === 'presidência') {
+          const modalReserva = bootstrap.Modal.getInstance(document.getElementById('modalReserva'));
+          if(modalReserva) {
+            modalReserva.hide();
+          }
+
+          modalAviso.show();
+          this.value = '';
+        }
+      });
+    }
+  });
+</script>
+@endpush
 
 @endsection
