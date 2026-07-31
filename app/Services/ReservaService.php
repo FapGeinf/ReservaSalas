@@ -7,63 +7,137 @@ use App\Models\Sala;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReservaService
 {
-
-    protected $pdfService;
+    protected PdfService $pdfService;
 
     public function __construct(PdfService $pdfService)
     {
         $this->pdfService = $pdfService;
     }
 
-    public function getActiveReservas(bool $applyPermission = true)
+    /**
+     * Obtém lista de reservas com filtros flexíveis.
+     *
+     * @param array $filters
+     *   - onlyActive (bool): se true, filtra por data_inicio >= hoje, is_active=1 e data_fim > now.
+     *   - applyPermission (bool): se true, aplica restrições de usuário/unidade.
+     *   - salaId (int|null): filtra por sala específica.
+     *   - data (string|null): filtra por data específica (formato Y-m-d).
+     *   - order (string): 'asc' ou 'desc' para data_inicio.
+     *   - userOnly (bool): se true, filtra apenas reservas do usuário logado (ignora unidade).
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getReservas(array $filters = []): \Illuminate\Database\Eloquent\Collection
     {
+        $defaults = [
+            'onlyActive' => false,
+            'applyPermission' => true,
+            'salaId' => null,
+            'data' => null,
+            'order' => 'asc',
+            'userOnly' => false,
+        ];
+        $filters = array_merge($defaults, $filters);
+
         $user = Auth::user();
-        $today = Carbon::today();
+        $query = Reserva::with(['sala', 'unidade', 'user.unidade']);
 
-        $query = Reserva::with(['sala', 'unidade', 'user.unidade'])
-            ->whereDate('data_inicio', '>=', $today)
-            ->where('is_active', 1);
-
-        if ($applyPermission && !$user->is_admin) {
-            $query->where(function ($q) use ($user) {
-                $q->where('user_id', $user->id)
-                    ->orWhere('unidade_fk', $user->unidade_fk);
-            });
+        // Filtro de ativas (futuras ou em andamento)
+        if ($filters['onlyActive']) {
+            $query->whereDate('data_inicio', '>=', Carbon::today())
+                  ->where('is_active', 1)
+                  ->where('data_fim', '>', Carbon::now());
         }
 
-        return $query->orderBy('data_inicio', 'asc')->get();
+        // Filtro por sala
+        if ($filters['salaId']) {
+            $query->where('sala_fk', $filters['salaId']);
+        }
+
+        // Filtro por data (data_inicio)
+        if ($filters['data']) {
+            $query->whereDate('data_inicio', $filters['data']);
+        }
+
+        // Permissões
+        if ($filters['applyPermission'] && !$user->is_admin) {
+            if ($filters['userOnly']) {
+                $query->where('user_id', $user->id);
+            } else {
+                $query->where(function ($q) use ($user) {
+                    $q->where('user_id', $user->id)
+                      ->orWhere('unidade_fk', $user->unidade_fk);
+                });
+            }
+        }
+
+        return $query->orderBy('data_inicio', $filters['order'])->get();
     }
 
+    // Métodos legados para compatibilidade (delegam para o novo método)
+    public function getActiveReservas(bool $applyPermission = true)
+    {
+        return $this->getReservas([
+            'onlyActive' => true,
+            'applyPermission' => $applyPermission,
+            'order' => 'asc',
+        ]);
+    }
 
     public function getAllReservas(bool $applyPermission = true)
     {
-        $user = Auth::user();
-
-        $query = Reserva::with(['sala', 'unidade', 'user.unidade']);
-
-        if ($applyPermission && !$user->is_admin) {
-            $query->where(function ($q) use ($user) {
-                $q->where('user_id', $user->id)
-                    ->orWhere('unidade_fk', $user->unidade_fk);
-            });
-        }
-
-        return $query->orderBy('data_inicio', 'desc')->get();
+        return $this->getReservas([
+            'onlyActive' => false,
+            'applyPermission' => $applyPermission,
+            'order' => 'desc',
+        ]);
     }
+
+    public function listarReunioes()
+    {
+        return $this->getReservas([
+            'onlyActive' => false,
+            'applyPermission' => true,
+            'userOnly' => true,
+            'order' => 'asc',
+        ]);
+    }
+
+    public function getReservasPorSalaEData($salaId, $data)
+    {
+        return $this->getReservas([
+            'salaId' => $salaId,
+            'data' => $data,
+            'applyPermission' => false, // geralmente usado para exibição pública
+        ]);
+    }
+
+    public function getReservasPorData($data)
+    {
+        if (!$data) {
+            return collect([]);
+        }
+        return $this->getReservas([
+            'data' => $data,
+            'applyPermission' => false,
+        ]);
+    }
+
+    // Métodos de criação/atualização/delete mantidos, com melhorias internas
 
     public function criarReserva(array $dados)
     {
         $this->validarSalaAtiva($dados['sala_fk']);
 
-        $dataInicio = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_inicio']);
-        $dataFim = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
+        $dataInicio = $this->parseDataHora($dados['data_reserva'], $dados['hora_inicio']);
+        $dataFim = $this->parseDataHora($dados['data_reserva'], $dados['hora_termino']);
 
         $this->validarHorario($dataInicio, $dataFim);
+        // Apenas validamos a data de início (fim será >= inicio)
         $this->validarDataReserva($dataInicio);
-        $this->validarDataReserva($dataFim);
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim)) {
             throw new Exception('A sala já está reservada neste horário.');
@@ -78,7 +152,7 @@ class ReservaService
             'data_fim' => $dataFim,
             'user_id' => $user->id,
             'unidade_fk' => $unidadeId,
-            'finalidade' => $dados['tipo_reserva'],
+            'finalidade' => $dados['finalidade'] ?? $dados['tipo_reserva'] ?? null, // compatibilidade
         ]);
     }
 
@@ -90,12 +164,11 @@ class ReservaService
             throw new Exception('Sem permissão para alterar esta reserva.');
         }
 
-        $dataInicio = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_inicio']);
-        $dataFim = Carbon::parse($dados['data_reserva'] . ' ' . $dados['hora_termino']);
+        $dataInicio = $this->parseDataHora($dados['data_reserva'], $dados['hora_inicio']);
+        $dataFim = $this->parseDataHora($dados['data_reserva'], $dados['hora_termino']);
 
         $this->validarHorario($dataInicio, $dataFim);
-        $this->validarDataReserva($dataInicio);
-        $this->validarDataReserva($dataFim);
+        $this->validarDataReserva($dataInicio); // só valida início
 
         if ($this->existeConflito($dados['sala_fk'], $dataInicio, $dataFim, $reserva->id)) {
             throw new Exception('A sala já está reservada neste horário por outra pessoa.');
@@ -108,7 +181,7 @@ class ReservaService
             'data_inicio' => $dataInicio,
             'data_fim' => $dataFim,
             'unidade_fk' => $unidadeId,
-            'finalidade' => $dados['tipo_reserva'] ?? $reserva->finalidade,
+            'finalidade' => $dados['finalidade'] ?? $dados['tipo_reserva'] ?? $reserva->finalidade,
         ]);
     }
 
@@ -135,54 +208,38 @@ class ReservaService
         return $reserva->delete();
     }
 
+    // Método cancelarReserva removido – use deletarReserva diretamente
+    // Se precisar manter para compatibilidade, delegue:
+    public function cancelarReserva($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        return $this->deletarReserva($reserva);
+    }
+
     public function buscarReserva($id)
     {
         return Reserva::findOrFail($id);
     }
 
-    public function cancelarReserva($id)
-    {
-        $reserva = Reserva::findOrFail($id);
-        $reserva->delete();
-
-        return true;
-    }
-
-    public function getReservasPorSalaEData($salaId, $data)
-    {
-        return Reserva::where('sala_fk', $salaId)
-            ->whereDate('data_inicio', $data)
-            ->with(['user', 'user.unidade'])
-            ->get();
-    }
-
-    public function getReservasPorData($data)
-    {
-        if (!$data) {
-            return [];
-        }
-
-        return Reserva::with(['sala', 'user.unidade'])
-            ->whereDate('data_inicio', $data)
-            ->orderBy('data_inicio', 'asc')
-            ->get();
-    }
-
     public function getEventos()
     {
+        $reservas = $this->getReservas([
+            'onlyActive' => false, // pegamos todas, mas aplicamos o filtro de ativas internamente? 
+            // A lógica original pegava todas com is_active=1, sem filtrar data_fim > now.
+            // Mantemos o comportamento original para não quebrar:
+        ]);
+        // Mas a query original era: where('is_active', 1) sem filtro de data_fim.
+        // Para manter exatamente igual, faremos uma consulta separada:
         $reservas = Reserva::with(['sala', 'unidade', 'user.unidade'])
-            ->where('is_active', 1)
-            ->get();
-        $now = Carbon::now();
+                           ->where('is_active', 1)
+                           ->get();
 
+        $now = Carbon::now();
         $events = [];
 
         foreach ($reservas as $reserva) {
-
             $isPast = Carbon::parse($reserva->data_fim)->lt($now);
-
             $color = $reserva->sala->cor ?? '#3788d8';
-
             $backgroundColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
             $borderColor = $isPast ? $this->hexToRgba($color, 0.90) : $color;
             $textColor = $isPast ? '#333333' : '#ffffff';
@@ -211,23 +268,44 @@ class ReservaService
         return $events;
     }
 
-    public function listarReunioes()
+    /**
+     * Gera o PDF com as reservas de um mês específico, respeitando permissões.
+     */
+    public function getPdfReservasPorMes(?int $mes = null, ?int $ano = null)
     {
-        $user = auth()->user();
+        $mes = $mes ?? Carbon::now()->month;
+        $ano = $ano ?? Carbon::now()->year;
 
-        $query = Reserva::with(['sala', 'user.unidade']);
+        // Usamos o método getReservas com permissão aplicada por padrão
+        $reservas = $this->getReservas([
+            'onlyActive' => false,
+            'applyPermission' => true,
+            'order' => 'asc',
+        ])->filter(function ($reserva) use ($mes, $ano) {
+            return Carbon::parse($reserva->data_inicio)->month == $mes
+                && Carbon::parse($reserva->data_inicio)->year == $ano;
+        });
 
-        if (!$user->is_admin) {
-            $query->where('user_id', $user->id);
-        }
+        $nomeMes = Carbon::createFromDate($ano, $mes, 1)->translatedFormat('F/Y');
 
-        return $query->get();
+        $dados = [
+            'reservas' => $reservas,
+            'periodo' => $nomeMes
+        ];
+
+        return $this->pdfService->gerarDeView('reservas.relatorio-reservas', $dados, 'a4', 'landscape');
     }
 
-    private function hexToRgba($hex, $opacity = 1.0)
+    // ---------- Métodos auxiliares privados ----------
+
+    private function parseDataHora(string $data, string $hora): Carbon
+    {
+        return Carbon::parse($data . ' ' . $hora);
+    }
+
+    private function hexToRgba(string $hex, float $opacity = 1.0): string
     {
         $hex = str_replace('#', '', $hex);
-
         if (strlen($hex) === 3) {
             $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
             $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
@@ -237,17 +315,15 @@ class ReservaService
             $g = hexdec(substr($hex, 2, 2));
             $b = hexdec(substr($hex, 4, 2));
         }
-
         return "rgba($r, $g, $b, $opacity)";
     }
 
-
-    private function existeConflito($salaId, $inicio, $fim, $idIgnorar = null)
+    private function existeConflito($salaId, Carbon $inicio, Carbon $fim, $idIgnorar = null): bool
     {
         $query = Reserva::where('sala_fk', $salaId)
             ->where(function ($q) use ($inicio, $fim) {
                 $q->where('data_inicio', '<', $fim)
-                    ->where('data_fim', '>', $inicio);
+                  ->where('data_fim', '>', $inicio);
             });
 
         if ($idIgnorar) {
@@ -257,7 +333,7 @@ class ReservaService
         return $query->exists();
     }
 
-    private function validarSalaAtiva($salaId)
+    private function validarSalaAtiva($salaId): void
     {
         $sala = Sala::findOrFail($salaId);
         if (strtolower(trim($sala->situacao)) !== 'ativa') {
@@ -265,7 +341,7 @@ class ReservaService
         }
     }
 
-    private function validarHorario(Carbon $inicio, Carbon $fim)
+    private function validarHorario(Carbon $inicio, Carbon $fim): void
     {
         if ($fim->lte($inicio)) {
             throw new Exception('A hora de término deve ser após a hora de início.');
@@ -278,43 +354,14 @@ class ReservaService
         }
     }
 
-    private function validarDataReserva($data_reserva)
+    private function validarDataReserva(Carbon $data): void
     {
-        if (!$data_reserva instanceof Carbon) {
-            $data_reserva = Carbon::parse($data_reserva);
-        }
-
-        if ($data_reserva->isWeekend()) {
+        if ($data->isWeekend()) {
             throw new Exception('Não é possível marcar uma reserva durante o fim de semana.');
         }
 
-        if ($data_reserva->copy()->startOfDay()->lt(Carbon::today())) {
+        if ($data->copy()->startOfDay()->lt(Carbon::today())) {
             throw new Exception('Não é possível marcar uma reserva em uma data retroativa.');
         }
-    }
-
-    /**
-     * Gera o PDF com as reservas de um mês específico.
-     * 
-     * @param int|null $mes (Opcional - padrão é o mês atual)
-     * @param int|null $ano (Opcional - padrão é o ano atual)
-     */
-    public function getPdfReservasPorMes(?int $mes = null, ?int $ano = null)
-    {
-        $mes = $mes ?? Carbon::now()->month;
-        $ano = $ano ?? Carbon::now()->year;
-
-        $reservas = Reserva::whereMonth('data_inicio', $mes)
-            ->whereYear('data_inicio', $ano)
-            ->get();
-
-        $nomeMes = Carbon::createFromDate($ano, $mes, 1)->translatedFormat('F/Y');
-
-        $dados = [
-            'reservas' => $reservas,
-            'periodo' => $nomeMes
-        ];
-
-        return $this->pdfService->gerarDeView('reservas.relatorio-reservas', $dados, 'a4', 'landscape');
     }
 }

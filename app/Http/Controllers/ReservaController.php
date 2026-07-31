@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller
 {
-    protected $reservaService, $userService, $salaService, $unidadeService;
+    protected ReservaService $reservaService;
+    protected UserService $userService;
+    protected SalaService $salaService;
+    protected UnidadeService $unidadeService;
 
     public function __construct(
         ReservaService $reservaService,
@@ -43,8 +46,8 @@ class ReservaController extends Controller
             $unidades = $this->unidadeService->getUnidades();
             $salas = $this->salaService->getSalasWhereIsActive();
 
-            // Usa o novo método unificado com filtro de permissão automático
-            $reservas = $this->reservaService->getAllReservas();
+            // Usa o método unificado com filtro de permissão automático
+            $reservas = $this->reservaService->getAllReservas(); // mantido para compatibilidade
 
             return view('home', compact('reservas', 'unidades', 'salas', 'users'));
         } catch (Exception $e) {
@@ -224,19 +227,21 @@ class ReservaController extends Controller
     }
 
     /**
-     * Cancela uma reserva (apenas altera status, não exclui)
+     * Cancela uma reserva (apenas desativa, não exclui)
+     * Agora usa o método 'encerrarReserva' para manter a semântica.
      */
-    public function cancel($id)
+    public function cancel(Reserva $reserva)
     {
         try {
-            $this->reservaService->cancelarReserva($id);
+            // Usa encerrarReserva (desativa) em vez de deletar
+            $this->reservaService->encerrarReserva($reserva);
             return redirect()
                 ->route('reservas.index')
                 ->with('success', 'Reserva cancelada com sucesso!');
         } catch (Exception $e) {
-            Log::error('Erro ao cancelar reserva ID ' . $id . ': ' . $e->getMessage(), [
+            Log::error('Erro ao cancelar reserva ID ' . $reserva->id . ': ' . $e->getMessage(), [
                 'exception' => $e,
-                'reserva_id' => $id
+                'reserva_id' => $reserva->id
             ]);
             return redirect()->route('reservas.index')->with('error', 'Erro ao cancelar a reserva.');
         }
@@ -244,12 +249,20 @@ class ReservaController extends Controller
 
     /**
      * Busca reservas por sala e data (usado em modals/calendários)
+     * Agora aplica permissão automaticamente via service.
      */
     public function getReservasPorSalaEData($salaId, Request $request)
     {
         try {
-            $reservas = $this->reservaService
-                ->getReservasPorSalaEData($salaId, $request->query('data'));
+            // O service já aplica permissão por padrão (applyPermission = true)
+            // Mas como o método getReservasPorSalaEData foi mantido com applyPermission=false,
+            // precisamos alterar para usar o método unificado ou passar um parâmetro extra.
+            // Para manter a assinatura, vamos sobrescrever o comportamento usando o método getReservas diretamente.
+            $reservas = $this->reservaService->getReservas([
+                'salaId' => $salaId,
+                'data' => $request->query('data'),
+                'applyPermission' => true, // agora com permissão
+            ]);
             return response()->json($reservas);
         } catch (Exception $e) {
             Log::error('Erro ao buscar reservas por sala e data (Sala ID: ' . $salaId . '): ' . $e->getMessage(), [
@@ -263,12 +276,15 @@ class ReservaController extends Controller
 
     /**
      * Busca reservas por data (usado em calendários)
+     * Agora com permissão aplicada.
      */
     public function getReservasPorData(Request $request)
     {
         try {
-            $reservas = $this->reservaService
-                ->getReservasPorData($request->input('data'));
+            $reservas = $this->reservaService->getReservas([
+                'data' => $request->input('data'),
+                'applyPermission' => true,
+            ]);
             return response()->json($reservas);
         } catch (Exception $e) {
             Log::error('Erro ao buscar reservas por data: ' . $e->getMessage(), [
@@ -311,6 +327,9 @@ class ReservaController extends Controller
         }
     }
 
+    /**
+     * Gera relatório PDF de reservas por mês com permissões aplicadas
+     */
     public function gerarPdfReservasPorMes(Request $request)
     {
         try {
@@ -318,9 +337,7 @@ class ReservaController extends Controller
             $ano = $request->query('ano', now()->year);
 
             $pdf = $this->reservaService->getPdfReservasPorMes($mes, $ano);
-
             return $pdf->download("relatorio-reservas-{$mes}-{$ano}.pdf");
-
         } catch (Exception $e) {
             return redirect()
                 ->back()
