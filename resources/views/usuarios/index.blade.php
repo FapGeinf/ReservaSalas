@@ -46,8 +46,16 @@
             <td data-th="Login" class="fs-13">{{ $usuario->login }}</td>
             <td data-th="Unidade" class="fs-13">{{ $usuario->unidade->nome ?? 'Não definida' }}</td>
             <td data-th="Tipo" class="fs-13">
-              <span class="badge {{ $usuario->is_admin ? 'bg-success' : 'bg-secondary' }}">
-                {{ $usuario->is_admin ? 'Admin' : 'Comum' }}
+              @php
+                $badgeClass = match((int) $usuario->nivel_acesso_id) {
+                    3       => 'bg-danger',    // Root
+                    2       => 'bg-success',   // Admin
+                    default => 'bg-secondary', // Comum
+                };
+              @endphp
+
+              <span class="badge {{ $badgeClass }}">
+                {{ $usuario->nivelAcesso->tipo ?? 'N/A' }}
               </span>
             </td>
 
@@ -151,6 +159,13 @@
                 <option value="0">Usuário Comum</option>
                 <option value="1">Administrador</option>
               </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="fs-13 fw-semibold">Nível de Acesso:</label>
+                <select class="fs-13 form-select" id="edit_nivel_acesso_id" name="nivel_acesso_id" required>
+                    {{-- Populado via JS --}}
+                </select>
             </div>
 
               <div class="col-md-6">

@@ -28,6 +28,7 @@ class UpdateUserRequest extends FormRequest
             ],
             'unidade_fk' => 'required|exists:unidades,id',
             'is_admin' => 'nullable|boolean',
+            'nivel_acesso_id' => 'required|integer|exists:niveis_acessos,id',
             'password' => 'nullable|string|min:8|confirmed',
             'cpf' => 'nullable|string|max:14',
         ];

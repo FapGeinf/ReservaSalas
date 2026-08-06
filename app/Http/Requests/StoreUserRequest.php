@@ -19,8 +19,8 @@ class StoreUserRequest extends FormRequest
             'login'      => 'required|string|max:255|unique:users,login',
             'unidade_fk' => 'required|exists:unidades,id',
             'password'   => 'required|string|min:8|confirmed',
-            'is_admin'   => 'nullable|boolean',
             'cpf'        => 'nullable|string|max:14',
+            'nivel_acesso_id' => 'required|integer|exists:nivel_acessos,id',
         ];
     }
 

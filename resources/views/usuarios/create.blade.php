@@ -63,6 +63,18 @@
           </select>
         </div>
 
+        <div class="col-md-6">
+          <label class="fs-13 fw-semibold">Nível de Acesso:</label>
+          <select class="fs-13 form-select" name="nivel_acesso_id" required>
+              <option value="" disabled {{ old('nivel_acesso_id') ? '' : 'selected' }}>Selecione o nível</option>
+              @foreach($niveisAcesso as $nivel)
+                  <option value="{{ $nivel->id }}" {{ old('nivel_acesso_id') == $nivel->id ? 'selected' : '' }}>
+                      {{ $nivel->tipo }}
+                  </option>
+              @endforeach
+          </select>
+      </div>
+
         <div class="col-12">
           <label for="email" class="fw-medium">Email:</label>
           <input type="email" class="input-custom" id="email" name="email" required>        

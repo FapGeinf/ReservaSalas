@@ -3,41 +3,49 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\NivelAcesso;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
       public function getUsers()
       {
-            return User::orderBy('name')->get();
+            return User::with(['nivelAcesso', 'unidade'])
+                  ->orderBy('name')
+                  ->get();
       }
 
+      public function getNiveisAcesso()
+      {
+            return NivelAcesso::orderBy('id')->get();
+      }
       public function createUser(array $data)
       {
             if (!empty($data['cpf'])) {
                   $existingUser = User::where('cpf', $data['cpf'])->first();
                   if ($existingUser) {
-                        return [
-                              'success' => false,
-                              'error_type' => 'cpf_error',
-                              'message' => 'O CPF informado já está cadastrado para o usuário: ' . $existingUser->name
-                        ];
+                  return [
+                        'success'    => false,
+                        'error_type' => 'cpf_error',
+                        'message'    => 'O CPF informado já está cadastrado para o usuário: ' . $existingUser->name
+                  ];
                   }
             }
 
             $user = User::create([
-                  'name'       => $data['name'],
-                  'username'   => $data['username'] ?? null,
-                  'unidade_fk' => $data['unidade_fk'],
-                  'login'      => $data['login'],
-                  'cpf'        => $data['cpf'] ?? null,
-                  'password'   => Hash::make($data['password']),
-                  'is_admin'   => $data['is_admin'] ?? false,
+                  'name'            => $data['name'],
+                  'username'        => $data['username'] ?? null,
+                  'unidade_fk'      => $data['unidade_fk'],
+                  'login'           => $data['login'],
+                  'cpf'             => $data['cpf'] ?? null,
+                  'password'        => Hash::make($data['password']),
+                  'is_admin'        => $data['is_admin'] ?? false,
+                  'nivel_acesso_id' => $data['nivel_acesso_id'] ?? 1,
             ]);
 
             return [
                   'success' => true,
-                  'user' => $user
+                  'user'    => $user
             ];
       }
 
@@ -65,6 +73,7 @@ class UserService
                   'login'      => $data['login'],
                   'is_admin'   => $data['is_admin'] ?? $user->is_admin,
                   'cpf'        => $data['cpf'] ?? $user->cpf,
+                  'nivel_acesso_id' => $data['nivel_acesso_id'] ?? $user->nivel_acesso_id,
             ];
 
             if (!empty($data['password'])) {

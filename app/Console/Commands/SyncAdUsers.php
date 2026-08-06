@@ -27,7 +27,7 @@ class SyncAdUsers extends Command
 						$guid           = $ldapUser->getConvertedGuid();
 
 						if (!$samAccountName) continue;
-
+						$existingUser = User::where('login', $samAccountName)->first();
 						$user = User::updateOrCreate(
 								['login' => $samAccountName], // chave de identificação
 								[
@@ -37,6 +37,7 @@ class SyncAdUsers extends Command
 										'password' => null, // a senha via ldap deve constar como null
 										'tipo'     => 'usuario',
 										'is_admin' => 0,
+										'nivel_acesso_id' => $existingUser?->nivel_acesso_id ?? 1,
 										'domain'   => 'fap.local',
 										'guid'     => $guid,
 										'auth_provider' => 'ldap',
