@@ -31,7 +31,7 @@
           </a>
         </li>
 
-        @if(Auth::check() && Auth::user()->is_admin == 1)
+        @if(Auth::check() && Auth::user()->isRoot())
           <li class="nav-item">
             <a class="nav-link nav-buttons fs-12" href="{{ route('salas') }}">
               <i class="bi bi-door-open me-1"></i>

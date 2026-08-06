@@ -21,7 +21,7 @@ class UpdateReservaRequest extends FormRequest
             'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
             'tipo_reserva' => 'nullable|string|max:255',
             'unidade_fk'   => [
-                Auth::user()->is_admin ? 'required' : 'nullable',
+                Auth::user()->isAdmin ? 'required' : 'nullable',
                 'exists:unidades,id'
             ],
         ];

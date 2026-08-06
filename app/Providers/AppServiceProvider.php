@@ -113,7 +113,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('viewLogViewer', function ($user = null) {
-            return $user && $user->is_admin == 1;
+            return $user && $user->isAdmin();
         });
     }
 }

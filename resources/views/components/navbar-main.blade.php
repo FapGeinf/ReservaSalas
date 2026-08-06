@@ -48,7 +48,7 @@
             </div>
           </div>
 
-          {{-- @if(auth()->user()->is_admin)
+          @if(auth()->user()->isAdmin())
             <div class="mb-3 row">
                 <div class="col-12">
                     <label class="fw-medium">Unidade:</label>
@@ -62,7 +62,7 @@
                     </select>
                 </div>
             </div>
-          @endif --}}
+          @endif 
 
           <div class="row align-items-end mb-3">
             <div class="col-6">

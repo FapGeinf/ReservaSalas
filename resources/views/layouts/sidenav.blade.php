@@ -26,7 +26,7 @@
       </li>
      
       <li class="menuItem">
-       @if(Auth::user()->is_admin)
+       @if(Auth::user()->isAdmin())
         <a href="{{ route('salas') }}" class="menuOption">
             <i class="fa-solid fa-cube"></i>
             <h6 class="menuText fw-medium">Salas</h6>

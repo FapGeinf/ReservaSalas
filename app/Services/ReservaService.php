@@ -63,7 +63,7 @@ class ReservaService
         }
 
         // Permissões
-        if ($filters['applyPermission'] && !$user->is_admin) {
+        if ($filters['applyPermission'] && !$user->isAdmin()) {
             if ($filters['userOnly']) {
                 $query->where('user_id', $user->id);
             } else {
@@ -144,7 +144,7 @@ class ReservaService
         }
 
         $user = Auth::user();
-        $unidadeId = ($user->is_admin == 1) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
+        $unidadeId = ($user->isAdmin()) ? ($dados['unidade_fk'] ?? $user->unidade_fk) : $user->unidade_fk;
 
         return Reserva::create([
             'sala_fk' => $dados['sala_fk'],
@@ -160,7 +160,7 @@ class ReservaService
     {
         $user = Auth::user();
 
-        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+        if (!($user->isAdmin() || $user->id === $reserva->user_id)) {
             throw new Exception('Sem permissão para alterar esta reserva.');
         }
 
@@ -174,7 +174,7 @@ class ReservaService
             throw new Exception('A sala já está reservada neste horário por outra pessoa.');
         }
 
-        $unidadeId = $user->is_admin ? ($dados['unidade_fk'] ?? $reserva->unidade_fk) : $user->unidade_fk;
+        $unidadeId = $user->isAdmin() ? ($dados['unidade_fk'] ?? $reserva->unidade_fk) : $user->unidade_fk;
 
         return $reserva->update([
             'sala_fk' => $dados['sala_fk'],
@@ -189,7 +189,7 @@ class ReservaService
     {
         $user = Auth::user();
 
-        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+        if (!($user->isAdmin() || $user->id === $reserva->user_id)) {
             throw new Exception('Sem permissão para encerrar esta reserva.');
         }
         return $reserva->update([
@@ -201,7 +201,7 @@ class ReservaService
     {
         $user = Auth::user();
 
-        if (!($user->is_admin || $user->id === $reserva->user_id)) {
+        if (!($user->isAdmin() || $user->id === $reserva->user_id)) {
             throw new Exception('Sem permissão para deletar esta reserva.');
         }
 

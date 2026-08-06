@@ -125,7 +125,7 @@
               <option value="pesquisador">Atendimento ao pesquisador</option>
             </select>
           </div>
-          {{-- @if(auth()->user()->is_admin == 1)
+          {{-- @if(auth()->user()->isAdmin())
           <div class="mb-3">
             <label class="fw-medium">Unidade:</label>
             <select name="unidade_fk" class="form-select pointer" required>
@@ -176,7 +176,7 @@
 
       <div class="modal-footer">
         <button type="button" class="button-green" data-bs-toggle="modal" data-bs-target="#modalEncerramento"><i class="bi bi-check-circle me-1"></i> Finalizar</button>
-        @if(Auth::user()->is_admin)
+        @if(Auth::user()->isAdmin())
           <button type="button" id="btnEditar" class="button-blue"><i class="bi bi-pen me-1"></i>Editar</button>
           <button type="button" id="btnExcluir" class="button-red"><i class="bi bi-trash me-1"></i>Excluir</button>
         @endif
@@ -195,7 +195,7 @@
           <input type="hidden" name="data_reserva" id="data_reserva_edit">
           <div class="row mb-3">
             <div class="col-6"><label>Sala:</label><select name="sala_fk" id="sala_fk_edit" class="form-select">@foreach($salas as $sala)<option value="{{ $sala->id }}">{{ $sala->nome }}</option>@endforeach</select></div>
-            @if(auth()->user()->is_admin)<div class="col-6"><label>Unidade:</label><select name="unidade_fk" id="unidade_fk_edit" class="form-select">@foreach($unidades as $u)<option value="{{ $u->id }}">{{ $u->nome }}</option>@endforeach</select></div>@endif
+            @if(auth()->user()->isAdmin())<div class="col-6"><label>Unidade:</label><select name="unidade_fk" id="unidade_fk_edit" class="form-select">@foreach($unidades as $u)<option value="{{ $u->id }}">{{ $u->nome }}</option>@endforeach</select></div>@endif
           </div>
 
           <div class="mb-3"><label>Tipo:</label><select name="tipo_reserva" id="tipo_reserva_edit" class="form-select"><option value="interno">Reunião interna</option><option value="pesquisador">Atendimento ao pesquisador</option></select></div>

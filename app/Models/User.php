@@ -17,6 +17,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         'username',
         'login',
         'unidade_fk',
+        'nivel_acesso_id',
         'guid',
         'domain',
         'auth_provider',
@@ -35,11 +36,31 @@ class User extends Authenticatable implements LdapAuthenticatable
             'email_verified_at' => 'datetime',
             'is_admin' => 'boolean',
             'tutorial_exibido' => 'boolean',
+            'nivel_acesso_id' => 'integer'
         ];
     }
 
     public function unidade()
     {
         return $this->belongsTo(Unidade::class, 'unidade_fk');
+    }
+    public function nivelAcesso()
+    {
+        return $this->belongsTo(NivelAcesso::class, 'nivel_acesso_id');
+    }
+
+    public function isUser(): bool
+    {
+        return $this->nivel_acesso_id === 1;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->nivel_acesso_id >= 2; 
+    }
+
+    public function isRoot(): bool
+    {
+        return $this->nivel_acesso_id === 3; 
     }
 }

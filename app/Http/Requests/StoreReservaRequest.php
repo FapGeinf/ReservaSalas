@@ -14,6 +14,7 @@ class StoreReservaRequest extends FormRequest
 
     public function rules(): array
     {
+        $user = auth()->user();
         return [
             'sala_fk' => 'required|exists:salas,id',
             'data_reserva' => [
@@ -23,7 +24,9 @@ class StoreReservaRequest extends FormRequest
             ],
             'hora_inicio' => 'required|date_format:H:i',
             'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
-            'unidade_fk' => 'required_if:is_admin,1', 
+            'unidade_fk' => [
+                $user && $user->isAdmin() ? 'required' : 'nullable', 'exists:unidades,id'
+            ], 
             'tipo_reserva' => 'required|string',
         ];
     }

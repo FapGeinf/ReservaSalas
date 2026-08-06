@@ -133,7 +133,7 @@ class ReservaController extends Controller
             $unidades = $this->unidadeService->getUnidades();
 
             // Permissão: admin ou dono da reserva
-            if (!($user->is_admin || $user->id === $reserva->user_id)) {
+            if (!($user->isAdmin()|| $user->id === $reserva->user_id)) {
                 Log::warning('Tentativa não autorizada de editar a reserva ID ' . $reserva->id . ' pelo usuário ID ' . $user->id);
                 return back()->with('error', 'Você não tem permissão para editar esta reserva.');
             }

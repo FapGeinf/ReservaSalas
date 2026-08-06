@@ -56,7 +56,7 @@
 
                 <div class="col-12">
                     <label class="fw-semibold">Unidade Responsável:</label>
-                    @if(auth()->user()->is_admin)
+                    @if(auth()->user()->isAdmin())
                         <select name="unidade_fk" class="form-select input-custom @error('unidade_fk') is-invalid @enderror" required>
                             @foreach($unidades as $unidade)
                                 <option value="{{ $unidade->id }}" {{ old('unidade_fk', $reserva->unidade_fk) == $unidade->id ? 'selected' : '' }}>
