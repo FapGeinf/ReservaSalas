@@ -154,14 +154,6 @@
             </div>
 
             <div class="col-md-6">
-              <label class="fs-13 fw-semibold">Tipo de Acesso:</label>
-              <select name="is_admin" id="edit_is_admin" class="form-select fs-13" required>
-                <option value="0">Usuário Comum</option>
-                <option value="1">Administrador</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
                 <label class="fs-13 fw-semibold">Nível de Acesso:</label>
                 <select class="fs-13 form-select" id="edit_nivel_acesso_id" name="nivel_acesso_id" required>
                     {{-- Populado via JS --}}

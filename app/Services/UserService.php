@@ -39,7 +39,6 @@ class UserService
                   'login'           => $data['login'],
                   'cpf'             => $data['cpf'] ?? null,
                   'password'        => Hash::make($data['password']),
-                  'is_admin'        => $data['is_admin'] ?? false,
                   'nivel_acesso_id' => $data['nivel_acesso_id'] ?? 1,
             ]);
 
@@ -71,7 +70,6 @@ class UserService
                   'username'   => $data['username'] ?? $user->username,
                   'unidade_fk' => $data['unidade_fk'],
                   'login'      => $data['login'],
-                  'is_admin'   => $data['is_admin'] ?? $user->is_admin,
                   'cpf'        => $data['cpf'] ?? $user->cpf,
                   'nivel_acesso_id' => $data['nivel_acesso_id'] ?? $user->nivel_acesso_id,
             ];

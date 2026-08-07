@@ -36,7 +36,6 @@ class SyncAdUsers extends Command
 										'name'     => $displayName ?? $samAccountName,
 										'password' => null, // a senha via ldap deve constar como null
 										'tipo'     => 'usuario',
-										'is_admin' => 0,
 										'nivel_acesso_id' => $existingUser?->nivel_acesso_id ?? 1,
 										'domain'   => 'fap.local',
 										'guid'     => $guid,
