@@ -56,14 +56,7 @@
         </div>
 
         <!-- Segunda linha: Tipo de Usuário e Nível de Acesso -->
-        <div class="col-12 col-sm-7">
-          <label for="role" class="fw-medium">Tipo de Usuário:</label>
-          <select class="form-select pointer" id="role" name="role" required>
-            <option value="user">Usuário Comum</option>
-            <option value="admin">Administrador</option>
-          </select>
-        </div>
-        <div class="col-12 col-sm-5">
+        <div class="col-12">
           <label for="nivel_acesso_id" class="fw-medium">Nível de Acesso:</label>
           <select class="form-select" name="nivel_acesso_id" required>
             <option value="" disabled {{ old('nivel_acesso_id') ? '' : 'selected' }}>Selecione o nível</option>
