@@ -31,6 +31,10 @@ class LinkUsersUnidades extends Command
         $updatedCount = 0;
         $notFoundCount = 0;
         $noOuCount = 0;
+        
+        // Arrays para armazenar os nomes para o relatório final
+        $usersWithoutUnit = [];
+        $usersNotFound = [];
 
         $this->output->progressStart($users->count());
 
@@ -59,6 +63,8 @@ class LinkUsersUnidades extends Command
             // Se não encontrou o usuário no Active Directory
             if (!$ldapUser) {
                 $notFoundCount++;
+                $usersNotFound[] = $user->name;
+                
                 if ($this->option('debug')) {
                     $this->newLine();
                     $this->warn("Usuário [{$user->name}] não foi localizado no LDAP.");
@@ -85,9 +91,8 @@ class LinkUsersUnidades extends Command
                 // 1. Tenta buscar a Unidade no MySQL pelo nome
                 $unidade = Unidade::where('nome', $nomeFormatado)->first();
 
-                // 2. Se não existir no MySQL, cria com todos os campos obrigatórios (sigla, ad_guid, dn, active)
+                // 2. Se não existir no MySQL, cria com todos os campos obrigatórios
                 if (!$unidade) {
-                    // Consulta o AD para tentar obter o GUID e DN oficiais da OU
                     $adOu = LdapOu::where('ou', $nomeFormatado)->first();
                     $guidOu = $adOu ? $adOu->getConvertedGuid() : (string) Str::uuid();
 
@@ -112,6 +117,8 @@ class LinkUsersUnidades extends Command
                 $updatedCount++;
             } else {
                 $noOuCount++;
+                $usersWithoutUnit[] = $user->name; // Armazena o nome do usuário sem unidade/OU
+
                 if ($this->option('debug')) {
                     $this->newLine();
                     $this->warn("Usuário [{$user->name}] encontrado no AD, mas sem 'department' ou 'OU' definida.");
@@ -127,11 +134,17 @@ class LinkUsersUnidades extends Command
         $this->newLine();
         $this->info("=== RESUMO DA EXECUÇÃO ===");
         $this->info("✅ Vinculados com sucesso: {$updatedCount}");
+        
         if ($notFoundCount > 0) {
             $this->warn("⚠️  Não encontrados no AD: {$notFoundCount}");
         }
+        
         if ($noOuCount > 0) {
             $this->warn("⚠️  Sem unidade/OU no AD: {$noOuCount}");
+            $this->line("--- Lista de usuários sem unidade/OU ---");
+            foreach ($usersWithoutUnit as $userName) {
+                $this->line("  - {$userName}");
+            }
         }
 
         return CommandAlias::SUCCESS;
