@@ -45,75 +45,73 @@
       @csrf
 
       <div class="row g-3 mt-3">
+        <!-- Primeira linha: Nome e Login -->
         <div class="col-12 col-sm-7">
           <label for="name" class="fw-medium">Nome:</label>
-          <input type="text" class="input-custom" id="name" name="name" required>        
+          <input type="text" class="input-custom" id="name" name="name" required>
         </div>
-
         <div class="col-12 col-sm-5">
-          <label class="fw-medium">Login:</label>
-          <input type="text" class="input-custom" id="login" name="login" required>        
+          <label for="login" class="fw-medium">Login:</label>
+          <input type="text" class="input-custom" id="login" name="login" required>
         </div>
 
+        <!-- Segunda linha: Tipo de Usuário e Nível de Acesso -->
         <div class="col-12 col-sm-7">
-          <label class="fw-medium">Tipo de Usuário:</label>
+          <label for="role" class="fw-medium">Tipo de Usuário:</label>
           <select class="form-select pointer" id="role" name="role" required>
             <option value="user">Usuário Comum</option>
             <option value="admin">Administrador</option>
           </select>
         </div>
-
-        <div class="col-12">
-          <label for="email" class="fw-medium">Email:</label>
-          <input type="email" class="input-custom" id="email" name="email" required>        
+        <div class="col-12 col-sm-5">
+          <label for="nivel_acesso_id" class="fw-medium">Nível de Acesso:</label>
+          <select class="form-select" name="nivel_acesso_id" required>
+            <option value="" disabled {{ old('nivel_acesso_id') ? '' : 'selected' }}>Selecione o nível</option>
+            @foreach($niveisAcesso as $nivel)
+              <option value="{{ $nivel->id }}" {{ old('nivel_acesso_id') == $nivel->id ? 'selected' : '' }}>
+                {{ $nivel->tipo }}
+              </option>
+            @endforeach
+          </select>
         </div>
 
+        <!-- Terceira linha: Email e Unidade (ambos full-width) -->
+        <div class="col-12">
+          <label for="email" class="fw-medium">Email:</label>
+          <input type="email" class="input-custom" id="email" name="email" required>
+        </div>
         <div class="col-12">
           <label for="unidade_fk" class="fw-medium">Unidade:</label>
           <select class="form-select pointer" id="unidade_fk" name="unidade_fk" required>
             <option value="">Selecione a unidade</option>
-
             @foreach($unidades as $unidade)
               <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
             @endforeach
-          </select>        
+          </select>
         </div>
       </div>
 
+      <!-- Quarta linha: Senha e Confirmação (lado a lado em telas médias) -->
       <div class="row g-3 mt-1">
         <div class="col-12 col-sm-6">
-          <label class="fw-medium">Crie uma senha:</label>
-
+          <label for="password" class="fw-medium">Crie uma senha:</label>
           <div style="position: relative;">
             <input type="password" class="input-custom" id="password" name="password" required>
-            <i id="eyePassword" class="bi bi-eye" 
-              style="
-              position: absolute;
-              top: 50%;
-              color: #374151;
-              right: 10px;
-              transform: translateY(-50%);
-              cursor: pointer;"
+            <i id="eyePassword" class="bi bi-eye"
+              style="position: absolute; top: 50%; color: #374151; right: 10px; transform: translateY(-50%); cursor: pointer;"
               onclick="togglePassword('password', 'eyePassword')">
             </i>
           </div>
         </div>
-
         <div class="col-12 col-sm-6">
-          <label class="fw-medium">Repita a senha:</label>
-
+          <label for="password_confirmation" class="fw-medium">Repita a senha:</label>
           <div style="position: relative;">
             <input type="password" class="input-custom" id="password_confirmation" name="password_confirmation" required>
             <i id="eyePasswordConfirmation" class="bi bi-eye"
-              style="position: absolute;
-              top: 50%;
-              color: #374151;
-              right: 10px;
-              transform: translateY(-50%);
-              cursor: pointer;"
+              style="position: absolute; top: 50%; color: #374151; right: 10px; transform: translateY(-50%); cursor: pointer;"
               onclick="togglePassword('password_confirmation', 'eyePasswordConfirmation')">
             </i>
-          </div>        
+          </div>
         </div>
       </div>
     </form>

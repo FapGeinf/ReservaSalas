@@ -15,7 +15,7 @@ class PromoteGeinfAdmins extends Command
     {
         $updated = User::where('unidade_fk', 2)
             ->update([
-                'is_admin' => true,
+                'nivel_acesso_id' => 2,
             ]);
 
         $this->info("{$updated} usuários promovidos para administrador.");

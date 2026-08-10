@@ -74,21 +74,28 @@ $(document).ready(function () {
             success: function (data) {
                 const user = data.user;
                 const unidades = data.unidades;
-
+                const niveis = data.niveis_acesso; 
 
                 $('#edit_name').val(user.name);
                 $('#edit_login').val(user.login);
-
-
-                $('#edit_is_admin').val(user.is_admin ? "1" : "0");
                 $('#editUserForm').attr('action', `/usuarios/${userId}`);
 
-                let options = '';
+                
+                let optionsUnidades = '';
                 unidades.forEach(unidade => {
                     const selected = (unidade.id === user.unidade_fk) ? 'selected' : '';
-                    options += `<option value="${unidade.id}" ${selected}>${unidade.nome}</option>`;
+                    optionsUnidades += `<option value="${unidade.id}" ${selected}>${unidade.nome}</option>`;
                 });
-                $('#edit_unidade').html(options);
+                $('#edit_unidade').html(optionsUnidades);
+
+                let optionsNiveis = '';
+                if (niveis) {
+                    niveis.forEach(nivel => {
+                        const selected = (nivel.id === user.nivel_acesso_id) ? 'selected' : '';
+                        optionsNiveis += `<option value="${nivel.id}" ${selected}>${nivel.tipo}</option>`;
+                    });
+                    $('#edit_nivel_acesso_id').html(optionsNiveis);
+                }
 
                 $('input[name="password"]').val('');
                 $('input[name="password_confirmation"]').val('');

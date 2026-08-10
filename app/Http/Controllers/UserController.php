@@ -32,17 +32,18 @@ class UserController extends Controller
         }
     }
 
-    public function create()
-    {
-        try {
-            $unidades = $this->unidadeService->getUnidades();
-            return view('usuarios.create', compact('unidades'));
-        } catch (\Exception $e) {
-            Log::error('Erro ao carregar tela de cadastro de usuário: ' . $e->getMessage(), [
-                'exception' => $e
-            ]);
-            return redirect()->route('usuarios.index')->with('error', 'Erro ao carregar o formulário de cadastro.');
-        }
+    public function create() 
+    { 
+        try { 
+            $unidades = $this->unidadeService->getUnidades(); 
+            $niveisAcesso = $this->userService->getNiveisAcesso();
+            return view('usuarios.create', compact('unidades', 'niveisAcesso')); 
+        } catch (\Exception $e) { 
+            Log::error('Erro ao carregar tela de cadastro de usuário: ' . $e->getMessage(), [ 
+                'exception' => $e 
+            ]); 
+            return redirect()->route('usuarios.index')->with('error', 'Erro ao carregar o formulário de cadastro.'); 
+        } 
     }
 
     public function store(StoreUserRequest $request)
@@ -72,15 +73,17 @@ class UserController extends Controller
         try {
             $user = $this->userService->getUserById($id);
             $unidades = $this->unidadeService->getUnidades();
+            $niveisAcesso = $this->userService->getNiveisAcesso(); 
 
             return response()->json([
-                'user' => $user,
-                'unidades' => $unidades
+                'user'          => $user,
+                'unidades'      => $unidades,
+                'niveis_acesso' => $niveisAcesso,
             ]);
         } catch (\Exception $e) {
             Log::error('Erro ao buscar dados para edição do usuário ID ' . $id . ': ' . $e->getMessage(), [
                 'exception' => $e,
-                'user_id' => $id
+                'user_id'   => $id
             ]);
             return response()->json([
                 'error' => 'Não foi possível carregar os dados do usuário.'

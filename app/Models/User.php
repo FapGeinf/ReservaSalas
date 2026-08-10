@@ -21,7 +21,6 @@ class User extends Authenticatable implements LdapAuthenticatable
         'guid',
         'domain',
         'auth_provider',
-        'is_admin',
         'tutorial_exibido',
     ];
 
@@ -34,7 +33,6 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'is_admin' => 'boolean',
             'tutorial_exibido' => 'boolean',
             'nivel_acesso_id' => 'integer'
         ];
