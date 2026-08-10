@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\{
     ProfileController,
     HomeController,
     ReservaController,
     SalaController,
-    UserController,
-    Auth\RegisteredUserController
+    UserController
 };
 
 Route::get('/', function () {
@@ -16,18 +16,17 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', fn() => redirect()->route('home'))->name('dashboard');
     Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
 
+    // Perfil do próprio usuário
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'edit')->name('profile.edit');
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 
-    Route::resource('salas', SalaController::class)->names(['index' => 'salas']);
 
     Route::controller(ReservaController::class)->group(function () {
         Route::get('/reservas/data', 'getReservasPorData');
@@ -49,20 +48,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    Route::controller(UserController::class)->group(function () {
-        Route::get('/usuarios', 'index')->name('usuarios.index');
-        Route::get('/usuarios/create', 'create')->name('usuarios.create');
-        Route::post('/usuarios', 'store')->name('usuarios.store');
-  
-        Route::get('/usuarios/{id}/edit', 'edit')->name('usuarios.edit'); 
-        Route::put('/usuarios/{id}', 'update')->name('usuarios.update');
-        
-        Route::delete('/usuarios/{id}', 'destroy')->name('usuarios.destroy');
-        Route::post('/usuario/marcar-tutorial', 'marcarTutorial')->name('usuario.marcarTutorial');
+    Route::post('/usuario/marcar-tutorial', [UserController::class, 'marcarTutorial'])->name('usuario.marcarTutorial');
+
+
+    Route::middleware(AdminMiddleware::class . ':admin')->group(function () {
+        Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+        Route::get('/reservas/relatorio/mensal', [ReservaController::class, 'gerarPdfReservasPorMes'])->name('reservas.relatorio.mensal');
     });
 
-    Route::middleware(['admin'])->group(function () {
-        Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::middleware(AdminMiddleware::class . ':root')->group(function () {
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/usuarios', 'index')->name('usuarios.index');
+            Route::get('/usuarios/create', 'create')->name('usuarios.create');
+            Route::post('/usuarios', 'store')->name('usuarios.store');
+            Route::get('/usuarios/{id}/edit', 'edit')->name('usuarios.edit'); 
+            Route::put('/usuarios/{id}', 'update')->name('usuarios.update');
+            Route::delete('/usuarios/{id}', 'destroy')->name('usuarios.destroy');
+            Route::resource('salas', SalaController::class)->names(['index' => 'salas']);
+        });
     });
 
     Route::post('/logout', function () {
