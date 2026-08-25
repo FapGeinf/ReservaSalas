@@ -272,7 +272,7 @@
       </div>
       <div class="modal-footer justify-content-center bg-modal-footer">
         <button type="button" class="button-grey px-4" data-bs-dismiss="modal">
-          <i class="bi bi-x-lg me-1"></i>
+          {{-- <i class="bi bi-x-lg me-1"></i> --}}
           Entendido
         </button>
       </div>
