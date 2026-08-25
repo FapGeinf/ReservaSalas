@@ -259,19 +259,22 @@
 </div>
 
 <div class="modal fade" id="modalAvisoPresidencia" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h6 class="modal-title" style="color: #0b5ed7;"><i class="bi bi-info-circle me-2"></i>Aviso: Sala da Presidência</h6>
+        <h6 class="modal-title"><i class="bi bi-info-circle me-2"></i>Aviso: Sala da Presidência</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center py-4">
         <h5 class="fw-semibold mb-3">Reserva Restrita</h5>
-        <p class="fs-14 mb-0">A reserva desta sala é feita exclusivamente entrando em contato com o <strong>GABINETE</strong>.</p>
-        <p class="fs-14 mt-2">Ramal: <strong>4013</strong></p>
+        <p class="fs-14 mb-0">A reserva desta sala é feita exclusivamente entrando em contato com o <span class="fw-bold" style="color: #374151;">GABINETE DA PRESIDÊNCIA</span>.</p>
+        <p class="fs-14 mt-2">Ramal: <span class="fw-bold" style="color: #374151">4013</span></p>
       </div>
-      <div class="modal-footer justify-content-center bg-modalfooter">
-        <button type="button" class="button-grey px-4" data-bs-dismiss="modal">Entendido</button>
+      <div class="modal-footer justify-content-center bg-modal-footer">
+        <button type="button" class="button-grey px-4" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>
+          Entendido
+        </button>
       </div>
     </div>
   </div>
